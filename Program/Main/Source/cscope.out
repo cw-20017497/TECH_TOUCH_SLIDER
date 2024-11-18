@@ -1,0 +1,23452 @@
+cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source"               0000133431
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.c
+
+1 
+	~"comm.h
+"
+
+7 
+CommHódî_T
+ 
+	gcomm_hódî
+[ 
+MAX_COMM_ID
+ ];
+
+10 
+CommHódî_T
+ 
+	$GëCommHódî
+–
+U8
+ 
+id
+ )
+
+13  
+comm_hódî
+[ 
+id
+ ];
+
+14 
+	}
+}
+
+16 
+	$SëCommHódî
+–
+U8
+ 
+id
+, 
+CommHódî_T
+ 
+vÆ
+ )
+
+19 
+comm_hódî
+[ 
+id
+ ] = 
+vÆ
+;
+
+20 
+	}
+}
+
+27 
+I16
+ 
+	$CommSídPackë
+–
+U8
+ 
+id
+, U8 *
+£nd_pkt
+ , 
+I16
+ 
+Àn
+ )
+
+29 
+U8
+ 
+i
+;
+
+32 if–
+	`HAL_IsFuŒSídBuf„r
+–
+id
+ ) !
+TRUE
+ )
+
+34  
+i
+ = 0 ; i < 
+Àn
+ ; i++ )
+
+36 
+	`HAL_SëSídBuf„r
+–
+id
+, 
+£nd_pkt
+[ 
+i
+ ] );
+
+39 
+	`HAL_SídByã
+–
+id
+ );
+
+40  
+Àn
+;
+
+44 
+	}
+}
+
+50 
+I8
+ 
+	$CommRecvPackë
+–
+U8
+ 
+id
+ , U8 *
+ªcv_pkt
+ )
+
+52 
+U16
+ 
+i
+;
+
+53 
+I16
+ 
+Àn
+;
+
+55 if–
+	`HAL_IsEm±yRecvBuf„r
+–
+id
+ ) !
+TRUE
+ )
+
+57 
+Àn
+ = 
+	`HAL_GëRecvLígth
+–
+id
+ );
+
+58  
+i
+ = 0; i < 
+Àn
+ ; i++ )
+
+60 
+ªcv_pkt
+[ 
+i
+ ] = 
+	`HAL_GëRecvBuf„r
+–
+id
+, i );
+
+63  
+Àn
+;
+
+67 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.h
+
+1 #i‚de‡
+__COMM_H__
+
+
+2 
+	#__COMM_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"hÆ_£rül.h
+"
+
+7 
+U16
+ 
+	tCommHódî_T
+;
+
+9 
+CommHódî_T
+ 
+GëCommHódî
+–
+U8
+ 
+id
+ );
+
+10 
+SëCommHódî
+–
+U8
+ 
+id
+, 
+CommHódî_T
+ 
+vÆ
+ );
+
+12 
+I16
+ 
+CommSídPackë
+–
+U8
+ 
+id
+, U8 *
+£nd_pkt
+, I16 
+Àn
+ );
+
+13 
+I8
+ 
+CommRecvPackë
+–
+U8
+ 
+id
+ , U8 *
+ªcv_pkt
+ );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.c
+
+1 
+	~"¸c16.h
+"
+
+5 
+	#MASK
+ 0xA001
+
+	)
+
+6 
+	$CÆCrc16
+(
+Crc
+,
+C
+)
+
+8 
+j
+;
+
+9 
+CrcSum
+;
+
+10 
+CrcBuf
+;
+
+13 
+CrcSum
+ = 
+Crc
+;
+
+14 
+CrcBuf
+ = 
+C
+;
+
+16 
+j
+=0;j < 8;j++) {
+
+17 if(((
+CrcSum
+ ^ 
+CrcBuf
+Ë& 0x0001Ë!0ËCrcSum = (CrcSum >> 1Ë^ 
+MASK
+;
+
+18 
+CrcSum
+ >>= 1;
+
+20 
+CrcBuf
+ >>= 1;
+
+23  
+CrcSum
+;
+
+24 
+	}
+}
+
+29 c⁄° 
+U16
+ 
+	g¸c16èb
+[256] =
+
+71 
+U16
+ 
+	$¸c16_ˇl
+(
+U8
+ *
+uc_d©a
+, U8 
+uc_numbî
+)
+
+73 
+U16
+ 
+ui_¸c
+ = 0xFFFF;
+
+74 
+U16
+ 
+ui_ãmp_¸c
+;
+
+76 ; 
+uc_numbî
+ > 0; uc_number--) {
+
+77 
+ui_ãmp_¸c
+ = 
+ui_¸c
+ ^ (*
+uc_d©a
+);
+
+78 
+ui_¸c
+=(ui_¸c>>8)^
+¸c16èb
+[
+ui_ãmp_¸c
+ & 0x00ff];
+
+80 
+uc_d©a
+++;
+
+82 (
+ui_¸c
+);
+
+83 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.h
+
+1 #i‚de‡
+__CRC16_H__
+
+
+2 
+	#__CRC16_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+7 
+CÆCrc16
+(
+Crc
+,
+C
+);
+
+10 
+U16
+ 
+¸c16_ˇl
+(
+U8
+ *
+uc_d©a
+, U8 
+uc_numbî
+);
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.c
+
+4 
+	~"hw.h
+"
+
+5 
+	~"hÆ_£rül.h
+"
+
+6 
+	~"∑r£r.h
+"
+
+7 
+	~"comm.h
+"
+
+8 
+	~"timî.h
+"
+
+10 
+	~"∑r£r_‰⁄t.h
+"
+
+13 #i‡
+DEBUG_COMM
+
+
+14 
+	s_debug_comm_
+
+
+16 
+U32
+ 
+	mrx_˙t
+;
+
+17 
+U32
+ 
+	mrx_îr
+;
+
+19 
+U32
+ 
+	mtx_˙t
+;
+
+20 } 
+	tdebug_comm_t
+;
+
+21 
+debug_comm_t
+ 
+	gd_comm
+[ 
+MAX_COMM_ID
+ ];
+
+25 vﬁ©ûê
+U8
+ 
+	gpkt_ªcv
+[ 
+MAX_COMM_RX_BUF_SZ
+ ];
+
+26 
+I16
+ 
+	gpkt_ªcv_Àn
+ = 0;
+
+29 vﬁ©ûê
+U8
+ 
+	gpkt_£nd
+[ 
+MAX_COMM_TX_BUF_SZ
+ ];
+
+30 
+I16
+ 
+	gpkt_£nd_Àn
+ = 0;
+
+35 
+	$I16
+ (*
+	t‚_∑r£r_rx_t
+)–
+	tU8
+ *
+	tbuf
+, 
+	tI16
+ 
+	tÀn
+ );
+
+36 
+	s_∑r£r_li°_
+
+
+38 
+U8
+ 
+TimîId
+;
+
+39 
+U8
+ 
+CommId
+;
+
+40 
+‚_∑r£r_rx_t
+ 
+IsVÆidPkt
+;
+
+41 
+‚_∑r£r_rx_t
+ 
+P¨£rPkt
+;
+
+42 } 
+	t∑r£r_rx_li°_t
+;
+
+44 c⁄° 
+∑r£r_rx_li°_t
+ 
+∑r£r_rx_li°
+[] =
+
+47 { 
+TIMER_ID_COMM_FRONT_RX
+, 
+COMM_ID_FRONT
+, 
+IsVÆidPkt_Fr⁄t
+, 
+P¨£rPkt_Fr⁄t
+ },
+
+50 
+	}
+};
+
+51 
+	#MAX_PARSER_RX_NUM
+ ( –
+∑r£r_rx_li°
+Ë/ –
+∑r£r_rx_li°_t
+ ) )
+
+	)
+
+53 
+	$RecvPackëH™dÀr
+( )
+
+55 
+∑r£r_rx_li°_t
+ *
+p_li°
+;
+
+56 
+U8
+ 
+i
+;
+
+58  
+i
+ = 0 ; i < 
+MAX_PARSER_RX_NUM
+ ; i++ )
+
+61 
+p_li°
+ = &
+∑r£r_rx_li°
+[ 
+i
+ ];
+
+62 if–
+	`IsExpúedTimî
+–
+p_li°
+->
+TimîId
+ ) =
+TIMER_EXPIRE
+ )
+
+64 
+	`DißbÀTimî
+–
+p_li°
+->
+TimîId
+ );
+
+66 if––
+pkt_ªcv_Àn
+ = 
+	`CommRecvPackë
+–
+p_li°
+->
+CommId
+, &
+pkt_ªcv
+[0] ) ) > 0 )
+
+68 
+	`HAL_InôRecvLígth
+–
+p_li°
+->
+CommId
+ );
+
+70 if–
+p_li°
+->
+	`IsVÆidPkt
+–&
+pkt_ªcv
+[0], 
+pkt_ªcv_Àn
+ ) =
+TRUE
+ )
+
+72 
+p_li°
+->
+	`P¨£rPkt
+–&
+pkt_ªcv
+[0], 
+pkt_ªcv_Àn
+ );
+
+73 #i‡
+DEBUG_COMM
+
+
+74 
+d_comm
+[ 
+p_li°
+->
+CommId
+ ].
+rx_˙t
+++;
+
+79 #i‡
+DEBUG_COMM
+
+
+80 
+d_comm
+[ 
+p_li°
+->
+CommId
+ ].
+rx_îr
+++;
+
+86 
+	}
+}
+
+92 
+	$I16
+ (*
+	t‚_∑r£r_tx_t
+)–
+	tCommHódî_T
+ *
+	tp_comm
+, 
+	tU8
+ *
+	tbuf
+ );
+
+93 
+	$I16
+ (*
+	t‚_¸c16_t
+)–
+	tU8
+ *
+	tbuf
+, 
+	tI16
+ 
+	tÀn
+ );
+
+94 
+	s_∑r£r_tx_li°_
+
+
+96 
+U8
+ 
+TimîId
+;
+
+97 
+U8
+ 
+CommId
+;
+
+98 
+‚_∑r£r_tx_t
+ 
+make_pkt
+;
+
+99 
+‚_¸c16_t
+ 
+¸c16
+;
+
+101 } 
+	t∑r£r_tx_li°_t
+;
+
+103 c⁄° 
+∑r£r_tx_li°_t
+ 
+∑r£r_tx_li°
+[] =
+
+106 { 
+TIMER_ID_COMM_FRONT_TX
+, 
+COMM_ID_FRONT
+, 
+MakePkt_Fr⁄t
+, 
+Crc16_Fr⁄t
+ },
+
+109 
+	}
+};
+
+110 
+	#MAX_PARSER_TX_NUM
+ ( –
+∑r£r_tx_li°
+Ë/ –
+∑r£r_tx_li°_t
+ ) )
+
+	)
+
+112 
+	$SídPackëH™dÀr
+( )
+
+114 
+∑r£r_tx_li°_t
+ *
+p_li°
+;
+
+115 
+U8
+ 
+i
+;
+
+116 
+CommHódî_T
+ 
+p_comm
+;
+
+119  
+i
+ = 0 ; i < 
+MAX_PARSER_TX_NUM
+ ; i++ )
+
+121 
+p_li°
+ = &
+∑r£r_tx_li°
+[ 
+i
+ ];
+
+123 if–
+	`IsExpúedTimî
+–
+p_li°
+->
+TimîId
+ ) =
+TIMER_EXPIRE
+ )
+
+125 
+	`DißbÀTimî
+–
+p_li°
+->
+TimîId
+ );
+
+127 
+p_comm
+ = 
+	`GëCommHódî
+–
+p_li°
+->
+CommId
+ );
+
+130 
+	`MEMSET
+–(
+__FAR
+ *)
+pkt_£nd
+, 0, 
+MAX_COMM_TX_BUF_SZ
+ );
+
+131 
+pkt_£nd_Àn
+ = 
+p_li°
+->
+	`make_pkt
+–(
+CommHódî_T
+ *)
+p_comm
+, 
+pkt_£nd
+ );
+
+132 if–
+pkt_£nd_Àn
+ > 0 )
+
+135 
+pkt_£nd_Àn
+ = 
+p_li°
+->
+	`¸c16
+–
+pkt_£nd
+,Ökt_send_len );
+
+138 
+	`CommSídPackë
+–
+p_li°
+->
+CommId
+, 
+pkt_£nd
+, 
+pkt_£nd_Àn
+ );
+
+140 #i‡
+DEBUG_COMM
+
+
+141 
+d_comm
+[ 
+p_li°
+->
+CommId
+ ].
+tx_˙t
+++;
+
+146 
+	`HAL_InôCommId
+–
+p_li°
+->
+CommId
+ );
+
+150 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.h
+
+1 #i‚de‡
+__PARSER_H__
+
+
+2 
+	#__PARSER_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+RecvPackëH™dÀr
+( );
+
+7 
+SídPackëH™dÀr
+( );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.c
+
+4 
+	~<°dio.h
+>
+
+5 
+	~<°dlib.h
+>
+
+7 
+	~"∑r£r_‰⁄t.h
+"
+
+8 
+	~"utû.h
+"
+
+9 
+	~"timî.h
+"
+
+10 
+	~"hÆ_Àd.h
+"
+
+11 
+	~"hÆ_key.h
+"
+
+18 
+	#STX
+ 0xAA
+
+	)
+
+19 
+	#ETX
+ 0x55
+
+	)
+
+21 
+	#PKT_ACK
+ 0x80
+
+	)
+
+23 
+	#PKT_REQ_LED
+ 0x01
+
+	)
+
+24 
+	#PKT_ACK_LED
+ (
+PKT_ACK
+|
+PKT_REQ_LED
+)
+
+	)
+
+26 
+	#PKT_REQ_KEY
+ 0x10
+
+	)
+
+27 
+	#PKT_ACK_KEY
+ (
+PKT_ACK
+|
+PKT_REQ_KEY
+)
+
+	)
+
+29 
+	#MIN_PKT_SZ
+ 5
+
+	)
+
+31 
+U16
+ 
+	$Rx_CRC_CCITT
+(
+U8
+ *
+puchMsg
+, 
+U16
+ 
+usD©aLí
+)
+
+33 
+U8
+ 
+i
+ = 0;
+
+34 
+U16
+ 
+wCRCö
+ = 0x0000;
+
+35 
+U16
+ 
+wCPﬁy
+ = 0x1021;
+
+36 
+U8
+ 
+wCh¨
+ = 0;
+
+38 
+usD©aLí
+--)
+
+40 
+wCh¨
+ = *(
+puchMsg
+++);
+
+41 
+wCRCö
+ ^((
+U16
+)
+wCh¨
+ << 8);
+
+42 
+i
+ = 0; i < 8; i++)
+
+44 i‡(
+wCRCö
+ & 0x8000)
+
+46 
+wCRCö
+ = (wCRCö << 1Ë^ 
+wCPﬁy
+;
+
+50 
+wCRCö
+ = wCRCin << 1;
+
+55  (
+wCRCö
+);
+
+56 
+	}
+}
+
+58 
+U8
+ 
+	$check_¸c
+–
+U8
+ *
+buf
+, 
+I16
+ 
+Àn
+ )
+
+60 
+U16
+ 
+¸c16
+ = 0;
+
+64 
+¸c16
+ = 
+	`GET_UINT_WORD
+–
+buf
+[
+Àn
+-2], buf[len-3] );
+
+66 if–
+¸c16
+ !
+	`Rx_CRC_CCITT
+–
+buf
+, (
+U16
+)–
+Àn
+ - 3 ) ) )
+
+68  
+FALSE
+;
+
+71  
+TRUE
+;
+
+72 
+	}
+}
+
+74 
+I16
+ 
+	$IsVÆidPkt_Fr⁄t
+–
+U8
+ *
+buf
+, 
+I16
+ 
+Àn
+ )
+
+76 if–
+buf
+ =
+NULL
+ )
+
+78  
+FALSE
+;
+
+81 if–
+Àn
+ < 
+MIN_PKT_SZ
+ )
+
+83  
+FALSE
+;
+
+86 if–
+	`check_¸c
+–
+buf
+, 
+Àn
+ ) =
+FALSE
+ )
+
+88  
+FALSE
+;
+
+91  
+TRUE
+;
+
+92 
+	}
+}
+
+95 
+I16
+ 
+P¨£rReqKey
+(
+U8
+ *
+buf
+);
+
+97 
+	$I16
+ (*
+	ta˘i⁄_t
+)–
+	tU8
+ *
+	tbuf
+ );
+
+98 
+	s_∑r£r_li°_t
+
+
+100 
+U8
+ 
+Ty≥
+;
+
+101 
+a˘i⁄_t
+ 
+P¨£r
+;
+
+102 } 
+	t∑r£r_li°_t
+;
+
+103 c⁄° 
+∑r£r_li°_t
+ 
+∑r£r_li°
+[] =
+
+105 { 
+PKT_REQ_KEY
+, 
+P¨£rReqKey
+ },
+
+106 
+	}
+};
+
+108 
+	#SZ_PS_TABLE
+ ( –
+∑r£r_li°
+ ) / –
+∑r£r_li°_t
+ ))
+
+	)
+
+110 
+I16
+ 
+	$P¨£rPkt_Fr⁄t
+–
+U8
+ *
+buf
+, 
+I16
+ 
+Àn
+)
+
+112 
+U8
+ 
+mu8Ty≥
+;
+
+113 
+a˘i⁄_t
+ 
+pP¨£r
+;
+
+114 
+U8
+ 
+i
+;
+
+117  
+i
+ = 0; i < 
+SZ_PS_TABLE
+; i++ )
+
+119 
+mu8Ty≥
+ = 
+∑r£r_li°
+[ 
+i
+ ].
+Ty≥
+;
+
+120 
+pP¨£r
+ = 
+∑r£r_li°
+[ 
+i
+ ].
+P¨£r
+;
+
+122 if–
+mu8Ty≥
+ =
+buf
+[1] )
+
+124 if–
+pP¨£r
+ !
+NULL
+ )
+
+126 
+Àn
+ = 
+	`pP¨£r
+–&
+buf
+[2] );
+
+127 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_RX_ERR
+, 
+	`SEC
+(3));
+
+133  
+Àn
+;
+
+134 
+	}
+}
+
+136 
+I16
+ 
+	$Crc16_Fr⁄t
+–
+U8
+ *
+buf
+, 
+I16
+ 
+Àn
+ )
+
+138 
+U16
+ 
+mu16Chksum
+ = 0;
+
+141 if–
+Àn
+ < 
+MIN_PKT_SZ
+ )
+
+146 
+mu16Chksum
+ = 
+	`Rx_CRC_CCITT
+–
+buf
+, (
+U16
+)(
+Àn
+ - 3));
+
+147 
+buf
+[ 
+Àn
+ - 3 ] = 
+	`GET_HIGH_BYTE
+(
+mu16Chksum
+);
+
+148 
+buf
+[ 
+Àn
+ - 2 ] = 
+	`GET_LOW_BYTE
+(
+mu16Chksum
+);
+
+150  
+Àn
+;
+
+151 
+	}
+}
+
+155 
+U8
+ 
+	g¶idî
+[4];
+
+156 
+I16
+ 
+	$P¨£rReqKey
+(
+U8
+ *
+buf
+)
+
+158 
+U32
+ 
+key
+;
+
+160 
+key
+ = 
+	`GET_UINT_WORD_32
+–
+buf
+[0], buf[1], buf[2], buf[3] );
+
+161 
+	`HAL_SëKeyVÆ
+–
+key
+ );
+
+163 
+¶idî
+[0] = 
+buf
+[4];
+
+164 
+¶idî
+[1] = 
+buf
+[5];
+
+165 
+¶idî
+[2] = 
+buf
+[6];
+
+166 
+¶idî
+[3] = 
+buf
+[7];
+
+168  
+TRUE
+;
+
+169 
+	}
+}
+
+172 
+	s_make_li°_t
+
+
+174 
+U8
+ 
+	mTy≥
+;
+
+175 
+a˘i⁄_t
+ 
+	mMakePkt
+;
+
+176 } 
+	tmake_li°_t
+;
+
+178 
+I16
+ 
+MakePktReqLed
+–
+U8
+ *
+buf
+ );
+
+179 c⁄° 
+make_li°_t
+ 
+	gmake_li°
+[] =
+
+181 { 
+PKT_FRONT_REQ_LED
+, 
+MakePktReqLed
+ },
+
+183 
+	#SZ_TABLE
+ ( –
+make_li°
+ ) / –
+make_li°_t
+ ))
+
+	)
+
+185 
+I16
+ 
+	$MakePkt_Fr⁄t
+–
+CommHódî_T
+ *
+p_comm
+, 
+U8
+ *
+buf
+ )
+
+187 
+U8
+ 
+mu8Ty≥
+;
+
+188 
+a˘i⁄_t
+ 
+p_make_pkt
+;
+
+189 
+U8
+ 
+i
+;
+
+190 
+I16
+ 
+Àn
+ = -1;
+
+193  
+i
+ = 0; i < 
+SZ_TABLE
+; i++ )
+
+195 
+mu8Ty≥
+ = 
+make_li°
+[ 
+i
+ ].
+Ty≥
+;
+
+196 
+p_make_pkt
+ = 
+make_li°
+[ 
+i
+ ].
+MakePkt
+;
+
+198 if–
+mu8Ty≥
+ =(
+U8
+)
+p_comm
+ )
+
+200 if–
+p_make_pkt
+ !
+NULL
+ )
+
+202 
+Àn
+ = 
+	`p_make_pkt
+–
+buf
+ );
+
+208  
+Àn
+;
+
+209 
+	}
+}
+
+212 
+I16
+ 
+	$MakePktReqLed
+–
+U8
+ *
+buf
+ )
+
+214 
+I16
+ 
+mi16Lí
+ = 0;
+
+215 
+U8
+ 
+mu8Buf
+[
+MAX_LED_BUF
+];
+
+216 
+U8
+ 
+i
+;
+
+220 
+buf
+[ 
+mi16Lí
+++ ] = 
+STX
+;
+
+223 
+buf
+[ 
+mi16Lí
+++ ] = 
+PKT_FRONT_REQ_LED
+;
+
+226 
+	`HAL_GëLedOnOffSètus
+–&
+mu8Buf
+[0] );
+
+227  
+i
+ = 0; i < 
+MAX_LED_BUF
+ ; i++ )
+
+229 
+buf
+[ 
+mi16Lí
+++ ] = 
+mu8Buf
+[
+i
+];
+
+233 
+	`HAL_GëLedDimmögSètus
+–&
+mu8Buf
+[0]);
+
+234  
+i
+ = 0; i < 
+MAX_LED_BUF
+ ; i++ )
+
+236 
+buf
+[ 
+mi16Lí
+++ ] = 
+mu8Buf
+[
+i
+];
+
+240 
+buf
+[ 
+mi16Lí
+++ ] = 
+	`HAL_GëLedDimmögDuty
+();
+
+243 
+buf
+[ 
+mi16Lí
+++ ] = 
+	`HAL_GëLedDuty
+();
+
+246 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+249 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+252 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+255 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+256 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+258 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+259  
+mi16Lí
+;
+
+260 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.h
+
+1 #i‚de‡
+__PARSER_FRONT_H__
+
+
+2 
+	#__PARSER_FRONT_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"comm.h
+"
+
+8 
+	#PKT_FRONT_REQ_LED
+ 0x01
+
+	)
+
+9 
+	#PKT_FRONT_ACK_LED
+ 0x81
+
+	)
+
+11 
+I16
+ 
+IsVÆidPkt_Fr⁄t
+–
+U8
+ *
+buf
+, I16 
+Àn
+ );
+
+12 
+I16
+ 
+P¨£rPkt_Fr⁄t
+–
+U8
+ *
+buf
+, I16 
+Àn
+);
+
+13 
+I16
+ 
+Crc16_Fr⁄t
+–
+U8
+ *
+buf
+, I16 
+Àn
+ );
+
+14 
+I16
+ 
+MakePkt_Fr⁄t
+–
+CommHódî_T
+ *
+p_comm
+, 
+U8
+ *
+buf
+ );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\config.h
+
+1 #i‚de‡
+__CONFIG_H__
+
+
+2 
+	#__CONFIG_H__
+
+
+	)
+
+6 
+	#DEBUG_COMM
+ 1
+
+	)
+
+7 
+	#CONFIG_TEST_LED
+ 1
+
+	)
+
+10 
+	#VERSION
+ 1
+
+	)
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.c
+
+1 
+	~"di•œy.h
+"
+
+2 
+	~"hÆ_Àd.h
+"
+
+3 
+	~"di•œy_lib.h
+"
+
+4 
+	~"di•œy_˛ock.h
+"
+
+5 
+	~"‰⁄t.h
+"
+
+9 
+U8
+ 
+	ggu8Digô
+[10] =
+
+15 
+	#CHAR_O
+ 0x3F
+
+	)
+
+16 
+	#CHAR_n
+ 0x54
+
+	)
+
+17 
+	#CHAR_F
+ 0x71
+
+	)
+
+18 
+	#CHAR_S
+ 0x6D
+
+	)
+
+19 
+	#CHAR_T
+ 0x78
+
+	)
+
+20 
+	#CHAR_E
+ 0x79
+
+	)
+
+21 
+	#CHAR_o
+ 0x5C
+
+	)
+
+22 
+	#CHAR_C
+ 0x39
+
+	)
+
+23 
+	#CHAR_H
+ 0x76
+
+	)
+
+24 
+	#CHAR_A
+ 0x77
+
+	)
+
+25 
+	#CHAR_P
+ 0x73
+
+	)
+
+26 
+	#CHAR_SPACE
+ 0x00
+
+	)
+
+27 
+	#BAR_LEFT
+ 0x30
+
+	)
+
+28 
+	#BAR_RIGHT
+ 0x06
+
+	)
+
+29 
+	#BAR_TOP
+ 0x01
+
+	)
+
+30 
+	#BAR_CENTER
+ 0x40
+
+	)
+
+31 
+	#BAR_BOTTOM
+ 0x08
+
+	)
+
+32 
+	#BAR_BRAKET_LEFT
+ 0x39
+
+33 
+	#BAR_BRAKET_RIGHT
+ 0x0F
+
+34 
+	#BAR_TOP_BOTTOM
+ 0x09
+
+35 
+	#RING_TOP
+ 0x63
+
+36 
+	#RING_BOTTOM
+ 0x5C
+
+	)
+
+37 
+	#STACK_BAR_CENTER
+ (
+BAR_CENTER
+|
+BAR_BOTTOM
+)
+
+	)
+
+38 
+	#STACK_BAR_TOP
+ (
+BAR_CENTER
+|
+BAR_BOTTOM
+|
+BAR_TOP
+)
+
+	)
+
+40 
+	#SEG_OFF
+ 0x00
+
+41 
+	#SEG_A
+ 0x01
+
+42 
+	#SEG_B
+ 0x02
+
+43 
+	#SEG_C
+ 0x04
+
+44 
+	#SEG_D
+ 0x08
+
+45 
+	#SEG_E
+ 0x10
+
+46 
+	#SEG_F
+ 0x20
+
+47 
+	#SEG_G
+ 0x40
+
+48 
+
+	)
+
+49 
+	#SEG_EF
+ (
+SEG_E
+|
+SEG_F
+)
+
+	)
+
+50 
+	#SEG_EFA
+ (
+SEG_E
+|
+SEG_F
+|
+SEG_A
+)
+
+	)
+
+51 
+	#SEG_EFAD
+ (
+SEG_E
+|
+SEG_F
+|
+SEG_A
+|
+SEG_D
+)
+
+	)
+
+52 
+	#SEG_FAD
+ (
+SEG_F
+|
+SEG_A
+|
+SEG_D
+)
+
+	)
+
+53 
+	#SEG_AD
+ (
+SEG_A
+|
+SEG_D
+)
+
+	)
+
+54 
+	#SEG_AB
+ (
+SEG_A
+|
+SEG_B
+)
+
+	)
+
+55 
+	#SEG_ABC
+ (
+SEG_A
+|
+SEG_B
+|
+SEG_C
+)
+
+	)
+
+56 
+	#SEG_ABCD
+ (
+SEG_A
+|
+SEG_B
+|
+SEG_C
+|
+SEG_D
+)
+
+	)
+
+57 
+	#SEG_BCD
+ (
+SEG_B
+|
+SEG_C
+|
+SEG_D
+)
+
+	)
+
+58 
+	#SEG_CD
+ (
+SEG_C
+|
+SEG_D
+)
+
+	)
+
+62 
+	#SEGMENT_1
+ 
+SEG_3_A
+
+
+	)
+
+63 
+	#SEGMENT_10
+ 
+SEG_2_A
+
+
+	)
+
+64 
+	#SEGMENT_100
+ 
+SEG_1_A
+
+
+	)
+
+65 
+	$Di•Segmít
+(
+U8
+ 
+mu8Seg
+, U8 
+mu8VÆ
+)
+
+67 
+LedId_T
+ 
+mLedId
+;
+
+69 
+mLedId
+ = 
+mu8Seg
+;
+
+70 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+, ((
+mu8VÆ
+ & 0x01) ) );
+
+71 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 1, ((
+mu8VÆ
+ & 0x20) >> 5) );
+
+72 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 2, ((
+mu8VÆ
+ & 0x40) >> 6) );
+
+73 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 3, ((
+mu8VÆ
+ & 0x10) >> 4) );
+
+74 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 4, ((
+mu8VÆ
+ & 0x08) >> 3) );
+
+75 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 5, ((
+mu8VÆ
+ & 0x04) >> 2) );
+
+76 
+	`HAL_Tu∫OnOffLED
+–
+mLedId
+ + 6, (
+mu8VÆ
+ & 0x02) >> 1 );
+
+77 
+	}
+}
+
+80 
+	$Di•SegmítDigô
+(
+U16
+ 
+mu16VÆ
+)
+
+82 
+U8
+ 
+mu8VÆ_100
+;
+
+83 
+U8
+ 
+mu8VÆ_10
+;
+
+84 
+U8
+ 
+mu8VÆ_1
+;
+
+86 
+mu8VÆ_100
+ = (
+U8
+)((
+mu16VÆ
+ % 1000) / 100);
+
+87 
+mu8VÆ_10
+ = (
+U8
+)((
+mu16VÆ
+ % 100) / 10);
+
+88 
+mu8VÆ_1
+ = (
+U8
+)((
+mu16VÆ
+ % 10));
+
+90 if–
+mu8VÆ_100
+ > 0 )
+
+92 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+gu8Digô
+[ 
+mu8VÆ_100
+ ] );
+
+96 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_SPACE
+ );
+
+99 if–
+mu8VÆ_10
+ > 0 || 
+mu8VÆ_100
+ > 0 )
+
+101 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+gu8Digô
+[ 
+mu8VÆ_10
+ ] );
+
+105 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_SPACE
+ );
+
+108 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+gu8Digô
+[ 
+mu8VÆ_1
+ ] );
+
+109 
+	}
+}
+
+116 
+	$Di•CíãrVÆ
+(
+U8
+ 
+mu8VÆ
+)
+
+118 if–
+mu8VÆ
+ > 9 )
+
+120 
+mu8VÆ
+ = 9;
+
+122 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+BAR_CENTER
+ );
+
+123 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+gu8Digô
+[
+mu8VÆ
+] );
+
+124 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+BAR_CENTER
+ );
+
+125 
+	}
+}
+
+128 
+	$Di•SegmítCh¨
+(
+U8
+ 
+mu8Ch¨Id
+)
+
+130 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_ON
+ )
+
+132 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_O
+ );
+
+133 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_n
+ );
+
+134 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+);
+
+136 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_OFF
+ )
+
+138 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_O
+ );
+
+139 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_F
+ );
+
+140 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_F
+ );
+
+142 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CON
+ )
+
+144 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_C
+ );
+
+145 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_o
+ );
+
+146 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_n
+ );
+
+148 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_STACK_BAR_CENTER
+ )
+
+150 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+STACK_BAR_CENTER
+ );
+
+151 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+STACK_BAR_CENTER
+ );
+
+152 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+STACK_BAR_CENTER
+ );
+
+154 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_STACK_BAR_TOP
+ )
+
+156 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+STACK_BAR_TOP
+ );
+
+157 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+STACK_BAR_TOP
+ );
+
+158 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+STACK_BAR_TOP
+ );
+
+160 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_BAR_BOTTOM
+ )
+
+162 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+BAR_BOTTOM
+ );
+
+163 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+BAR_BOTTOM
+ );
+
+164 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+BAR_BOTTOM
+ );
+
+166 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_BAR_CENTER
+ )
+
+168 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+BAR_CENTER
+ );
+
+169 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+BAR_CENTER
+ );
+
+170 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+BAR_CENTER
+ );
+
+172 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_BAR_TOP
+ )
+
+174 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+BAR_TOP
+ );
+
+175 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+BAR_TOP
+ );
+
+176 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+BAR_TOP
+ );
+
+178 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CHP
+ )
+
+180 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_C
+ );
+
+181 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_H
+ );
+
+182 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_P
+ );
+
+184 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CP
+ )
+
+186 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_C
+ );
+
+187 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_P
+ );
+
+188 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+ );
+
+190 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CIRCLE
+ )
+
+192 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+BAR_BRAKET_LEFT
+ );
+
+193 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+BAR_TOP_BOTTOM
+ );
+
+194 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+BAR_BRAKET_RIGHT
+ );
+
+196 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_ICE_1
+ )
+
+198 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+RING_TOP
+ );
+
+199 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_SPACE
+ );
+
+200 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+ );
+
+202 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_ICE_2
+ )
+
+204 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+RING_BOTTOM
+ );
+
+205 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+RING_TOP
+ );
+
+206 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+ );
+
+208 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_ICE_3
+ )
+
+210 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+RING_TOP
+ );
+
+211 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+RING_BOTTOM
+ );
+
+212 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+RING_TOP
+ );
+
+214 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_ICE_4
+ )
+
+216 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+RING_BOTTOM
+ );
+
+217 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+RING_TOP
+ );
+
+218 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+RING_BOTTOM
+ );
+
+220 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CENTER_1
+ )
+
+222 
+	`Di•CíãrVÆ
+( 1 );
+
+224 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CENTER_2
+ )
+
+226 
+	`Di•CíãrVÆ
+( 2 );
+
+228 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CENTER_3
+ )
+
+230 
+	`Di•CíãrVÆ
+( 3 );
+
+232 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_SE
+ )
+
+234 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_SPACE
+ );
+
+235 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_S
+ );
+
+236 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_E
+ );
+
+238 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_CO
+ )
+
+240 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_SPACE
+ );
+
+241 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_C
+ );
+
+242 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_O
+ );
+
+244 if–
+mu8Ch¨Id
+ =
+SEGMENT_CHAR_ID_STE
+ )
+
+246 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_S
+ );
+
+247 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_T
+ );
+
+248 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_E
+ );
+
+253 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_SPACE
+ );
+
+254 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_SPACE
+ );
+
+255 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+ );
+
+257 
+	}
+}
+
+259 
+	$Di•SegmítOff
+()
+
+261 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+CHAR_SPACE
+ );
+
+262 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+CHAR_SPACE
+ );
+
+263 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+CHAR_SPACE
+ );
+
+264 
+	}
+}
+
+267 
+	$Tu∫OffAŒLED
+()
+
+269 
+	`HAL_Tu∫OnOffLEDAŒ
+–
+OFF
+ );
+
+270 
+	`HAL_DimmögLedAŒ
+–
+OFF
+ );
+
+271 
+	}
+}
+
+273 
+	$Tu∫OnAŒLED
+()
+
+275 
+	`HAL_Tu∫OnOffLEDAŒ
+–
+ON
+ );
+
+276 
+	`HAL_DimmögLedAŒ
+–
+OFF
+ );
+
+277 
+	}
+}
+
+279 #i‡
+CONFIG_TEST_LED
+
+
+280 
+U8
+ 
+	gdbg_duty_⁄
+ = 10;
+
+281 
+U8
+ 
+	gdbg_duty_dimmög
+ = 40;
+
+283 
+U8
+ 
+	gdbg_duty_d¨k
+ = 50;
+
+284 
+U8
+ 
+	gdbg_duty_dimmög_d¨k
+ = 20;
+
+287 
+U8
+ 
+	gdbg_duty_⁄off
+ = 
+FALSE
+;
+
+288 
+	$Di•LedDuty
+()
+
+290 #i‡
+CONFIG_TEST_LED
+
+
+291 if–
+dbg_duty_⁄off
+ =
+TRUE
+ )
+
+293 
+	`HAL_SëLedDuty
+–
+dbg_duty_d¨k
+ );
+
+294 
+	`HAL_SëLedDimmögDuty
+–
+dbg_duty_dimmög_d¨k
+ );
+
+298 
+	`HAL_SëLedDuty
+–
+dbg_duty_⁄
+ );
+
+299 
+	`HAL_SëLedDimmögDuty
+–
+dbg_duty_dimmög
+ );
+
+302 if–
+dbg_duty_⁄off
+ =
+TRUE
+ )
+
+304 
+	`HAL_SëLedDuty
+–
+DEFAULT_ONOFF_DUTY_DARK
+ );
+
+305 
+	`HAL_SëLedDimmögDuty
+–
+DEFAULT_DIMMING_DUTY_DARK
+ );
+
+309 
+	`HAL_SëLedDuty
+–
+DEFAULT_ONOFF_DUTY
+ );
+
+310 
+	`HAL_SëLedDimmögDuty
+–
+DEFAULT_DIMMING_DUTY
+ );
+
+313 
+	}
+}
+
+317 
+	s_£g_
+
+
+319 
+U8
+ 
+	mSeg_100
+;
+
+320 
+U8
+ 
+	mSeg_10
+;
+
+321 
+U8
+ 
+	mSeg_1
+;
+
+322 } 
+	tInföôyLi°_T
+;
+
+324 c⁄° 
+InföôyLi°_T
+ 
+	gEf„˘Iniföôy
+[] =
+
+326 { 
+SEG_OFF
+, SEG_OFF, SEG_OFF },
+
+327 { 
+SEG_E
+, 
+SEG_OFF
+, SEG_OFF },
+
+328 { 
+SEG_EF
+, 
+SEG_OFF
+, SEG_OFF },
+
+329 { 
+SEG_EFA
+, 
+SEG_OFF
+, SEG_OFF },
+
+330 { 
+SEG_EFA
+, 
+SEG_A
+, 
+SEG_OFF
+ },
+
+331 { 
+SEG_EFA
+, 
+SEG_A
+, SEG_A },
+
+333 { 
+SEG_EFA
+, 
+SEG_A
+, 
+SEG_AB
+ },
+
+334 { 
+SEG_EFA
+, 
+SEG_A
+, 
+SEG_ABC
+ },
+
+335 { 
+SEG_EFA
+, 
+SEG_A
+, 
+SEG_ABCD
+ },
+
+336 { 
+SEG_EFA
+, 
+SEG_AD
+, 
+SEG_ABCD
+ },
+
+337 { 
+SEG_EFAD
+, 
+SEG_AD
+, 
+SEG_ABCD
+ },
+
+339 { 
+SEG_FAD
+, 
+SEG_AD
+, 
+SEG_ABCD
+ },
+
+340 { 
+SEG_AD
+, SEG_AD, 
+SEG_ABCD
+ },
+
+341 { 
+SEG_D
+, 
+SEG_AD
+, 
+SEG_ABCD
+ },
+
+342 { 
+SEG_D
+, SEG_D, 
+SEG_ABCD
+ },
+
+343 { 
+SEG_D
+, SEG_D, 
+SEG_BCD
+ },
+
+344 { 
+SEG_D
+, SEG_D, 
+SEG_CD
+ },
+
+345 { 
+SEG_D
+, SEG_D, SEG_D },
+
+347 { 
+SEG_D
+, SEG_D, 
+SEG_OFF
+ },
+
+348 { 
+SEG_D
+, 
+SEG_OFF
+, SEG_OFF }
+
+350 
+	#SZ_INFINITY_LIST
+ ((
+Ef„˘Iniföôy
+)/(
+InföôyLi°_T
+))
+
+	)
+
+352 
+	#DELAY_INFINITY
+ 2
+
+353 
+U8
+ 
+gu8InföôyCou¡
+ = 0U;
+
+	)
+
+354 
+U8
+ 
+	ggu8InföôyDñay
+ = 
+DELAY_INFINITY
+;
+
+355 
+	$Re£tInföôyCou¡
+()
+
+357 
+gu8InföôyCou¡
+ = 0;
+
+358 
+gu8InföôyDñay
+ = 
+DELAY_INFINITY
+;
+
+359 
+	}
+}
+
+364 
+	$Di•W©îOutAmou¡Inföôy
+()
+
+366 
+InföôyLi°_T
+ *
+pVÆ
+;
+
+368 
+pVÆ
+ = &
+Ef„˘Iniföôy
+[ 
+gu8InföôyCou¡
+ ];
+
+369 
+	`Di•Segmít
+–
+SEGMENT_100
+, 
+pVÆ
+->
+Seg_100
+ );
+
+370 
+	`Di•Segmít
+–
+SEGMENT_10
+, 
+pVÆ
+->
+Seg_10
+ );
+
+371 
+	`Di•Segmít
+–
+SEGMENT_1
+, 
+pVÆ
+->
+Seg_1
+ );
+
+374 if–
+gu8InföôyDñay
+ != 0 )
+
+376 
+gu8InföôyDñay
+--;
+
+380 
+gu8InföôyDñay
+ = 
+DELAY_INFINITY
+;
+
+381 
+gu8InföôyCou¡
+++;
+
+383 if–
+gu8InföôyCou¡
+ >
+SZ_INFINITY_LIST
+ )
+
+385 
+gu8InföôyCou¡
+ = 0;
+
+387 
+	}
+}
+
+392 
+	$Di•Temp
+(
+U16
+ 
+mu16VÆ
+)
+
+394 
+	`Di•SegmítDigô
+–
+mu16VÆ
+ );
+
+395 
+	}
+}
+
+398 
+	$Di•B¨
+(
+U8
+ 
+pos
+)
+
+400 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_14
+, 
+OFF
+ );
+
+401 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_13
+, 
+OFF
+ );
+
+402 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_12
+, 
+OFF
+ );
+
+403 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_11
+, 
+OFF
+ );
+
+404 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_10
+, 
+OFF
+ );
+
+405 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_9
+, 
+OFF
+ );
+
+406 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_8
+, 
+OFF
+ );
+
+407 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_7
+, 
+OFF
+ );
+
+408 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_6
+, 
+OFF
+ );
+
+409 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_5
+, 
+OFF
+ );
+
+410 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_4
+, 
+OFF
+ );
+
+411 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_3
+, 
+OFF
+ );
+
+412 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_2
+, 
+OFF
+ );
+
+413 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_1
+, 
+OFF
+ );
+
+415  
+pos
+ )
+
+417 14: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_14
+, 
+ON
+ ); ;
+
+418 13: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_13
+, 
+ON
+ ); ;
+
+419 12: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_12
+, 
+ON
+ ); ;
+
+420 11: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_11
+, 
+ON
+ ); ;
+
+421 10: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_10
+, 
+ON
+ ); ;
+
+422 9: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_9
+, 
+ON
+ ); ;
+
+423 8: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_8
+, 
+ON
+ ); ;
+
+424 7: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_7
+, 
+ON
+ ); ;
+
+425 6: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_6
+, 
+ON
+ ); ;
+
+426 5: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_5
+, 
+ON
+ ); ;
+
+427 4: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_4
+, 
+ON
+ ); ;
+
+428 3: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_3
+, 
+ON
+ ); ;
+
+429 2: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_2
+, 
+ON
+ ); ;
+
+430 1: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_1
+, 
+ON
+ ); ;
+
+433 
+	}
+}
+
+436 
+	$Di•B¨Sèck
+(
+U8
+ 
+pos
+)
+
+438 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_14
+, 
+OFF
+ );
+
+439 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_13
+, 
+OFF
+ );
+
+440 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_12
+, 
+OFF
+ );
+
+441 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_11
+, 
+OFF
+ );
+
+442 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_10
+, 
+OFF
+ );
+
+443 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_9
+, 
+OFF
+ );
+
+444 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_8
+, 
+OFF
+ );
+
+445 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_7
+, 
+OFF
+ );
+
+446 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_6
+, 
+OFF
+ );
+
+447 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_5
+, 
+OFF
+ );
+
+448 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_4
+, 
+OFF
+ );
+
+449 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_3
+, 
+OFF
+ );
+
+450 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_2
+, 
+OFF
+ );
+
+451 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_1
+, 
+OFF
+ );
+
+453  
+pos
+ )
+
+455 14: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_14
+, 
+ON
+ );
+
+456 13: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_13
+, 
+ON
+ );
+
+457 12: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_12
+, 
+ON
+ );
+
+458 11: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_11
+, 
+ON
+ );
+
+459 10: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_10
+, 
+ON
+ );
+
+460 9: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_9
+, 
+ON
+ );
+
+461 8: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_8
+, 
+ON
+ );
+
+462 7: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_7
+, 
+ON
+ );
+
+463 6: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_6
+, 
+ON
+ );
+
+464 5: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_5
+, 
+ON
+ );
+
+465 4: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_4
+, 
+ON
+ );
+
+466 3: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_3
+, 
+ON
+ );
+
+467 2: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_2
+, 
+ON
+ );
+
+468 1: 
+	`HAL_Tu∫OnOffLED
+–
+SEG_BAR_1
+, 
+ON
+ );
+
+471 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.h
+
+1 #i‚de‡
+__DISPLAY_H__
+
+
+2 
+	#__DISPLAY_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+8 
+Di•SegmítDigô
+(
+U16
+ 
+mu16VÆ
+);
+
+13 
+	mSEGMENT_CHAR_ID_ON
+,
+
+14 
+	mSEGMENT_CHAR_ID_OFF
+,
+
+15 
+	mSEGMENT_CHAR_ID_CON
+,
+
+16 
+	mSEGMENT_CHAR_ID_STACK_BAR_CENTER
+,
+
+17 
+	mSEGMENT_CHAR_ID_STACK_BAR_TOP
+,
+
+18 
+	mSEGMENT_CHAR_ID_BAR_BOTTOM
+,
+
+19 
+	mSEGMENT_CHAR_ID_BAR_CENTER
+,
+
+20 
+	mSEGMENT_CHAR_ID_BAR_TOP
+,
+
+21 
+	mSEGMENT_CHAR_ID_CHP
+,
+
+22 
+	mSEGMENT_CHAR_ID_CP
+,
+
+23 
+	mSEGMENT_CHAR_ID_CIRCLE
+,
+
+24 
+	mSEGMENT_CHAR_ID_SPACE
+,
+
+25 
+	mSEGMENT_CHAR_ID_ICE_1
+,
+
+26 
+	mSEGMENT_CHAR_ID_ICE_2
+,
+
+27 
+	mSEGMENT_CHAR_ID_ICE_3
+,
+
+28 
+	mSEGMENT_CHAR_ID_ICE_4
+,
+
+29 
+	mSEGMENT_CHAR_ID_CENTER_1
+,
+
+30 
+	mSEGMENT_CHAR_ID_CENTER_2
+,
+
+31 
+	mSEGMENT_CHAR_ID_CENTER_3
+,
+
+32 
+	mSEGMENT_CHAR_ID_SE
+,
+
+33 
+	mSEGMENT_CHAR_ID_CO
+,
+
+34 
+	mSEGMENT_CHAR_ID_STE
+,
+
+35 
+	mMAX_SEGMENT_CHAR_ID
+,
+
+38 
+Di•SegmítCh¨
+(
+U8
+ 
+mu8Ch¨Id
+);
+
+40 
+Di•SegmítOff
+();
+
+43 
+Di•SegmítC⁄
+(
+U8
+ 
+mu8Sãp
+);
+
+46 
+Tu∫OffAŒLED
+();
+
+47 
+Tu∫OnAŒLED
+();
+
+49 
+Di•LedDuty
+();
+
+51 
+Re£tInföôyCou¡
+();
+
+52 
+Di•W©îOutAmou¡Inföôy
+();
+
+55 
+Di•Temp
+(
+U16
+ 
+mu16VÆ
+);
+
+57 
+Di•B¨
+(
+U8
+ 
+pos
+);
+
+58 
+Di•B¨Sèck
+(
+U8
+ 
+pos
+);
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.c
+
+1 
+	~"di•œy_˛ock.h
+"
+
+2 
+	~"πc.h
+"
+
+5 
+TimeIãm_T
+ 
+	gmMíuIãm
+ = 0;
+
+7 
+MíuTime_T
+ 
+	gmMíuTime
+;
+
+10 
+ToggÀAmPm
+();
+
+11 
+Cou¡DownMö
+();
+
+12 
+Cou¡UpMö
+();
+
+13 
+Cou¡UpHour
+();
+
+14 
+Cou¡DownHour
+();
+
+16 
+	$InôClock
+(
+U8
+ 
+mu8Inô
+)
+
+18 
+TimeD©a_T
+ 
+mTime
+;
+
+22 
+mMíuIãm
+ = 
+MENU_ITEM_MIN
+;
+
+25 
+	`GëRtcTime
+–&
+mTime
+ );
+
+28 
+mMíuTime
+.
+u8Yór
+ = 
+mTime
+.
+Yór
+;
+
+29 
+mMíuTime
+.
+u8M⁄th
+ = 
+mTime
+.
+M⁄th
+;
+
+30 
+mMíuTime
+.
+u8D©e
+ = 
+mTime
+.
+D©e
+;
+
+31 
+	`GëTimeHour12
+–
+mTime
+.
+Hour
+, &
+mMíuTime
+.
+u8AmPm
+, &mMíuTime.
+u8Hour
+ );
+
+32 
+mMíuTime
+.
+u8Mö
+ = 
+mTime
+.
+Mö
+;
+
+34 if–
+mu8Inô
+ =
+TRUE
+ )
+
+36 
+mMíuTime
+.
+u8Yór
+ = 20;
+
+37 
+mMíuTime
+.
+u8M⁄th
+ = 1;
+
+38 
+mMíuTime
+.
+u8D©e
+ = 1;
+
+39 
+mMíuTime
+.
+u8AmPm
+ = 
+TIME_AM
+;
+
+40 
+mMíuTime
+.
+u8Hour
+ = 1;
+
+41 
+mMíuTime
+.
+u8Mö
+ = 0;
+
+44 
+	}
+}
+
+46 
+TimeIãm_T
+ 
+	$GëClockIãm
+()
+
+48  
+mMíuIãm
+;
+
+49 
+	}
+}
+
+51 
+	$GëClockTime
+(
+MíuTime_T
+ *
+pTime
+)
+
+53 
+pTime
+->
+u8Yór
+ = 
+mMíuTime
+.u8Year;
+
+54 
+pTime
+->
+u8M⁄th
+ = 
+mMíuTime
+.u8Month;
+
+55 
+pTime
+->
+u8D©e
+ = 
+mMíuTime
+.u8Date;
+
+56 
+pTime
+->
+u8AmPm
+ = 
+mMíuTime
+.u8AmPm;
+
+57 
+pTime
+->
+u8Hour
+ = 
+mMíuTime
+.u8Hour;
+
+58 
+pTime
+->
+u8Mö
+ = 
+mMíuTime
+.u8Min;
+
+59 
+	}
+}
+
+61 
+	$NextClock
+()
+
+63 
+mMíuIãm
+++;
+
+64 if–
+mMíuIãm
+ > 
+MENU_ITEM_MAX
+ )
+
+66 
+mMíuIãm
+ = 
+MENU_ITEM_MIN
+;
+
+68 
+	}
+}
+
+70 
+	$UpClock
+()
+
+72  
+mMíuIãm
+ )
+
+74 
+MENU_ITEM_TIME_AMPM
+:
+
+75 
+	`ToggÀAmPm
+();
+
+78 
+MENU_ITEM_TIME_HOUR
+:
+
+79 
+	`Cou¡UpHour
+();
+
+82 
+MENU_ITEM_TIME_MIN
+:
+
+83 
+	`Cou¡UpMö
+();
+
+86 
+	}
+}
+
+88 
+	$DownClock
+()
+
+90  
+mMíuIãm
+ )
+
+92 
+MENU_ITEM_TIME_AMPM
+:
+
+93 
+	`ToggÀAmPm
+();
+
+96 
+MENU_ITEM_TIME_HOUR
+:
+
+97 
+	`Cou¡DownHour
+();
+
+100 
+MENU_ITEM_TIME_MIN
+:
+
+101 
+	`Cou¡DownMö
+();
+
+104 
+	}
+}
+
+107 
+	$SaveClock
+()
+
+109 
+TimeD©a_T
+ 
+mTime
+;
+
+112 
+	`GëRtcTime
+–&
+mTime
+ );
+
+113 
+mTime
+.
+Y2K
+ = 1;
+
+114 
+mTime
+.
+Yór
+ = 
+mMíuTime
+.
+u8Yór
+;
+
+115 
+mTime
+.
+M⁄th
+ = 
+mMíuTime
+.
+u8M⁄th
+;
+
+116 
+mTime
+.
+D©e
+ = 
+mMíuTime
+.
+u8D©e
+;
+
+118 if–
+mMíuTime
+.
+u8AmPm
+ =
+TIME_AM
+ )
+
+120 if–
+mMíuTime
+.
+u8Hour
+ == 12 )
+
+122 
+mTime
+.
+Hour
+ = 0;
+
+126 
+mTime
+.
+Hour
+ = 
+mMíuTime
+.
+u8Hour
+;
+
+132 if–
+mMíuTime
+.
+u8Hour
+ == 12 )
+
+134 
+mTime
+.
+Hour
+ = 
+mMíuTime
+.
+u8Hour
+;
+
+138 
+mTime
+.
+Hour
+ = 
+mMíuTime
+.
+u8Hour
+ + 12;
+
+142 
+mTime
+.
+Mö
+ = 
+mMíuTime
+.
+u8Mö
+;
+
+143 
+mTime
+.
+Sec
+ = 0;
+
+145 
+	`SëRtcTime
+–&
+mTime
+ );
+
+147 
+	`SëRtcC⁄figInô
+–
+TRUE
+ );
+
+148 
+	}
+}
+
+151 
+	$GëTimeHour12
+(
+U8
+ 
+hour24
+, U8 *
+pAm
+, U8 *
+pHour12
+)
+
+153 if–
+pAm
+ =
+NULL
+ || 
+pHour12
+ == NULL )
+
+158 if–
+hour24
+ == 0 )
+
+160 *
+pAm
+ = 
+TIME_AM
+;
+
+161 *
+pHour12
+ = 12;
+
+163 if–
+hour24
+ < 12 )
+
+165 *
+pAm
+ = 
+TIME_AM
+;
+
+166 *
+pHour12
+ = 
+hour24
+;
+
+168 if–
+hour24
+ == 12 )
+
+170 *
+pAm
+ = 
+TIME_PM
+;
+
+171 *
+pHour12
+ = 12;
+
+175 *
+pAm
+ = 
+TIME_PM
+;
+
+176 *
+pHour12
+ = 
+hour24
+ - 12;
+
+178 
+	}
+}
+
+180 
+	$ToggÀAmPm
+()
+
+182 if–
+mMíuTime
+.
+u8AmPm
+ =
+TIME_AM
+ )
+
+184 
+mMíuTime
+.
+u8AmPm
+ = 
+TIME_PM
+;
+
+188 
+mMíuTime
+.
+u8AmPm
+ = 
+TIME_AM
+;
+
+190 
+	}
+}
+
+192 
+	$Cou¡DownMö
+()
+
+194 if–
+mMíuTime
+.
+u8Mö
+ != 0 )
+
+196 
+mMíuTime
+.
+u8Mö
+--;
+
+200 
+mMíuTime
+.
+u8Mö
+ = 59;
+
+202 
+	}
+}
+
+204 
+	$Cou¡UpMö
+()
+
+206 if–
+mMíuTime
+.
+u8Mö
+ < 59 )
+
+208 
+mMíuTime
+.
+u8Mö
+++;
+
+212 
+mMíuTime
+.
+u8Mö
+ = 0;
+
+214 
+	}
+}
+
+216 
+	$Cou¡UpHour
+()
+
+218 if–
+mMíuTime
+.
+u8Hour
+ < 12 )
+
+220 
+mMíuTime
+.
+u8Hour
+++;
+
+224 
+mMíuTime
+.
+u8Hour
+ = 1;
+
+227 
+	}
+}
+
+229 
+	$Cou¡DownHour
+()
+
+231 if–
+mMíuTime
+.
+u8Hour
+ != 1 )
+
+233 
+mMíuTime
+.
+u8Hour
+--;
+
+237 
+mMíuTime
+.
+u8Hour
+ = 12;
+
+239 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.h
+
+1 #i‚de‡
+__DISPLAY_CLOCK_H__
+
+
+2 
+	#__DISPLAY_CLOCK_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+10 
+	mMENU_ITEM_TIME_AMPM
+,
+
+11 
+	mMENU_ITEM_TIME_HOUR
+,
+
+12 
+	mMENU_ITEM_TIME_MIN
+
+
+13 } 
+	tTimeIãm_T
+;
+
+14 
+	#MENU_ITEM_MIN
+ 
+MENU_ITEM_TIME_AMPM
+
+
+	)
+
+15 
+	#MENU_ITEM_MAX
+ 
+MENU_ITEM_TIME_MIN
+
+
+	)
+
+17 
+	#TIME_AM
+ 0
+
+	)
+
+18 
+	#TIME_PM
+ 1
+
+	)
+
+19 
+	s_míu_time_
+
+
+21 
+U8
+ 
+	mu8Yór
+;
+
+22 
+U8
+ 
+	mu8M⁄th
+;
+
+23 
+U8
+ 
+	mu8D©e
+;
+
+24 
+U8
+ 
+	mu8AmPm
+;
+
+25 
+U8
+ 
+	mu8Hour
+;
+
+26 
+U8
+ 
+	mu8Mö
+;
+
+27 } 
+	tMíuTime_T
+;
+
+29 
+InôClock
+(
+U8
+ 
+mu8Inô
+);
+
+30 
+TimeIãm_T
+ 
+GëClockIãm
+();
+
+32 
+GëClockTime
+(
+MíuTime_T
+ *
+pTime
+);
+
+33 
+NextClock
+();
+
+34 
+UpClock
+();
+
+35 
+DownClock
+();
+
+36 
+SaveClock
+();
+
+38 
+GëTimeHour12
+(
+U8
+ 
+hour24
+, U8 *
+pAm
+, U8 *
+pHour12
+);
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"hÆ_Àd.h
+"
+
+3 
+	~"hÆ_öput.h
+"
+
+5 
+	~"di•œy_eﬁ.h
+"
+
+6 
+	~"di•œy_lib.h
+"
+
+7 
+	~"di•œy.h
+"
+
+8 
+	~"eﬁ.h
+"
+
+9 
+	~"w©î_out.h
+"
+
+10 
+	~"£rvi˚.h
+"
+
+11 
+	~"fûãr.h
+"
+
+12 
+	~"WIFI_C⁄åﬁ.h
+"
+
+13 
+	~"comp_bldc.h
+"
+
+14 
+	~"gas_swôch_vÆve.h
+"
+
+15 
+	~"hÆ_°ï_mŸ‹.h
+"
+
+18 
+	$Di•Wifi
+(
+U8
+ 
+mu8OnOff
+)
+
+20 
+	`HAL_Tu∫OnOffLED
+–
+ICON_WIFI_BLE
+, 
+mu8OnOff
+ );
+
+21 
+	`HAL_Tu∫OnOffLED
+–
+ICON_WIFI
+, 
+mu8OnOff
+ );
+
+22 
+	}
+}
+
+24 
+	$Di•KeyHŸ
+(
+U8
+ 
+mu8OnOff
+)
+
+27 
+	`HAL_Tu∫OnOffLED
+–
+HOT_COFFE
+, 
+mu8OnOff
+ );
+
+28 
+	`HAL_Tu∫OnOffLED
+–
+HOT_TEA
+, 
+mu8OnOff
+ );
+
+29 
+	`HAL_Tu∫OnOffLED
+–
+HOT_MILK
+, 
+mu8OnOff
+ );
+
+30 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+mu8OnOff
+ );
+
+31 
+	`HAL_Tu∫OnOffLED
+–
+ICON_HOT_LOCK
+, 
+mu8OnOff
+ );
+
+33 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO_2
+, 
+mu8OnOff
+ );
+
+34 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO
+, 
+mu8OnOff
+ );
+
+35 
+	}
+}
+
+39 
+	#FRONT_UV_ADC
+ 30
+
+	)
+
+40 
+	$EﬁFr⁄tCheckI≈ut
+()
+
+42 
+U32
+ 
+mu32VÆ
+ = 0UL;
+
+45 
+mu32VÆ
+ = 
+	`GëEﬁTe°I≈utVÆ
+();
+
+47 if–
+	`GëEﬁCheckSètus
+–
+EOL_CHK_ID_UV_ICE_DOOR
+ ) < 
+FRONT_UV_ADC
+ )
+
+49 
+	`Di•SegmítEº‹
+( 1 );
+
+51 #i‡!
+CONFIG_JIG_FRONT_UNUSED_UV
+
+
+52 if–
+	`GëEﬁCheckSètus
+–
+EOL_CHK_ID_UV_WATER_OUT
+ ) < 
+FRONT_UV_ADC
+ )
+
+54 
+	`Di•SegmítEº‹
+( 2 );
+
+60 
+	`Tu∫OnAŒLED
+();
+
+64 #i‡
+CONFIG_JIG_RBK_FRONT
+
+
+65 if–(
+mu32VÆ
+ & 
+MK_EOL_FILTER_COVER
+) != 0 )
+
+67 if––
+mu32VÆ
+ & 
+MK_EOL_TANK_COVER
+) != 0 )
+
+70 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_SMART_CARE_TM
+, 
+OFF
+ );
+
+71 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_SMART_CARE
+, 
+OFF
+ );
+
+72 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_WATER
+, 
+OFF
+ );
+
+73 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_ICE
+, 
+OFF
+ );
+
+74 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_ICE_TANK
+, 
+OFF
+ );
+
+75 
+	`HAL_Tu∫OnOffLED
+–
+ICON_UV_ICE_TRAY
+, 
+OFF
+ );
+
+78 if–(
+mu32VÆ
+ & 
+MK_EOL_FILTER_COVER
+) != 0 )
+
+81 
+	`HAL_Tu∫OnOffLED
+–
+ICON_FILTER
+, 
+OFF
+ );
+
+82 
+	`HAL_Tu∫OnOffLED
+–
+ICON_FLUSHING
+, 
+OFF
+ );
+
+83 
+	`HAL_Tu∫OnOffLED
+–
+ICON_DRAIN
+, 
+OFF
+ );
+
+87 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_SETTING
+) != 0 )
+
+90 
+	`HAL_Tu∫OnOffLED
+–
+SETTING
+, 
+OFF
+ );
+
+93 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_HOT
+ ) != 0 )
+
+95 
+	`Di•KeyHŸ
+–
+OFF
+ );
+
+108 
+U8
+ 
+mu8OnOff
+ = 
+OFF
+;
+
+109 
+mu8OnOff
+ = 
+	`BlökLED
+–mu8OnOff, 
+Di•KeyHŸ
+, 
+DISP_TIMER_ID_500MS
+ );
+
+112 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_ROOM
+ ) != 0 )
+
+115 
+	`HAL_Tu∫OnOffLED
+–
+ICON_AM
+, 
+OFF
+ );
+
+116 
+	`HAL_Tu∫OnOffLED
+–
+ICON_PM
+, 
+OFF
+ );
+
+119 
+	`Di•SegmítCh¨
+–
+SEGMENT_CHAR_ID_SPACE
+ );
+
+120 
+	`HAL_Tu∫OnOffLED
+–
+COLON
+, 
+OFF
+ );
+
+123 
+	`HAL_Tu∫OnOffLED
+–
+ROOM_WATER
+, 
+OFF
+ );
+
+126 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_COLD
+ ) != 0 )
+
+129 
+	`HAL_Tu∫OnOffLED
+–
+ICON_SAVING
+, 
+OFF
+ );
+
+130 
+	`Di•Wóthî
+–
+OFF
+ );
+
+132 
+	`HAL_Tu∫OnOffLED
+–
+ICON_ML
+, 
+OFF
+ );
+
+133 
+	`HAL_Tu∫OnOffLED
+–
+ICON_PERCENT
+, 
+OFF
+ );
+
+134 
+	`HAL_Tu∫OnOffLED
+–
+ICON_CELSIUS
+, 
+OFF
+ );
+
+136 
+	`HAL_Tu∫OnOffLED
+–
+COLD_TEMP_WHITE
+, 
+OFF
+ );
+
+137 
+	`HAL_Tu∫OnOffLED
+–
+COLD_TEMP_BLUE
+, 
+OFF
+ );
+
+138 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+OFF
+ );
+
+140 
+	`HAL_Tu∫OnOffLED
+–
+ICON_WIFI_BLE
+, 
+OFF
+ );
+
+141 
+	`HAL_Tu∫OnOffLED
+–
+ICON_WIFI
+, 
+OFF
+ );
+
+146 #i‡!
+CONFIG_JIG_RBK_FRONT
+
+
+147 if–(
+mu32VÆ
+ & 
+MK_EOL_WIFI
+ ) != 0 )
+
+149 
+U8
+ 
+mu8OnOff
+ = 
+OFF
+;
+
+150 
+mu8OnOff
+ = 
+	`BlökLED
+–mu8OnOff, 
+Di•Wifi
+, 
+DISP_TIMER_ID_500MS
+ );
+
+154 
+	`Di•Wifi
+–
+ON
+ );
+
+159 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_AMOUNT
+ ) != 0 )
+
+161 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT_INFINITY
+, 
+OFF
+ );
+
+162 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT_500
+, 
+OFF
+ );
+
+163 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT_250
+, 
+OFF
+ );
+
+164 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT_120
+, 
+OFF
+ );
+
+165 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT
+, 
+OFF
+ );
+
+168 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_SAVE
+ ) != 0 )
+
+170 
+	`HAL_Tu∫OnOffLED
+–
+SAVING
+, 
+OFF
+ );
+
+173 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_HOT_LOCK
+ ) != 0 )
+
+175 
+	`HAL_Tu∫OnOffLED
+–
+HOT_LOCK
+, 
+OFF
+ );
+
+178 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_LOCK_ALL
+ ) != 0 )
+
+180 
+	`HAL_Tu∫OnOffLED
+–
+LOCK_ALL
+, 
+OFF
+ );
+
+183 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_COLD_MAKE
+ ) != 0 )
+
+185 
+	`HAL_Tu∫OnOffLED
+–
+COLD_MAKE
+, 
+OFF
+ );
+
+188 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_ICE_LOCK
+ ) != 0 )
+
+190 
+	`HAL_Tu∫OnOffLED
+–
+ICE_LOCK
+, 
+OFF
+ );
+
+193 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_ICE_MAKE
+ ) != 0 )
+
+195 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MAKE
+, 
+OFF
+ );
+
+196 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_MAKE
+, 
+OFF
+ );
+
+199 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_ICE
+ ) != 0 )
+
+201 
+	`HAL_Tu∫OnOffLED
+–
+ICON_ICE_LOCK
+, 
+OFF
+ );
+
+202 
+	`HAL_Tu∫OnOffLED
+–
+ICE_TURBO
+, 
+OFF
+ );
+
+203 
+	`HAL_Tu∫OnOffLED
+–
+ICE_SIZE_LARGE
+, 
+OFF
+ );
+
+204 
+	`HAL_Tu∫OnOffLED
+–
+ICE_SIZE_BAR
+, 
+OFF
+ );
+
+205 
+	`HAL_Tu∫OnOffLED
+–
+ICE_SIZE_SMALL
+, 
+OFF
+ );
+
+207 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MODE
+, 
+OFF
+ );
+
+210 if–(
+mu32VÆ
+ & 
+MK_EOL_LEVER_WATER
+ ) != 0 )
+
+212 
+	`HAL_Tu∫OnOffLED
+–
+WATER_OUT_1
+, 
+OFF
+ );
+
+213 
+	`HAL_Tu∫OnOffLED
+–
+WATER_OUT_2
+, 
+OFF
+ );
+
+214 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_WATER
+, 
+OFF
+ );
+
+217 if–(
+mu32VÆ
+ & 
+MK_EOL_LEVER_ICE
+ ) != 0 )
+
+219 
+	`HAL_Tu∫OnOffLED
+–
+ICON_ICE_FULL
+, 
+OFF
+ );
+
+221 
+	`HAL_Tu∫OnOffLED
+–
+ICE_OUT_1
+, 
+OFF
+ );
+
+222 
+	`HAL_Tu∫OnOffLED
+–
+ICE_OUT_2
+, 
+OFF
+ );
+
+223 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_ICE
+, 
+OFF
+ );
+
+226 
+	}
+}
+
+229 
+	$Di•FûãrOnOff
+(
+U8
+ 
+mu8OnOff
+)
+
+231 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT
+, 
+mu8OnOff
+ );
+
+232 
+	}
+}
+
+235 
+	$EﬁCheckI≈ut
+()
+
+237 
+U32
+ 
+mu32VÆ
+ = 0UL;
+
+240 
+mu32VÆ
+ = 
+	`GëEﬁTe°I≈utVÆ
+();
+
+242 
+	`Tu∫OffAŒLED
+();
+
+252 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_HOT
+ ) != 0 )
+
+254 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+ON
+ );
+
+257 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_ROOM
+ ) != 0 )
+
+260 
+	`HAL_Tu∫OnOffLED
+–
+ROOM_WATER
+, 
+ON
+ );
+
+263 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_COLD
+ ) != 0 )
+
+265 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+ON
+ );
+
+268 if–(
+mu32VÆ
+ & 
+MK_EOL_KEY_AMOUNT
+ ) != 0 )
+
+270 
+	`HAL_Tu∫OnOffLED
+–
+AMOUNT
+, 
+ON
+ );
+
+274 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_WATER
+, 
+OFF
+ );
+
+275 if–(
+mu32VÆ
+ & 
+MK_EOL_LEVER_WATER
+ ) != 0 )
+
+277 
+	`HAL_Tu∫OnOffLED
+–
+WATER_OUT_1
+, 
+ON
+ );
+
+278 
+	`HAL_Tu∫OnOffLED
+–
+WATER_OUT_2
+, 
+ON
+ );
+
+279 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_WATER
+, 
+ON
+ );
+
+282 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_ICE
+, 
+OFF
+ );
+
+283 if–(
+mu32VÆ
+ & 
+MK_EOL_LEVER_ICE
+ ) != 0 )
+
+285 
+	`HAL_Tu∫OnOffLED
+–
+ICE_OUT_1
+, 
+ON
+ );
+
+286 
+	`HAL_Tu∫OnOffLED
+–
+ICE_OUT_2
+, 
+ON
+ );
+
+287 
+	`HAL_Tu∫OnOffLED
+–
+WELCOM_ICE
+, 
+ON
+ );
+
+291 if–(
+mu32VÆ
+ & 
+MK_EOL_FILTER_ONOFF
+ ) != 0 )
+
+293 
+U8
+ 
+mu8OnOff
+ = 
+OFF
+;
+
+294 
+mu8OnOff
+ = 
+	`BlökLED
+–mu8OnOff, 
+Di•FûãrOnOff
+, 
+DISP_TIMER_ID_500MS
+ );
+
+296 
+	}
+}
+
+298 
+U8
+ 
+	$ShowLcdKey
+(
+U32
+ 
+mu32VÆ
+, U32 
+mu32Mk
+, 
+U8
+ 
+mId
+)
+
+300 if–(
+mu32VÆ
+ & 
+mu32Mk
+ ) == mu32Mk )
+
+302 
+	`CÀ¨EﬁTe°I≈utBô
+–
+mu32Mk
+ );
+
+303  
+TRUE
+;
+
+306  
+FALSE
+;
+
+307 
+	}
+}
+
+314 
+	$Fr⁄tTe°
+()
+
+317 if–
+	`HAL_GëI≈utVÆue
+–
+IN_TANK_OPEN
+ ) =
+LOW
+ )
+
+319 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_TANK_COVER
+ );
+
+322 if–
+	`GëFûãrSètus
+–
+ID_FILTER_COVER
+ ) =
+FILTER_CLOSE
+ )
+
+324 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_FILTER_COVER
+ );
+
+333 
+	`EﬁFr⁄tCheckI≈ut
+();
+
+334 
+	}
+}
+
+336 
+U8
+ 
+	$CheckFûãrOnOff
+()
+
+338 
+U8
+ 
+mu8Pªv
+ = 
+FILTER_CLOSE
+;
+
+339 
+U8
+ 
+mu8Cuºít
+;
+
+341 
+mu8Cuºít
+ = 
+	`GëFûãrSètus
+–
+ID_FILTER
+ );
+
+342 if–
+mu8Pªv
+ !
+mu8Cuºít
+ )
+
+344 
+mu8Pªv
+ = 
+mu8Cuºít
+;
+
+346 if–
+mu8Cuºít
+ =
+FILTER_CLOSE
+ )
+
+348  
+TRUE
+;
+
+352  
+FALSE
+;
+
+353 
+	}
+}
+
+356 
+	$Di•EﬁSóldComp
+(
+U8
+ 
+mu8OnOff
+)
+
+358 
+	`HAL_Tu∫OnOffLED
+–
+SETTING
+, 
+mu8OnOff
+ );
+
+359 
+	}
+}
+
+361 
+	$Di•EﬁSóldGasSwôch
+(
+U8
+ 
+mu8OnOff
+)
+
+363 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+mu8OnOff
+ );
+
+364 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MODE
+, 
+mu8OnOff
+ );
+
+365 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+mu8OnOff
+ );
+
+367 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_SIZE
+, 
+mu8OnOff
+ );
+
+368 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO
+, 
+mu8OnOff
+ );
+
+369 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO_2
+, 
+mu8OnOff
+ );
+
+370 
+	}
+}
+
+373 
+	$LﬂdTe°
+()
+
+375 
+U8
+ 
+mu8Mode
+;
+
+376 
+U8
+ 
+mu8SñW©î
+ = 
+SEL_WATER_ROOM
+;
+
+380 
+mu8Mode
+ = 
+	`GëEﬁMode
+();
+
+381 if–
+mu8Mode
+ =
+EOL_MODE_SEALED
+ )
+
+384 if–
+	`GëCompBldcT¨gëRps
+() != 0 )
+
+386 
+U8
+ 
+mu8OnOff
+ = 
+OFF
+;
+
+387 
+mu8OnOff
+ = 
+	`BlökLED
+–mu8OnOff, 
+Di•EﬁSóldComp
+, 
+DISP_TIMER_ID_500MS
+ );
+
+391 
+	`Di•EﬁSóldComp
+–
+OFF
+ );
+
+395 if–
+	`HAL_GëT¨gëSãp
+–
+SM_ID_0
+ ) !
+	`HAL_GëCuºítSãp
+( SM_ID_0 ) )
+
+398 
+U8
+ 
+mu8OnOff
+ = 
+OFF
+;
+
+399 
+mu8OnOff
+ = 
+	`BlökLED
+–mu8OnOff, 
+Di•EﬁSóldGasSwôch
+, 
+DISP_TIMER_ID_500MS
+ );
+
+404 if–
+	`GëGasSwôchSètus
+(Ë=
+GAS_SWITCH_COLD
+ )
+
+406 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+ON
+ );
+
+407 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MODE
+, 
+OFF
+ );
+
+408 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+OFF
+ );
+
+410 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_SIZE
+, 
+OFF
+ );
+
+411 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO
+, 
+OFF
+ );
+
+412 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO_2
+, 
+OFF
+ );
+
+414 if–
+	`GëGasSwôchSètus
+(Ë=
+GAS_SWITCH_ICE
+ )
+
+416 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+OFF
+ );
+
+417 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MODE
+, 
+ON
+ );
+
+418 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+OFF
+ );
+
+420 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_SIZE
+, 
+ON
+ );
+
+421 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO
+, 
+OFF
+ );
+
+422 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO_2
+, 
+OFF
+ );
+
+424 if–
+	`GëGasSwôchSètus
+(Ë=
+GAS_SWITCH_HOTGAS
+ )
+
+426 
+	`HAL_Tu∫OnOffLED
+–
+COLD_WATER
+, 
+OFF
+ );
+
+427 
+	`HAL_Tu∫OnOffLED
+–
+ICE_MODE
+, 
+OFF
+ );
+
+428 
+	`HAL_Tu∫OnOffLED
+–
+HOT_WATER
+, 
+ON
+ );
+
+430 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_SIZE
+, 
+OFF
+ );
+
+431 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO
+, 
+ON
+ );
+
+432 
+	`HAL_Tu∫OnOffLED
+–
+CP_ICE_TURBO_2
+, 
+ON
+ );
+
+436 if–
+mu8Mode
+ !
+EOL_MODE_READY
+
+
+437 && 
+mu8Mode
+ !
+EOL_MODE_DONE
+ )
+
+439 
+	`Tu∫OffAŒLED
+();
+
+441 
+	`Di•WñcomI˚
+–
+OFF
+ );
+
+442 
+	`Di•WñcomW©î
+–
+OFF
+ );
+
+447 
+mu8SñW©î
+ = 
+	`GëW©îOutSñe˘
+();
+
+448 if–
+mu8SñW©î
+ =
+SEL_WATER_ROOM
+ )
+
+450 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_KEY_ROOM
+ );
+
+451 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_COLD
+ );
+
+452 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_HOT
+ );
+
+454 if–
+mu8SñW©î
+ =
+SEL_WATER_COLD
+ )
+
+456 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_ROOM
+ );
+
+457 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_HOT
+ );
+
+458 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_KEY_COLD
+ );
+
+462 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_ROOM
+ );
+
+463 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_COLD
+ );
+
+464 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_KEY_HOT
+ );
+
+469 if–
+	`GëEﬁDøöW©î
+(Ë=
+TRUE
+ )
+
+471 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_KEY_AMOUNT
+ );
+
+475 
+	`CÀ¨EﬁTe°I≈utBô
+–
+MK_EOL_KEY_AMOUNT
+ );
+
+478 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_LEVER_WATER
+ );
+
+479 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_LEVER_ICE
+ );
+
+481 if–
+	`CheckFûãrOnOff
+(Ë=
+TRUE
+ )
+
+483 
+	`SëEﬁTe°I≈utBô
+–
+MK_EOL_FILTER_ONOFF
+ );
+
+484 
+	`SëEﬁCheckSètus
+–
+EOL_CHK_ID_FILTER_ONOFF
+, 1 );
+
+487 
+	`EﬁCheckI≈ut
+();
+
+491 if–
+	`GëWifiSètusVÆue
+(
+WIFI_STATUS_TEST
+) == 0 )
+
+494 
+	`Di•Wifi
+–
+OFF
+ );
+
+499 
+	`Di•Wifi
+–
+ON
+ );
+
+501 
+	}
+}
+
+503 
+	$Pro˚ssDi•œyEﬁ
+()
+
+505 if–
+	`GëEﬁTy≥
+(Ë=
+EOL_TYPE_FRONT
+ )
+
+508 
+	`Fr⁄tTe°
+();
+
+513 
+	`LﬂdTe°
+();
+
+515 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.h
+
+1 #i‚de‡
+__DISPLAY_EOL_H__
+
+
+2 
+	#__DISPLAY_EOL_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"eﬁ.h
+"
+
+7 
+Pro˚ssDi•œyEﬁ
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"di•œy_îr‹.h
+"
+
+4 
+	~"di•œy.h
+"
+
+5 
+	~"îr‹.h
+"
+
+6 
+	~"comp_bldc.h
+"
+
+11 
+	s_îr‹_di•œy_li°_
+
+
+13 
+Eº‹Id_T
+ 
+	mId
+;
+
+14 } 
+	tEºDi•œy_T
+;
+
+16 
+EºDi•œy_T
+ 
+	gEºDi•œyLi°
+[] =
+
+19 { 
+ERR_MICRO_SW_MOVE
+ },
+
+20 { 
+ERR_MICRO_SW_DETECT
+ },
+
+21 { 
+ERR_DRAIN_PUMP
+ },
+
+22 { 
+ERR_TEMP_HEATER
+ },
+
+23 { 
+ERR_HEATER_OVERHEAT
+ },
+
+24 { 
+ERR_TEMP_HOT_WATER_IN
+ },
+
+25 { 
+ERR_TEMP_HOT_WATER
+ },
+
+26 { 
+ERR_TEMP_COLD_WATER
+ },
+
+27 { 
+ERR_TEMP_AMBIENT
+ },
+
+28 { 
+ERR_TEMP_ROOM_WATER
+ },
+
+29 { 
+ERR_COMP
+ },
+
+30 { 
+ERR_COMP_COMM
+ },
+
+31 { 
+ERR_OUTAGE_WATER
+ },
+
+32 { 
+ERR_OUTAGE_HOT_WATER
+ },
+
+33 { 
+ERR_LEAK
+ },
+
+34 { 
+ERR_LEAK_FLOW
+ },
+
+36 
+	#SZ_LIST
+ ( (
+EºDi•œyLi°
+Ë/ (
+EºDi•œy_T
+ ))
+
+	)
+
+39 
+U8
+ 
+GëEº‹Di•œyId
+(
+Eº‹Id_T
+ 
+mEºId
+);
+
+40 
+Comm⁄EºCode
+(
+Eº‹Id_T
+ 
+id
+, 
+U8
+ 
+mu8Cmd
+);
+
+41 
+	$Di•œyEº‹
+(
+U8
+ 
+mu8EºCode
+, U8 
+mu8Cmd
+ )
+
+43 
+U8
+ 
+i
+;
+
+46  
+i
+ = 0; i < 
+SZ_LIST
+ ; i++ )
+
+48 if–
+EºDi•œyLi°
+[ 
+i
+ ].
+Id
+ =
+mu8EºCode
+ )
+
+50 
+	`Comm⁄EºCode
+–
+mu8EºCode
+, 
+mu8Cmd
+ );
+
+54 
+	}
+}
+
+56 
+	$Comm⁄EºCode
+(
+Eº‹Id_T
+ 
+id
+, 
+U8
+ 
+mu8Cmd
+)
+
+58 
+U8
+ 
+mu8EºCode
+;
+
+60 
+mu8EºCode
+ = 
+	`GëEº‹Di•œyId
+–
+id
+ );
+
+62 if–
+mu8Cmd
+ =
+ON
+ )
+
+64 
+	`Di•SegmítEº‹
+–
+mu8EºCode
+ );
+
+68 
+	`Di•SegmítEº‹
+( 0xFF );
+
+70 
+	}
+}
+
+75 #i‡
+CONFIG_COMP_ERROR_CODE
+
+
+76 
+	~"comp_bldc.h
+"
+
+78 
+U8
+ 
+	$GëEº‹Di•œyId
+(
+Eº‹Id_T
+ 
+mEºId
+)
+
+80 
+U8
+ 
+mu8Eº‹Code
+ = 0;
+
+82  
+mEºId
+ )
+
+84 
+ERR_LEAK
+: 
+mu8Eº‹Code
+ = 1; ;
+
+85 
+ERR_LEAK_FLOW
+: 
+mu8Eº‹Code
+ = 2; ;
+
+87 
+ERR_OUTAGE_HOT_WATER
+: 
+mu8Eº‹Code
+ = 8; ;
+
+88 
+ERR_OUTAGE_WATER
+: 
+mu8Eº‹Code
+ = 9; ;
+
+90 #i‡
+CONFIG_COMP_ERROR_CODE
+
+
+91 
+ERR_COMP
+: 
+mu8Eº‹Code
+ = 50 + (
+U8
+)
+	`GëCompBldcEº‹Code
+(); ;
+
+92 
+ERR_PROTECT_COMP
+: 
+mu8Eº‹Code
+ = 50 + (
+U8
+)
+	`GëCompBldcEº‹Code
+(); ;
+
+94 
+ERR_COMP
+: 
+mu8Eº‹Code
+ = 27; ;
+
+95 
+ERR_PROTECT_COMP
+: 
+mu8Eº‹Code
+ = 27; ;
+
+98 
+ERR_COMP_COMM
+: 
+mu8Eº‹Code
+ = 27; ;
+
+99 
+ERR_PROTECT_COMP_COMM
+: 
+mu8Eº‹Code
+ = 27; ;
+
+101 
+ERR_HEATER_OVERHEAT
+: 
+mu8Eº‹Code
+ = 40; ;
+
+102 
+ERR_TEMP_ROOM_WATER
+: 
+mu8Eº‹Code
+ = 42; ;
+
+103 
+ERR_TEMP_AMBIENT
+: 
+mu8Eº‹Code
+ = 43; ;
+
+104 
+ERR_TEMP_COLD_WATER
+: 
+mu8Eº‹Code
+ = 44; ;
+
+105 
+ERR_TEMP_HOT_WATER_IN
+: 
+mu8Eº‹Code
+ = 46; ;
+
+106 
+ERR_TEMP_HOT_WATER
+: 
+mu8Eº‹Code
+ = 47; ;
+
+107 
+ERR_TEMP_HEATER
+: 
+mu8Eº‹Code
+ = 48; ;
+
+109 
+ERR_DRAIN_PUMP
+: 
+mu8Eº‹Code
+ = 60; ;
+
+110 
+ERR_MICRO_SW_DETECT
+: 
+mu8Eº‹Code
+ = 61; ;
+
+111 
+ERR_MICRO_SW_MOVE
+: 
+mu8Eº‹Code
+ = 62; ;
+
+112 
+ERR_TEMP_EVA_1
+: 
+mu8Eº‹Code
+ = 63; ;
+
+126 : 
+mu8Eº‹Code
+ = 0; ;
+
+130  
+mu8Eº‹Code
+;
+
+131 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.h
+
+1 #i‚de‡
+__DISPLAY_ERROR_H__
+
+
+2 
+	#__DISPLAY_ERROR_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+Di•œyEº‹
+(
+U8
+ 
+mu8EºCode
+, U8 
+mu8ToggÀ
+ );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.c
+
+1 
+	~"di•œy_lib.h
+"
+
+3 
+	s_di•_timî_
+
+
+5 
+U32
+ 
+	mTimîBlök
+[ 
+MAX_DISP_TIMER_BLINK_ID
+ ];
+
+6 
+U32
+ 
+	mTimîCou¡
+[ 
+MAX_DISP_TIMER_BLINK_ID
+ ];
+
+8 
+U16
+ 
+	mTimî
+[ 
+MAX_DISP_KEY_TIMER_ID
+ ];
+
+9 } 
+	tDi•Timî_T
+;
+
+11 
+Di•Timî_T
+ 
+	gDi•Timî
+;
+
+14 
+	$InôDi•Timî
+()
+
+16 
+Di•Timî
+.
+TimîCou¡
+[ 
+DISP_TIMER_ID_500MS
+ ] = 
+TIMER_500MS
+;
+
+17 
+Di•Timî
+.
+TimîCou¡
+[ 
+DISP_TIMER_ID_1SEC
+ ] = 
+TIMER_1SEC
+;
+
+18 
+	}
+}
+
+20 
+U8
+ 
+	$IsExpúedDi•Timî
+(
+U8
+ 
+id
+)
+
+22 if–
+Di•Timî
+.
+Timî
+[ 
+id
+ ] == 0 )
+
+24  
+TRUE
+;
+
+27  
+FALSE
+;
+
+28 
+	}
+}
+
+30 
+	$SëDi•Timî
+(
+U8
+ 
+id
+, 
+U16
+ 
+time
+)
+
+32 
+Di•Timî
+.
+Timî
+[ 
+id
+ ] = 
+time
+;
+
+33 
+	}
+}
+
+36 
+U8
+ 
+	$IsExpúedDi•BlökTimî
+(
+U8
+ 
+id
+)
+
+39 if–
+Di•Timî
+.
+TimîBlök
+[ 
+id
+ ] == 0UL )
+
+41  
+TRUE
+;
+
+44  
+FALSE
+;
+
+45 
+	}
+}
+
+47 
+	$Re£tDi•BlökTimî
+–
+mu8TimîId
+ )
+
+49 
+Di•Timî
+.
+TimîBlök
+[ 
+mu8TimîId
+ ] = Di•Timî.
+TimîCou¡
+[ mu8TimerId ];
+
+50 
+	}
+}
+
+58 
+U8
+ 
+BlökLED
+–U8 
+mu8OnOff
+, (*
+pFun
+)(U8 mu8OnOff), U8 
+mu8TimîId
+ )
+
+60 if–
+pFun
+ =
+NULL
+ )
+
+65 if–
+	`IsExpúedDi•BlökTimî
+–
+mu8TimîId
+ ) =
+TRUE
+ )
+
+67 if–
+mu8OnOff
+ =
+OFF
+ )
+
+69 
+mu8OnOff
+ = 
+ON
+;
+
+73 
+mu8OnOff
+ = 
+OFF
+;
+
+77 
+	`pFun
+–
+mu8OnOff
+ );
+
+78  
+mu8OnOff
+;
+
+79 
+	}
+}
+
+82 
+	$Upd©eDi•œyTimî
+()
+
+84 
+U8
+ 
+i
+;
+
+88  
+i
+ = 0; i < 
+MAX_DISP_TIMER_BLINK_ID
+; i++ )
+
+90 if–
+Di•Timî
+.
+TimîBlök
+[ 
+i
+ ] == 0UL )
+
+92 
+	`Re£tDi•BlökTimî
+–
+i
+ );
+
+96 
+Di•Timî
+.
+TimîBlök
+[ 
+i
+ ]--;
+
+101  
+i
+ = 0; i < 
+MAX_DISP_KEY_TIMER_ID
+; i++ )
+
+103 if–
+Di•Timî
+.
+Timî
+[ 
+i
+ ] != 0UL )
+
+105 
+Di•Timî
+.
+Timî
+[ 
+i
+ ]--;
+
+108 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.h
+
+1 #i‚de‡
+__DISPLAY_LIB_H__
+
+
+2 
+	#__DISPLAY_LIB_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+8 
+InôDi•Timî
+();
+
+11 
+	#TIMER_100MS
+ 10UL
+
+	)
+
+12 
+	#TIMER_500MS
+ 50UL
+
+	)
+
+13 
+	#TIMER_1SEC
+ 100UL
+
+	)
+
+14 
+	#TIMER_2SEC
+ 200UL
+
+	)
+
+15 
+	#TIMER_3SEC
+ 300UL
+
+	)
+
+16 
+	#TIMER_4SEC
+ 400UL
+
+	)
+
+17 
+	#TIMER_5SEC
+ 500UL
+
+	)
+
+18 
+	#TIMER_6SEC
+ 600UL
+
+	)
+
+19 
+	#TIMER_7SEC
+ 700UL
+
+	)
+
+20 
+	#TIMER_20SEC
+ 2000UL
+
+	)
+
+21 
+	#TIMER_30SEC
+ 3000UL
+
+	)
+
+22 
+	#TIMER_20MIN
+ 120000UL
+
+	)
+
+23 
+	#TIMER_60MIN
+ 360000UL
+
+	)
+
+28 
+	mDISP_TIMER_CONFIG
+,
+
+30 
+	mMAX_DISP_KEY_TIMER_ID
+
+
+33 
+U8
+ 
+IsExpúedDi•Timî
+(U8 
+id
+);
+
+34 
+SëDi•Timî
+(
+U8
+ 
+id
+, 
+U16
+ 
+time
+);
+
+38 
+	#DISP_TIMER_ID_500MS
+ 0
+
+	)
+
+39 
+	#DISP_TIMER_ID_1SEC
+ 1
+
+	)
+
+40 
+	#MAX_DISP_TIMER_BLINK_ID
+ 2
+
+	)
+
+41 
+U8
+ 
+IsExpúedDi•BlökTimî
+(U8 
+id
+);
+
+42 
+U8
+ 
+BlökLED
+–U8 
+mu8OnOff
+, (*
+pFun
+)(U8 mu8OnOff), U8 
+mu8TimîId
+ );
+
+44 
+	`Upd©eDi•œyTimî
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.c
+
+1 
+	~"‰⁄t.h
+"
+
+2 
+	~"timî.h
+"
+
+3 
+	~"utû.h
+"
+
+6 
+	#LIMIT_TIMER
+ 30
+
+7 
+
+	)
+
+8 
+	s_purifõr_
+
+
+10 
+U8
+ 
+	mC⁄figDeco
+[ 
+MAX_DECO_NUM
+ ];
+
+13 
+U8
+ 
+	mLockAŒ
+;
+
+14 
+U8
+ 
+	mLockHŸ
+;
+
+15 
+U8
+ 
+	mLockI˚
+;
+
+17 
+U8
+ 
+	mSy°em
+;
+
+18 
+U8
+ 
+	mFr⁄tSy°em
+;
+
+19 
+U8
+ 
+	mCu°omî
+;
+
+20 
+U8
+ 
+	mFa˘‹ySëup
+;
+
+22 
+U32
+ 
+	mUnu£dTime
+;
+
+23 
+U16
+ 
+	mLimôTimî
+;
+
+25 
+U8
+ 
+	mFŸa
+;
+
+26 } 
+	tFr⁄t_T
+;
+
+28 
+Fr⁄t_T
+ 
+	gFr⁄t
+;
+
+31 
+	$InôFr⁄t
+()
+
+33 
+Fr⁄t
+.
+C⁄figDeco
+[ 
+DECO_LED_WELCOME
+ ] = 
+TRUE
+;
+
+34 
+Fr⁄t
+.
+C⁄figDeco
+[ 
+DECO_LED_BUTTON
+ ] = 
+TRUE
+;
+
+36 
+Fr⁄t
+.
+LockAŒ
+ = 
+UNLOCK
+;
+
+37 
+Fr⁄t
+.
+LockHŸ
+ = 
+UNLOCK
+;
+
+38 
+Fr⁄t
+.
+LockI˚
+ = 
+UNLOCK
+;
+
+39 
+Fr⁄t
+.
+Fr⁄tSy°em
+ = 
+SYSTEM_CHP
+;
+
+40 
+Fr⁄t
+.
+Sy°em
+ = 
+SYSTEM_CHP
+;
+
+41 
+Fr⁄t
+.
+Cu°omî
+ = 
+CUSTOMER_VISIT
+;
+
+43 
+Fr⁄t
+.
+Fa˘‹ySëup
+ = 
+FALSE
+;
+
+45 
+Fr⁄t
+.
+Unu£dTime
+ = 0UL;
+
+46 
+Fr⁄t
+.
+LimôTimî
+ = 
+LIMIT_TIMER
+;
+
+48 
+Fr⁄t
+.
+FŸa
+ = 
+FALSE
+;
+
+49 
+	}
+}
+
+52 
+	$SëFa˘roySëup
+(
+U8
+ 
+mu8Sëup
+)
+
+54 
+Fr⁄t
+.
+Fa˘‹ySëup
+ = 
+mu8Sëup
+;
+
+55 
+	}
+}
+
+57 
+U8
+ 
+	$GëFa˘‹ySëup
+()
+
+59  
+Fr⁄t
+.
+Fa˘‹ySëup
+;
+
+60 
+	}
+}
+
+68 
+	$CheckFa˘roySëup
+()
+
+70 if–
+Fr⁄t
+.
+Fa˘‹ySëup
+ =
+FALSE
+ )
+
+74 
+Fr⁄t
+.
+Fa˘‹ySëup
+ = 
+TRUE
+;
+
+75 
+	`SaveEïromId
+–
+EEP_ID_FACTORY_SETUP
+ );
+
+77 
+	}
+}
+
+80 
+	$SëC⁄figDeco
+(
+U8
+ 
+mu8Id
+, U8 
+mu8OnOff
+ )
+
+82 if–
+mu8OnOff
+ !
+TRUE
+ && mu8OnOf‡!
+FALSE
+ )
+
+86 
+Fr⁄t
+.
+C⁄figDeco
+[
+mu8Id
+] = 
+mu8OnOff
+;
+
+87 
+	`SaveEïromId
+–
+EEP_ID_CONF_DECO_LED
+ );
+
+88 
+	}
+}
+
+90 
+U8
+ 
+	$GëC⁄figDeco
+(
+U8
+ 
+mu8Id
+)
+
+92  
+Fr⁄t
+.
+C⁄figDeco
+[
+mu8Id
+];
+
+93 
+	}
+}
+
+95 
+	$SëSy°em
+(
+U8
+ 
+mu8Ty≥
+ )
+
+97 
+Fr⁄t
+.
+Sy°em
+ = 
+mu8Ty≥
+;
+
+98 
+	}
+}
+
+100 
+U8
+ 
+	$GëSy°em
+()
+
+102 #i‡(
+CONFIG_SYSTEM_TYPE
+ =
+CONFIG_SYSTEM_CHP
+ )
+
+103  
+SYSTEM_CHP
+;
+
+104 #ñi‡(
+CONFIG_SYSTEM_TYPE
+ =
+CONFIG_SYSTEM_CP
+ )
+
+105  
+SYSTEM_CP
+;
+
+106 #ñi‡(
+CONFIG_JIG_RBK_FRONT
+ != 0)
+
+107  
+Fr⁄t
+.
+Fr⁄tSy°em
+;
+
+109  
+Fr⁄t
+.
+Sy°em
+;
+
+111 
+	}
+}
+
+114 
+	#DEFAULT_CHECK_COUNT
+ 100
+
+115 
+
+	)
+
+117 
+	$SëFr⁄tSy°em
+(
+U8
+ 
+mu8Ty≥
+ )
+
+119 
+Fr⁄t
+.
+Fr⁄tSy°em
+ = 
+mu8Ty≥
+;
+
+120 
+	}
+}
+
+122 
+U8
+ 
+	$GëFr⁄tSy°em
+()
+
+124 #i‡(
+CONFIG_SYSTEM_TYPE
+ =
+CONFIG_SYSTEM_CHP
+ )
+
+125  
+SYSTEM_CHP
+;
+
+126 #ñi‡(
+CONFIG_SYSTEM_TYPE
+ =
+CONFIG_SYSTEM_CP
+ )
+
+127  
+SYSTEM_CP
+;
+
+129  
+Fr⁄t
+.
+Fr⁄tSy°em
+;
+
+131 
+	}
+}
+
+133 
+	$SëCu°omîTy≥
+(
+U8
+ 
+mu8Ty≥
+)
+
+135 
+Fr⁄t
+.
+Cu°omî
+ = 
+mu8Ty≥
+;
+
+136 
+	`SaveEïromId
+–
+EEP_ID_CUSTOMER
+ );
+
+137 
+	}
+}
+
+139 
+U8
+ 
+	$GëCu°omîTy≥
+()
+
+141  
+Fr⁄t
+.
+Cu°omî
+;
+
+142 
+	}
+}
+
+144 
+	$SëLockAŒ
+(
+U8
+ 
+mu8Lock
+ )
+
+146 if–
+mu8Lock
+ !
+LOCK
+ && mu8Lock !
+UNLOCK
+ )
+
+151 
+Fr⁄t
+.
+LockAŒ
+ = 
+mu8Lock
+;
+
+153 
+	}
+}
+
+155 
+U8
+ 
+	$GëLockAŒ
+()
+
+157  
+Fr⁄t
+.
+LockAŒ
+;
+
+158 
+	}
+}
+
+161 
+	$SëLockHŸ
+(
+U8
+ 
+mu8Lock
+ )
+
+163 if–
+mu8Lock
+ !
+LOCK
+ && mu8Lock !
+UNLOCK
+ )
+
+168 
+Fr⁄t
+.
+LockHŸ
+ = 
+mu8Lock
+;
+
+170 
+	}
+}
+
+172 
+U8
+ 
+	$GëLockHŸ
+()
+
+174  
+Fr⁄t
+.
+LockHŸ
+;
+
+175 
+	}
+}
+
+178 
+	$SëLockI˚
+(
+U8
+ 
+mu8Lock
+ )
+
+180 if–
+mu8Lock
+ !
+LOCK
+ && mu8Lock !
+UNLOCK
+ )
+
+185 
+Fr⁄t
+.
+LockI˚
+ = 
+mu8Lock
+;
+
+186 
+	}
+}
+
+188 
+U8
+ 
+	$GëLockI˚
+()
+
+190  
+Fr⁄t
+.
+LockI˚
+;
+
+191 
+	}
+}
+
+194 
+U32
+ 
+	$GëSy°emUnu£dTime
+()
+
+196  
+Fr⁄t
+.
+Unu£dTime
+;
+
+197 
+	}
+}
+
+199 
+	$Re£tUnu£dTime
+()
+
+201 
+Fr⁄t
+.
+Unu£dTime
+ = 0UL;
+
+202 
+	}
+}
+
+204 
+	$Cou¡ögUnu£dTime
+()
+
+206 if–
+Fr⁄t
+.
+Unu£dTime
+ <= 0xFFFFFFFFUL )
+
+208 
+Fr⁄t
+.
+Unu£dTime
+++;
+
+210 
+	}
+}
+
+212 
+U8
+ 
+	$GëFŸaReboŸ
+()
+
+214  
+Fr⁄t
+.
+FŸa
+;
+
+215 
+	}
+}
+
+217 
+	$SëFŸaReboŸ
+(
+U8
+ 
+mu8FŸa
+)
+
+219 
+Fr⁄t
+.
+FŸa
+ = 
+mu8FŸa
+;
+
+220 
+	}
+}
+
+223 
+U8
+ 
+	$IsExpúedTe°KeyLimôTimî
+()
+
+225 if–
+Fr⁄t
+.
+LimôTimî
+ != 0 )
+
+227  
+FALSE
+;
+
+229  
+TRUE
+;
+
+230 
+	}
+}
+
+233 
+	$Upd©eTe°KeyLimôTimî
+()
+
+235 if–
+Fr⁄t
+.
+LimôTimî
+ != 0 )
+
+237 
+Fr⁄t
+.
+LimôTimî
+--;
+
+239 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.h
+
+1 #i‚de‡
+__FRONT_H__
+
+
+2 
+	#__FRONT_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+InôFr⁄t
+();
+
+8 
+SëFa˘roySëup
+(
+U8
+ 
+mu8Sëup
+);
+
+9 
+U8
+ 
+GëFa˘‹ySëup
+();
+
+10 
+CheckFa˘roySëup
+();
+
+13 
+	#DECO_LED_BUTTON
+ 0
+
+	)
+
+14 
+	#DECO_LED_WELCOME
+ 1
+
+	)
+
+15 
+	#MAX_DECO_NUM
+ 2
+
+	)
+
+16 
+SëC⁄figDeco
+(
+U8
+ 
+mu8Id
+, U8 
+mu8OnOff
+ );
+
+17 
+U8
+ 
+GëC⁄figDeco
+(U8 
+mu8Id
+);
+
+19 
+	#SYSTEM_CHP
+ 0
+
+	)
+
+20 
+	#SYSTEM_CP
+ 1
+
+	)
+
+21 
+SëSy°em
+(
+U8
+ 
+mu8Ty≥
+ );
+
+22 
+U8
+ 
+GëSy°em
+();
+
+24 
+SëFr⁄tSy°em
+(
+U8
+ 
+mu8Ty≥
+ );
+
+25 
+U8
+ 
+GëFr⁄tSy°em
+();
+
+29 
+	#CUSTOMER_SELF
+ 0
+
+	)
+
+30 
+	#CUSTOMER_VISIT
+ 1
+
+	)
+
+31 
+SëCu°omîTy≥
+(
+U8
+ 
+mu8Ty≥
+);
+
+32 
+U8
+ 
+GëCu°omîTy≥
+();
+
+34 
+	#LOCK
+ 1
+
+	)
+
+35 
+	#UNLOCK
+ 0
+
+	)
+
+36 
+SëLockAŒ
+(
+U8
+ 
+mu8Lock
+ );
+
+37 
+U8
+ 
+GëLockAŒ
+();
+
+39 
+SëLockHŸ
+(
+U8
+ 
+mu8Lock
+ );
+
+40 
+U8
+ 
+GëLockHŸ
+();
+
+42 
+SëLockI˚
+(
+U8
+ 
+mu8Lock
+ );
+
+43 
+U8
+ 
+GëLockI˚
+();
+
+47 
+	#SILVER_CARE_TIME_MIN
+ (2880ULË
+
+	)
+
+48 
+U32
+ 
+GëSy°emUnu£dTime
+();
+
+49 
+Re£tUnu£dTime
+();
+
+50 
+Cou¡ögUnu£dTime
+();
+
+53 
+U8
+ 
+GëFŸaReboŸ
+();
+
+54 
+SëFŸaReboŸ
+(
+U8
+ 
+mu8FŸa
+);
+
+58 
+U8
+ 
+IsExpúedTe°KeyLimôTimî
+();
+
+59 
+Upd©eTe°KeyLimôTimî
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"di•œy.h
+"
+
+3 
+	~"¥o˚ss_di•œy.h
+"
+
+4 
+	~"sound.h
+"
+
+5 
+	~"di•œy_lib.h
+"
+
+6 
+	~"timî.h
+"
+
+7 
+	~"∑r£r.h
+"
+
+8 
+	~"∑r£r_‰⁄t.h
+"
+
+9 
+	~"hÆ_Àd.h
+"
+
+14 
+Di•œySñW©î
+();
+
+15 
+Di•œySñHŸ
+();
+
+16 
+Di•œySñAmou¡
+();
+
+17 
+Di•œy7Segmít
+();
+
+19 
+Upd©eTimî
+();
+
+20 
+Pro˚ssDi•œyBoŸ
+();
+
+21 
+Pro˚ssDi•œyN‹mÆMode_Movög
+();
+
+22 
+Pro˚ssDi•œyN‹mÆMode
+();
+
+25 
+	s_di•œy_
+
+
+27 
+U8
+ 
+	mInô
+;
+
+28 } 
+	tDi•œy_T
+;
+
+30 
+Di•œy_T
+ 
+	gDi•
+;
+
+33 
+	$InôDi•œy
+()
+
+36 
+	`InôDi•Timî
+();
+
+39 
+Di•
+.
+Inô
+ = 
+FALSE
+;
+
+42 
+	`Tu∫OffAŒLED
+();
+
+43 
+	}
+}
+
+46 
+U8
+ 
+	$GëDi•œyInô
+()
+
+48  
+Di•
+.
+Inô
+;
+
+49 
+	}
+}
+
+51 
+	$SèπDi•œyInô
+()
+
+53 
+Di•
+.
+Inô
+ = 
+FALSE
+;
+
+55 
+	`InôDi•Timî
+();
+
+56 
+	}
+}
+
+58 
+	s_di•_id_time_
+
+
+60 
+U8
+ 
+	mid
+;
+
+61 
+U16
+ 
+	mmTime
+;
+
+62 } 
+	tDi•TimîVÆ_T
+;
+
+64 
+Di•TimîVÆ_T
+ 
+	gDi•TimîVÆTabÀ
+[] =
+
+66 { 
+DISP_TIMER_CONFIG
+, 
+TIMER_5SEC
+ }
+
+68 
+	#SZ_DISP_TIMER_TABLE
+ ((
+Di•TimîVÆTabÀ
+)/(
+Di•TimîVÆ_T
+))
+
+	)
+
+70 
+U16
+ 
+	$FödTimeVÆ
+(
+U8
+ 
+id
+)
+
+72 
+U8
+ 
+i
+;
+
+74  
+i
+ = 0; i < 
+SZ_DISP_TIMER_TABLE
+; i++ )
+
+76 if–
+id
+ =
+Di•TimîVÆTabÀ
+[ 
+i
+ ].id )
+
+78  
+Di•TimîVÆTabÀ
+[ 
+i
+ ].
+mTime
+;
+
+83 
+	}
+}
+
+86 
+	$SèπDi•TimîId
+(
+U8
+ 
+id
+)
+
+88 
+U16
+ 
+mTime
+;
+
+90 
+mTime
+ = 
+	`FödTimeVÆ
+–
+id
+ );
+
+91 
+	`SëDi•Timî
+–
+id
+, 
+mTime
+ );
+
+92 
+	}
+}
+
+94 
+	$St›Di•TimîId
+(
+U8
+ 
+id
+)
+
+96 
+	`SëDi•Timî
+–
+id
+, 0);
+
+97 
+	}
+}
+
+101 
+	$Pro˚ssDi•œyBoŸ
+()
+
+103 
+U8
+ 
+mu8Cou¡
+ = 5;
+
+104 
+U8
+ 
+mu8ToggÀ
+ = 0;
+
+106 if–
+	`IsExpúedDi•BlökTimî
+–
+DISP_TIMER_ID_500MS
+ ) =
+TRUE
+ )
+
+108 
+mu8ToggÀ
+ = !mu8Toggle;
+
+110 
+mu8Cou¡
+--;
+
+111 if–
+mu8Cou¡
+ == 0 )
+
+113 
+	`Tu∫OffAŒLED
+();
+
+115 
+Di•
+.
+Inô
+ = 
+TRUE
+;
+
+116 
+mu8Cou¡
+ = 5;
+
+121 if–
+mu8ToggÀ
+ == 0 )
+
+123 
+	`Tu∫OffAŒLED
+();
+
+127 
+	`Tu∫OnAŒLED
+();
+
+129 
+	}
+}
+
+132 
+U16
+ 
+	gdbg_vÆ
+ = 0;
+
+133 
+U8
+ 
+	gdbg_b¨
+ = 0;
+
+134 
+U8
+ 
+	gdú_b¨
+ = 0;
+
+135 
+	$Pro˚ssDi•œyN‹mÆMode_Movög
+()
+
+137 
+	`Di•LedDuty
+();
+
+139 
+	`Di•Temp
+(
+dbg_vÆ
+);
+
+140 if–
+dbg_vÆ
+++ > 999 )
+
+142 
+dbg_vÆ
+ = 0;
+
+145 
+	`Di•B¨Sèck
+–
+dbg_b¨
+ );
+
+146 if–
+dú_b¨
+ == 0 )
+
+148 
+dbg_b¨
+++;
+
+149 if–
+dbg_b¨
+ >= 14 )
+
+151 
+dú_b¨
+ = 1;
+
+156 
+dbg_b¨
+--;
+
+157 if–
+dbg_b¨
+ == 1 )
+
+159 
+dú_b¨
+ = 0;
+
+162 
+	}
+}
+
+165 
+	#SLIDER_TEMP_END
+ 255
+
+	)
+
+166 
+	#SLIDER_TEMP_LEVEL
+ 4
+
+	)
+
+169 
+	#SLIDER_MODE_SELECT
+ 0
+
+	)
+
+170 
+	#SLIDER_MODE_SWIFT
+ 1
+
+	)
+
+172 
+U8
+ 
+	gSlidîMode
+ = 
+SLIDER_MODE_SELECT
+;
+
+173 
+U8
+ 
+	gLevñVÆue
+[
+SLIDER_TEMP_LEVEL
+] = { 64, 128, 191, 255 };
+
+175 
+	$SlidîDi•Temp
+()
+
+177 if–
+SlidîMode
+ =
+SLIDER_MODE_SELECT
+ )
+
+179 if–
+¶idî
+[1] > 0 )
+
+181 
+SlidîMode
+ = 
+SLIDER_MODE_SWIFT
+;
+
+184 if–
+¶idî
+[1]
+
+189 
+	}
+}
+
+191 
+U8
+ 
+¶idî
+[4];
+
+192 
+U8
+ 
+	gthe_di•_Àvñ
+ =0;
+
+193 
+U8
+ 
+	gthe_¶ide
+ = 0;
+
+194 
+I8
+ 
+	gãmp_ödex
+ = 0;
+
+195 
+U8
+ 
+	gãmp_hŸ
+[12] = {
+
+199 
+	$Pro˚ssDi•œyN‹mÆMode
+()
+
+201 
+U8
+ 
+¥ev_¶ide
+ = 0;
+
+202 
+U8
+ 
+¥ev_di•_Àvñ
+ = 0;
+
+203 
+U8
+ 
+dú
+ = 0;
+
+206 
+	`Di•LedDuty
+();
+
+208 if–
+¶idî
+[1] > 0 )
+
+210 
+the_¶ide
+ = 256 - 
+¶idî
+[1];
+
+214 
+the_¶ide
+ = 0;
+
+217 if–
+the_¶ide
+ >= 5 )
+
+219 
+the_di•_Àvñ
+ = 
+the_¶ide
+ / 18;
+
+220 
+the_di•_Àvñ
+++;
+
+221 
+	`Di•B¨Sèck
+–
+the_di•_Àvñ
+ );
+
+223 if–
+¥ev_di•_Àvñ
+ !
+the_di•_Àvñ
+)
+
+225 if–
+¥ev_di•_Àvñ
+ < 
+the_di•_Àvñ
+ )
+
+227 if–
+dú
+ == 1 )
+
+229 
+ãmp_ödex
+++;
+
+231 
+dú
+ = 1;
+
+235 if–
+dú
+ == 0 )
+
+237 
+ãmp_ödex
+--;
+
+239 
+dú
+ = 0;
+
+241 
+¥ev_di•_Àvñ
+ = 
+the_di•_Àvñ
+;
+
+246 
+	`Di•B¨Sèck
+( 0 );
+
+249 if–
+ãmp_ödex
+ >= 12 )
+
+251 
+ãmp_ödex
+ = 11;
+
+253 if–
+ãmp_ödex
+ <= 0 )
+
+255 
+ãmp_ödex
+ = 0;
+
+258 
+	`Di•Temp
+–
+ãmp_hŸ
+[ 
+ãmp_ödex
+ ] );
+
+259 
+	}
+}
+
+263 
+	$Upd©e
+()
+
+265 if–
+	`HAL_IsUpd©eLed
+(Ë=
+TRUE
+ )
+
+267 
+	`SëCommHódî
+–
+COMM_ID_FRONT
+, 
+PKT_FRONT_REQ_LED
+ );
+
+268 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_TX
+, 0 );
+
+270 
+	`HAL_Upd©eLed
+();
+
+272 
+	}
+}
+
+274 
+	$Pro˚ssDi•œy
+()
+
+276 
+	`Upd©eDi•œyTimî
+();
+
+279 if–
+Di•
+.
+Inô
+ =
+FALSE
+ )
+
+281 
+	`Pro˚ssDi•œyBoŸ
+();
+
+282 
+	`Upd©e
+();
+
+288 
+	`SlidîDi•Temp
+();
+
+289 
+	`Upd©e
+();
+
+290 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.h
+
+1 #i‚de‡
+__PROCESS_DISPLAY_H__
+
+
+2 
+	#__PROCESS_DISPLAY_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"di•œy_lib.h
+"
+
+7 
+InôDi•œy
+();
+
+11 
+U8
+ 
+GëDi•œyInô
+();
+
+12 
+SèπDi•œyInô
+();
+
+15 
+SèπDi•TimîId
+(
+U8
+ 
+id
+);
+
+16 
+St›Di•TimîId
+(
+U8
+ 
+id
+);
+
+19 
+Pro˚ssDi•œy
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"hÆ_key.h
+"
+
+5 
+	#HAL_KEY_PUSHED
+ 
+LOW
+
+
+	)
+
+6 
+	#HAL_LEVER_PUSHED
+ 
+LOW
+
+
+	)
+
+9 
+	#NUM_SLIDER
+ 2
+
+	)
+
+10 
+	s_hÆ_key_
+
+
+12 
+U32
+ 
+	mKey
+;
+
+13 
+U8
+ 
+	mW©îOut
+;
+
+14 
+U8
+ 
+	mI˚Out
+;
+
+16 
+U8
+ 
+	mSlidîFlick
+[ 
+NUM_SLIDER
+ ];
+
+17 
+U8
+ 
+	mSlidîPos
+[ 
+NUM_SLIDER
+ ];
+
+18 } 
+	tTKeyVÆ
+;
+
+20 
+TKeyVÆ
+ 
+	gHÆKey
+;
+
+23 
+	$HAL_InôKey
+()
+
+25 
+HÆKey
+.
+Key
+ = 0UL;
+
+26 
+HÆKey
+.
+W©îOut
+ = 0U;
+
+27 
+HÆKey
+.
+I˚Out
+ = 0U;
+
+28 
+	}
+}
+
+30 
+	$HAL_SëKeyVÆ
+(
+U32
+ 
+mu32VÆ
+)
+
+32 
+HÆKey
+.
+Key
+ = 
+mu32VÆ
+;
+
+33 
+	}
+}
+
+35 
+U32
+ 
+	$HAL_GëKeyVÆ
+()
+
+37  
+HÆKey
+.
+Key
+;
+
+38 
+	}
+}
+
+41 
+	$HAL_SëLevîI˚
+(
+U8
+ 
+mu8VÆ
+)
+
+43 
+HÆKey
+.
+I˚Out
+ = 
+mu8VÆ
+;
+
+44 
+	}
+}
+
+46 
+U8
+ 
+	$HAL_GëLevîI˚
+()
+
+48  
+HÆKey
+.
+I˚Out
+;
+
+49 
+	}
+}
+
+52 
+	$HAL_SëLevîW©î
+(
+U8
+ 
+mu8VÆ
+)
+
+54 
+HÆKey
+.
+W©îOut
+ = 
+mu8VÆ
+;
+
+55 
+	}
+}
+
+57 
+U8
+ 
+	$HAL_GëLevîW©î
+()
+
+59  
+HÆKey
+.
+W©îOut
+;
+
+60 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.h
+
+1 #i‚de‡
+__HAL_KEY_H__
+
+
+2 
+	#__HAL_KEY_H__
+
+
+	)
+
+4 
+	#HAL_KEY_NONE
+ 0x00000000UL
+
+	)
+
+5 
+	#HAL_KEY_1
+ 0x00000001UL
+
+	)
+
+6 
+	#HAL_KEY_2
+ 0x00000002UL
+
+	)
+
+7 
+	#HAL_KEY_3
+ 0x00000004UL
+
+	)
+
+8 
+	#HAL_KEY_4
+ 0x00000008UL
+
+	)
+
+10 
+	#HAL_KEY_5
+ 0x00000010UL
+
+	)
+
+11 
+	#HAL_KEY_6
+ 0x00000020UL
+
+	)
+
+12 
+	#HAL_KEY_7
+ 0x00000040UL
+
+	)
+
+13 
+	#HAL_KEY_8
+ 0x00000080UL
+
+	)
+
+15 
+	#HAL_KEY_9
+ 0x00000100UL
+
+	)
+
+16 
+	#HAL_KEY_10
+ 0x00000200UL
+
+17 
+	#HAL_KEY_11
+ 0x00000400UL
+
+18 
+	#HAL_KEY_12
+ 0x00000800UL
+
+19 
+
+	)
+
+20 
+	#HAL_KEY_13
+ 0x00001000UL
+
+	)
+
+21 
+	#HAL_KEY_14
+ 0x00002000UL
+
+	)
+
+22 
+	#HAL_KEY_15
+ 0x00004000UL
+
+	)
+
+23 
+	#HAL_KEY_16
+ 0x00008000UL
+
+	)
+
+25 
+	#HAL_KEY_17
+ 0x00010000UL
+
+	)
+
+26 
+	#HAL_KEY_18
+ 0x00020000UL
+
+	)
+
+27 
+	#HAL_KEY_19
+ 0x00040000UL
+
+	)
+
+28 
+	#HAL_KEY_20
+ 0x00080000UL
+
+	)
+
+29 
+	#HAL_KEY_ALL
+ 0x000FFFFFUL
+
+	)
+
+32 
+HAL_InôKey
+();
+
+34 
+HAL_SëKeyVÆ
+(
+U32
+ 
+mu32VÆ
+);
+
+35 
+U32
+ 
+HAL_GëKeyVÆ
+();
+
+37 
+HAL_SëLevîI˚
+(
+U8
+ 
+mu8VÆ
+);
+
+38 
+U8
+ 
+HAL_GëLevîI˚
+();
+
+40 
+HAL_SëLevîW©î
+(
+U8
+ 
+mu8VÆ
+);
+
+41 
+U8
+ 
+HAL_GëLevîW©î
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"hÆ_Àd.h
+"
+
+5 
+	#ALL_ON
+ 0xFFU
+
+	)
+
+6 
+	#ALL_OFF
+ 0x00U
+
+	)
+
+9 
+	s_Àds_
+
+
+11 
+U8
+ 
+	mLeds
+[ 
+MAX_LED_BUF
+ ];
+
+12 
+U8
+ 
+	mDuty
+;
+
+13 } 
+	tLed_T
+;
+
+15 
+Led_T
+ 
+	gOnOff
+;
+
+16 
+Led_T
+ 
+	gDimmög
+;
+
+18 
+Led_T
+ 
+	gLa°edOnOff
+;
+
+19 
+Led_T
+ 
+	gLa°edDimmög
+;
+
+22 
+	$HAL_InôLed
+()
+
+24 
+	`MEMSET
+((
+__FAR
+ *)&
+OnOff
+.
+Leds
+[0], 
+OFF
+, 
+MAX_LED_BUF
+ );
+
+25 
+	`MEMSET
+((
+__FAR
+ *)&
+Dimmög
+.
+Leds
+[0], 
+OFF
+, 
+MAX_LED_BUF
+ );
+
+26 
+OnOff
+.
+Duty
+ = 
+DEFAULT_ONOFF_DUTY
+;
+
+27 
+Dimmög
+.
+Duty
+ = 
+DEFAULT_DIMMING_DUTY
+;
+
+29 
+	`HAL_Upd©eLed
+();
+
+30 
+	}
+}
+
+33 
+	$HAL_Tu∫OnOffLEDAŒ
+(
+U8
+ 
+mu8OnOff
+)
+
+35 if–
+mu8OnOff
+ =
+ON
+ )
+
+37 
+	`MEMSET
+((
+__FAR
+ *)&
+OnOff
+.
+Leds
+[0], 
+ALL_ON
+, 
+MAX_LED_BUF
+ );
+
+41 
+	`MEMSET
+((
+__FAR
+ *)&
+OnOff
+.
+Leds
+[0], 
+ALL_OFF
+, 
+MAX_LED_BUF
+ );
+
+43 
+	}
+}
+
+46 
+	$HAL_Tu∫OnOffLED
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+)
+
+48 
+U8
+ 
+mu8Byã
+;
+
+49 
+U8
+ 
+mu8Bô
+;
+
+51 
+mu8Byã
+ = 
+Àd
+ / 8;
+
+52 
+mu8Bô
+ = 
+Àd
+ % 8;
+
+53 if–
+mu8OnOff
+ =
+ON
+ )
+
+55 
+OnOff
+.
+Leds
+[ 
+mu8Byã
+ ] |((
+U8
+)1U<<
+mu8Bô
+);
+
+59 
+OnOff
+.
+Leds
+[ 
+mu8Byã
+ ] &~((
+U8
+)1U<<
+mu8Bô
+);
+
+61 
+	}
+}
+
+63 
+	$HAL_Tu∫OnOffLEDEx
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+)
+
+65 
+U8
+ 
+mu8Byã
+;
+
+66 
+U8
+ 
+mu8Bô
+;
+
+68 
+mu8Byã
+ = 
+Àd
+ / 8;
+
+69 
+mu8Bô
+ = 
+Àd
+ % 8;
+
+70 if–
+mu8OnOff
+ =
+ON
+ )
+
+72 
+OnOff
+.
+Leds
+[ 
+mu8Byã
+ ] |((
+U8
+)1U<<
+mu8Bô
+);
+
+76 
+OnOff
+.
+Leds
+[ 
+mu8Byã
+ ] &~((
+U8
+)1U<<
+mu8Bô
+);
+
+79 
+	}
+}
+
+81 
+	$HAL_GëLedOnOffSètus
+(
+U8
+ *
+pBuf
+)
+
+83 
+	`MEMCPY
+–(
+__FAR
+ *)
+pBuf
+, (c⁄° __FAR *)&
+OnOff
+.
+Leds
+[0], 
+MAX_LED_BUF
+ );
+
+84 
+	}
+}
+
+86 
+	$HAL_SëLedDuty
+(
+U8
+ 
+mu8Duty
+)
+
+88 
+OnOff
+.
+Duty
+ = 
+mu8Duty
+;
+
+89 if–
+OnOff
+.
+Duty
+ > 100 )
+
+91 
+OnOff
+.
+Duty
+ = 100;
+
+93 
+	}
+}
+
+95 
+U8
+ 
+	$HAL_GëLedDuty
+()
+
+97  
+OnOff
+.
+Duty
+;
+
+98 
+	}
+}
+
+102 
+	$HAL_DimmögLedAŒ
+(
+U8
+ 
+mu8OnOff
+)
+
+104 if–
+mu8OnOff
+ =
+ON
+ )
+
+106 
+	`MEMSET
+((
+__FAR
+ *)&
+Dimmög
+.
+Leds
+[0], 
+ALL_ON
+, 
+MAX_LED_BUF
+ );
+
+110 
+	`MEMSET
+((
+__FAR
+ *)&
+Dimmög
+.
+Leds
+[0], 
+ALL_OFF
+, 
+MAX_LED_BUF
+ );
+
+112 
+	}
+}
+
+114 
+	$HAL_DimmögLed
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+)
+
+116 
+U8
+ 
+mu8Byã
+;
+
+117 
+U8
+ 
+mu8Bô
+;
+
+120 
+mu8Byã
+ = 
+Àd
+ / 8;
+
+121 
+mu8Bô
+ = 
+Àd
+ % 8;
+
+122 if–
+mu8OnOff
+ =
+ON
+ )
+
+124 
+Dimmög
+.
+Leds
+[ 
+mu8Byã
+ ] |((
+U8
+)1U<<
+mu8Bô
+);
+
+128 
+Dimmög
+.
+Leds
+[ 
+mu8Byã
+ ] &~((
+U8
+)1U<<
+mu8Bô
+);
+
+130 
+	}
+}
+
+132 
+	$HAL_GëLedDimmögSètus
+(
+U8
+ *
+pBuf
+)
+
+134 
+	`MEMCPY
+–(
+__FAR
+ *)
+pBuf
+, (c⁄° __FAR *)&
+Dimmög
+.
+Leds
+[0], 
+MAX_LED_BUF
+ );
+
+135 
+	}
+}
+
+137 
+	$HAL_SëLedDimmögDuty
+(
+U8
+ 
+mu8Duty
+)
+
+139 
+Dimmög
+.
+Duty
+ = 
+mu8Duty
+;
+
+140 if–
+mu8Duty
+ > 100 )
+
+142 
+Dimmög
+.
+Duty
+ = 100;
+
+144 
+	}
+}
+
+146 
+U8
+ 
+	$HAL_GëLedDimmögDuty
+()
+
+148  
+Dimmög
+.
+Duty
+;
+
+149 
+	}
+}
+
+152 
+U8
+ 
+	$HAL_IsUpd©eLed
+()
+
+154 
+U16
+ 
+i
+;
+
+155 
+U8
+ *
+pSrc
+ = 
+NULL
+;
+
+156 
+U8
+ *
+pDe°
+ = 
+NULL
+;
+
+157 
+U8
+ *
+pSrc_1
+ = 
+NULL
+;
+
+158 
+U8
+ *
+pDe°_1
+ = 
+NULL
+;
+
+160 
+pSrc
+ = (
+U8
+ *)&
+OnOff
+;
+
+161 
+pDe°
+ = (
+U8
+ *)&
+La°edOnOff
+;
+
+163 
+pSrc_1
+ = (
+U8
+ *)&
+Dimmög
+;
+
+164 
+pDe°_1
+ = (
+U8
+ *)&
+La°edDimmög
+;
+
+165  
+i
+ = 0; i < (
+Led_T
+) ; i++ )
+
+167 if–*(
+pSrc
++
+i
+Ë!*(
+pDe°
+ + i)
+
+168 || *(
+pSrc_1
++
+i
+Ë!*(
+pDe°_1
+ + i ) )
+
+170  
+TRUE
+;
+
+174  
+FALSE
+;
+
+175 
+	}
+}
+
+177 
+	$HAL_Upd©eLed
+()
+
+179 
+	`MEMCPY
+–(
+__FAR
+ *)&
+La°edDimmög
+, (c⁄° __FAR *)&
+Dimmög
+, –
+Led_T
+) );
+
+180 
+	`MEMCPY
+–(
+__FAR
+ *)&
+La°edOnOff
+, (c⁄° __FAR *)&
+OnOff
+, –
+Led_T
+ ));
+
+181 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.h
+
+1 #i‚de‡
+__HAL_LED_H__
+
+
+2 
+	#__HAL_LED_H__
+
+
+	)
+
+5 
+	#MAX_LED_BUF
+ 6
+
+	)
+
+7 
+	#DEFAULT_ONOFF_DUTY
+ 90U
+
+	)
+
+8 
+	#DEFAULT_DIMMING_DUTY
+ 30U
+
+	)
+
+9 
+	#DEFAULT_ONOFF_DUTY_DARK
+ 50U
+
+	)
+
+10 
+	#DEFAULT_DIMMING_DUTY_DARK
+ 20U
+
+	)
+
+14 
+	mSEG_1_A
+,
+
+15 
+	mSEG_1_F
+,
+
+16 
+	mSEG_1_G
+,
+
+17 
+	mSEG_1_E
+,
+
+18 
+	mSEG_1_D
+,
+
+19 
+	mSEG_1_C
+,
+
+20 
+	mSEG_1_B
+,
+
+22 
+	mSEG_2_A
+,
+
+23 
+	mSEG_2_F
+,
+
+24 
+	mSEG_2_G
+,
+
+25 
+	mSEG_2_E
+,
+
+26 
+	mSEG_2_D
+,
+
+27 
+	mSEG_2_C
+,
+
+28 
+	mSEG_2_B
+,
+
+30 
+	mSEG_3_A
+,
+
+31 
+	mSEG_3_F
+,
+
+32 
+	mSEG_3_G
+,
+
+33 
+	mSEG_3_E
+,
+
+34 
+	mSEG_3_D
+,
+
+35 
+	mSEG_3_C
+,
+
+36 
+	mSEG_3_B
+,
+
+39 
+	mSEG_BAR_14
+,
+
+40 
+	mSEG_BAR_13
+,
+
+41 
+	mSEG_BAR_12
+,
+
+42 
+	mSEG_BAR_11
+,
+
+43 
+	mSEG_BAR_10
+,
+
+44 
+	mSEG_BAR_9
+,
+
+45 
+	mSEG_BAR_8
+,
+
+46 
+	mSEG_BAR_7
+,
+
+47 
+	mSEG_BAR_6
+,
+
+48 
+	mSEG_BAR_5
+,
+
+49 
+	mSEG_BAR_4
+,
+
+50 
+	mSEG_BAR_3
+,
+
+51 
+	mSEG_BAR_2
+,
+
+52 
+	mSEG_BAR_1
+,
+
+54 
+	mLED_ALL
+,
+
+56 
+	mMAX_LED_NUM
+
+
+57 } 
+	tLedId_T
+;
+
+60 
+HAL_InôLed
+();
+
+63 
+HAL_Tu∫OnOffLEDAŒ
+(
+U8
+ 
+mu8OnOff
+);
+
+64 
+HAL_Tu∫OnOffLED
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+);
+
+65 
+HAL_Tu∫OnOffLEDEx
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+);
+
+66 
+HAL_GëLedOnOffSètus
+(
+U8
+ *
+pBuf
+);
+
+70 
+HAL_SëLedDuty
+(
+U8
+ 
+mu8Duty
+);
+
+71 
+U8
+ 
+HAL_GëLedDuty
+();
+
+74 
+HAL_DimmögLedAŒ
+(
+U8
+ 
+mu8OnOff
+);
+
+75 
+HAL_DimmögLed
+(
+LedId_T
+ 
+Àd
+, 
+U8
+ 
+mu8OnOff
+);
+
+76 
+HAL_GëLedDimmögSètus
+(
+U8
+ *
+pBuf
+);
+
+79 
+HAL_SëLedDimmögDuty
+(
+U8
+ 
+mu8Duty
+);
+
+80 
+U8
+ 
+HAL_GëLedDimmögDuty
+();
+
+83 
+U8
+ 
+HAL_IsUpd©eLed
+();
+
+84 
+HAL_Upd©eLed
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.c
+
+1 
+	#CONFIG_UART_0
+ 0
+
+	)
+
+2 
+	#CONFIG_UART_1
+ 0
+
+	)
+
+3 
+	#CONFIG_UART_2
+ 1
+
+	)
+
+4 
+	#CONFIG_UART_3
+ 0
+
+	)
+
+7 #i‡
+CONFIG_UART_0
+
+
+8 #¥agm®
+öãºu±
+ 
+INTST0
+ 
+r_u¨t0_öãºu±_£nd
+
+
+9 #¥agm®
+öãºu±
+ 
+INTSR0
+ 
+r_u¨t0_öãºu±_ª˚ive
+
+
+13 #i‡
+CONFIG_UART_1
+
+
+14 #¥agm®
+öãºu±
+ 
+INTST1
+ 
+r_u¨t1_öãºu±_£nd
+
+
+15 #¥agm®
+öãºu±
+ 
+INTSR1
+ 
+r_u¨t1_öãºu±_ª˚ive
+
+
+19 #i‡
+CONFIG_UART_2
+
+
+20 #¥agm®
+öãºu±
+ 
+INTST2
+ 
+r_u¨t2_öãºu±_£nd
+
+
+21 #¥agm®
+öãºu±
+ 
+INTSR2
+ 
+r_u¨t2_öãºu±_ª˚ive
+
+
+25 #i‡
+CONFIG_UART_3
+
+
+26 #¥agm®
+öãºu±
+ 
+INTST3
+ 
+r_u¨t3_öãºu±_£nd
+
+
+27 #¥agm®
+öãºu±
+ 
+INTSR3
+ 
+r_u¨t3_öãºu±_ª˚ive
+
+
+31 
+	~"hw.h
+"
+
+32 
+	~"hÆ_£rül.h
+"
+
+33 
+	~<°rög.h
+>
+
+34 
+	~"timî.h
+"
+
+38 #i‡
+CONFIG_UART_0
+
+
+39 
+	#COMP_TXD
+ 
+TXD0
+
+
+	)
+
+40 
+	#COMP_RXD
+ 
+RXD0
+
+
+	)
+
+43 #i‡
+CONFIG_UART_1
+
+
+44 
+	#TOF_TXD
+ 
+TXD1
+
+
+	)
+
+45 
+	#TOF_RXD
+ 
+RXD1
+
+
+	)
+
+48 #i‡
+CONFIG_UART_2
+
+
+49 
+	#FRONT_TXD
+ 
+TXD2
+
+
+	)
+
+50 
+	#FRONT_RXD
+ 
+RXD2
+
+
+	)
+
+53 #i‡
+CONFIG_UART_3
+
+
+54 
+	#EOL_TXD
+ 
+TXD3
+
+
+	)
+
+55 
+	#EOL_RXD
+ 
+RXD3
+
+
+	)
+
+59 
+	#UART0_RX_TIME_STAMP
+ 100
+
+	)
+
+60 
+	#UART1_RX_TIME_STAMP
+ 10
+
+	)
+
+61 
+	#UART2_RX_TIME_STAMP
+ 10
+
+	)
+
+62 
+	#UART3_RX_TIME_STAMP
+ 10
+
+	)
+
+65 #i‡
+CONFIG_UART_0
+
+
+66 
+U8
+ 
+	gªcv_0_buf
+[ 
+MAX_COMM_0_RX_BUF_SZ
+ ];
+
+67 
+U8
+ 
+	g£nd_0_buf
+[ 
+MAX_COMM_0_TX_BUF_SZ
+ ];
+
+69 
+U8
+ 
+	gªcv_0_buf
+[ 1 ];
+
+70 
+U8
+ 
+	g£nd_0_buf
+[ 1 ];
+
+73 #i‡
+CONFIG_UART_1
+
+
+74 
+U8
+ 
+	gªcv_1_buf
+[ 
+MAX_COMM_1_RX_BUF_SZ
+ ];
+
+75 
+U8
+ 
+	g£nd_1_buf
+[ 
+MAX_COMM_1_TX_BUF_SZ
+ ];
+
+77 
+U8
+ 
+	gªcv_1_buf
+[ 1 ];
+
+78 
+U8
+ 
+	g£nd_1_buf
+[ 1 ];
+
+81 #i‡
+CONFIG_UART_2
+
+
+82 
+U8
+ 
+	gªcv_2_buf
+[ 
+MAX_COMM_2_RX_BUF_SZ
+ ];
+
+83 
+U8
+ 
+	g£nd_2_buf
+[ 
+MAX_COMM_2_TX_BUF_SZ
+ ];
+
+85 
+U8
+ 
+	gªcv_2_buf
+[ 1 ];
+
+86 
+U8
+ 
+	g£nd_2_buf
+[ 1 ];
+
+89 #i‡
+CONFIG_UART_3
+
+
+90 
+U8
+ 
+	gªcv_3_buf
+[ 
+MAX_COMM_3_RX_BUF_SZ
+ ];
+
+91 
+U8
+ 
+	g£nd_3_buf
+[ 
+MAX_COMM_3_TX_BUF_SZ
+ ];
+
+93 
+U8
+ 
+	gªcv_3_buf
+[ 1 ];
+
+94 
+U8
+ 
+	g£nd_3_buf
+[ 1 ];
+
+97 
+	s_comm_
+
+
+100 
+I16
+ 
+	mªcv_Àn
+;
+
+102 
+I16
+ 
+	m£nd_Àn
+;
+
+103 
+I16
+ 
+	mtx_Àn
+;
+
+104 } 
+	tcomm_t
+;
+
+106 
+comm_t
+ 
+	gcomm
+[ 
+MAX_COMM_ID
+ ];
+
+110 
+	$HAL_InôCommId
+–
+U8
+ 
+u¨t_id
+ )
+
+112 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+114 #i‡
+CONFIG_UART_0
+
+
+115 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_0_buf
+[0], 0, 
+MAX_COMM_0_RX_BUF_SZ
+ );
+
+116 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_0_buf
+[0], 0, 
+MAX_COMM_0_TX_BUF_SZ
+ );
+
+119 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+121 #i‡
+CONFIG_UART_1
+
+
+122 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_1_buf
+[0], 0, 
+MAX_COMM_1_RX_BUF_SZ
+ );
+
+123 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_1_buf
+[0], 0, 
+MAX_COMM_1_TX_BUF_SZ
+ );
+
+126 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+128 #i‡
+CONFIG_UART_2
+
+
+129 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_2_buf
+[0], 0, 
+MAX_COMM_2_RX_BUF_SZ
+ );
+
+130 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_2_buf
+[0], 0, 
+MAX_COMM_2_TX_BUF_SZ
+ );
+
+135 #i‡
+CONFIG_UART_3
+
+
+136 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_3_buf
+[0], 0, 
+MAX_COMM_3_RX_BUF_SZ
+ );
+
+137 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_3_buf
+[0], 0, 
+MAX_COMM_3_TX_BUF_SZ
+ );
+
+141 
+	`MEMSET
+–(
+__FAR
+ *)&
+comm
+[ 
+u¨t_id
+ ], 0, –
+comm_t
+ ) );
+
+142 
+	}
+}
+
+144 
+	$HAL_InôComm
+( )
+
+146 #i‡
+CONFIG_UART_0
+
+
+147 
+	`HAL_InôCommId
+–
+COMM_ID_COMP
+ );
+
+148 
+	`R_UART0_Sèπ
+();
+
+151 #i‡
+CONFIG_UART_1
+
+
+152 
+	`HAL_InôCommId
+–
+COMM_ID_TOF
+ );
+
+153 
+	`R_UART1_Sèπ
+();
+
+156 #i‡
+CONFIG_UART_2
+
+
+157 
+	`HAL_InôCommId
+–
+COMM_ID_FRONT
+ );
+
+158 
+	`R_UART2_Sèπ
+();
+
+161 #i‡
+CONFIG_UART_3
+
+
+162 
+	`HAL_InôCommId
+–
+COMM_ID_EOL
+ );
+
+163 
+	`R_UART3_Sèπ
+();
+
+166 
+	}
+}
+
+168 
+I16
+ 
+	$HAL_GëMaxRecvBuf„rLígth
+(
+U8
+ 
+u¨t_id
+)
+
+170 if–
+u¨t_id
+ == 0 )
+
+172  
+MAX_COMM_0_RX_BUF_SZ
+;
+
+174 if–
+u¨t_id
+ == 1 )
+
+176  
+MAX_COMM_1_RX_BUF_SZ
+;
+
+178 if–
+u¨t_id
+ == 2 )
+
+180  
+MAX_COMM_2_RX_BUF_SZ
+;
+
+183  
+MAX_COMM_3_RX_BUF_SZ
+;
+
+184 
+	}
+}
+
+186 
+U8
+ 
+	$HAL_IsFuŒRecvBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+188 if–
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ >
+	`HAL_GëMaxRecvBuf„rLígth
+( uart_id ) )
+
+190  
+TRUE
+;
+
+193  
+FALSE
+;
+
+194 
+	}
+}
+
+196 
+U8
+ 
+	$HAL_IsEm±yRecvBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+198 if–
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ > 0 )
+
+200  
+FALSE
+;
+
+203  
+TRUE
+;
+
+205 
+	}
+}
+
+207 
+I16
+ 
+	$HAL_GëMaxSídBuf„rLígth
+(
+U8
+ 
+u¨t_id
+)
+
+209 if–
+u¨t_id
+ == 0 )
+
+211  
+MAX_COMM_0_TX_BUF_SZ
+;
+
+213 if–
+u¨t_id
+ == 1 )
+
+215  
+MAX_COMM_1_TX_BUF_SZ
+;
+
+217 if–
+u¨t_id
+ == 2 )
+
+219  
+MAX_COMM_2_TX_BUF_SZ
+;
+
+222  
+MAX_COMM_3_TX_BUF_SZ
+;
+
+223 
+	}
+}
+
+225 
+U8
+ 
+	$HAL_IsFuŒSídBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+227 if–
+comm
+[ 
+u¨t_id
+ ].
+£nd_Àn
+ >
+	`HAL_GëMaxSídBuf„rLígth
+( uart_id ) )
+
+229  
+TRUE
+;
+
+232  
+FALSE
+;
+
+233 
+	}
+}
+
+235 
+	$HAL_InôRecvLígth
+(
+U8
+ 
+u¨t_id
+ )
+
+237 
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ = 0;
+
+238 
+	}
+}
+
+240 
+I16
+ 
+	$HAL_GëRecvLígth
+–
+U8
+ 
+u¨t_id
+ )
+
+242  
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+;
+
+243 
+	}
+}
+
+245 
+I16
+ 
+	$HAL_GëSídLígth
+–
+U8
+ 
+u¨t_id
+ )
+
+247  
+comm
+[ 
+u¨t_id
+].
+£nd_Àn
+;
+
+248 
+	}
+}
+
+251 
+	$HAL_SëRecvBuf„r
+(
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ )
+
+253 
+comm_t
+ *
+p_comm
+;
+
+255 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+257 
+p_comm
+->
+ªcv_buf
+[Ö_comm->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+259 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+261 
+ªcv_0_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+263 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+265 
+ªcv_1_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+267 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+269 
+ªcv_2_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+273 
+ªcv_3_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+276 
+p_comm
+->
+ªcv_Àn
+++;
+
+278 
+	}
+}
+
+280 
+U8
+ 
+	$HAL_GëRecvBuf„r
+–
+U8
+ 
+u¨t_id
+, 
+U16
+ 
+ödex
+ )
+
+283  
+comm
+[ 
+u¨t_id
+ ].
+ªcv_buf
+[ 
+ödex
+ ];
+
+285 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+287  
+ªcv_0_buf
+[ 
+ödex
+ ];
+
+289 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+291  
+ªcv_1_buf
+[ 
+ödex
+ ];
+
+293 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+295  
+ªcv_2_buf
+[ 
+ödex
+ ];
+
+299  
+ªcv_3_buf
+[ 
+ödex
+ ];
+
+302 
+	}
+}
+
+305 
+	$HAL_SëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ )
+
+307 
+comm_t
+ *
+p_comm
+;
+
+309 if–
+	`HAL_IsFuŒSídBuf„r
+–
+u¨t_id
+ ) =
+FALSE
+ )
+
+311 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+313 
+p_comm
+->
+£nd_buf
+[Ö_comm->
+£nd_Àn
+ ] = 
+_byã
+;
+
+315 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+317 
+£nd_0_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+319 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+321 
+£nd_1_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+323 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+325 
+£nd_2_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+329 
+£nd_3_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+332 
+p_comm
+->
+£nd_Àn
+++;
+
+334 
+	}
+}
+
+336 
+U8
+ 
+	$HAL_GëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, 
+U16
+ 
+ödex
+ )
+
+339  
+comm
+[ 
+u¨t_id
+ ].
+£nd_buf
+[ 
+ödex
+ ];
+
+341 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+343  
+£nd_0_buf
+[
+ödex
+];
+
+345 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+347  
+£nd_1_buf
+[
+ödex
+];
+
+349 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+351  
+£nd_2_buf
+[
+ödex
+];
+
+355  
+£nd_3_buf
+[
+ödex
+];
+
+358 
+	}
+}
+
+361 
+	$HAL_SídByã
+–
+U8
+ 
+u¨t_id
+ )
+
+363 
+U8
+ 
+ch
+;
+
+364 
+comm_t
+ *
+p_comm
+;
+
+367 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+369 
+ch
+ = 
+p_comm
+->
+£nd_buf
+[Ö_comm->
+tx_Àn
+ ];
+
+371 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+373 
+ch
+ = 
+£nd_0_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+375 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+377 
+ch
+ = 
+£nd_1_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+379 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+)
+
+381 
+ch
+ = 
+£nd_2_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+385 
+ch
+ = 
+£nd_3_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+389 
+p_comm
+->
+tx_Àn
+++;
+
+391 if–
+u¨t_id
+ =
+COMM_ID_COMP
+ )
+
+393 #i‡
+CONFIG_UART_0
+
+
+394 
+COMP_TXD
+ = 
+ch
+;
+
+397 if–
+u¨t_id
+ =
+COMM_ID_TOF
+ )
+
+399 #i‡
+CONFIG_UART_1
+
+
+400 
+TOF_TXD
+ = 
+ch
+;
+
+403 if–
+u¨t_id
+ =
+COMM_ID_FRONT
+ )
+
+405 #i‡
+CONFIG_UART_2
+
+
+406 
+FRONT_TXD
+ = 
+ch
+;
+
+409 if–
+u¨t_id
+ =
+COMM_ID_EOL
+ )
+
+411 #i‡
+CONFIG_UART_3
+
+
+412 
+EOL_TXD
+ = 
+ch
+;
+
+415 
+	}
+}
+
+417 
+U8
+ 
+	$IsCom∂ëeTx
+–
+U8
+ 
+u¨t_id
+ )
+
+419 if–
+comm
+[
+u¨t_id
+].
+tx_Àn
+ < comm[ u¨t_id ].
+£nd_Àn
+ )
+
+421  
+FALSE
+;
+
+424  
+TRUE
+;
+
+426 
+	}
+}
+
+431 #i‡
+CONFIG_UART_0
+
+
+432 
+__öãºu±
+ 
+	$r_u¨t0_öãºu±_ª˚ive
+()
+
+434 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+435 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+438 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR01
+ & 0x0007U);
+
+439 
+SIR01
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+441 
+rx_d©a
+ = 
+COMP_RXD
+;
+
+443 if–
+îr_ty≥
+ == 0 )
+
+445 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+COMM_ID_COMP
+ ) =
+FALSE
+ )
+
+447 
+	`HAL_SëRecvBuf„r
+–
+COMM_ID_COMP
+, 
+rx_d©a
+ );
+
+451 
+	`HAL_InôCommId
+–
+COMM_ID_COMP
+ );
+
+454 
+	`SèπTimî
+–
+TIMER_ID_COMM_COMP_RX
+, 
+UART0_RX_TIME_STAMP
+ );
+
+456 
+	}
+}
+
+458 
+__öãºu±
+ 
+	$r_u¨t0_öãºu±_£nd
+()
+
+460 if–
+	`IsCom∂ëeTx
+–
+COMM_ID_COMP
+ ) =
+FALSE
+ )
+
+462 
+	`HAL_SídByã
+–
+COMM_ID_COMP
+ );
+
+466 
+	`HAL_InôCommId
+–
+COMM_ID_COMP
+ );
+
+468 
+	}
+}
+
+472 #i‡
+CONFIG_UART_1
+
+
+473 
+__öãºu±
+ 
+	$r_u¨t1_öãºu±_ª˚ive
+()
+
+475 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+476 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+478 
+îr_ty≥
+ = (
+U8
+)(
+SSR03
+ & 0x0007U);
+
+479 
+SIR03
+ = (
+U16
+)
+îr_ty≥
+;
+
+481 
+rx_d©a
+ = 
+TOF_RXD
+;
+
+483 if–
+îr_ty≥
+ == 0 )
+
+485 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+COMM_ID_TOF
+ ) =
+FALSE
+ )
+
+487 
+	`HAL_SëRecvBuf„r
+–
+COMM_ID_TOF
+, 
+rx_d©a
+ );
+
+491 
+	`HAL_InôCommId
+–
+COMM_ID_TOF
+ );
+
+495 
+	`SèπTimî
+–
+TIMER_ID_COMM_TOF_RX
+, 
+UART1_RX_TIME_STAMP
+ );
+
+496 
+	}
+}
+
+498 
+__öãºu±
+ 
+	$r_u¨t1_öãºu±_£nd
+()
+
+500 if–
+	`IsCom∂ëeTx
+–
+COMM_ID_TOF
+ ) =
+FALSE
+ )
+
+502 
+	`HAL_SídByã
+–
+COMM_ID_TOF
+ );
+
+506 
+	`HAL_InôCommId
+–
+COMM_ID_TOF
+ );
+
+508 
+	}
+}
+
+512 #i‡
+CONFIG_UART_2
+
+
+513 
+U16
+ 
+	gthe_rx_îr_cou¡
+ = 0;
+
+514 
+__öãºu±
+ 
+	$r_u¨t2_öãºu±_ª˚ive
+()
+
+516 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+517 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+519 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR11
+ & 0x0007U);
+
+520 
+SIR11
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+522 
+rx_d©a
+ = 
+FRONT_RXD
+;
+
+524 
+	`EI
+();
+
+525 if–
+îr_ty≥
+ == 0 )
+
+527 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+COMM_ID_FRONT
+ ) =
+FALSE
+ )
+
+529 
+	`HAL_SëRecvBuf„r
+–
+COMM_ID_FRONT
+, 
+rx_d©a
+ );
+
+533 
+	`HAL_InôCommId
+–
+COMM_ID_FRONT
+ );
+
+536 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_RX
+, 
+UART2_RX_TIME_STAMP
+ );
+
+540 
+the_rx_îr_cou¡
+++;
+
+542 
+	}
+}
+
+544 
+__öãºu±
+ 
+	$r_u¨t2_öãºu±_£nd
+()
+
+546 
+	`EI
+();
+
+547 if–
+	`IsCom∂ëeTx
+–
+COMM_ID_FRONT
+ ) =
+FALSE
+ )
+
+549 
+	`HAL_SídByã
+–
+COMM_ID_FRONT
+ );
+
+553 
+	`HAL_InôCommId
+–
+COMM_ID_FRONT
+ );
+
+555 
+	}
+}
+
+560 #i‡
+CONFIG_UART_3
+
+
+561 
+U16
+ 
+	gthe_i§_îr_cou¡
+ = 0;
+
+562 
+__öãºu±
+ 
+	$r_u¨t3_öãºu±_ª˚ive
+()
+
+564 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+565 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+567 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR13
+ & 0x0007U);
+
+568 
+SIR13
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+570 
+rx_d©a
+ = 
+EOL_RXD
+;
+
+572 if–
+îr_ty≥
+ == 0 )
+
+574 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+COMM_ID_EOL
+ ) =
+FALSE
+ )
+
+576 
+	`HAL_SëRecvBuf„r
+–
+COMM_ID_EOL
+, 
+rx_d©a
+ );
+
+580 
+	`HAL_InôCommId
+–
+COMM_ID_EOL
+ );
+
+583 
+	`SèπTimî
+–
+TIMER_ID_COMM_EOL_RX
+, 
+UART3_RX_TIME_STAMP
+ );
+
+587 
+the_i§_îr_cou¡
+++;
+
+589 
+	}
+}
+
+592 
+__öãºu±
+ 
+	$r_u¨t3_öãºu±_£nd
+()
+
+594 if–
+	`IsCom∂ëeTx
+–
+COMM_ID_EOL
+ ) =
+FALSE
+ )
+
+596 
+	`HAL_SídByã
+–
+COMM_ID_EOL
+ );
+
+600 
+	`HAL_InôCommId
+–
+COMM_ID_EOL
+ );
+
+602 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.h
+
+1 #i‚de‡
+__HAL_SERIAL_H__
+
+
+2 
+	#__HAL_SERIAL_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+7 
+	#COMM_ID_COMP
+ 0
+
+	)
+
+8 
+	#COMM_ID_TOF
+ 1
+
+	)
+
+9 
+	#COMM_ID_FRONT
+ 2
+
+	)
+
+10 
+	#COMM_ID_EOL
+ 3
+
+	)
+
+11 
+	#MAX_COMM_ID
+ 4
+
+	)
+
+15 
+	#MAX_COMM_0_RX_BUF_SZ
+ 30
+
+	)
+
+16 
+	#MAX_COMM_0_TX_BUF_SZ
+ 30
+
+	)
+
+19 
+	#MAX_COMM_1_RX_BUF_SZ
+ 128
+
+	)
+
+20 
+	#MAX_COMM_1_TX_BUF_SZ
+ 128
+
+	)
+
+23 
+	#MAX_COMM_2_RX_BUF_SZ
+ 128
+
+	)
+
+24 
+	#MAX_COMM_2_TX_BUF_SZ
+ 128
+
+	)
+
+27 
+	#MAX_COMM_3_RX_BUF_SZ
+ 255
+
+	)
+
+28 
+	#MAX_COMM_3_TX_BUF_SZ
+ 255
+
+	)
+
+31 
+	#MAX_COMM_RX_BUF_SZ
+ 255
+
+	)
+
+32 
+	#MAX_COMM_TX_BUF_SZ
+ 255
+
+	)
+
+36 
+HAL_InôCommId
+–
+U8
+ 
+u¨t_id
+ );
+
+37 
+HAL_InôComm
+( );
+
+39 
+U8
+ 
+HAL_IsFuŒRecvBuf„r
+–U8 
+u¨t_id
+ );
+
+40 
+U8
+ 
+HAL_IsEm±yRecvBuf„r
+–U8 
+u¨t_id
+ );
+
+41 
+U8
+ 
+HAL_IsFuŒSídBuf„r
+–U8 
+u¨t_id
+ );
+
+43 
+HAL_InôRecvLígth
+(
+U8
+ 
+u¨t_id
+ );
+
+44 
+I16
+ 
+HAL_GëRecvLígth
+–
+U8
+ 
+u¨t_id
+ );
+
+45 
+I16
+ 
+HAL_GëSídLígth
+–
+U8
+ 
+u¨t_id
+ );
+
+47 
+HAL_SëRecvBuf„r
+(
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ );
+
+48 
+U8
+ 
+HAL_GëRecvBuf„r
+–U8 
+u¨t_id
+, 
+U16
+ 
+ödex
+ );
+
+50 
+HAL_SëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ );
+
+51 
+U8
+ 
+HAL_GëSídBuf„r
+–U8 
+u¨t_id
+, 
+U16
+ 
+ödex
+ );
+
+53 
+HAL_SídByã
+–
+U8
+ 
+u¨t_id
+ );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hw.h
+
+1 #i‚de‡
+__HW__H__
+
+
+2 
+	#__HW__H__
+
+
+	)
+
+4 
+	~"mcu.h
+"
+
+5 
+	~"r_cg_cgc.h
+"
+
+6 
+	~"r_cg_p‹t.h
+"
+
+7 
+	~"r_cg_wdt.h
+"
+
+8 
+	~"r_cg_timî.h
+"
+
+9 
+	~"r_cg_adc.h
+"
+
+10 
+	~"r_cg_£rül.h
+"
+
+11 
+	~"r_cg_ötc.h
+"
+
+12 
+	~"r_cg_ma¸odrivî.h
+"
+
+38 
+	#RESET_WDT
+(Ë
+	`R_WDT_Re°¨t
+()
+
+	)
+
+41 
+	#P_BUZZER_ONOFF
+ 
+P0
+.0
+
+	)
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\mcu.h
+
+1 #i‚de‡
+__MCU_H__
+
+
+2 
+	#__MCU_H__
+
+
+	)
+
+4 
+	~"r_cg_ma¸odrivî.h
+"
+
+6 
+	~"¥j_ty≥.h
+"
+
+8 
+	~"c⁄fig.h
+"
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"key.h
+"
+
+4 
+	~<°rög.h
+>
+
+10 
+	mKEY_STATUS_NONE
+,
+
+11 
+	mKEY_STATUS_PUSHED
+,
+
+12 
+	mKEY_STATUS_POP
+,
+
+13 
+	mKEY_STATUS_TIME_OUT
+
+
+14 }
+	tKeySètus_T
+;
+
+18 
+	#EVENT_TIME_OUT_5S
+ 500
+
+19 
+	#EVENT_TIME_OUT_3S
+ 300
+
+20 
+	#EVENT_TIME_OUT_2S
+ 200
+
+21 
+	#EVENT_TIME_OUT_1S
+ 100
+
+22 
+	#EVENT_TIME_OUT_SHORT
+ 10
+
+23 
+	#MAX_EVENT_TIME_OUT
+ 
+EVENT_TIME_OUT_5S
+
+
+	)
+
+25 
+	s_key_
+
+
+27 
+KeySètus_T
+ 
+	mSètus
+;
+
+29 
+U32
+ 
+	mVÆ
+;
+
+30 
+U32
+ 
+	mVÆP›
+;
+
+31 
+U16
+ 
+	mPushedTime
+;
+
+32 
+U8
+ 
+	mEvítFœg
+;
+
+33 } 
+	tKey_T
+;
+
+35 
+Key_T
+ 
+	gKey
+;
+
+39 
+	$InôKey
+()
+
+41 
+	`MEMSET
+((
+__FAR
+ *)&
+Key
+, 0, ( Key ) );
+
+42 
+	}
+}
+
+45 
+U32
+ 
+	$GëKeyVÆ
+( )
+
+47  
+Key
+.
+VÆ
+;
+
+48 
+	}
+}
+
+50 
+U32
+ 
+	$GëKeyP›VÆ
+()
+
+52  
+Key
+.
+VÆP›
+;
+
+53 
+	}
+}
+
+55 
+	$SëKeyEvítFœg
+(
+U8
+ 
+mu8Evít
+ )
+
+57 
+Key
+.
+EvítFœg
+ |
+mu8Evít
+;
+
+58 
+	}
+}
+
+60 
+	$CÀ¨KeyEvítFœg
+(
+U8
+ 
+mu8Evít
+ )
+
+62 
+Key
+.
+EvítFœg
+ &~
+mu8Evít
+;
+
+63 
+	}
+}
+
+65 
+U8
+ 
+	$IsSëKeyEvítFœg
+–
+U8
+ 
+mu8Evít
+ )
+
+67 if–(
+Key
+.
+EvítFœg
+ & 
+mu8Evít
+) == mu8Event )
+
+69  
+TRUE
+;
+
+72  
+FALSE
+;
+
+73 
+	}
+}
+
+89 
+	s_KeyEvít_
+
+
+91 
+U16
+ 
+	mu16EvítTime
+;
+
+92 
+U8
+ 
+	mu8Evít
+;
+
+93 } 
+	tKeyEvít_T
+;
+
+95 
+KeyEvít_T
+ 
+	gKeyEvítLi°
+[] =
+
+97 { 
+EVENT_TIME_OUT_5S
+, 
+KEY_EVENT_PUSHED_LONG_5S
+ },
+
+98 { 
+EVENT_TIME_OUT_3S
+, 
+KEY_EVENT_PUSHED_LONG_3S
+ },
+
+99 { 
+EVENT_TIME_OUT_2S
+, 
+KEY_EVENT_PUSHED_LONG_2S
+ },
+
+100 { 
+EVENT_TIME_OUT_1S
+, 
+KEY_EVENT_PUSHED_LONG_1S
+ },
+
+101 { 
+EVENT_TIME_OUT_SHORT
+, 
+KEY_EVENT_PUSHED_SHORT
+ },
+
+104 
+	#SZ_KEY_EVENT_LIST
+ ((
+KeyEvítLi°
+)/(
+KeyEvít_T
+))
+
+	)
+
+106 
+	$FödSëKeyEvít
+(
+U16
+ 
+mu16PushedTime
+)
+
+108 
+U8
+ 
+mu8Index
+;
+
+110  
+mu8Index
+ = 0; mu8Index < 
+SZ_KEY_EVENT_LIST
+ ; mu8Index++ )
+
+112 if–
+KeyEvítLi°
+[ 
+mu8Index
+ ].
+u16EvítTime
+ =
+mu16PushedTime
+ )
+
+114 
+	`SëKeyEvítFœg
+–
+KeyEvítLi°
+[ 
+mu8Index
+ ].
+u8Evít
+ );
+
+118 
+	}
+}
+
+120 
+	$Pro˚ssSˇnKey
+()
+
+122 
+U32
+ 
+mu32PªvKeyVÆ
+;
+
+123 
+U32
+ 
+mu32KeyVÆ
+;
+
+127 
+mu32KeyVÆ
+ = 
+	`HAL_GëKeyVÆ
+();
+
+128 if–
+mu32PªvKeyVÆ
+ !
+mu32KeyVÆ
+ )
+
+130 if–
+mu32KeyVÆ
+ =
+HAL_KEY_NONE
+ )
+
+132 
+Key
+.
+VÆP›
+ = 
+mu32PªvKeyVÆ
+;
+
+135 
+mu32PªvKeyVÆ
+ = 
+mu32KeyVÆ
+;
+
+136 
+Key
+.
+VÆ
+ = 
+mu32KeyVÆ
+;
+
+138 if–
+mu32KeyVÆ
+ !
+HAL_KEY_NONE
+ )
+
+140 
+Key
+.
+Sètus
+ = 
+KEY_STATUS_PUSHED
+;
+
+141 
+Key
+.
+PushedTime
+ = 0;
+
+142 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_ALL
+ );
+
+147 if–
+Key
+.
+PushedTime
+ > 
+EVENT_TIME_OUT_SHORT
+ )
+
+149 
+Key
+.
+Sètus
+ = 
+KEY_STATUS_POP
+;
+
+150 
+	`SëKeyEvítFœg
+–
+KEY_EVENT_POP
+ );
+
+154 
+Key
+.
+Sètus
+ = 
+KEY_STATUS_NONE
+;
+
+159 if–
+Key
+.
+Sètus
+ =
+KEY_STATUS_PUSHED
+ )
+
+161 
+Key
+.
+PushedTime
+++;
+
+162 
+	`FödSëKeyEvít
+–
+Key
+.
+PushedTime
+ );
+
+164 if–
+Key
+.
+PushedTime
+ > 
+MAX_EVENT_TIME_OUT
+ )
+
+166 
+Key
+.
+Sètus
+ = 
+KEY_STATUS_TIME_OUT
+;
+
+169 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.h
+
+1 #i‚de‡
+__KEY_H__
+
+
+2 
+	#__KEY_H__
+
+
+	)
+
+4 
+	~"hÆ_key.h
+"
+
+6 
+InôKey
+();
+
+9 
+	#K_NONE
+ 
+HAL_KEY_NONE
+
+
+	)
+
+11 
+	#K_1
+ 
+HAL_KEY_1
+
+
+	)
+
+12 
+	#K_2
+ 
+HAL_KEY_2
+
+
+	)
+
+13 
+	#K_3
+ 
+HAL_KEY_3
+
+
+	)
+
+14 
+	#K_4
+ 
+HAL_KEY_4
+
+
+	)
+
+15 
+	#K_5
+ 
+HAL_KEY_5
+
+
+	)
+
+17 
+	#K_ALL
+ 
+HAL_KEY_ALL
+
+
+	)
+
+21 
+U32
+ 
+GëKeyVÆ
+( );
+
+22 
+U32
+ 
+GëKeyP›VÆ
+( );
+
+25 
+	#KEY_EVENT_PUSHED_SHORT
+ 0x01
+
+	)
+
+26 
+	#KEY_EVENT_PUSHED_LONG_5S
+ 0x02
+
+	)
+
+27 
+	#KEY_EVENT_PUSHED_LONG_3S
+ 0x04
+
+	)
+
+28 
+	#KEY_EVENT_PUSHED_LONG_2S
+ 0x08
+
+	)
+
+29 
+	#KEY_EVENT_PUSHED_LONG_1S
+ 0x10
+
+	)
+
+30 
+	#KEY_EVENT_POP
+ 0x20
+
+	)
+
+31 
+	#KEY_EVENT_ALL
+ 0x3F
+
+	)
+
+32 
+SëKeyEvítFœg
+(
+U8
+ 
+mu8Evít
+ );
+
+33 
+CÀ¨KeyEvítFœg
+(
+U8
+ 
+mu8Evít
+ );
+
+34 
+U8
+ 
+IsSëKeyEvítFœg
+–U8 
+mu8Evít
+ );
+
+36 
+Pro˚ssSˇnKey
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_common_handler.h
+
+1 #i‚de‡
+__KEY_COMMON_HANDLER_H__
+
+
+2 
+	#__KEY_COMMON_HANDLER_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+8 
+	$U8
+ (*
+	tKeyVÆidFun_T
+)(
+	tU32
+ 
+	tmu32Key
+);
+
+11 
+	#KEY_ACTION_SHORT
+ 0
+
+12 
+	#KEY_ACTION_2_SEC
+ 1
+
+13 
+	#KEY_ACTION_3_SEC
+ 2
+
+14 
+	#KEY_ACTION_5_SEC
+ 3
+
+15 
+	#KEY_ACTION_POP
+ 4
+
+16 
+	#KEY_ACTION_1_SEC
+ 5
+
+17 
+	#KEY_ACTION_NUM
+ 6
+
+	)
+
+18 
+	$U8
+(*
+	tKeyFun_T
+)();
+
+19 
+	s_key_evít_
+
+
+21 
+U32
+ 
+Key
+;
+
+22 
+KeyFun_T
+ 
+a˘i⁄Evít
+[
+KEY_ACTION_NUM
+];
+
+23 } 
+	tKeyEvítLi°_T
+;
+
+26 
+	$U8
+ (*
+	tKeyEvítSize_T
+)();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.c
+
+1 
+	~"key_evít_lib.h
+"
+
+2 
+	~"key.h
+"
+
+3 
+	~"sound.h
+"
+
+4 
+	~"timî.h
+"
+
+5 
+	~"‰⁄t.h
+"
+
+6 
+	~"¥o˚ss_di•œy.h
+"
+
+16 
+U8
+ 
+	gmu8C⁄tTick
+ = 
+DEFAULT_CONT_TICK
+;
+
+17 
+U8
+ 
+	gmu8C⁄tKeyDown
+ = 
+FALSE
+;
+
+18 
+U8
+ 
+	gmu8C⁄tKeyUp
+ = 
+FALSE
+;
+
+20 
+	$InôC⁄tKey
+(
+U8
+ 
+mu8Tick
+)
+
+22 
+mu8C⁄tTick
+ = 
+mu8Tick
+;
+
+23 if–
+mu8C⁄tTick
+ == 0 )
+
+25 
+mu8C⁄tTick
+ = 
+DEFAULT_CONT_TICK
+;
+
+27 
+mu8C⁄tKeyUp
+ = 
+FALSE
+;
+
+28 
+mu8C⁄tKeyDown
+ = 
+FALSE
+;
+
+29 
+	}
+}
+
+31 
+C⁄åﬁC⁄tKey
+–
+	$U8
+ (*
+pfKeyDown
+)(), 
+	$U8
+ (*
+pfKeyUp
+)())
+
+33 
+U8
+ 
+mu8Dñay
+ = 0;
+
+36 if–
+mu8C⁄tKeyDown
+ =
+TRUE
+ )
+
+38 if–
+mu8Dñay
+ == 0 )
+
+40 
+mu8Dñay
+ = 
+mu8C⁄tTick
+;
+
+41 if–
+pfKeyDown
+ !
+NULL
+ )
+
+43 
+	`pfKeyDown
+();
+
+48 
+mu8Dñay
+--;
+
+51 if–
+mu8C⁄tKeyUp
+ =
+TRUE
+ )
+
+53 if–
+mu8Dñay
+ == 0 )
+
+55 
+mu8Dñay
+ = 
+mu8C⁄tTick
+;
+
+57 if–
+pfKeyUp
+ !
+NULL
+ )
+
+59 
+	`pfKeyUp
+();
+
+64 
+mu8Dñay
+--;
+
+69 
+mu8Dñay
+ = 0;
+
+71 
+	}
+}
+
+73 
+U8
+ 
+	$KeyC⁄tDown
+()
+
+75 
+mu8C⁄tKeyDown
+ = 
+TRUE
+;
+
+77  
+SOUND_SELECT
+;
+
+78 
+	}
+}
+
+80 
+U8
+ 
+	$KeyC⁄tUp
+()
+
+82 
+mu8C⁄tKeyUp
+ = 
+TRUE
+;
+
+84  
+SOUND_SELECT
+;
+
+85 
+	}
+}
+
+87 
+U8
+ 
+	$KeySt›C⁄t
+()
+
+89 
+mu8C⁄tKeyUp
+ = 
+FALSE
+;
+
+90 
+mu8C⁄tKeyDown
+ = 
+FALSE
+;
+
+92  
+SOUND_NONE
+;
+
+93 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.h
+
+1 #i‚de‡
+__KEY_EVENT_LIB_H__
+
+
+2 
+	#__KEY_EVENT_LIB_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+8 
+	#DEFAULT_CONT_TICK
+ 2
+
+9 
+	`InôC⁄tKey
+(
+U8
+ 
+mu8Tick
+);
+
+	)
+
+10 
+C⁄åﬁC⁄tKey
+–
+	$U8
+ (*
+pfKeyDown
+)(), 
+	$U8
+ (*
+pfKeyUp
+)());
+
+11 
+U8
+ 
+	`KeyC⁄tDown
+();
+
+12 
+U8
+ 
+	`KeyC⁄tUp
+();
+
+13 
+U8
+ 
+	`KeySt›C⁄t
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.c
+
+1 
+	~"key_h™dÀr.h
+"
+
+2 
+	~"key_comm⁄_h™dÀr.h
+"
+
+6 
+KeyVÆidFun_T
+ 
+	gpFunVÆid
+ = 
+NULL
+;
+
+7 
+KeyEvítLi°_T
+ *
+	gpKeyEvítLi°
+ = 
+NULL
+;
+
+9 
+U8
+ 
+	ggu8Li°Size
+ = 0;
+
+11 
+	$Regi°îKeyEvít
+–
+KeyVÆidFun_T
+ 
+pVÆid
+, 
+KeyEvítLi°_T
+ *
+pLi°
+, 
+U8
+ 
+mu8Size
+ )
+
+13 
+pFunVÆid
+ = 
+pVÆid
+;
+
+14 
+pKeyEvítLi°
+ = 
+pLi°
+;
+
+15 
+gu8Li°Size
+ = 
+mu8Size
+;
+
+16 
+	}
+}
+
+18 
+U8
+ 
+	$IsVÆidKeyC⁄dôi⁄
+(
+U32
+ 
+mu32Key
+)
+
+20 
+U8
+ 
+mu8Rë
+ = 
+TRUE
+;
+
+23 if–
+pFunVÆid
+ !
+NULL
+ )
+
+25 
+mu8Rë
+ = 
+	`pFunVÆid
+–
+mu32Key
+ );
+
+28  
+mu8Rë
+;
+
+29 
+	}
+}
+
+31 * 
+	$GëKeyEvítLi°
+()
+
+33  
+pKeyEvítLi°
+;
+
+34 
+	}
+}
+
+36 
+U8
+ 
+	$GëKeyEvítLi°Size
+()
+
+38  
+gu8Li°Size
+;
+
+39 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.h
+
+1 #i‚de‡
+__KEY_HANDLER_H__
+
+
+2 
+	#__KEY_HANDLER_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"key_comm⁄_h™dÀr.h
+"
+
+8 
+Regi°îKeyEvít
+–
+KeyVÆidFun_T
+ 
+pVÆid
+, 
+KeyEvítLi°_T
+ *
+pLi°
+, 
+U8
+ 
+mu8Size
+ );
+
+9 
+U8
+ 
+IsVÆidKeyC⁄dôi⁄
+(
+U32
+ 
+mu32Key
+);
+
+10 * 
+GëKeyEvítLi°
+();
+
+11 
+U8
+ 
+GëKeyEvítLi°Size
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"key_h™dÀr.h
+"
+
+3 
+	~"key.h
+"
+
+4 
+	~"key_comm⁄_h™dÀr.h
+"
+
+5 
+	~"‰⁄t.h
+"
+
+7 
+	~"sound.h
+"
+
+9 
+	~"îr‹.h
+"
+
+10 
+	~"di•œy_lib.h
+"
+
+11 
+	~"di•œy_˛ock.h
+"
+
+12 
+	~"¥o˚ss_di•œy.h
+"
+
+14 
+	~"timî.h
+"
+
+15 
+	~"timî_id.h
+"
+
+17 
+	~"key_evít_lib.h
+"
+
+20 
+Di•OnOff
+(
+U8
+ 
+mu8OnOff
+);
+
+22 
+U8
+ 
+SñSound
+();
+
+26 
+KeyEvítLi°_T
+ 
+	gKeyEvítLi°
+[] =
+
+29 { 
+K_1
+, 
+SñSound
+, 
+NULL
+, NULL, NULL, NULL, NULL },
+
+30 { 
+K_2
+, 
+SñSound
+, 
+NULL
+, NULL, NULL, NULL, NULL },
+
+31 { 
+K_3
+, 
+SñSound
+, 
+NULL
+, NULL, NULL, NULL, NULL },
+
+32 { 
+K_4
+, 
+SñSound
+, 
+NULL
+, NULL, NULL, NULL, NULL },
+
+33 { 
+K_5
+, 
+SñSound
+, 
+NULL
+, NULL, NULL, NULL, NULL },
+
+36 
+U8
+ 
+	$IsVÆidN‹mÆKeyC⁄dôi⁄
+(
+U32
+ 
+mu32Key
+)
+
+38  
+TRUE
+;
+
+39 
+	}
+}
+
+42 * 
+	$GëN‹mÆKeyEvítLi°
+()
+
+44  
+KeyEvítLi°
+;
+
+45 
+	}
+}
+
+48 
+U8
+ 
+	$GëN‹mÆKeyEvítLi°Size
+()
+
+50  ( (
+KeyEvítLi°
+Ë/ (
+KeyEvítLi°_T
+) );
+
+51 
+	}
+}
+
+53 
+U8
+ 
+	$SñSound
+()
+
+55  
+SOUND_SELECT
+;
+
+56 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.h
+
+1 #i‚de‡
+__KEY_NORMAL_HANDLER_H__
+
+
+2 
+	#__KEY_NORMAL_HANDLER_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+7 
+U8
+ 
+IsVÆidN‹mÆKeyC⁄dôi⁄
+(
+U32
+ 
+mu32Key
+);
+
+8 * 
+GëN‹mÆKeyEvítLi°
+();
+
+10 
+U8
+ 
+GëN‹mÆKeyEvítLi°Size
+();
+
+12 
+C⁄tySëtögClockKey
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"¥j_ty≥.h
+"
+
+3 
+	~"¥o˚ss_key.h
+"
+
+4 
+	~"key.h
+"
+
+5 
+	~"sound.h
+"
+
+6 
+	~"¥o˚ss_di•œy.h
+"
+
+7 
+	~"key_comm⁄_h™dÀr.h
+"
+
+8 
+	~"key_h™dÀr.h
+"
+
+9 
+	~"key_n‹mÆ_h™dÀr.h
+"
+
+25 
+U8
+ 
+	$KeyEvítH™dÀr
+(
+KeyVÆidFun_T
+ 
+pVÆidFunc
+, 
+KeyEvítLi°_T
+ *
+pLi°
+, 
+U8
+ 
+mu8Size
+ )
+
+27 
+U8
+ 
+i
+;
+
+28 
+U32
+ 
+mu32KeyVÆ
+;
+
+29 
+U32
+ 
+mu32KeyP›VÆ
+;
+
+30 
+U8
+ 
+mu8Sound
+;
+
+32 
+U32
+ 
+mu32PªvKeyVÆ
+ = 
+K_NONE
+;
+
+33 
+U8
+ 
+mu8EºKeySkù
+ = 
+FALSE
+;
+
+38 
+mu32KeyVÆ
+ = 
+	`GëKeyVÆ
+();
+
+39 
+mu32KeyP›VÆ
+ = 
+	`GëKeyP›VÆ
+();
+
+45 if–
+mu32KeyVÆ
+ !
+K_NONE
+ )
+
+50 if–
+mu32KeyVÆ
+ !
+mu32PªvKeyVÆ
+ )
+
+52 
+mu32PªvKeyVÆ
+ = 
+mu32KeyVÆ
+;
+
+53 
+mu8EºKeySkù
+ = 
+FALSE
+;
+
+59 if–
+mu8EºKeySkù
+ =
+TRUE
+ )
+
+61  
+TRUE
+;
+
+64 if–
+pLi°
+ =
+NULL
+ || 
+mu8Size
+ == 0 )
+
+66  
+TRUE
+;
+
+70 if–
+mu32KeyVÆ
+ =
+K_NONE
+
+
+71 && 
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_POP
+ ) =
+TRUE
+ )
+
+73 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_POP
+ );
+
+74  
+i
+ = 0; i < 
+mu8Size
+ ; i++ )
+
+76 if–(
+pLi°
++
+i
+)->
+Key
+ =
+mu32KeyP›VÆ
+ )
+
+78 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_POP
+] !
+NULL
+ )
+
+80 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_POP
+]();
+
+81 
+	`Sound
+–
+mu8Sound
+ );
+
+82  
+TRUE
+;
+
+89  
+i
+ = 0; i < 
+mu8Size
+ ; i++ )
+
+91 if–(
+pLi°
++
+i
+)->
+Key
+ =
+mu32KeyVÆ
+ )
+
+93 if–
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_PUSHED_SHORT
+ ) =
+TRUE
+ )
+
+95 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_PUSHED_SHORT
+ );
+
+98 if–
+mu32KeyVÆ
+ !
+K_NONE
+
+
+99 && 
+pVÆidFunc
+ !
+NULL
+ )
+
+105 if–
+	`pVÆidFunc
+–
+mu32KeyVÆ
+ ) =
+FALSE
+ )
+
+108 
+mu8EºKeySkù
+ = 
+TRUE
+;
+
+109  
+TRUE
+;
+
+113 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_SHORT
+] !
+NULL
+ )
+
+115 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_SHORT
+]();
+
+116 
+	`Sound
+–
+mu8Sound
+ );
+
+117  
+TRUE
+;
+
+121 if–
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_5S
+ ) =
+TRUE
+ )
+
+123 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_5S
+ );
+
+125 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_5_SEC
+] !
+NULL
+ )
+
+127 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[
+KEY_ACTION_5_SEC
+]();
+
+128 
+	`Sound
+–
+mu8Sound
+ );
+
+129  
+TRUE
+;
+
+133 if–
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_3S
+ ) =
+TRUE
+ )
+
+135 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_3S
+ );
+
+137 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_3_SEC
+ ] !
+NULL
+ )
+
+139 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_3_SEC
+ ]();
+
+140 
+	`Sound
+–
+mu8Sound
+ );
+
+141  
+TRUE
+;
+
+145 if–
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_2S
+ ) =
+TRUE
+ )
+
+147 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_2S
+ );
+
+149 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_2_SEC
+ ] !
+NULL
+ )
+
+151 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_2_SEC
+ ]();
+
+152 
+	`Sound
+–
+mu8Sound
+ );
+
+153  
+TRUE
+;
+
+157 if–
+	`IsSëKeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_1S
+ ) =
+TRUE
+ )
+
+159 
+	`CÀ¨KeyEvítFœg
+–
+KEY_EVENT_PUSHED_LONG_1S
+ );
+
+161 if–(
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_1_SEC
+ ] !
+NULL
+ )
+
+163 
+mu8Sound
+ = (
+pLi°
++
+i
+)->
+a˘i⁄Evít
+[ 
+KEY_ACTION_1_SEC
+ ]();
+
+164 
+	`Sound
+–
+mu8Sound
+ );
+
+165  
+TRUE
+;
+
+172  
+FALSE
+;
+
+173 
+	}
+}
+
+175 
+	$Pro˚ssKeyEvítH™dÀr
+()
+
+177 
+U8
+ 
+mu8Rë
+ = 
+FALSE
+;
+
+178 
+U16
+ 
+mu16Dñay
+ = 0;
+
+179 
+KeyVÆidFun_T
+ 
+pKeyVÆidFun
+ = 
+NULL
+;
+
+180 
+KeyEvítLi°_T
+ *
+pKeyEvítLi°
+ = 
+NULL
+;
+
+181 
+U8
+ 
+mu8KeyEvítSize
+ = 0;
+
+186 if–
+	`GëDi•œyInô
+(Ë=
+FALSE
+ )
+
+197 if–
+mu16Dñay
+ != 0 )
+
+199 
+mu16Dñay
+--;
+
+205 if–
+	`GëEﬁSètus
+(Ë=
+TRUE
+ )
+
+208 
+pKeyVÆidFun
+ = 
+IsVÆidEﬁKeyC⁄dôi⁄
+;
+
+209 
+pKeyEvítLi°
+ = (
+KeyEvítLi°_T
+ *)
+	`GëEﬁKeyEvítLi°
+();
+
+210 
+mu8KeyEvítSize
+ = 
+	`GëEﬁKeyEvítLi°Size
+();
+
+212 if–
+	`GëF˘Sètus
+(Ë=
+TRUE
+ )
+
+215 
+pKeyVÆidFun
+ = 
+IsVÆidF˘KeyC⁄dôi⁄
+;
+
+216 
+pKeyEvítLi°
+ = (
+KeyEvítLi°_T
+ *)
+	`GëF˘KeyEvítLi°
+();
+
+217 
+mu8KeyEvítSize
+ = 
+	`GëF˘KeyEvítLi°Size
+();
+
+223 
+pKeyVÆidFun
+ = 
+IsVÆidN‹mÆKeyC⁄dôi⁄
+;
+
+224 
+pKeyEvítLi°
+ = (
+KeyEvítLi°_T
+ *)
+	`GëN‹mÆKeyEvítLi°
+();
+
+225 
+mu8KeyEvítSize
+ = 
+	`GëN‹mÆKeyEvítLi°Size
+();
+
+229 
+mu8Rë
+ = 
+	`KeyEvítH™dÀr
+–
+pKeyVÆidFun
+, 
+pKeyEvítLi°
+, 
+mu8KeyEvítSize
+ );
+
+230 if–
+mu8Rë
+ =
+TRUE
+ )
+
+232 
+mu16Dñay
+ = 30;
+
+234 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.h
+
+1 #i‚de‡
+__PROCESS_KEY_H__
+
+
+2 
+	#__PROCESS_KEY_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+Pro˚ssKeyEvítH™dÀr
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\main.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"mcu.h
+"
+
+4 
+	~"hw.h
+"
+
+5 
+	~"timî.h
+"
+
+6 
+	~"utû.h
+"
+
+7 
+	~"sound.h
+"
+
+8 
+	~"∑r£r.h
+"
+
+9 
+	~"¥o˚ss_sys_evít.h
+"
+
+12 
+	$InôSèπTimîs
+( )
+
+14 
+	`InôTimî
+();
+
+16 
+	`SèπTimî
+–
+TIMER_ID_1MS
+, 1);
+
+17 
+	`SèπTimî
+–
+TIMER_ID_10MS
+, 10);
+
+18 
+	`SèπTimî
+–
+TIMER_ID_100MS
+, 100);
+
+19 
+	`SèπTimî
+–
+TIMER_ID_1SEC
+, 
+	`SEC
+(1));
+
+21 
+	`SèπTimî
+–
+TIMER_ID_FRONT
+, 20 );
+
+22 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_RX_ERR
+, 
+	`SEC
+(10) );
+
+23 
+	}
+}
+
+26 
+	$maö
+( )
+
+28 
+	`Dñay_MS
+( 500 );
+
+30 
+	`R_WDT_Re°¨t
+();
+
+32 
+	`InôSy°em
+();
+
+33 
+	`InôSèπTimîs
+();
+
+34 
+	`EI
+();
+
+37 
+	`R_WDT_Re°¨t
+();
+
+40 
+	`Sound
+–
+SOUND_POWER_ON
+ );
+
+43 
+	`R_WDT_Re°¨t
+();
+
+45 
+	`Pro˚ssEvítH™dÀr
+();
+
+48 
+	`RecvPackëH™dÀr
+();
+
+49 
+	`SídPackëH™dÀr
+();
+
+51 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\prj_type.h
+
+1 #i‚de‡
+__PRJ_TYPE_H__
+
+
+2 
+	#__PRJ_TYPE_H__
+
+
+	)
+
+4 
+	~"c⁄fig.h
+"
+
+5 
+	~<°dio.h
+>
+
+6 
+	~<°rög.h
+>
+
+8 #i‚de‡
+__TYPEDEF_COWAY__
+
+
+9 
+	#__TYPEDEF_COWAY__
+
+
+	)
+
+10 
+	tU8
+;
+
+11 sig√d 
+	tI8
+;
+
+12 
+	tU16
+;
+
+13 sig√d 
+	tI16
+;
+
+14 
+	tU32
+;
+
+15 sig√d 
+	tI32
+;
+
+16 
+	tF32
+;
+
+17 
+	tBOOL_T
+;
+
+18 
+	tTIME_T
+;
+
+20 
+	tTEMP_T
+;
+
+21 
+	tRPS_T
+;
+
+24 
+	tuöt8_t
+;
+
+25 sig√d 
+	töt8_t
+;
+
+26 
+	tuöt16_t
+;
+
+27 sig√d 
+	töt16_t
+;
+
+28 
+	tuöt32_t
+;
+
+29 sig√d 
+	töt32_t
+;
+
+33 
+	#__DEBUG__
+ 1
+
+	)
+
+35 #i‡
+__DEBUG__
+
+
+36 
+	#LOCAL
+
+
+	)
+
+38 
+	#LOCAL
+ 
+
+	)
+
+41 #ifde‡
+NULL
+
+
+42 #unde‡
+NULL
+
+
+45 
+	#NULL
+ ((*)0)
+
+	)
+
+47 #ifde‡
+TRUE
+
+
+48 #unde‡
+TRUE
+
+
+51 
+	#TRUE
+ 1
+
+	)
+
+53 #ifde‡
+FALSE
+
+
+54 #unde‡
+FALSE
+
+
+57 
+	#FALSE
+ 0
+
+	)
+
+60 #ifde‡
+ON
+
+
+61 #unde‡
+ON
+
+
+64 
+	#ON
+ 1
+
+	)
+
+66 #ifde‡
+OFF
+
+
+67 #unde‡
+OFF
+
+
+70 
+	#OFF
+ 0
+
+	)
+
+72 
+	#HIGH
+ 1
+
+	)
+
+73 
+	#LOW
+ 0
+
+	)
+
+77 #i‡(
+CONFIG_FOTA_LIB
+ == 0)
+
+78 
+	#__FAR
+
+
+	)
+
+79 
+	#SPRINTF
+ 
+•rötf
+
+
+	)
+
+80 
+	#MEMSET
+ 
+mem£t
+
+
+	)
+
+81 
+	#MEMCPY
+ 
+mem˝y
+
+
+	)
+
+82 
+	#MEMCMP
+ 
+memcmp
+
+
+	)
+
+83 
+	#ATOI
+ 
+©oi
+
+
+	)
+
+85 
+	#__FAR
+ 
+__Ár
+
+
+	)
+
+86 
+	#SPRINTF
+ 
+•rötf_f
+
+
+	)
+
+87 
+	#MEMSET
+ 
+mem£t_f
+
+
+	)
+
+88 
+	#MEMCPY
+ 
+mem˝y_f
+
+
+	)
+
+89 
+	#MEMCMP
+ 
+memcmp_f
+
+
+	)
+
+90 
+	#ATOI
+ 
+©oi_f
+
+
+	)
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.c
+
+1 
+	~<°dio.h
+>
+
+2 
+	~<°rög.h
+>
+
+3 
+	~"¥j_ty≥.h
+"
+
+4 
+	~"timî.h
+"
+
+5 
+	~"hÆ_£rül.h
+"
+
+6 
+	~"hÆ_Àd.h
+"
+
+7 
+	~"buzzî.h
+"
+
+8 
+	~"∑r£r.h
+"
+
+9 
+	~"∑r£r_‰⁄t.h
+"
+
+10 
+	~"¥o˚ss_di•œy.h
+"
+
+11 
+	~"¥o˚ss_sys_evít.h
+"
+
+14 (*
+	tA˘i⁄_T
+)();
+
+15 
+	s_sys_evít_
+
+
+17 
+U8
+ 
+timîId
+;
+
+18 
+A˘i⁄_T
+ 
+pFun
+;
+
+19 
+A˘i⁄_T
+ 
+pFun_FCT
+;
+
+20 
+A˘i⁄_T
+ 
+pFun_EOL
+;
+
+21 } 
+	tSysEvít_T
+;
+
+24 
+	`Evt_1ms_H™dÀr
+( );
+
+25 
+	`Evt_10ms_H™dÀr
+( );
+
+26 
+	`Evt_100ms_H™dÀr
+( );
+
+27 
+	`Evt_1£c_H™dÀr
+( );
+
+28 
+	`Evt_Fr⁄t_H™dÀr
+( );
+
+32 c⁄° 
+SysEvít_T
+ 
+SysEvítLi°
+[] =
+
+35 { 
+TIMER_ID_1MS
+, 
+Evt_1ms_H™dÀr
+, 
+NULL
+, NULL },
+
+36 { 
+TIMER_ID_10MS
+, 
+Evt_10ms_H™dÀr
+, 
+NULL
+, NULL },
+
+37 { 
+TIMER_ID_100MS
+, 
+Evt_100ms_H™dÀr
+, 
+NULL
+, NULL },
+
+38 { 
+TIMER_ID_1SEC
+, 
+Evt_1£c_H™dÀr
+, 
+NULL
+, NULL },
+
+39 { 
+TIMER_ID_FRONT
+, 
+Evt_Fr⁄t_H™dÀr
+, 
+NULL
+, NULL },
+
+40 
+	}
+};
+
+41 
+	#SZ_LIST
+ ( –
+SysEvítLi°
+ ) / –
+SysEvít_T
+ ) )
+
+	)
+
+43 
+	$Pro˚ssEvítH™dÀr
+( )
+
+45 
+U8
+ 
+i
+;
+
+46 
+A˘i⁄_T
+ 
+fun
+;
+
+48  
+i
+ = 0; i < 
+SZ_LIST
+ ; i++ )
+
+50 if–
+	`IsExpúedTimî
+–
+SysEvítLi°
+[ 
+i
+ ].
+timîId
+ ) =
+TIMER_EXPIRE
+ )
+
+53 
+	`DißbÀTimî
+–
+SysEvítLi°
+[ 
+i
+ ].
+timîId
+ );
+
+56 
+fun
+ = 
+SysEvítLi°
+[ 
+i
+ ].
+pFun
+;
+
+59 if–
+fun
+ !
+NULL
+ )
+
+61 
+	`fun
+();
+
+65 
+	}
+}
+
+67 
+	$Evt_1ms_H™dÀr
+( )
+
+69 
+	`SèπTimî
+–
+TIMER_ID_1MS
+, 1);
+
+72 
+	}
+}
+
+75 
+	$Evt_10ms_H™dÀr
+( )
+
+77 
+	`SèπTimî
+–
+TIMER_ID_10MS
+, 10);
+
+78 
+	`Pro˚ssDi•œy
+();
+
+79 
+	}
+}
+
+82 
+	$Evt_100ms_H™dÀr
+()
+
+84 
+	`SèπTimî
+–
+TIMER_ID_100MS
+, 100);
+
+87 
+	}
+}
+
+90 
+	$Evt_1£c_H™dÀr
+( )
+
+92 
+	`SèπTimî
+–
+TIMER_ID_1SEC
+, 
+	`SEC
+(1) );
+
+93 
+	}
+}
+
+98 
+	#FRONT_REFRESH_TIME
+ 50
+
+99 
+	`Evt_Fr⁄t_H™dÀr
+–)
+
+	)
+
+101 
+SèπTimî
+–
+TIMER_ID_FRONT
+, 
+FRONT_REFRESH_TIME
+ );
+
+114 
+	$TimîI§CÆlback
+()
+
+116 
+	`BuzC⁄åﬁ
+();
+
+117 
+	}
+}
+
+119 
+	$InôSy°em
+()
+
+122 
+	`HAL_InôComm
+();
+
+123 
+	`InôBuzzî
+();
+
+125 
+	`HAL_InôLed
+();
+
+126 
+	`InôDi•œy
+();
+
+128 
+	`Regi°îTimîISR
+–
+TimîI§CÆlback
+ );
+
+129 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.h
+
+1 #i‚de‡
+__PROCESS_SYS_EVENT_H__
+
+
+2 
+	#__PROCESS_SYS_EVENT_H__
+
+
+	)
+
+4 
+InôSy°em
+();
+
+6 
+Pro˚ssEvítH™dÀr
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.c
+
+1 
+	~"hw.h
+"
+
+2 
+	~"buzzî.h
+"
+
+7 
+	#P_BUZZER_ON
+ 
+P_BUZZER_ONOFF
+
+
+	)
+
+8 
+	#BUZ_SET_NOTE
+–
+x
+ ) do{ 
+TDR07
+ = (x); }0)
+
+	)
+
+9 
+	#BUZZER_TIMER_START
+(Ëdo{ 
+	`R_TAU0_Ch™√l7_Sèπ
+(); }0)
+
+	)
+
+10 
+	#BUZZER_TIMER_STOP
+() \
+
+12 
+	`R_TAU0_Ch™√l7_St›
+(); \
+
+13 
+TO0
+ |
+_0080_TAU_CH7_OUTPUT_VALUE_1
+; \
+
+14 }0)
+
+	)
+
+17 
+U8
+ 
+	ggu8Muã
+ = 0;
+
+18 
+U8
+ 
+	ggu8Buzzî_Ordî
+ = 0;
+
+19 
+U8
+ 
+	ggu8Buzzî_Mode
+ = 0;
+
+20 
+U16
+ 
+	ggu16Buzzî_Time
+ = 0;
+
+22 
+	$Buz_Sèπ
+()
+
+24 
+	`BUZZER_TIMER_START
+();
+
+25 
+	}
+}
+
+27 
+	$Buz_St›
+()
+
+29 
+	`BUZZER_TIMER_STOP
+();
+
+30 
+	}
+}
+
+35 
+	$InôBuzzî
+()
+
+37 
+gu8Muã
+ = 0;
+
+38 
+gu8Buzzî_Ordî
+ = 0;
+
+39 
+gu8Buzzî_Mode
+ = 0;
+
+40 
+gu16Buzzî_Time
+ = 0;
+
+42 
+	`Buz_St›
+();
+
+43 
+	`BUZ_SET_NOTE
+( 0 );
+
+44 
+	}
+}
+
+46 
+U8
+ 
+	$GëBuzMuã
+()
+
+48  
+gu8Muã
+;
+
+49 
+	}
+}
+
+51 
+	$SëBuzMuã
+(
+U8
+ 
+mu8Muã
+ )
+
+53 
+gu8Muã
+ = 
+mu8Muã
+;
+
+54 
+	}
+}
+
+56 
+	$BuzToggÀMuã
+()
+
+58 
+gu8Muã
+ = !gu8Mute;
+
+59 
+	}
+}
+
+62 
+	$SëBuzTime
+(
+U16
+ 
+mu16Time
+ )
+
+64 
+gu16Buzzî_Time
+ = 
+mu16Time
+ * 10;
+
+65 
+	}
+}
+
+70 
+	$BuzSãp
+(
+U8
+ 
+mu8Sãp
+)
+
+72 
+gu16Buzzî_Time
+ = 0;
+
+73 
+gu8Buzzî_Ordî
+ = 1;
+
+74 
+gu8Buzzî_Mode
+ = 
+mu8Sãp
+;
+
+75 
+	}
+}
+
+77 
+U8
+ 
+	$IsD⁄ePœyBuz
+()
+
+79 if–
+gu8Buzzî_Ordî
+ != 0 )
+
+81  
+FALSE
+;
+
+84  
+TRUE
+;
+
+85 
+	}
+}
+
+91 
+	$BuzTimeCou¡î
+()
+
+93 i‡(
+gu16Buzzî_Time
+ != 0)
+
+95 
+gu16Buzzî_Time
+--;
+
+97 
+	}
+}
+
+102 
+	$BuzC⁄åﬁ
+()
+
+104 i‡(!
+gu8Muã
+)
+
+106 
+gu8Buzzî_Mode
+)
+
+108 
+BUZZER_OFF
+:
+
+109 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+110 
+gu16Buzzî_Time
+ = 0;
+
+111 
+	`Buz_St›
+();
+
+112 
+	`BUZ_SET_NOTE
+( 0 );
+
+115 
+BUZZER_POWER_ON
+:
+
+117 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+119 
+	`BUZ_SET_NOTE
+–
+Si5
+ );
+
+120 
+	`Buz_Sèπ
+();
+
+121 
+P_BUZZER_ON
+ = 
+ON
+;
+
+122 
+gu8Buzzî_Ordî
+++;
+
+123 
+	`SëBuzTime
+( 4 );
+
+125 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+127 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+128 
+gu8Buzzî_Ordî
+++;
+
+129 
+	`SëBuzTime
+( 19 );
+
+131 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+133 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+134 
+	`Buz_Sèπ
+();
+
+135 
+P_BUZZER_ON
+ = 
+ON
+;
+
+136 
+gu8Buzzî_Ordî
+++;
+
+137 
+	`SëBuzTime
+( 4 );
+
+139 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+141 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+142 
+gu8Buzzî_Ordî
+++;
+
+143 
+	`SëBuzTime
+( 19 );
+
+145 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+147 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+148 
+	`Buz_Sèπ
+();
+
+149 
+P_BUZZER_ON
+ = 
+ON
+;
+
+150 
+gu8Buzzî_Ordî
+++;
+
+151 
+	`SëBuzTime
+( 4 );
+
+153 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+155 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+156 
+gu8Buzzî_Ordî
+++;
+
+157 
+	`SëBuzTime
+( 19 );
+
+159 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+161 
+	`BUZ_SET_NOTE
+–
+Pas6
+ );
+
+162 
+	`Buz_Sèπ
+();
+
+163 
+P_BUZZER_ON
+ = 
+ON
+;
+
+164 
+gu8Buzzî_Ordî
+++;
+
+165 
+	`SëBuzTime
+( 5 );
+
+167 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+169 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+170 
+gu8Buzzî_Ordî
+++;
+
+171 
+	`SëBuzTime
+( 65 );
+
+173 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+175 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+176 
+	`Buz_Sèπ
+();
+
+177 
+P_BUZZER_ON
+ = 
+ON
+;
+
+178 
+gu8Buzzî_Ordî
+++;
+
+179 
+	`SëBuzTime
+( 2 );
+
+181 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+183 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+184 
+gu8Buzzî_Ordî
+++;
+
+185 
+	`SëBuzTime
+( 112 );
+
+187 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+189 
+gu8Buzzî_Ordî
+ = 0;
+
+190 
+	`SëBuzTime
+( 0 );
+
+191 
+gu8Buzzî_Mode
+ = 0;
+
+192 
+	`Buz_St›
+();
+
+193 
+	`BUZ_SET_NOTE
+( 0 );
+
+197 
+BUZZER_EFFLUENT
+:
+
+199 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+201 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+202 
+	`Buz_Sèπ
+();
+
+203 
+P_BUZZER_ON
+ = 
+ON
+;
+
+204 
+gu8Buzzî_Ordî
+++;
+
+205 
+	`SëBuzTime
+( 3 );
+
+207 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+209 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+210 
+gu8Buzzî_Ordî
+++;
+
+211 
+	`SëBuzTime
+( 21 );
+
+213 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+215 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+216 
+	`Buz_Sèπ
+();
+
+217 
+P_BUZZER_ON
+ = 
+ON
+;
+
+218 
+gu8Buzzî_Ordî
+++;
+
+219 
+	`SëBuzTime
+( 3 );
+
+221 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+223 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+224 
+gu8Buzzî_Ordî
+++;
+
+225 
+	`SëBuzTime
+( 21 );
+
+227 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+229 
+gu8Buzzî_Ordî
+ = 0;
+
+230 
+	`SëBuzTime
+( 0 );
+
+231 
+gu8Buzzî_Mode
+ = 0;
+
+232 
+	`Buz_St›
+();
+
+233 
+	`BUZ_SET_NOTE
+( 0 );
+
+237 
+BUZZER_EFFLUENT_END
+:
+
+239 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+241 
+	`BUZ_SET_NOTE
+–
+La5
+ );
+
+242 
+	`Buz_Sèπ
+();
+
+243 
+P_BUZZER_ON
+ = 
+ON
+;
+
+244 
+gu8Buzzî_Ordî
+++;
+
+245 
+	`SëBuzTime
+( 3 );
+
+247 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+249 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+250 
+gu8Buzzî_Ordî
+++;
+
+251 
+	`SëBuzTime
+( 21 );
+
+253 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+255 
+	`BUZ_SET_NOTE
+–
+Pas6
+ );
+
+256 
+	`Buz_Sèπ
+();
+
+257 
+P_BUZZER_ON
+ = 
+ON
+;
+
+258 
+gu8Buzzî_Ordî
+++;
+
+259 
+	`SëBuzTime
+( 3 );
+
+261 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+263 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+264 
+gu8Buzzî_Ordî
+++;
+
+265 
+	`SëBuzTime
+( 21 );
+
+267 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+269 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+270 
+	`Buz_Sèπ
+();
+
+271 
+P_BUZZER_ON
+ = 
+ON
+;
+
+272 
+gu8Buzzî_Ordî
+++;
+
+273 
+	`SëBuzTime
+( 3 );
+
+275 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+277 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+278 
+gu8Buzzî_Ordî
+++;
+
+279 
+	`SëBuzTime
+( 30 );
+
+281 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+283 
+gu8Buzzî_Ordî
+ = 0;
+
+284 
+	`SëBuzTime
+( 0 );
+
+285 
+gu8Buzzî_Mode
+ = 0;
+
+286 
+	`Buz_St›
+();
+
+287 
+	`BUZ_SET_NOTE
+( 0 );
+
+291 
+BUZZER_COOL_SETUP
+:
+
+293 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+295 
+	`BUZ_SET_NOTE
+–
+Pas6
+ );
+
+296 
+	`Buz_Sèπ
+();
+
+297 
+P_BUZZER_ON
+ = 
+ON
+;
+
+298 
+gu8Buzzî_Ordî
+++;
+
+299 
+	`SëBuzTime
+( 5 );
+
+301 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+303 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+304 
+gu8Buzzî_Ordî
+++;
+
+305 
+	`SëBuzTime
+( 19 );
+
+307 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+309 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+310 
+	`Buz_Sèπ
+();
+
+311 
+P_BUZZER_ON
+ = 
+ON
+;
+
+312 
+gu8Buzzî_Ordî
+++;
+
+313 
+	`SëBuzTime
+( 10 );
+
+315 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+317 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+318 
+gu8Buzzî_Ordî
+++;
+
+319 
+	`SëBuzTime
+( 38 );
+
+321 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+323 
+gu8Buzzî_Ordî
+ = 0;
+
+324 
+	`SëBuzTime
+( 0 );
+
+325 
+gu8Buzzî_Mode
+ = 0;
+
+326 
+	`Buz_St›
+();
+
+327 
+	`BUZ_SET_NOTE
+( 0 );
+
+331 
+BUZZER_COOL_CANCEL
+:
+
+333 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+335 
+	`BUZ_SET_NOTE
+–
+Sﬁs5
+ );
+
+336 
+	`Buz_Sèπ
+();
+
+337 
+P_BUZZER_ON
+ = 
+ON
+;
+
+338 
+gu8Buzzî_Ordî
+++;
+
+339 
+	`SëBuzTime
+( 3 );
+
+341 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+343 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+344 
+gu8Buzzî_Ordî
+++;
+
+345 
+	`SëBuzTime
+( 21 );
+
+347 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+349 
+	`BUZ_SET_NOTE
+–
+Si5
+ );
+
+350 
+	`Buz_Sèπ
+();
+
+351 
+P_BUZZER_ON
+ = 
+ON
+;
+
+352 
+gu8Buzzî_Ordî
+++;
+
+353 
+	`SëBuzTime
+( 3 );
+
+355 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+357 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+358 
+gu8Buzzî_Ordî
+++;
+
+359 
+	`SëBuzTime
+( 21 );
+
+361 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+363 
+	`BUZ_SET_NOTE
+–
+Mi5
+ );
+
+364 
+	`Buz_Sèπ
+();
+
+365 
+P_BUZZER_ON
+ = 
+ON
+;
+
+366 
+gu8Buzzî_Ordî
+++;
+
+367 
+	`SëBuzTime
+( 10 );
+
+369 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+371 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+372 
+gu8Buzzî_Ordî
+++;
+
+373 
+	`SëBuzTime
+( 38 );
+
+375 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+377 
+gu8Buzzî_Ordî
+ = 0;
+
+378 
+	`SëBuzTime
+( 0 );
+
+379 
+gu8Buzzî_Mode
+ = 0;
+
+380 
+	`Buz_St›
+();
+
+381 
+	`BUZ_SET_NOTE
+( 0 );
+
+385 
+BUZZER_SELECT
+:
+
+387 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+389 
+	`BUZ_SET_NOTE
+–
+La6
+ );
+
+390 
+	`Buz_Sèπ
+();
+
+391 
+P_BUZZER_ON
+ = 
+ON
+;
+
+392 
+gu8Buzzî_Ordî
+++;
+
+393 
+	`SëBuzTime
+( 8 );
+
+395 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+397 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+398 
+gu8Buzzî_Ordî
+++;
+
+399 
+	`SëBuzTime
+( 28 );
+
+401 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+403 
+gu8Buzzî_Ordî
+ = 0;
+
+404 
+	`SëBuzTime
+( 0 );
+
+405 
+gu8Buzzî_Mode
+ = 0;
+
+406 
+	`Buz_St›
+();
+
+407 
+	`BUZ_SET_NOTE
+( 0 );
+
+411 
+BUZZER_ERROR
+:
+
+413 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+415 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+416 
+	`Buz_Sèπ
+();
+
+417 
+P_BUZZER_ON
+ = 
+ON
+;
+
+418 
+gu8Buzzî_Ordî
+++;
+
+419 
+	`SëBuzTime
+( 2 );
+
+421 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+423 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+424 
+gu8Buzzî_Ordî
+++;
+
+425 
+	`SëBuzTime
+( 10 );
+
+427 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+429 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+430 
+	`Buz_Sèπ
+();
+
+431 
+P_BUZZER_ON
+ = 
+ON
+;
+
+432 
+gu8Buzzî_Ordî
+++;
+
+433 
+	`SëBuzTime
+( 8 );
+
+435 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+437 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+438 
+gu8Buzzî_Ordî
+++;
+
+439 
+	`SëBuzTime
+( 28 );
+
+441 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+443 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+444 
+	`Buz_Sèπ
+();
+
+445 
+P_BUZZER_ON
+ = 
+ON
+;
+
+446 
+gu8Buzzî_Ordî
+++;
+
+447 
+	`SëBuzTime
+( 2 );
+
+449 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+451 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+452 
+gu8Buzzî_Ordî
+++;
+
+453 
+	`SëBuzTime
+( 10 );
+
+455 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+457 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+458 
+	`Buz_Sèπ
+();
+
+459 
+P_BUZZER_ON
+ = 
+ON
+;
+
+460 
+gu8Buzzî_Ordî
+++;
+
+461 
+	`SëBuzTime
+( 8 );
+
+463 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+465 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+466 
+gu8Buzzî_Ordî
+++;
+
+467 
+	`SëBuzTime
+( 28 );
+
+469 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+471 
+gu8Buzzî_Ordî
+ = 0;
+
+472 
+	`SëBuzTime
+( 0 );
+
+473 
+gu8Buzzî_Mode
+ = 0;
+
+474 
+	`Buz_St›
+();
+
+475 
+	`BUZ_SET_NOTE
+( 0 );
+
+479 
+BUZZER_SETUP
+:
+
+480 
+BUZZER_MUTE
+:
+
+482 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+484 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+485 
+	`Buz_Sèπ
+();
+
+486 
+P_BUZZER_ON
+ = 
+ON
+;
+
+487 
+gu8Buzzî_Ordî
+++;
+
+488 
+	`SëBuzTime
+( 5 );
+
+490 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+492 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+493 
+gu8Buzzî_Ordî
+++;
+
+494 
+	`SëBuzTime
+( 19 );
+
+496 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+498 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+499 
+	`Buz_Sèπ
+();
+
+500 
+P_BUZZER_ON
+ = 
+ON
+;
+
+501 
+gu8Buzzî_Ordî
+++;
+
+502 
+	`SëBuzTime
+( 10 );
+
+504 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+506 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+507 
+gu8Buzzî_Ordî
+++;
+
+508 
+	`SëBuzTime
+( 38 );
+
+510 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+512 
+gu8Buzzî_Ordî
+ = 0;
+
+513 
+	`SëBuzTime
+( 0 );
+
+514 
+gu8Buzzî_Mode
+ = 0;
+
+515 
+	`Buz_St›
+();
+
+516 
+	`BUZ_SET_NOTE
+( 0 );
+
+520 
+BUZZER_CANCEL
+:
+
+522 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+524 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+525 
+	`Buz_Sèπ
+();
+
+526 
+P_BUZZER_ON
+ = 
+ON
+;
+
+527 
+gu8Buzzî_Ordî
+++;
+
+528 
+	`SëBuzTime
+( 5 );
+
+530 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+532 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+533 
+gu8Buzzî_Ordî
+++;
+
+534 
+	`SëBuzTime
+( 19 );
+
+536 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+538 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+539 
+	`Buz_Sèπ
+();
+
+540 
+P_BUZZER_ON
+ = 
+ON
+;
+
+541 
+gu8Buzzî_Ordî
+++;
+
+542 
+	`SëBuzTime
+( 10 );
+
+544 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+546 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+547 
+gu8Buzzî_Ordî
+++;
+
+548 
+	`SëBuzTime
+( 38 );
+
+550 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+552 
+gu8Buzzî_Ordî
+ = 0;
+
+553 
+	`SëBuzTime
+( 0 );
+
+554 
+gu8Buzzî_Mode
+ = 0;
+
+555 
+	`Buz_St›
+();
+
+556 
+	`BUZ_SET_NOTE
+( 0 );
+
+560 
+BUZZER_EFFLUENT_CONTINUE
+:
+
+562 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+564 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+565 
+	`Buz_Sèπ
+();
+
+566 
+P_BUZZER_ON
+ = 
+ON
+;
+
+567 
+gu8Buzzî_Ordî
+++;
+
+568 
+	`SëBuzTime
+( 8 );
+
+570 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+572 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+573 
+gu8Buzzî_Ordî
+++;
+
+574 
+	`SëBuzTime
+( 20 );
+
+576 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+578 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+579 
+	`Buz_Sèπ
+();
+
+580 
+P_BUZZER_ON
+ = 
+ON
+;
+
+581 
+gu8Buzzî_Ordî
+++;
+
+582 
+	`SëBuzTime
+( 8 );
+
+584 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+586 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+587 
+gu8Buzzî_Ordî
+++;
+
+588 
+	`SëBuzTime
+( 20 );
+
+590 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+592 
+	`BUZ_SET_NOTE
+–
+Dos7
+ );
+
+593 
+	`Buz_Sèπ
+();
+
+594 
+P_BUZZER_ON
+ = 
+ON
+;
+
+595 
+gu8Buzzî_Ordî
+++;
+
+596 
+	`SëBuzTime
+( 8 );
+
+598 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+600 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+601 
+gu8Buzzî_Ordî
+++;
+
+602 
+	`SëBuzTime
+( 20 );
+
+604 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+606 
+	`BUZ_SET_NOTE
+–
+La6
+ );
+
+607 
+	`Buz_Sèπ
+();
+
+608 
+P_BUZZER_ON
+ = 
+ON
+;
+
+609 
+gu8Buzzî_Ordî
+++;
+
+610 
+	`SëBuzTime
+( 8 );
+
+612 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+614 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+615 
+gu8Buzzî_Ordî
+++;
+
+616 
+	`SëBuzTime
+( 20 );
+
+618 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+620 
+	`BUZ_SET_NOTE
+–
+Mi6
+ );
+
+621 
+	`Buz_Sèπ
+();
+
+622 
+P_BUZZER_ON
+ = 
+ON
+;
+
+623 
+gu8Buzzî_Ordî
+++;
+
+624 
+	`SëBuzTime
+( 8 );
+
+626 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+628 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+629 
+gu8Buzzî_Ordî
+++;
+
+630 
+	`SëBuzTime
+( 20 );
+
+632 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+634 
+	`BUZ_SET_NOTE
+–
+La5
+ );
+
+635 
+	`Buz_Sèπ
+();
+
+636 
+P_BUZZER_ON
+ = 
+ON
+;
+
+637 
+gu8Buzzî_Ordî
+++;
+
+638 
+	`SëBuzTime
+( 8 );
+
+640 i‡((
+gu8Buzzî_Ordî
+ =12Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+642 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+643 
+gu8Buzzî_Ordî
+++;
+
+644 
+	`SëBuzTime
+( 20 );
+
+646 i‡((
+gu8Buzzî_Ordî
+ =13Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+648 
+	`BUZ_SET_NOTE
+–
+Re6
+ );
+
+649 
+	`Buz_Sèπ
+();
+
+650 
+P_BUZZER_ON
+ = 
+ON
+;
+
+651 
+gu8Buzzî_Ordî
+++;
+
+652 
+	`SëBuzTime
+( 8 );
+
+654 i‡((
+gu8Buzzî_Ordî
+ =14Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+656 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+657 
+gu8Buzzî_Ordî
+++;
+
+658 
+	`SëBuzTime
+( 20 );
+
+660 i‡((
+gu8Buzzî_Ordî
+ =15Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+662 
+	`BUZ_SET_NOTE
+–
+La6
+ );
+
+663 
+	`Buz_Sèπ
+();
+
+664 
+P_BUZZER_ON
+ = 
+ON
+;
+
+665 
+gu8Buzzî_Ordî
+++;
+
+666 
+	`SëBuzTime
+( 8 );
+
+668 i‡((
+gu8Buzzî_Ordî
+ =16Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+670 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+671 
+gu8Buzzî_Ordî
+++;
+
+672 
+	`SëBuzTime
+( 20 );
+
+674 i‡((
+gu8Buzzî_Ordî
+ =17Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+676 
+gu8Buzzî_Ordî
+ = 0;
+
+677 
+	`SëBuzTime
+( 0 );
+
+678 
+gu8Buzzî_Mode
+ = 0;
+
+679 
+	`Buz_St›
+();
+
+680 
+	`BUZ_SET_NOTE
+( 0 );
+
+684 
+BUZZER_STERILIZE_START
+:
+
+686 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+688 
+	`BUZ_SET_NOTE
+–
+Mi6
+ );
+
+689 
+	`Buz_Sèπ
+();
+
+690 
+P_BUZZER_ON
+ = 
+ON
+;
+
+691 
+gu8Buzzî_Ordî
+++;
+
+692 
+	`SëBuzTime
+( 3 );
+
+694 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+696 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+697 
+gu8Buzzî_Ordî
+++;
+
+698 
+	`SëBuzTime
+( 21 );
+
+700 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+702 
+	`BUZ_SET_NOTE
+–
+Dos6
+ );
+
+703 
+	`Buz_Sèπ
+();
+
+704 
+P_BUZZER_ON
+ = 
+ON
+;
+
+705 
+gu8Buzzî_Ordî
+++;
+
+706 
+	`SëBuzTime
+( 3 );
+
+708 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+710 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+711 
+gu8Buzzî_Ordî
+++;
+
+712 
+	`SëBuzTime
+( 21 );
+
+714 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+716 
+	`BUZ_SET_NOTE
+–
+La6
+ );
+
+717 
+	`Buz_Sèπ
+();
+
+718 
+P_BUZZER_ON
+ = 
+ON
+;
+
+719 
+gu8Buzzî_Ordî
+++;
+
+720 
+	`SëBuzTime
+( 10 );
+
+722 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+724 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+725 
+gu8Buzzî_Ordî
+++;
+
+726 
+	`SëBuzTime
+( 38 );
+
+728 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+730 
+gu8Buzzî_Ordî
+ = 0;
+
+731 
+	`SëBuzTime
+( 0 );
+
+732 
+gu8Buzzî_Mode
+ = 0;
+
+733 
+	`Buz_St›
+();
+
+734 
+	`BUZ_SET_NOTE
+( 0 );
+
+738 
+BUZZER_STERILIZE_END
+:
+
+740 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+742 
+	`BUZ_SET_NOTE
+–
+La6
+ );
+
+743 
+	`Buz_Sèπ
+();
+
+744 
+P_BUZZER_ON
+ = 
+ON
+;
+
+745 
+gu8Buzzî_Ordî
+++;
+
+746 
+	`SëBuzTime
+( 8 );
+
+748 if((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+750 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+751 
+gu8Buzzî_Ordî
+++;
+
+752 
+	`SëBuzTime
+( 28 );
+
+754 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+756 
+	`BUZ_SET_NOTE
+–
+Dos6
+ );
+
+757 
+	`Buz_Sèπ
+();
+
+758 
+P_BUZZER_ON
+ = 
+ON
+;
+
+759 
+gu8Buzzî_Ordî
+++;
+
+760 
+	`SëBuzTime
+( 8 );
+
+762 if((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+764 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+765 
+gu8Buzzî_Ordî
+++;
+
+766 
+	`SëBuzTime
+( 28 );
+
+768 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+770 
+	`BUZ_SET_NOTE
+–
+Dos6
+ );
+
+771 
+	`Buz_Sèπ
+();
+
+772 
+P_BUZZER_ON
+ = 
+ON
+;
+
+773 
+gu8Buzzî_Ordî
+++;
+
+774 
+	`SëBuzTime
+( 3 );
+
+776 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+778 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+779 
+gu8Buzzî_Ordî
+++;
+
+780 
+	`SëBuzTime
+( 21 );
+
+782 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+784 
+	`BUZ_SET_NOTE
+–
+Pas6
+ );
+
+785 
+	`Buz_Sèπ
+();
+
+786 
+P_BUZZER_ON
+ = 
+ON
+;
+
+787 
+gu8Buzzî_Ordî
+++;
+
+788 
+	`SëBuzTime
+( 10 );
+
+790 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+792 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+793 
+gu8Buzzî_Ordî
+++;
+
+794 
+	`SëBuzTime
+( 38 );
+
+796 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+798 
+	`BUZ_SET_NOTE
+–
+Mi6
+ );
+
+799 
+	`Buz_Sèπ
+();
+
+800 
+P_BUZZER_ON
+ = 
+ON
+;
+
+801 
+gu8Buzzî_Ordî
+++;
+
+802 
+	`SëBuzTime
+( 14 );
+
+804 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+806 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+807 
+gu8Buzzî_Ordî
+++;
+
+808 
+	`SëBuzTime
+( 50 );
+
+810 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+812 
+gu8Buzzî_Ordî
+ = 0;
+
+813 
+	`SëBuzTime
+( 0 );
+
+814 
+gu8Buzzî_Mode
+ = 0;
+
+815 
+	`Buz_St›
+();
+
+816 
+	`BUZ_SET_NOTE
+( 0 );
+
+820 
+BUZZER_MEMENTO_1
+:
+
+821 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+823 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+824 
+	`Buz_Sèπ
+();
+
+825 
+P_BUZZER_ON
+ = 
+ON
+;
+
+826 
+gu8Buzzî_Ordî
+++;
+
+827 
+	`SëBuzTime
+( 6 );
+
+829 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+831 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+832 
+gu8Buzzî_Ordî
+++;
+
+833 
+	`SëBuzTime
+( 50 );
+
+835 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+837 
+gu8Buzzî_Ordî
+ = 0;
+
+838 
+	`SëBuzTime
+( 0 );
+
+839 
+gu8Buzzî_Mode
+ = 0;
+
+840 
+	`Buz_St›
+();
+
+841 
+	`BUZ_SET_NOTE
+( 0 );
+
+845 
+BUZZER_MEMENTO_2
+:
+
+846 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+848 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+849 
+	`Buz_Sèπ
+();
+
+850 
+P_BUZZER_ON
+ = 
+ON
+;
+
+851 
+gu8Buzzî_Ordî
+++;
+
+852 
+	`SëBuzTime
+( 6 );
+
+854 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+856 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+857 
+gu8Buzzî_Ordî
+++;
+
+858 
+	`SëBuzTime
+( 10 );
+
+860 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+862 
+P_BUZZER_ON
+ = 
+ON
+;
+
+863 
+gu8Buzzî_Ordî
+++;
+
+864 
+	`SëBuzTime
+( 6 );
+
+866 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+868 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+869 
+gu8Buzzî_Ordî
+++;
+
+870 
+	`SëBuzTime
+( 50 );
+
+872 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+874 
+gu8Buzzî_Ordî
+ = 0;
+
+875 
+	`SëBuzTime
+( 0 );
+
+876 
+gu8Buzzî_Mode
+ = 0;
+
+877 
+	`Buz_St›
+();
+
+878 
+	`BUZ_SET_NOTE
+( 0 );
+
+882 
+BUZZER_MEMENTO_3
+:
+
+883 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+885 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+886 
+	`Buz_Sèπ
+();
+
+887 
+P_BUZZER_ON
+ = 
+ON
+;
+
+888 
+gu8Buzzî_Ordî
+++;
+
+889 
+	`SëBuzTime
+( 6 );
+
+891 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+893 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+894 
+gu8Buzzî_Ordî
+++;
+
+895 
+	`SëBuzTime
+( 10 );
+
+897 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+899 
+P_BUZZER_ON
+ = 
+ON
+;
+
+900 
+gu8Buzzî_Ordî
+++;
+
+901 
+	`SëBuzTime
+( 6 );
+
+903 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+905 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+906 
+gu8Buzzî_Ordî
+++;
+
+907 
+	`SëBuzTime
+( 10 );
+
+909 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+911 
+P_BUZZER_ON
+ = 
+ON
+;
+
+912 
+gu8Buzzî_Ordî
+++;
+
+913 
+	`SëBuzTime
+( 6 );
+
+915 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+917 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+918 
+gu8Buzzî_Ordî
+++;
+
+919 
+	`SëBuzTime
+( 50 );
+
+921 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+923 
+gu8Buzzî_Ordî
+ = 0;
+
+924 
+	`SëBuzTime
+( 0 );
+
+925 
+gu8Buzzî_Mode
+ = 0;
+
+926 
+	`Buz_St›
+();
+
+927 
+	`BUZ_SET_NOTE
+( 0 );
+
+931 
+BUZZER_MEMENTO_4
+:
+
+932 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+934 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+935 
+	`Buz_Sèπ
+();
+
+936 
+P_BUZZER_ON
+ = 
+ON
+;
+
+937 
+gu8Buzzî_Ordî
+++;
+
+938 
+	`SëBuzTime
+( 6 );
+
+940 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+942 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+943 
+gu8Buzzî_Ordî
+++;
+
+944 
+	`SëBuzTime
+( 10 );
+
+946 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+948 
+P_BUZZER_ON
+ = 
+ON
+;
+
+949 
+gu8Buzzî_Ordî
+++;
+
+950 
+	`SëBuzTime
+( 6 );
+
+952 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+954 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+955 
+gu8Buzzî_Ordî
+++;
+
+956 
+	`SëBuzTime
+( 10 );
+
+958 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+960 
+P_BUZZER_ON
+ = 
+ON
+;
+
+961 
+gu8Buzzî_Ordî
+++;
+
+962 
+	`SëBuzTime
+( 6 );
+
+964 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+966 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+967 
+gu8Buzzî_Ordî
+++;
+
+968 
+	`SëBuzTime
+( 10 );
+
+970 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+972 
+P_BUZZER_ON
+ = 
+ON
+;
+
+973 
+gu8Buzzî_Ordî
+++;
+
+974 
+	`SëBuzTime
+( 6 );
+
+976 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+978 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+979 
+gu8Buzzî_Ordî
+++;
+
+980 
+	`SëBuzTime
+( 50 );
+
+982 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+984 
+gu8Buzzî_Ordî
+ = 0;
+
+985 
+	`SëBuzTime
+( 0 );
+
+986 
+gu8Buzzî_Mode
+ = 0;
+
+987 
+	`Buz_St›
+();
+
+988 
+	`BUZ_SET_NOTE
+( 0 );
+
+992 
+BUZZER_MEMENTO_5
+:
+
+993 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+995 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+996 
+	`Buz_Sèπ
+();
+
+997 
+P_BUZZER_ON
+ = 
+ON
+;
+
+998 
+gu8Buzzî_Ordî
+++;
+
+999 
+	`SëBuzTime
+( 6 );
+
+1001 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1003 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1004 
+gu8Buzzî_Ordî
+++;
+
+1005 
+	`SëBuzTime
+( 10 );
+
+1007 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1009 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1010 
+gu8Buzzî_Ordî
+++;
+
+1011 
+	`SëBuzTime
+( 6 );
+
+1013 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1015 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1016 
+gu8Buzzî_Ordî
+++;
+
+1017 
+	`SëBuzTime
+( 10 );
+
+1019 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1021 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1022 
+gu8Buzzî_Ordî
+++;
+
+1023 
+	`SëBuzTime
+( 6 );
+
+1025 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1027 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1028 
+gu8Buzzî_Ordî
+++;
+
+1029 
+	`SëBuzTime
+( 10 );
+
+1031 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1033 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1034 
+gu8Buzzî_Ordî
+++;
+
+1035 
+	`SëBuzTime
+( 6 );
+
+1037 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1039 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1040 
+gu8Buzzî_Ordî
+++;
+
+1041 
+	`SëBuzTime
+( 10 );
+
+1043 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1045 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1046 
+gu8Buzzî_Ordî
+++;
+
+1047 
+	`SëBuzTime
+( 6 );
+
+1049 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1051 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1052 
+gu8Buzzî_Ordî
+++;
+
+1053 
+	`SëBuzTime
+( 50 );
+
+1055 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1057 
+gu8Buzzî_Ordî
+ = 0;
+
+1058 
+	`SëBuzTime
+( 0 );
+
+1059 
+gu8Buzzî_Mode
+ = 0;
+
+1060 
+	`Buz_St›
+();
+
+1061 
+	`BUZ_SET_NOTE
+( 0 );
+
+1065 
+BUZZER_MEMENTO_1_MUTE
+:
+
+1066 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1068 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+1069 
+	`Buz_Sèπ
+();
+
+1070 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1071 
+gu8Buzzî_Ordî
+++;
+
+1072 
+	`SëBuzTime
+( 6 );
+
+1074 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1076 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1077 
+gu8Buzzî_Ordî
+++;
+
+1078 
+	`SëBuzTime
+( 50 );
+
+1080 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1082 
+gu8Buzzî_Ordî
+ = 0;
+
+1083 
+	`SëBuzTime
+( 0 );
+
+1084 
+gu8Buzzî_Mode
+ = 0;
+
+1085 
+	`Buz_St›
+();
+
+1086 
+	`BUZ_SET_NOTE
+( 0 );
+
+1090 
+BUZZER_MEMENTO_5_MUTE
+:
+
+1091 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1093 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+1094 
+	`Buz_Sèπ
+();
+
+1095 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1096 
+gu8Buzzî_Ordî
+++;
+
+1097 
+	`SëBuzTime
+( 6 );
+
+1099 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1101 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1102 
+gu8Buzzî_Ordî
+++;
+
+1103 
+	`SëBuzTime
+( 10 );
+
+1105 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1107 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1108 
+gu8Buzzî_Ordî
+++;
+
+1109 
+	`SëBuzTime
+( 6 );
+
+1111 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1113 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1114 
+gu8Buzzî_Ordî
+++;
+
+1115 
+	`SëBuzTime
+( 10 );
+
+1117 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1119 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1120 
+gu8Buzzî_Ordî
+++;
+
+1121 
+	`SëBuzTime
+( 6 );
+
+1123 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1125 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1126 
+gu8Buzzî_Ordî
+++;
+
+1127 
+	`SëBuzTime
+( 10 );
+
+1129 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1131 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1132 
+gu8Buzzî_Ordî
+++;
+
+1133 
+	`SëBuzTime
+( 6 );
+
+1135 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1137 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1138 
+gu8Buzzî_Ordî
+++;
+
+1139 
+	`SëBuzTime
+( 10 );
+
+1141 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1143 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1144 
+gu8Buzzî_Ordî
+++;
+
+1145 
+	`SëBuzTime
+( 6 );
+
+1147 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1149 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1150 
+gu8Buzzî_Ordî
+++;
+
+1151 
+	`SëBuzTime
+( 50 );
+
+1153 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1155 
+gu8Buzzî_Ordî
+ = 0;
+
+1156 
+	`SëBuzTime
+( 0 );
+
+1157 
+gu8Buzzî_Mode
+ = 0;
+
+1158 
+	`Buz_St›
+();
+
+1159 
+	`BUZ_SET_NOTE
+( 0 );
+
+1168  
+gu8Buzzî_Mode
+ )
+
+1170 
+BUZZER_MUTE
+:
+
+1172 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1174 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+1175 
+	`Buz_Sèπ
+();
+
+1176 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1177 
+gu8Buzzî_Ordî
+++;
+
+1178 
+	`SëBuzTime
+( 5 );
+
+1180 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1182 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1183 
+gu8Buzzî_Ordî
+++;
+
+1184 
+	`SëBuzTime
+( 19 );
+
+1186 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1188 
+	`BUZ_SET_NOTE
+–
+Re7
+ );
+
+1189 
+	`Buz_Sèπ
+();
+
+1190 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1191 
+gu8Buzzî_Ordî
+++;
+
+1192 
+	`SëBuzTime
+( 10 );
+
+1194 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1196 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1197 
+gu8Buzzî_Ordî
+++;
+
+1198 
+	`SëBuzTime
+( 38 );
+
+1200 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1202 
+gu8Buzzî_Ordî
+ = 0;
+
+1203 
+	`SëBuzTime
+( 0 );
+
+1204 
+gu8Buzzî_Mode
+ = 0;
+
+1205 
+	`Buz_St›
+();
+
+1206 
+	`BUZ_SET_NOTE
+( 0 );
+
+1210 
+BUZZER_MEMENTO_1_MUTE
+:
+
+1211 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1213 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+1214 
+	`Buz_Sèπ
+();
+
+1215 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1216 
+gu8Buzzî_Ordî
+++;
+
+1217 
+	`SëBuzTime
+( 6 );
+
+1219 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1221 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1222 
+gu8Buzzî_Ordî
+++;
+
+1223 
+	`SëBuzTime
+( 50 );
+
+1225 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1227 
+gu8Buzzî_Ordî
+ = 0;
+
+1228 
+	`SëBuzTime
+( 0 );
+
+1229 
+gu8Buzzî_Mode
+ = 0;
+
+1230 
+	`Buz_St›
+();
+
+1231 
+	`BUZ_SET_NOTE
+( 0 );
+
+1235 
+BUZZER_MEMENTO_5_MUTE
+:
+
+1236 i‡((
+gu8Buzzî_Ordî
+ =1Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1238 
+	`BUZ_SET_NOTE
+–
+Sﬁ6
+ );
+
+1239 
+	`Buz_Sèπ
+();
+
+1240 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1241 
+gu8Buzzî_Ordî
+++;
+
+1242 
+	`SëBuzTime
+( 6 );
+
+1244 i‡((
+gu8Buzzî_Ordî
+ =2Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1246 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1247 
+gu8Buzzî_Ordî
+++;
+
+1248 
+	`SëBuzTime
+( 10 );
+
+1250 i‡((
+gu8Buzzî_Ordî
+ =3Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1252 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1253 
+gu8Buzzî_Ordî
+++;
+
+1254 
+	`SëBuzTime
+( 6 );
+
+1256 i‡((
+gu8Buzzî_Ordî
+ =4Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1258 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1259 
+gu8Buzzî_Ordî
+++;
+
+1260 
+	`SëBuzTime
+( 10 );
+
+1262 i‡((
+gu8Buzzî_Ordî
+ =5Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1264 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1265 
+gu8Buzzî_Ordî
+++;
+
+1266 
+	`SëBuzTime
+( 6 );
+
+1268 i‡((
+gu8Buzzî_Ordî
+ =6Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1270 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1271 
+gu8Buzzî_Ordî
+++;
+
+1272 
+	`SëBuzTime
+( 10 );
+
+1274 i‡((
+gu8Buzzî_Ordî
+ =7Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1276 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1277 
+gu8Buzzî_Ordî
+++;
+
+1278 
+	`SëBuzTime
+( 6 );
+
+1280 i‡((
+gu8Buzzî_Ordî
+ =8Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1282 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1283 
+gu8Buzzî_Ordî
+++;
+
+1284 
+	`SëBuzTime
+( 10 );
+
+1286 i‡((
+gu8Buzzî_Ordî
+ =9Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1288 
+P_BUZZER_ON
+ = 
+ON
+;
+
+1289 
+gu8Buzzî_Ordî
+++;
+
+1290 
+	`SëBuzTime
+( 6 );
+
+1292 i‡((
+gu8Buzzî_Ordî
+ =10Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1294 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1295 
+gu8Buzzî_Ordî
+++;
+
+1296 
+	`SëBuzTime
+( 50 );
+
+1298 i‡((
+gu8Buzzî_Ordî
+ =11Ë&& (
+gu16Buzzî_Time
+ == 0))
+
+1300 
+gu8Buzzî_Ordî
+ = 0;
+
+1301 
+	`SëBuzTime
+( 0 );
+
+1302 
+gu8Buzzî_Mode
+ = 0;
+
+1303 
+	`Buz_St›
+();
+
+1304 
+	`BUZ_SET_NOTE
+( 0 );
+
+1309 
+P_BUZZER_ON
+ = 
+OFF
+;
+
+1310 
+gu8Buzzî_Ordî
+ = 0;
+
+1311 
+	`SëBuzTime
+( 0 );
+
+1312 
+gu8Buzzî_Mode
+ = 0;
+
+1313 
+	`Buz_St›
+();
+
+1314 
+	`BUZ_SET_NOTE
+( 0 );
+
+1319 
+	`BuzTimeCou¡î
+();
+
+1320 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.h
+
+1 #i‚de‡
+__BUZZER_H__
+
+
+2 
+	#__BUZZER_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+8 
+	#OSC_8MHZ
+ 0
+
+	)
+
+9 
+	#OSC_16MHZ
+ 0
+
+	)
+
+10 
+	#OSC_32MHZ
+ 1
+
+	)
+
+12 #i‡(
+OSC_8MHZ
+ == 1)
+
+15 
+	#Do4
+ (15288U)
+
+	)
+
+16 
+	#Dos4
+ (14430U)
+
+	)
+
+17 
+	#Re4
+ (13620U)
+
+	)
+
+18 
+	#Mi4
+ (12134U)
+
+	)
+
+19 
+	#Pa4
+ (11453U)
+
+	)
+
+20 
+	#Pas4
+ (10810U)
+
+	)
+
+21 
+	#Sﬁ4
+ (10203U)
+
+	)
+
+22 
+	#Sﬁs4
+ (9630U)
+
+	)
+
+23 
+	#La4
+ (9090U)
+
+	)
+
+24 
+	#Si4
+ (8098U)
+
+	)
+
+26 #ñi‡(
+OSC_16MHZ
+ == 1)
+
+29 
+	#Do4
+ (30577U)
+
+	)
+
+30 
+	#Dos4
+ (28861U)
+
+	)
+
+31 
+	#Re4
+ (27241U)
+
+	)
+
+32 
+	#Mi4
+ (24269U)
+
+	)
+
+33 
+	#Pa4
+ (22907U)
+
+	)
+
+34 
+	#Pas4
+ (21621U)
+
+	)
+
+35 
+	#Sﬁ4
+ (20407U)
+
+	)
+
+36 
+	#Sﬁs4
+ (19262U)
+
+	)
+
+37 
+	#La4
+ (18181U)
+
+	)
+
+38 
+	#Si4
+ (16197U)
+
+	)
+
+42 
+	#Do4
+ (61155U)
+
+	)
+
+43 
+	#Dos4
+ (57723U)
+
+	)
+
+44 
+	#Re4
+ (54483U)
+
+	)
+
+45 
+	#Mi4
+ (48539U)
+
+	)
+
+46 
+	#Pa4
+ (45814U)
+
+	)
+
+47 
+	#Pas4
+ (43243U)
+
+	)
+
+48 
+	#Sﬁ4
+ (40816U)
+
+	)
+
+49 
+	#Sﬁs4
+ (38525U)
+
+	)
+
+50 
+	#La4
+ (36363U)
+
+	)
+
+51 
+	#Si4
+ (32395U)
+
+	)
+
+55 
+	#Do5
+ (
+Do4
+ / 2 )
+
+	)
+
+56 
+	#Dos5
+ (
+Dos4
+ / 2 )
+
+	)
+
+57 
+	#Re5
+ (
+Re4
+ / 2)
+
+	)
+
+58 
+	#Mi5
+ (
+Mi4
+ / 2)
+
+	)
+
+59 
+	#Pa5
+ (
+Pa4
+ / 2)
+
+	)
+
+60 
+	#Pas5
+ (
+Pas4
+ / 2)
+
+	)
+
+61 
+	#Sﬁ5
+ (
+Sﬁ4
+ / 2)
+
+	)
+
+62 
+	#Sﬁs5
+ (
+Sﬁs4
+ / 2)
+
+	)
+
+63 
+	#La5
+ (
+La4
+ / 2)
+
+	)
+
+64 
+	#Si5
+ (
+Si4
+ / 2)
+
+	)
+
+67 
+	#Do6
+ (
+Do4
+ / 4 )
+
+	)
+
+68 
+	#Dos6
+ (
+Dos4
+ / 4 )
+
+	)
+
+69 
+	#Re6
+ (
+Re4
+ / 4)
+
+	)
+
+70 
+	#Mi6
+ (
+Mi4
+ / 4)
+
+	)
+
+71 
+	#Pa6
+ (
+Pa4
+ / 4)
+
+	)
+
+72 
+	#Pas6
+ (
+Pas4
+ / 4)
+
+	)
+
+73 
+	#Sﬁ6
+ (
+Sﬁ4
+ / 4)
+
+	)
+
+74 
+	#Sﬁs6
+ (
+Sﬁs4
+ / 4)
+
+	)
+
+75 
+	#La6
+ (
+La4
+ / 4)
+
+	)
+
+76 
+	#Si6
+ (
+Si4
+ / 4)
+
+	)
+
+79 
+	#Do7
+ (
+Do4
+ / 8 )
+
+	)
+
+80 
+	#Dos7
+ (
+Dos4
+ / 8 )
+
+	)
+
+81 
+	#Re7
+ (
+Re4
+ / 8)
+
+	)
+
+82 
+	#Mi7
+ (
+Mi4
+ / 8)
+
+	)
+
+83 
+	#Pa7
+ (
+Pa4
+ / 8)
+
+	)
+
+84 
+	#Pas7
+ (
+Pas4
+ / 8)
+
+	)
+
+85 
+	#Sﬁ7
+ (
+Sﬁ4
+ / 8)
+
+	)
+
+86 
+	#Sﬁs7
+ (
+Sﬁs4
+ / 8)
+
+	)
+
+87 
+	#La7
+ (
+La4
+ / 8)
+
+	)
+
+88 
+	#Si7
+ (
+Si4
+ / 8)
+
+	)
+
+93 
+InôBuzzî
+();
+
+96 
+U8
+ 
+GëBuzMuã
+();
+
+97 
+SëBuzMuã
+(
+U8
+ 
+mu8Muã
+ );
+
+98 
+BuzToggÀMuã
+();
+
+101 
+	#BUZZER_OFF
+ 0
+
+	)
+
+102 
+	#BUZZER_POWER_ON
+ 1
+
+	)
+
+103 
+	#BUZZER_EFFLUENT
+ 2
+
+	)
+
+104 
+	#BUZZER_EFFLUENT_END
+ 3
+
+	)
+
+105 
+	#BUZZER_COOL_SETUP
+ 4
+
+	)
+
+106 
+	#BUZZER_COOL_CANCEL
+ 5
+
+	)
+
+107 
+	#BUZZER_SELECT
+ 6
+
+	)
+
+108 
+	#BUZZER_ERROR
+ 7
+
+	)
+
+109 
+	#BUZZER_SETUP
+ 8
+
+	)
+
+110 
+	#BUZZER_CANCEL
+ 9
+
+	)
+
+111 
+	#BUZZER_EFFLUENT_CONTINUE
+ 10
+
+	)
+
+112 
+	#BUZZER_STERILIZE_START
+ 11
+
+	)
+
+113 
+	#BUZZER_STERILIZE_END
+ 12
+
+	)
+
+114 
+	#BUZZER_MEMENTO_1
+ 13
+
+	)
+
+115 
+	#BUZZER_MEMENTO_2
+ 14
+
+	)
+
+116 
+	#BUZZER_MEMENTO_3
+ 15
+
+	)
+
+117 
+	#BUZZER_MEMENTO_4
+ 16
+
+	)
+
+118 
+	#BUZZER_MEMENTO_5
+ 17
+
+	)
+
+119 
+	#BUZZER_MUTE
+ 18
+
+	)
+
+120 
+	#BUZZER_MEMENTO_1_MUTE
+ 19
+
+	)
+
+121 
+	#BUZZER_MEMENTO_5_MUTE
+ 20
+
+	)
+
+122 
+	#BUZZER_NONE
+ 21
+
+	)
+
+123 
+BuzSãp
+(
+U8
+ 
+mu8Sãp
+);
+
+125 
+U8
+ 
+IsD⁄ePœyBuz
+();
+
+128 
+BuzTimeCou¡î
+();
+
+131 
+BuzC⁄åﬁ
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.c
+
+1 
+	~"sound.h
+"
+
+2 
+	~"buzzî.h
+"
+
+5 
+	s_sound_
+
+
+7 
+U8
+ 
+	mMuã
+;
+
+8 } 
+	tSound_T
+;
+
+10 
+Sound_T
+ 
+	gsound
+;
+
+12 
+	s_sound_li°_t
+
+
+14 
+SoundId_T
+ 
+	mSoundId
+;
+
+15 
+U8
+ 
+	mBuzzîId
+;
+
+16 } 
+	tSoundLi°_T
+;
+
+18 
+SoundLi°_T
+ 
+	gSoundLi°
+[] =
+
+21 { 
+SOUND_POWER_OFF
+ , 
+BUZZER_OFF
+ },
+
+22 { 
+SOUND_POWER_ON
+ , 
+BUZZER_POWER_ON
+ },
+
+23 { 
+SOUND_EFFLUENT
+ , 
+BUZZER_EFFLUENT
+ },
+
+24 { 
+SOUND_EFFLUENT_END
+ , 
+BUZZER_EFFLUENT_END
+ },
+
+25 { 
+SOUND_CONFIG_SETUP
+ , 
+BUZZER_COOL_SETUP
+ },
+
+26 { 
+SOUND_CONFIG_CANCEL
+ , 
+BUZZER_COOL_CANCEL
+ },
+
+27 { 
+SOUND_SELECT
+ , 
+BUZZER_SELECT
+ },
+
+28 { 
+SOUND_ERROR
+ , 
+BUZZER_ERROR
+ },
+
+29 { 
+SOUND_SETUP
+ , 
+BUZZER_SETUP
+ },
+
+30 { 
+SOUND_CANCEL
+ , 
+BUZZER_CANCEL
+ },
+
+31 { 
+SOUND_LOCK_SETUP
+ , 
+BUZZER_SETUP
+ },
+
+32 { 
+SOUND_LOCK_CANCEL
+ , 
+BUZZER_CANCEL
+ },
+
+33 { 
+SOUND_EFFLUENT_CONTINUE
+ , 
+BUZZER_EFFLUENT_CONTINUE
+ },
+
+34 { 
+SOUND_STERILIZE_START
+ , 
+BUZZER_STERILIZE_START
+ },
+
+35 { 
+SOUND_STERILIZE_END
+ , 
+BUZZER_STERILIZE_END
+ },
+
+36 { 
+SOUND_MEMENTO_1
+ , 
+BUZZER_MEMENTO_1
+ },
+
+37 { 
+SOUND_MEMENTO_2
+ , 
+BUZZER_MEMENTO_2
+ },
+
+38 { 
+SOUND_MEMENTO_3
+ , 
+BUZZER_MEMENTO_3
+ },
+
+39 { 
+SOUND_MEMENTO_4
+ , 
+BUZZER_MEMENTO_4
+ },
+
+40 { 
+SOUND_MEMENTO_5
+ , 
+BUZZER_MEMENTO_5
+ },
+
+41 { 
+SOUND_MUTE
+ , 
+BUZZER_MUTE
+ },
+
+42 { 
+SOUND_COOK_ALARM
+ , 
+BUZZER_MEMENTO_1_MUTE
+ },
+
+43 { 
+SOUND_COOK_ALARM_DONE
+ , 
+BUZZER_MEMENTO_5_MUTE
+ },
+
+46 
+	#SZ_LIST
+ ( –
+SoundLi°
+ ) / –
+SoundLi°_T
+ ) )
+
+	)
+
+48 
+	$Sound
+(
+SoundId_T
+ 
+mId
+)
+
+51 
+U8
+ 
+i
+;
+
+59  
+i
+ = 0; i < 
+SZ_LIST
+ ; i++ )
+
+61 if–
+SoundLi°
+[ 
+i
+ ].
+SoundId
+ =
+mId
+ )
+
+63 
+	`BuzSãp
+–
+SoundLi°
+[ 
+i
+ ].
+BuzzîId
+ );
+
+68 
+	}
+}
+
+70 
+U8
+ 
+	$IsSëSoundMuã
+()
+
+73  
+	`GëBuzMuã
+();
+
+77 
+	}
+}
+
+79 
+	$SëSoundMuã
+()
+
+82 
+sound
+.
+Muã
+ = 
+TRUE
+;
+
+83 
+	`SaveEïromId
+–
+EEP_ID_CONF_MUTE
+ );
+
+85 
+	`SëBuzMuã
+–
+TRUE
+ );
+
+87 
+	}
+}
+
+89 
+U8
+ 
+	$GëSoundMuã
+()
+
+91  
+sound
+.
+Muã
+;
+
+92 
+	}
+}
+
+94 
+	$CÀ¨SoundMuã
+()
+
+97 
+sound
+.
+Muã
+ = 
+FALSE
+;
+
+98 
+	`SaveEïromId
+–
+EEP_ID_CONF_MUTE
+ );
+
+100 
+	`SëBuzMuã
+–
+FALSE
+ );
+
+102 
+	}
+}
+
+104 
+	$TEST_Sound
+()
+
+106 
+U8
+ 
+cou¡
+ = 0;
+
+109 
+	`Sound
+–
+cou¡
+ );
+
+110 
+cou¡
+++;
+
+111 if–
+cou¡
+ >
+MAX_SOUND_NUM
+ )
+
+113 
+cou¡
+ = 0;
+
+115 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.h
+
+1 #i‚de‡
+__SOUND_H__
+
+
+2 
+	#__SOUND_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+9 
+	mSOUND_POWER_OFF
+,
+
+10 
+	mSOUND_POWER_ON
+,
+
+12 
+	mSOUND_EFFLUENT
+,
+
+13 
+	mSOUND_EFFLUENT_END
+,
+
+15 
+	mSOUND_CONFIG_SETUP
+,
+
+16 
+	mSOUND_CONFIG_CANCEL
+,
+
+18 
+	mSOUND_SELECT
+,
+
+19 
+	mSOUND_ERROR
+,
+
+21 
+	mSOUND_SETUP
+,
+
+22 
+	mSOUND_CANCEL
+,
+
+24 
+	mSOUND_LOCK_SETUP
+,
+
+25 
+	mSOUND_LOCK_CANCEL
+,
+
+27 
+	mSOUND_EFFLUENT_CONTINUE
+,
+
+28 
+	mSOUND_STERILIZE_START
+,
+
+29 
+	mSOUND_STERILIZE_END
+,
+
+31 
+	mSOUND_MEMENTO_1
+,
+
+32 
+	mSOUND_MEMENTO_2
+,
+
+33 
+	mSOUND_MEMENTO_3
+,
+
+34 
+	mSOUND_MEMENTO_4
+,
+
+35 
+	mSOUND_MEMENTO_5
+,
+
+37 
+	mSOUND_MUTE
+,
+
+38 
+	mSOUND_COOK_ALARM
+,
+
+39 
+	mSOUND_COOK_ALARM_DONE
+,
+
+40 
+	mSOUND_NONE
+,
+
+42 
+	mMAX_SOUND_NUM
+
+
+43 }
+	tSoundId_T
+;
+
+47 
+U8
+ 
+IsSëSoundMuã
+();
+
+50 
+SëSoundMuã
+();
+
+51 
+U8
+ 
+GëSoundMuã
+();
+
+54 
+CÀ¨SoundMuã
+();
+
+57 
+Sound
+(
+SoundId_T
+ 
+mId
+);
+
+60 
+TEST_Sound
+();
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.c
+
+1 #¥agm®
+öãºu±
+ 
+INTTM00
+ 
+Ba£TimîI¡îru±
+
+
+3 
+	~"hw.h
+"
+
+4 
+	~"timî.h
+"
+
+6 
+	~<°rög.h
+>
+
+12 
+	#HZ
+ (1UL)
+
+	)
+
+14 
+	s_timî_
+
+
+16 
+U8
+ 
+	míabÀ
+;
+
+17 
+U8
+ 
+	mty≥
+;
+
+18 
+U32
+ 
+	mtime_out
+;
+
+19 } 
+	ttimî_öfo_t
+;
+
+21 
+LOCAL
+ 
+timî_öfo_t
+ 
+	gtimî_öfo
+[ 
+MAX_TIMER_ID_NUM
+ ];
+
+23 (*
+pFunU£rISR
+)(Ë
+NULL
+ ;
+
+26 
+	$InôTimî
+( )
+
+28 
+	`MEMSET
+–(
+__FAR
+ *)
+timî_öfo
+, 0, (Åimer_info) );
+
+30 
+	`R_TAU0_Ch™√l0_Sèπ
+();
+
+31 
+	}
+}
+
+34 
+	$SèπTimî
+–
+U8
+ 
+id
+, 
+U32
+ 
+time_out
+ )
+
+36 
+	`INTS_BYTE_BASE_TIMER
+();
+
+38 
+	`ENTER_CRITICAL_SECTION_TIMER
+();
+
+40 
+timî_öfo
+[ 
+id
+ ].
+íabÀ
+ = 1;
+
+41 
+timî_öfo
+[ 
+id
+ ].
+time_out
+ =Åime_ouà/ 
+HZ
+;
+
+42 #i‡(
+HZ
+ != 1UL)
+
+43 if–(
+time_out
+ % 
+HZ
+Ë>(
+U32
+)5 )
+
+45 
+timî_öfo
+[ 
+id
+ ].
+time_out
+++;
+
+49 
+	`EXIT_CRITICAL_SECTION_TIMER
+();
+
+51 
+	}
+}
+
+53 
+	$DißbÀTimî
+–
+U8
+ 
+id
+ )
+
+55 
+timî_öfo
+[ 
+id
+ ].
+íabÀ
+ = 0;
+
+56 
+timî_öfo
+[ 
+id
+ ].
+time_out
+ = (
+U32
+)-1;
+
+57 
+	}
+}
+
+59 
+	$St›Timî
+–
+U8
+ 
+id
+ )
+
+61 
+	`DißbÀTimî
+–
+id
+ );
+
+62 
+	}
+}
+
+65 
+U8
+ 
+	$IsExpúedTimî
+–
+U8
+ 
+id
+ )
+
+67 
+U32
+ 
+time_out
+;
+
+68 
+	`INTS_BYTE_BASE_TIMER
+();
+
+71 
+	`ENTER_CRITICAL_SECTION_TIMER
+();
+
+72 
+time_out
+ = 
+timî_öfo
+[ 
+id
+ ].time_out;
+
+73 
+	`EXIT_CRITICAL_SECTION_TIMER
+();
+
+75 if–
+timî_öfo
+[ 
+id
+ ].
+íabÀ
+ == 0 )
+
+77  
+TIMER_DISABLE
+;
+
+80 if–
+time_out
+ > 0 )
+
+82  
+TIMER_NOT_EXPIRE
+;
+
+85  
+TIMER_EXPIRE
+;
+
+86 
+	}
+}
+
+89 
+	$Upd©eTimî
+( )
+
+91 
+U8
+ 
+i
+;
+
+93  
+i
+ = 0 ; i < 
+MAX_TIMER_ID_NUM
+ ; i++ )
+
+95 if–
+timî_öfo
+[ 
+i
+ ].
+íabÀ
+ == 0 )
+
+100 if–
+timî_öfo
+[ 
+i
+ ].
+time_out
+ > 0 )
+
+102 
+timî_öfo
+[ 
+i
+ ].
+time_out
+--;
+
+105 
+	}
+}
+
+109 
+Regi°îTimîISR
+–(*
+pU£rISR
+)() )
+
+111 
+pFunU£rISR
+ = 
+pU£rISR
+;
+
+112 
+	}
+}
+
+116 
+	$Ba£TimîI¡îru±
+()
+
+118 
+	`Upd©eTimî
+();
+
+121 if–
+pFunU£rISR
+ !
+NULL
+ )
+
+123 
+	`pFunU£rISR
+();
+
+125 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.h
+
+1 #i‚de‡
+__TIMER_H__
+
+
+2 
+	#__TIMER_H__
+
+
+	)
+
+4 
+	~"timî_id.h
+"
+
+6 
+	#DELAY_MS
+(
+x
+)
+
+	)
+
+7 
+	#SEC
+–
+x
+ ) ( ( x ) * 1000UL )
+
+	)
+
+10 
+	#INTS_BYTE_BASE_TIMER
+(Ë
+_öts_timî_byã
+
+
+	)
+
+11 
+	#MASK_BASE_TIMER
+ 
+TMMK00
+
+
+	)
+
+12 
+	#DISABLE_INT_MASK_BASE_TIMER
+(Ëdÿ{ 
+MASK_BASE_TIMER
+ = 1; }0)
+
+	)
+
+13 
+	#ENABLE_INT_MASK_BASE_TIMER
+(Ëdÿ{ 
+MASK_BASE_TIMER
+ = 0; }0)
+
+	)
+
+15 
+	#ENTER_CRITICAL_SECTION_TIMER
+() \
+
+17 
+_öts_timî_byã
+ = 
+MASK_BASE_TIMER
+; \
+
+18 
+	`DISABLE_INT_MASK_BASE_TIMER
+(); \
+
+19 }0)
+
+	)
+
+21 
+	#EXIT_CRITICAL_SECTION_TIMER
+() \
+
+23 
+MASK_BASE_TIMER
+ = 
+_öts_timî_byã
+; \
+
+24 } 0)
+
+	)
+
+27 
+InôTimî
+( );
+
+29 
+SèπTimî
+–
+U8
+ 
+id
+, 
+U32
+ 
+time_out
+ );
+
+31 
+DißbÀTimî
+–
+U8
+ 
+id
+ );
+
+33 
+St›Timî
+–
+U8
+ 
+id
+ );
+
+35 
+	#TIMER_EXPIRE
+ 0
+
+	)
+
+36 
+	#TIMER_NOT_EXPIRE
+ 1
+
+	)
+
+37 
+	#TIMER_DISABLE
+ 2
+
+	)
+
+38 
+U8
+ 
+IsExpúedTimî
+–U8 
+id
+ );
+
+42 
+Regi°îTimîISR
+–(*
+pU£rISR
+)() );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer_id.h
+
+1 #i‚de‡
+__TIMER_ID_H__
+
+
+2 
+	#__TIMER_ID_H__
+
+
+	)
+
+7 
+	mTIMER_ID_COMM_EOL_RX
+,
+
+8 
+	mTIMER_ID_COMM_EOL_TX
+,
+
+10 
+	mTIMER_ID_COMM_DEBUG_RX
+,
+
+11 
+	mTIMER_ID_COMM_DEBUG_TX
+,
+
+13 
+	mTIMER_ID_COMM_FRONT_RX
+,
+
+14 
+	mTIMER_ID_COMM_FRONT_TX
+,
+
+15 
+	mTIMER_ID_COMM_FRONT_RX_ERR
+,
+
+17 
+	mTIMER_ID_COMM_TOF_RX
+,
+
+18 
+	mTIMER_ID_COMM_TOF_TX
+,
+
+19 
+	mTIMER_ID_COMM_TOF_RX_ERR
+,
+
+21 
+	mTIMER_ID_1MS
+,
+
+22 
+	mTIMER_ID_10MS
+,
+
+23 
+	mTIMER_ID_100MS
+,
+
+24 
+	mTIMER_ID_1SEC
+,
+
+25 
+	mTIMER_ID_40SEC
+,
+
+26 
+	mTIMER_ID_1MIN
+,
+
+27 
+	mTIMER_ID_DEBUG
+,
+
+28 
+	mTIMER_ID_FRONT
+,
+
+29 
+	mTIMER_ID_TOF
+,
+
+32 
+	mMAX_TIMER_ID_NUM
+
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.c
+
+1 
+	~"mcu.h
+"
+
+2 
+	~"utû.h
+"
+
+3 
+	~"hw.h
+"
+
+5 
+I16
+ 
+	$GëMö
+–
+I16
+ 
+x
+, I16 
+y
+ )
+
+7 if–
+x
+ > 
+y
+ )
+
+9  
+y
+;
+
+12  
+x
+;
+
+13 
+	}
+}
+
+15 
+I16
+ 
+	$GëMax
+–
+I16
+ 
+x
+, I16 
+y
+ )
+
+17 if–
+x
+ > 
+y
+ )
+
+19  
+x
+;
+
+22  
+y
+;
+
+23 
+	}
+}
+
+26 
+U8
+ 
+	$Hex2Dec
+(
+U8
+ 
+mu8Hex
+)
+
+28 
+U8
+ 
+mu8Dec
+;
+
+30 
+mu8Dec
+ = (
+mu8Hex
+ & 0x0F);
+
+31 
+mu8Dec
+ +((
+mu8Hex
+ & 0xF0) >> 4) * 10;;
+
+33  
+mu8Dec
+;
+
+34 
+	}
+}
+
+37 
+U8
+ 
+	$Dec2Hex
+(
+U8
+ 
+mu8Dec
+)
+
+39 
+U8
+ 
+mu8Hex
+;
+
+41 
+mu8Hex
+ = 
+mu8Dec
+ % 10;
+
+42 
+mu8Hex
+ +(
+mu8Dec
+ / 10) * 16;
+
+44  
+mu8Hex
+;
+
+45 
+	}
+}
+
+47 
+U8
+ 
+	$C⁄vAsc2Byã
+(
+U8
+ 
+mu8Uµî
+, U8 
+mu8Lowî
+ )
+
+49 
+U8
+ 
+mu8Temp
+ = 0;
+
+50 
+U8
+ 
+mu8VÆ
+ = 0;
+
+54 if–
+mu8Uµî
+ > '9' )
+
+56 
+mu8Temp
+ = 
+mu8Uµî
+ - '7';
+
+60 
+mu8Temp
+ = 
+mu8Uµî
+ - '0';
+
+62 
+mu8VÆ
+ = 
+mu8Temp
+ * 16;
+
+65 if–
+mu8Lowî
+ > '9' )
+
+67 
+mu8Temp
+ = 
+mu8Lowî
+ - '7';
+
+71 
+mu8Temp
+ = 
+mu8Lowî
+ - '0';
+
+73 
+mu8VÆ
+ +
+mu8Temp
+;
+
+76  
+mu8VÆ
+;
+
+77 
+	}
+}
+
+79 
+	$Dñay_US
+–
+U8
+ 
+us
+ )
+
+81  
+us
+-- )
+
+83 
+	`NOP
+(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+
+84 
+	`NOP
+(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+
+85 
+	`NOP
+(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+
+87 
+	}
+}
+
+89 
+U16
+ 
+	$ByãOrdîC⁄v
+–
+U16
+ 
+_§c
+ )
+
+91 
+U16
+ 
+h_to_l
+ = 
+_§c
+ >> 8;
+
+92 
+U16
+ 
+l_to_h
+ = ( 
+_§c
+ & 0x00FF ) << 8;
+
+94  ( 
+l_to_h
+ | 
+h_to_l
+ );
+
+95 
+	}
+}
+
+97 
+	$Dñay_MS
+–
+U16
+ 
+ms
+ )
+
+99 
+U16
+ 
+i
+;
+
+100 
+U8
+ 
+j
+;
+
+102  
+i
+ = 0 ; i < 
+ms
+ ; i++ )
+
+104  
+j
+ = 0; j < 4 ; j++ )
+
+106 
+	`Dñay_US
+( 250 );
+
+107 
+	`R_WDT_Re°¨t
+();
+
+110 
+	}
+}
+
+112 
+	$Re£t
+()
+
+118 
+	}
+}
+
+120 
+U8
+ 
+	$CheckLimôVÆue
+(
+U8
+ 
+mu8VÆ
+, U8 
+mu8Mö
+, U8 
+mu8Max
+, U8 
+mu8Inô
+)
+
+122 if–
+mu8VÆ
+ < 
+mu8Mö
+ || mu8VÆ > 
+mu8Max
+ )
+
+124  
+mu8Inô
+;
+
+127  
+mu8VÆ
+;
+
+128 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.h
+
+1 #i‚de‡
+__UTIL_H__
+
+
+2 
+	#__UTIL_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+	#GET_HIGH_BYTE
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0xFF00Ë>> 8)
+
+	)
+
+7 
+	#GET_LOW_BYTE
+(
+vÆ
+Ë(
+U8
+)((vÆ)&0x00FF)
+
+	)
+
+8 
+	#GET_UINT_WORD
+(
+lb
+, 
+hb
+Ë((((
+U16
+)hb)<<8)|lb)
+
+	)
+
+10 
+	#GET_32_BYTE_8
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x000000FF))
+
+	)
+
+11 
+	#GET_32_BYTE_16
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x0000FF00)>>8)
+
+	)
+
+12 
+	#GET_32_BYTE_24
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x00FF0000)>>16)
+
+	)
+
+13 
+	#GET_32_BYTE_32
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0xFF000000)>>24)
+
+	)
+
+14 
+	#GET_UINT_WORD_32
+(
+b32
+, 
+b24
+, 
+b16
+, 
+b8
+) \
+
+16 –((
+U32
+)
+b32
+)<<24 ) |\
+
+17 –((
+U32
+)
+b24
+)<<16 ) |\
+
+18 –((
+U32
+)
+b16
+)<<8 ) |\
+
+19 –(
+U32
+)
+b8
+) \
+
+20 )
+
+	)
+
+22 
+	#SET_BIT_BYTE
+(
+vÆ
+,
+bô
+Ëdo{ vÆ |(
+U8
+)(bô); }0)
+
+	)
+
+23 
+	#CLEAR_BIT_BYTE
+(
+vÆ
+,
+bô
+Ëdo{ vÆ &(
+U8
+)(~bô); }0)
+
+	)
+
+25 
+	#SET_BIT_WORD
+(
+vÆ
+,
+bô
+Ëdo{ vÆ |(
+U16
+)(bô); }0)
+
+	)
+
+26 
+	#CLEAR_BIT_WORD
+(
+vÆ
+,
+bô
+Ëdo{ vÆ &(
+U16
+)(~bô); }0)
+
+	)
+
+28 
+	#DOWN_COUNT
+(
+vÆ
+) \
+
+30 if–
+vÆ
+ != 0 ) { val--; } \
+
+31 }0)
+
+	)
+
+33 
+	#DOWN_COUNT_RELOAD
+(
+vÆ
+,
+ªlﬂd
+) \
+
+35 if–
+vÆ
+ != 0 ){ val--;}\
+
+36 { 
+vÆ
+=
+ªlﬂd
+;} \
+
+37 }0)
+
+	)
+
+39 
+I16
+ 
+GëMö
+–I16 
+x
+, I16 );
+
+40 
+I16
+ 
+GëMax
+–I16 
+x
+, I16 
+y
+ );
+
+42 
+U8
+ 
+Hex2Dec
+(U8 
+mu8Hex
+);
+
+43 
+U8
+ 
+Dec2Hex
+(U8 
+mu8Dec
+);
+
+45 
+U8
+ 
+C⁄vAsc2Byã
+(U8 
+mu8Uµî
+, U8 
+mu8Lowî
+ );
+
+46 
+U16
+ 
+ByãOrdîC⁄v
+–U16 
+_§c
+ );
+
+48 
+Dñay_US
+–
+U8
+ 
+us
+ );
+
+49 
+Dñay_MS
+–
+U16
+ 
+ms
+ );
+
+51 
+Re£t
+();
+
+56 
+U8
+ 
+CheckLimôVÆue
+(U8 
+mu8VÆ
+, U8 
+mu8Mö
+, U8 
+mu8Max
+, U8 
+mu8Inô
+);
+
+	@config.h
+
+1 #i‚de‡
+__CONFIG_H__
+
+
+2 
+	#__CONFIG_H__
+
+
+	)
+
+6 
+	#DEBUG_COMM
+ 1
+
+	)
+
+7 
+	#CONFIG_TEST_LED
+ 1
+
+	)
+
+10 
+	#VERSION
+ 1
+
+	)
+
+	@prj_type.h
+
+1 #i‚de‡
+__PRJ_TYPE_H__
+
+
+2 
+	#__PRJ_TYPE_H__
+
+
+	)
+
+4 
+	~"c⁄fig.h
+"
+
+5 
+	~<°dio.h
+>
+
+6 
+	~<°rög.h
+>
+
+8 #i‚de‡
+__TYPEDEF_COWAY__
+
+
+9 
+	#__TYPEDEF_COWAY__
+
+
+	)
+
+10 
+	tU8
+;
+
+11 sig√d 
+	tI8
+;
+
+12 
+	tU16
+;
+
+13 sig√d 
+	tI16
+;
+
+14 
+	tU32
+;
+
+15 sig√d 
+	tI32
+;
+
+16 
+	tF32
+;
+
+17 
+	tBOOL_T
+;
+
+18 
+	tTIME_T
+;
+
+20 
+	tTEMP_T
+;
+
+21 
+	tRPS_T
+;
+
+24 
+	tuöt8_t
+;
+
+25 sig√d 
+	töt8_t
+;
+
+26 
+	tuöt16_t
+;
+
+27 sig√d 
+	töt16_t
+;
+
+28 
+	tuöt32_t
+;
+
+29 sig√d 
+	töt32_t
+;
+
+33 
+	#__DEBUG__
+ 1
+
+	)
+
+35 #i‡
+__DEBUG__
+
+
+36 
+	#LOCAL
+
+
+	)
+
+38 
+	#LOCAL
+ 
+
+	)
+
+41 #ifde‡
+NULL
+
+
+42 #unde‡
+NULL
+
+
+45 
+	#NULL
+ ((*)0)
+
+	)
+
+47 #ifde‡
+TRUE
+
+
+48 #unde‡
+TRUE
+
+
+51 
+	#TRUE
+ 1
+
+	)
+
+53 #ifde‡
+FALSE
+
+
+54 #unde‡
+FALSE
+
+
+57 
+	#FALSE
+ 0
+
+	)
+
+60 #ifde‡
+ON
+
+
+61 #unde‡
+ON
+
+
+64 
+	#ON
+ 1
+
+	)
+
+66 #ifde‡
+OFF
+
+
+67 #unde‡
+OFF
+
+
+70 
+	#OFF
+ 0
+
+	)
+
+72 
+	#HIGH
+ 1
+
+	)
+
+73 
+	#LOW
+ 0
+
+	)
+
+77 #i‡(
+CONFIG_FOTA_LIB
+ == 0)
+
+78 
+	#__FAR
+
+
+	)
+
+79 
+	#SPRINTF
+ 
+•rötf
+
+
+	)
+
+80 
+	#MEMSET
+ 
+mem£t
+
+
+	)
+
+81 
+	#MEMCPY
+ 
+mem˝y
+
+
+	)
+
+82 
+	#MEMCMP
+ 
+memcmp
+
+
+	)
+
+83 
+	#ATOI
+ 
+©oi
+
+
+	)
+
+85 
+	#__FAR
+ 
+__Ár
+
+
+	)
+
+86 
+	#SPRINTF
+ 
+•rötf_f
+
+
+	)
+
+87 
+	#MEMSET
+ 
+mem£t_f
+
+
+	)
+
+88 
+	#MEMCPY
+ 
+mem˝y_f
+
+
+	)
+
+89 
+	#MEMCMP
+ 
+memcmp_f
+
+
+	)
+
+90 
+	#ATOI
+ 
+©oi_f
+
+
+	)
+
+	@process_sys_event.h
+
+1 #i‚de‡
+__PROCESS_SYS_EVENT_H__
+
+
+2 
+	#__PROCESS_SYS_EVENT_H__
+
+
+	)
+
+4 
+InôSy°em
+();
+
+6 
+Pro˚ssEvítH™dÀr
+();
+
+	@util.h
+
+1 #i‚de‡
+__UTIL_H__
+
+
+2 
+	#__UTIL_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+6 
+	#GET_HIGH_BYTE
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0xFF00Ë>> 8)
+
+	)
+
+7 
+	#GET_LOW_BYTE
+(
+vÆ
+Ë(
+U8
+)((vÆ)&0x00FF)
+
+	)
+
+8 
+	#GET_UINT_WORD
+(
+lb
+, 
+hb
+Ë((((
+U16
+)hb)<<8)|lb)
+
+	)
+
+10 
+	#GET_32_BYTE_8
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x000000FF))
+
+	)
+
+11 
+	#GET_32_BYTE_16
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x0000FF00)>>8)
+
+	)
+
+12 
+	#GET_32_BYTE_24
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0x00FF0000)>>16)
+
+	)
+
+13 
+	#GET_32_BYTE_32
+(
+vÆ
+Ë(
+U8
+)(((vÆ)&0xFF000000)>>24)
+
+	)
+
+14 
+	#GET_UINT_WORD_32
+(
+b32
+, 
+b24
+, 
+b16
+, 
+b8
+) \
+
+16 –((
+U32
+)
+b32
+)<<24 ) |\
+
+17 –((
+U32
+)
+b24
+)<<16 ) |\
+
+18 –((
+U32
+)
+b16
+)<<8 ) |\
+
+19 –(
+U32
+)
+b8
+) \
+
+20 )
+
+	)
+
+22 
+	#SET_BIT_BYTE
+(
+vÆ
+,
+bô
+Ëdo{ vÆ |(
+U8
+)(bô); }0)
+
+	)
+
+23 
+	#CLEAR_BIT_BYTE
+(
+vÆ
+,
+bô
+Ëdo{ vÆ &(
+U8
+)(~bô); }0)
+
+	)
+
+25 
+	#SET_BIT_WORD
+(
+vÆ
+,
+bô
+Ëdo{ vÆ |(
+U16
+)(bô); }0)
+
+	)
+
+26 
+	#CLEAR_BIT_WORD
+(
+vÆ
+,
+bô
+Ëdo{ vÆ &(
+U16
+)(~bô); }0)
+
+	)
+
+28 
+	#DOWN_COUNT
+(
+vÆ
+) \
+
+30 if–
+vÆ
+ != 0 ) { val--; } \
+
+31 }0)
+
+	)
+
+33 
+	#DOWN_COUNT_RELOAD
+(
+vÆ
+,
+ªlﬂd
+) \
+
+35 if–
+vÆ
+ != 0 ){ val--;}\
+
+36 { 
+vÆ
+=
+ªlﬂd
+;} \
+
+37 }0)
+
+	)
+
+39 
+I16
+ 
+GëMö
+–I16 
+x
+, I16 );
+
+40 
+I16
+ 
+GëMax
+–I16 
+x
+, I16 
+y
+ );
+
+42 
+U8
+ 
+Hex2Dec
+(U8 
+mu8Hex
+);
+
+43 
+U8
+ 
+Dec2Hex
+(U8 
+mu8Dec
+);
+
+45 
+U8
+ 
+C⁄vAsc2Byã
+(U8 
+mu8Uµî
+, U8 
+mu8Lowî
+ );
+
+46 
+U16
+ 
+ByãOrdîC⁄v
+–U16 
+_§c
+ );
+
+48 
+Dñay_US
+–
+U8
+ 
+us
+ );
+
+49 
+Dñay_MS
+–
+U16
+ 
+ms
+ );
+
+51 
+Re£t
+();
+
+56 
+U8
+ 
+CheckLimôVÆue
+(U8 
+mu8VÆ
+, U8 
+mu8Mö
+, U8 
+mu8Max
+, U8 
+mu8Inô
+);
+
+	@
+1
+.
+0
+59
+5204
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\config.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hw.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\mcu.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_common_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\main.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\prj_type.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer_id.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.h
+config.h
+prj_type.h
+process_sys_event.h
+util.h
