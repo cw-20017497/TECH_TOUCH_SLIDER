@@ -223,6 +223,22 @@
       <ParentItem>26957091-8163-48ce-bcc2-fd456b0b01d8</ParentItem>
       <Property>db6f2093-07ba-4344-972f-033cba29f8be</Property>
     </Instance>
+    <Instance Guid="cd03bc09-399a-4da2-b22b-e7376037d525">
+      <Name>queue.c</Name>
+      <Type>File</Type>
+      <RelativePath>Source\queue.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>26957091-8163-48ce-bcc2-fd456b0b01d8</ParentItem>
+      <Property>734b3fc4-efad-406a-856b-25000059b01b</Property>
+    </Instance>
+    <Instance Guid="10039096-7af5-4ebc-9215-9805bcb5fdee">
+      <Name>queue.h</Name>
+      <Type>File</Type>
+      <RelativePath>Source\queue.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>26957091-8163-48ce-bcc2-fd456b0b01d8</ParentItem>
+      <Property>0ec9e32e-76ea-46f6-8c40-7b3d15107a66</Property>
+    </Instance>
     <Instance Guid="5469177c-aec8-46b3-8236-9431534f1e2b">
       <Name>main.c</Name>
       <Type>File</Type>
@@ -418,6 +434,22 @@
       <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
       <ParentItem>231915f5-0a3c-4fe0-aee3-9c9aa4d6dafb</ParentItem>
       <Property>c85dc6d6-531e-43c1-94f9-625e91fcfcb0</Property>
+    </Instance>
+    <Instance Guid="82b15b14-df25-487b-b306-9e7cc149d88e">
+      <Name>comm_queue.c</Name>
+      <Type>File</Type>
+      <RelativePath>Source\comm\comm_queue.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>231915f5-0a3c-4fe0-aee3-9c9aa4d6dafb</ParentItem>
+      <Property>fca98a88-7cf2-4749-bf4b-b89c37bed979</Property>
+    </Instance>
+    <Instance Guid="f64132b7-d6d3-4270-830d-160d25a9f50d">
+      <Name>comm_queue.h</Name>
+      <Type>File</Type>
+      <RelativePath>Source\comm\comm_queue.h</RelativePath>
+      <TreeImageGuid>03cad1e8-2eb3-4cde-a8a3-982423631122</TreeImageGuid>
+      <ParentItem>231915f5-0a3c-4fe0-aee3-9c9aa4d6dafb</ParentItem>
+      <Property>f8c99250-024a-4b82-a2a3-412d6ce371ac</Property>
     </Instance>
     <Instance Guid="28a05521-dd17-41ca-8955-aad0b7087d8f">
       <Name>crc16.c</Name>
@@ -756,6 +788,18 @@
     <Instance Guid="10269118-a3b5-4334-ad43-f3d038b84f39">
       <MemoCount>0</MemoCount>
     </Instance>
+    <Instance Guid="0ec9e32e-76ea-46f6-8c40-7b3d15107a66">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="734b3fc4-efad-406a-856b-25000059b01b">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="fca98a88-7cf2-4749-bf4b-b89c37bed979">
+      <MemoCount>0</MemoCount>
+    </Instance>
+    <Instance Guid="f8c99250-024a-4b82-a2a3-412d6ce371ac">
+      <MemoCount>0</MemoCount>
+    </Instance>
   </Class>
   <Class Guid="78a5c5cd-76cb-4bcc-a031-3020011fbc9a">
     <Instance Guid="870c5e20-959a-4e77-ae8a-fede62d3a489">
@@ -892,7 +936,11 @@
       <SourceItemType31>CSource</SourceItemType31>
       <SourceItemGuid32>1be236f7-3e5f-447f-84f7-5c0d8b3f0c14</SourceItemGuid32>
       <SourceItemType32>CSource</SourceItemType32>
-      <SourceItemCount>33</SourceItemCount>
+      <SourceItemGuid33>82b15b14-df25-487b-b306-9e7cc149d88e</SourceItemGuid33>
+      <SourceItemType33>CSource</SourceItemType33>
+      <SourceItemGuid34>cd03bc09-399a-4da2-b22b-e7376037d525</SourceItemGuid34>
+      <SourceItemType34>CSource</SourceItemType34>
+      <SourceItemCount>35</SourceItemCount>
       <VfiSourceItemCount>0</VfiSourceItemCount>
       <LastDeviceChangedCounter>3</LastDeviceChangedCounter>
     </Instance>
@@ -1177,7 +1225,7 @@ Source\timer
       <ReserveWorkingMemoryForRrmDmm-DefaultValue>False</ReserveWorkingMemoryForRrmDmm-DefaultValue>
       <StartAddressOfWorkingMemoryForRrmDmm-DefaultValue />
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584757618365005848</TimeTagModified--0>
+      <TimeTagModified--0>-8584696031740913331</TimeTagModified--0>
       <DebugInformation-0>True</DebugInformation-0>
       <ErrorListFile-0>False</ErrorListFile-0>
       <LibraryFiles-0 />
@@ -1301,7 +1349,7 @@ Source\timer
       <NumberOfCharactersPerLine-DefaultValue>132</NumberOfCharactersPerLine-DefaultValue>
       <NumberOfLinesPerPage-DefaultValue>0</NumberOfLinesPerPage-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584757618365005848</TimeTagModified--0>
+      <TimeTagModified--0>-8584696031740913331</TimeTagModified--0>
       <ListFile-0>False</ListFile-0>
       <OutputFolder-0>%BuildModeName%</OutputFolder-0>
       <PreLibraryCommands-0 />
@@ -1320,7 +1368,7 @@ Source\timer
       <VariableInformationFolder-DefaultValue>%BuildModeName%</VariableInformationFolder-DefaultValue>
       <VariableInformationFileName-DefaultValue>%ProjectName%.vfi</VariableInformationFileName-DefaultValue>
       <IsLockedByUser>False</IsLockedByUser>
-      <TimeTagModified--0>-8584757618365005848</TimeTagModified--0>
+      <TimeTagModified--0>-8584696031740913331</TimeTagModified--0>
       <Margin-0>0</Margin-0>
       <OutputRomRamUsage-0>True</OutputRomRamUsage-0>
       <VariableInformationFile-0>False</VariableInformationFile-0>
@@ -1591,6 +1639,22 @@ Source\timer
       <ItemAddTime>638617317323347882</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="10039096-7af5-4ebc-9215-9805bcb5fdee">
+      <ItemAddTime>638676329183348124</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="cd03bc09-399a-4da2-b22b-e7376037d525">
+      <ItemAddTime>638676329183348124</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="82b15b14-df25-487b-b306-9e7cc149d88e">
+      <ItemAddTime>638676329659035906</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="f64132b7-d6d3-4270-830d-160d25a9f50d">
+      <ItemAddTime>638676329659035906</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="fc999d8f-43d6-4cb3-af4b-cf6891d759fb">
       <TimeTagModified-SourceItem0--0>-8586027530539494115</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1724,6 +1788,14 @@ Source\timer
       <SourceItem32-IsLockedByUser>False</SourceItem32-IsLockedByUser>
       <SourceItem32-BuildingTarget-0>True</SourceItem32-BuildingTarget-0>
       <SourceItem32-IndividualCompileOption-0>False</SourceItem32-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem33--0>-8584696031195739902</TimeTagModified-SourceItem33--0>
+      <SourceItem33-IsLockedByUser>False</SourceItem33-IsLockedByUser>
+      <SourceItem33-BuildingTarget-0>True</SourceItem33-BuildingTarget-0>
+      <SourceItem33-IndividualCompileOption-0>False</SourceItem33-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem34--0>-8584696031671427684</TimeTagModified-SourceItem34--0>
+      <SourceItem34-IsLockedByUser>False</SourceItem34-IsLockedByUser>
+      <SourceItem34-BuildingTarget-0>True</SourceItem34-BuildingTarget-0>
+      <SourceItem34-IndividualCompileOption-0>False</SourceItem34-IndividualCompileOption-0>
     </Instance>
   </Class>
   <Class Guid="44fa27c9-0aa0-4297-bd3b-2c5c5bdb8881">
@@ -4290,7 +4362,7 @@ Source\timer
     &lt;PIOR4Value Name="PIOR4Value" Text="0" /&gt;
     &lt;PIOR5Value Name="PIOR5Value" Text="0" /&gt;
     &lt;ProjectName Name="PrjName" Text="TOUCH_SLIDER_MAIN_COMM_TEST" /&gt;
-    &lt;ProjectPath Name="PrjPath" Text="D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main" /&gt;
+    &lt;ProjectPath Name="PrjPath" Text="D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main" /&gt;
     &lt;ProjectKind Name="PrjKind" Text="Project78K0R" /&gt;
     &lt;DeviceName Name="DeviceName" Fixed="" Text="RL78G13" /&gt;
     &lt;MCUName Name="MCUName" Text="RL78G13_48pin" /&gt;
@@ -5337,21 +5409,21 @@ Source\timer
         &lt;cg_security7 Name="cg_security7" Value="00" /&gt;
         &lt;cg_security5 Name="cg_security5" Value="00" /&gt;
         &lt;cg_crc_area Name="cg_crc_area" Value="00" /&gt;
-        &lt;ocdstart Name="ocdstart" Value="0FE00" /&gt;
         &lt;cg_security3 Name="cg_security3" Value="00" /&gt;
         &lt;cg_security0 Name="cg_security0" Value="00" /&gt;
         &lt;cg_security1 Name="cg_security1" Value="00" /&gt;
+        &lt;cg_ocd_ram_size Name="cg_ocd_ram_size" Value="512" /&gt;
         &lt;clock_option Name="clock_option" Value="E8" /&gt;
-        &lt;lvi_option Name="lvi_option" Value="73" /&gt;
+        &lt;cg_security2 Name="cg_security2" Value="00" /&gt;
         &lt;pior_value Name="pior_value" Value="00" /&gt;
         &lt;cg_option Name="cg_option" Value="84" /&gt;
         &lt;cg_security8 Name="cg_security8" Value="00" /&gt;
         &lt;cg_security6 Name="cg_security6" Value="00" /&gt;
-        &lt;cg_security4 Name="cg_security4" Value="00" /&gt;
+        &lt;ocdstart Name="ocdstart" Value="0FE00" /&gt;
         &lt;cg_onchip Name="cg_onchip" Value="" /&gt;
-        &lt;cg_security2 Name="cg_security2" Value="00" /&gt;
+        &lt;cg_security4 Name="cg_security4" Value="00" /&gt;
         &lt;cg_iawctl_value Name="cg_iawctl_value" Value="00" /&gt;
-        &lt;cg_ocd_ram_size Name="cg_ocd_ram_size" Value="512" /&gt;
+        &lt;lvi_option Name="lvi_option" Value="73" /&gt;
         &lt;wdt_option Name="wdt_option" Value="7F" /&gt;
         &lt;rrm Name="rrm" Value="0FE00" /&gt;
       &lt;/GlobleUserTag&gt;

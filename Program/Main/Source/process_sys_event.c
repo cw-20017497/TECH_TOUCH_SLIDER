@@ -5,6 +5,8 @@
 #include "hal_serial.h"
 #include "hal_led.h"
 #include "buzzer.h"
+
+#include "comm_queue.h"
 #include "parser.h"
 #include "parser_front.h"
 #include "process_display.h"
@@ -25,7 +27,6 @@ static void Evt_1ms_Handler( void );
 static void Evt_10ms_Handler( void );
 static void Evt_100ms_Handler( void );
 static void Evt_1sec_Handler( void );
-static void Evt_Front_Handler( void );
 
 
 
@@ -36,7 +37,6 @@ const static SysEvent_T	SysEventList[] =
     { TIMER_ID_10MS,                Evt_10ms_Handler,           NULL,       NULL },
     { TIMER_ID_100MS,               Evt_100ms_Handler,          NULL,       NULL },
     { TIMER_ID_1SEC,                Evt_1sec_Handler,           NULL,       NULL },
-    { TIMER_ID_FRONT,               Evt_Front_Handler,          NULL,       NULL },
 };
 #define	SZ_LIST		( sizeof( SysEventList ) / sizeof( SysEvent_T ) )
 
@@ -94,23 +94,6 @@ static void Evt_1sec_Handler( void )
 
 
 
-// 50ms 주기로 FRONT COMMUNICATION
-#define FRONT_REFRESH_TIME     50 // @50ms...
-static void Evt_Front_Handler( void )
-{
-    StartTimer( TIMER_ID_FRONT, FRONT_REFRESH_TIME );
-
-//    if( HAL_IsUpdateLed() == TRUE )
-//    {
-//        SetCommHeader( COMM_ID_FRONT, PKT_FRONT_REQ_LED );
-//        StartTimer( TIMER_ID_COMM_FRONT_TX, 0 );
-//
-//        HAL_UpdateLed();
-//    }
-}
-
-
-
 void TimerIsrCallback(void)
 {
     BuzControl();
@@ -124,6 +107,8 @@ void InitSystem(void)
 
     HAL_InitLed();
     InitDisplay();
+
+    InitCommQueue();
 
     RegisterTimerISR( TimerIsrCallback  );
 }

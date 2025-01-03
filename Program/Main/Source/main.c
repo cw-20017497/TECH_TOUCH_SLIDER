@@ -18,8 +18,8 @@ static void InitStartTimers( void )
     StartTimer( TIMER_ID_100MS, 100);
     StartTimer( TIMER_ID_1SEC,  SEC(1));
 
-    StartTimer( TIMER_ID_FRONT, 20 );
-    StartTimer( TIMER_ID_COMM_FRONT_RX_ERR, SEC(10) );
+    StartTimer( TIMER_ID_QUEUE_RETRY_WAIT, 1);
+    StartTimer( TIMER_ID_UART_2_TX_DONE, 1);
 }
 
 

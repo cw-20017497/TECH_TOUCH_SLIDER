@@ -8,6 +8,7 @@
 #define PKT_FRONT_REQ_LED       0x01
 #define PKT_FRONT_ACK_LED       0x81
 
+I16 ReadPacket_Front( U8 id , U8 *recv_pkt );
 I16 IsValidPkt_Front( U8 *buf, I16 len );
 I16 ParserPkt_Front( U8 *buf, I16 len);
 I16 Crc16_Front( U8 *buf, I16 len );

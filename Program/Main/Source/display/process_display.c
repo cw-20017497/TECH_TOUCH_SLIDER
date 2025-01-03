@@ -8,6 +8,8 @@
 #include "parser_front.h"
 #include "hal_led.h"
 
+#include "comm_queue.h"
+
 
 
 
@@ -18,7 +20,6 @@ static void Display7Segment(void);
 
 static void UpdateTimer(void);
 static void ProcessDisplayBoot(void);
-static void ProcessDisplayNormalMode_Moving(void);
 static void ProcessDisplayNormalMode(void);
 
 
@@ -129,65 +130,289 @@ static void ProcessDisplayBoot(void)
 }
 
 
-U16 dbg_val = 0;
-U8 dbg_bar = 0;
-U8 dir_bar = 0;
-static void ProcessDisplayNormalMode_Moving(void)
+I16 delta_t[20] = {0};
+
+U8 index = 0;
+U8 prev_up_down_val = 0;
+#define DIR_UP      2
+#define DIR_DOWN    1
+#define DIR_NONE    0
+static U8 calcDirection(U16 val)
 {
+    U8 ret = DIR_NONE;
+
+    if( val == 0 )
+    {
+        prev_up_down_val = val;
+        return DIR_NONE;
+    }
+
+    if( prev_up_down_val != val 
+            && prev_up_down_val == 0 )
+    {
+        prev_up_down_val = val;
+
+        return DIR_NONE;
+    }
+
+    if( prev_up_down_val != val )
+    {
+        if( prev_up_down_val > val )
+        {
+            ret = DIR_UP;
+        }
+        else if( prev_up_down_val < val )
+        {
+            ret =  DIR_DOWN;
+        }
+
+        ////////////////////////////////////////////////
+        // for debug, recoding deltea
+        delta_t[ index++ ]  = prev_up_down_val - val;
+        if( index >= 20 )
+        {
+            index = 0;
+        }
+        ///////////////////////////////////////////////
+        
+        prev_up_down_val = val;
+    }
+
+    return ret;
+}
+
+#define SPEED_L5        5
+#define SPEED_L4        4
+#define SPEED_L3        3
+#define SPEED_L2        2
+#define SPEED_L1        1
+#define SPEED_L0        0
+
+I16 prev_speed_val = 0;
+I16 delta;
+U8 dbg_speed = 0;
+U8 dbg_delta = 0;
+static U8 calcSpeed(U16 val)
+{
+    U8 ret = SPEED_L1;
+    //I16 delta;
+
+    if( val == 0 )
+    {
+        prev_speed_val = val;
+        return ret;
+    }
+
+
+    if( prev_speed_val != val
+            && prev_speed_val == 0 )
+    {
+        prev_speed_val = (I16)val;
+
+        return SPEED_L1;
+    }
+
+    if( prev_speed_val != val )
+    {
+        delta = prev_speed_val - (I16)val;
+        delta = abs( delta );
+
+        if(delta >= 100 ) { ret = SPEED_L5; }
+        else if(delta >= 55 ) { ret = SPEED_L4; }
+        else if(delta >= 45 ) { ret = SPEED_L3; }
+        else if(delta >= 35 ) { ret = SPEED_L2; }
+        else if(delta >= 3 ) { ret = SPEED_L1; }
+        else { ret = SPEED_L0; }
+    }
+
+    prev_speed_val = (I16)val;
+
+    ///////////////////////////////////////
+    // for debug......
+    dbg_delta = delta;
+    dbg_speed = ret;
+    ///////////////////////////////////////
+    return ret;
+}
+
+
+extern U8 slider[4];
+U8 the_disp_level =0;
+U8 the_slide = 0;
+I8 temp_index = 0;
+U8 temp_hot[5] = { 0, 45, 70, 85, 100 };
+    
+U16 slide_disp_time = 0;        // @10ms..
+U8 the_temp = 0;
+#define TEMP_TICK   1
+#define MAX_TEMP    100
+#define MIN_TEMP    40
+
+U8 GetTempTick(U8 speed)
+{
+    U8 ret_tick = 1;
+
+    if( speed == SPEED_L5 )     { ret_tick = 10; }
+    else if( speed == SPEED_L4 ){ ret_tick = 5; }
+    else if( speed == SPEED_L3 ){ ret_tick = 4; }
+    else if( speed == SPEED_L2 ){ ret_tick = 2; }
+    else if( speed == SPEED_L1 ){ ret_tick = 1; }
+    else ret_tick = 0;
+    
+    return ret_tick;
+}
+
+U16 effect_time_val = 2;
+U16 effect_time = 2;
+void DisplayEffectTemp(U16 temp, U8 up_down)
+{
+    static U16 target_temp = 0;
+    static U16 current_temp = 0;
+
+
+
+    target_temp = temp;
+
+    if( effect_time != 0 )
+    {
+        effect_time--;
+        DispTemp( current_temp );
+        return ;
+    }
+    else if( target_temp > current_temp )
+    {
+        current_temp += 1;
+        effect_time = effect_time_val;
+        DispTemp( current_temp );
+
+    }
+    else if( target_temp < current_temp )
+    {
+        current_temp -= 1;
+        effect_time = effect_time_val;
+        DispTemp( current_temp );
+
+    }
+}
+
+static void ProcessDisplayNormalMode(void)
+{
+    static U8 prev_slide = 0;
+    static U8 prev_disp_level = 0;
+    static U8 dir = 0;
+
+
     DispLedDuty();
 
-    DispTemp(dbg_val);
-    if( dbg_val++ > 999 )
+    // reverse side
+    if( slider[1] > 0 )
     {
-        dbg_val = 0;
-    }
-
-    DispBarStack( dbg_bar );
-    if( dir_bar == 0 )
-    {
-        dbg_bar++;
-        if( dbg_bar >= 14 )
-        {
-            dir_bar = 1;
-        }
+        the_slide = (U8)(256U - slider[1]);
     }
     else
     {
-        dbg_bar--;
-        if( dbg_bar == 1 )
-        {
-            dir_bar = 0;
-        }
+        the_slide = 0;
     }
-}
 
 
-#define SLIDER_TEMP_END      255
-#define SLIDER_TEMP_LEVEL    4
-
-// mode
-#define SLIDER_MODE_SELECT  0
-#define SLIDER_MODE_SWIFT   1
-
-U8 SliderMode = SLIDER_MODE_SELECT;
-U8 LevelValue[SLIDER_TEMP_LEVEL] = { 64, 128, 191, 255 };
-
-static void SliderDispTemp(void)
-{
-    if( SliderMode == SLIDER_MODE_SELECT )
+    // setting slide_disp_time
+    if (prev_slide != the_slide)
     {
-        if( slider[1] > 0 )
+        if( prev_slide > 0 && the_slide == 0 )
         {
-            SliderMode = SLIDER_MODE_SWIFT;
+            // pop slide  -> setting micro slide timer
+            slide_disp_time = 500; // 5sec @10ms
+        }
+        else if( prev_slide == 0 && the_slide != 0 )
+        {
+            if( slide_disp_time == 0 )
+            {
+                // push slide
+                Sound( SOUND_SELECT );
+            }
         }
 
-        if( slider[1] 
+        prev_slide = the_slide;
+    }
+
+    // update slide_disp_time
+    if( slide_disp_time != 0 
+            && the_slide != 0 )
+    {
+        slide_disp_time = 500; // 5sec @10ms
+    }
+
+
+    if( slide_disp_time != 0 )
+    {
+        // 표시 대기 시간 카운팅
+        slide_disp_time--;
+    }
+
+    // 표시 대기 시간이 초과
+    if( slide_disp_time == 0 )
+    {
+        if( the_slide > 192 )       { temp_index = 4; }
+        else if( the_slide > 128 )  { temp_index = 3; }
+        else if( the_slide > 64 )   { temp_index = 2; }
+        else if( the_slide > 0 )    { temp_index = 1; }
+        else                        { temp_index = 0; }
+    }
+
+    // 표기 대기 시간 중 슬라이드 입력이 있는 경우
+    if( slide_disp_time != 0 
+            && the_slide != 0 )
+    {
+        U8 up_down = 0;
+        U8 speed = 0;
+
+        speed = calcSpeed( the_slide );
+        up_down = calcDirection( the_slide );
+        if( up_down  == DIR_DOWN )
+        {
+            the_temp += GetTempTick( speed );
+        }
+        else if( up_down  == DIR_UP )
+        {
+            the_temp -= GetTempTick( speed );
+        }
+        else if( up_down  == DIR_NONE )
+        {
+        }
+
+        // check min/max
+        if( the_temp < MIN_TEMP )
+        {
+            the_temp = MIN_TEMP;
+        }
+        else if( the_temp > MAX_TEMP )
+        {
+            the_temp = MAX_TEMP;
+        }
+
+        DisplayEffectTemp( the_temp, up_down );
+
+        DispBarStack( temp_index * 3 );
+    }
+    else if( slide_disp_time != 0 && the_slide == 0 )
+    {
+        // 손을 뗐을 때 이전 값(prev) 업데이트를 위해서 호출
+        calcSpeed( the_slide );
+        calcDirection( the_slide );
+        DisplayEffectTemp( the_temp, 0 );
     }
     else
     {
+        // 표시 대기 시간 초과 그리고 입력도 없는 경우
+        the_temp = temp_hot[ temp_index ];
+        DispTemp( the_temp );
+        DispBarStack( temp_index * 3 );
     }
+
 }
 
+
+#if 0
 extern U8 slider[4];
 U8 the_disp_level =0;
 U8 the_slide = 0;
@@ -207,7 +432,7 @@ static void ProcessDisplayNormalMode(void)
 
     if( slider[1] > 0 )
     {
-        the_slide = 256 - slider[1];
+        the_slide = (U8)(256U - slider[1]);
     }
     else
     {
@@ -257,17 +482,32 @@ static void ProcessDisplayNormalMode(void)
 
     DispTemp( temp_hot[ temp_index ] );
 }
+#endif
 
 
 
+U8 dbg_the_disp_update = 0;     // for debug
+U8 dbg_update = 0;
 static void Update(void)
 {
-    if( HAL_IsUpdateLed() == TRUE )
-    {
-        SetCommHeader( COMM_ID_FRONT, PKT_FRONT_REQ_LED );
-        StartTimer( TIMER_ID_COMM_FRONT_TX, 0 );
+    static U8 delay = 5;
 
-        HAL_UpdateLed();
+    if( HAL_IsUpdateLed() == TRUE )
+    //if( dbg_update != 0 )
+    {
+     //   dbg_update--;
+        if( delay != 0 )
+        {
+            delay--;
+        }
+        else
+        {
+            delay = 5;
+            SetCommQueueFront( PKT_FRONT_REQ_LED );
+
+            HAL_UpdateLed();
+            dbg_the_disp_update++;  // for debug
+        }
     }
 }
 
@@ -284,7 +524,6 @@ void ProcessDisplay(void)
     }
 
     /* NORMAL MODE */
-    //ProcessDisplayNormalMode();
-    SliderDispTemp();
+    ProcessDisplayNormalMode();
     Update();
 }

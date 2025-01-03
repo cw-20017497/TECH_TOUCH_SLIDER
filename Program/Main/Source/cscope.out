@@ -1,11 +1,11 @@
-cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source"               0000133431
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.c
+cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source"               0000155438
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.c
 
 1 
 	~"comm.h
 "
 
-7 
+9 
 CommHódî_T
  
 	gcomm_hódî
@@ -13,7 +13,7 @@ CommHódî_T
 MAX_COMM_ID
  ];
 
-10 
+12 
 CommHódî_T
  
 	$GëCommHódî
@@ -23,17 +23,17 @@ U8
 id
  )
 
-13  
+15  
 comm_hódî
 [ 
 id
  ];
 
-14 
+16 
 	}
 }
 
-16 
+18 
 	$SëCommHódî
 –
 U8
@@ -45,7 +45,7 @@ CommHódî_T
 vÆ
  )
 
-19 
+21 
 comm_hódî
 [ 
 id
@@ -53,11 +53,11 @@ id
 vÆ
 ;
 
-20 
+22 
 	}
 }
 
-27 
+29 
 I16
  
 	$CommSídPackë
@@ -73,13 +73,13 @@ I16
 Àn
  )
 
-29 
+31 
 U8
  
 i
 ;
 
-32 if–
+34 if–
 	`HAL_IsFuŒSídBuf„r
 –
 id
@@ -87,13 +87,13 @@ id
 TRUE
  )
 
-34  
+36  
 i
  = 0 ; i < 
 Àn
  ; i++ )
 
-36 
+38 
 	`HAL_SëSídBuf„r
 –
 id
@@ -103,22 +103,22 @@ id
 i
  ] );
 
-39 
+41 
 	`HAL_SídByã
 –
 id
  );
 
-40  
+42  
 Àn
 ;
 
-44 
+46 
 	}
 }
 
-50 
-I8
+52 
+I16
  
 	$CommRecvPackë
 –
@@ -129,19 +129,19 @@ id
 ªcv_pkt
  )
 
-52 
+55 
 U16
  
 i
 ;
 
-53 
+56 
 I16
  
 Àn
 ;
 
-55 if–
+58 if–
 	`HAL_IsEm±yRecvBuf„r
 –
 id
@@ -149,21 +149,13 @@ id
 TRUE
  )
 
-57 
-Àn
- = 
-	`HAL_GëRecvLígth
-–
-id
- );
-
-58  
+60  
 i
  = 0; i < 
 Àn
  ; i++ )
 
-60 
+62 
 ªcv_pkt
 [ 
 i
@@ -173,15 +165,53 @@ i
 id
 , i );
 
-63  
+65  
 Àn
 ;
 
-67 
+70 
+U16
+ 
+i
+;
+
+71 
+I16
+ 
+Àn
+ = -1;
+
+73  
+	`HAL_IsEm±yRecvBuf„r
+–
+id
+ ) !
+TRUE
+ )
+
+75 
+ªcv_pkt
+[ 
+i
+ ] = 
+	`HAL_GëRecvBuf„r
+–
+id
+ );
+
+76 
+Àn
+++;
+
+79  
+Àn
+;
+
+81 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.h
 
 1 #i‚de‡
 __COMM_H__
@@ -201,13 +231,29 @@ __COMM_H__
 	~"hÆ_£rül.h
 "
 
-7 
+9 
+	#COMM_ID_FRONT
+ 
+UART_ID_1
+
+
+	)
+
+11 
+	#MAX_COMM_ID
+ 
+MAX_UART_ID
+
+
+	)
+
+13 
 U16
  
 	tCommHódî_T
 ;
 
-9 
+15 
 CommHódî_T
  
 GëCommHódî
@@ -217,7 +263,7 @@ U8
 id
  );
 
-10 
+16 
 SëCommHódî
 –
 U8
@@ -229,7 +275,7 @@ CommHódî_T
 vÆ
  );
 
-12 
+18 
 I16
  
 CommSídPackë
@@ -243,8 +289,8 @@ id
 Àn
  );
 
-13 
-I8
+19 
+I16
  
 CommRecvPackë
 –
@@ -255,7 +301,335 @@ id
 ªcv_pkt
  );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.c
+
+1 
+	~"comm_queue.h
+"
+
+2 
+	~"queue.h
+"
+
+4 
+	~"timî.h
+"
+
+5 
+	~"timî_id.h
+"
+
+7 
+	#MAX_QUEUE_NUM
+ 30
+
+	)
+
+8 
+CommD©a_T
+ 
+	gcomm_‰⁄t
+[ 
+MAX_QUEUE_NUM
+ ];
+
+9 
+SQueue_T
+ 
+	gcomm_queue
+[ 
+MAX_COMM_ID
+ ];
+
+12 
+	#RETRY_REQ_COUNT
+ 5
+
+	)
+
+13 
+	#RETRY_ACK_COUNT
+ 1
+
+	)
+
+14 
+	#RETRY_WAIT_TIME
+ 50
+
+	)
+
+15 
+CommD©a_T
+ 
+	g‰⁄t
+;
+
+17 
+	$InôCommQueue
+()
+
+19 
+	`InôQueue
+–&
+comm_queue
+[ 
+COMM_ID_FRONT
+ ], &
+comm_‰⁄t
+, –
+CommD©a_T
+ ), 
+MAX_QUEUE_NUM
+ );
+
+20 
+	}
+}
+
+23 
+	$SëCommQueueFr⁄t
+(
+U8
+ 
+∑ckë
+)
+
+25 
+CommD©a_T
+ 
+d©a
+;
+
+27 
+d©a
+.
+∑ckë
+ =Öacket;
+
+29 if–
+∑ckë
+ =
+PKT_FRONT_ACK_LED
+ )
+
+31 
+d©a
+.
+ªåy_cou¡
+ = 
+RETRY_ACK_COUNT
+;
+
+35 
+d©a
+.
+ªåy_cou¡
+ = 
+RETRY_REQ_COUNT
+;
+
+38 
+	`EnQueue
+–&
+comm_queue
+[ 
+COMM_ID_FRONT
+ ], &
+d©a
+);
+
+39 
+	}
+}
+
+43 
+	$SídPackëQueueFr⁄t
+()
+
+45 if–
+	`IsExpúedTimî
+–
+TIMER_ID_COMM_WAIT_1
+ ) !
+TIMER_EXPIRE
+ )
+
+50 if–
+	`IsExpúedTimî
+–
+TIMER_ID_COMM_FRONT_TX_DONE
+ ) !
+TIMER_EXPIRE
+ )
+
+55 if–
+‰⁄t
+.
+ªåy_cou¡
+ == 0 )
+
+57 if–
+	`DeQueue
+–&
+comm_queue
+[ 
+COMM_ID_FRONT
+ ], (*)&
+‰⁄t
+ ) =
+TRUE
+ )
+
+60 
+‰⁄t
+.
+ªåy_cou¡
+--;
+
+62 
+	`SëCommHódî
+–
+COMM_ID_FRONT
+, 
+‰⁄t
+.
+∑ckë
+);
+
+63 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_TX
+, 0 );
+
+68 
+‰⁄t
+.
+ªåy_cou¡
+--;
+
+70 
+	`SëCommHódî
+–
+COMM_ID_FRONT
+, 
+‰⁄t
+.
+∑ckë
+);
+
+71 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_TX
+, 0 );
+
+74 
+	`SèπTimî
+–
+TIMER_ID_COMM_WAIT_1
+, 
+RETRY_WAIT_TIME
+ );
+
+75 
+	}
+}
+
+78 
+	$Re˚ivedFr⁄tAck
+(
+U8
+ 
+∑ckë
+)
+
+80 if–
+∑ckë
+ =
+‰⁄t
+.packet )
+
+82 
+‰⁄t
+.
+ªåy_cou¡
+ = 0;
+
+84 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.h
+
+1 #i‚de‡
+__COMM_QUEUE_H__
+
+
+2 
+	#__COMM_QUEUE_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+5 
+	~"hÆ_£rül.h
+"
+
+6 
+	~"∑r£r_‰⁄t.h
+"
+
+9 
+	s_comm_d©a_
+
+
+11 
+U16
+ 
+	m∑ckë
+;
+
+12 
+U8
+ 
+	mªåy_cou¡
+;
+
+13 } 
+	tCommD©a_T
+;
+
+15 
+InôCommQueue
+();
+
+19 
+SëCommQueueFr⁄t
+(
+U8
+ 
+∑ckë
+);
+
+21 
+SídPackëQueueFr⁄t
+( );
+
+23 
+Re˚ivedFr⁄tAck
+(
+U8
+ 
+∑ckë
+);
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\crc16.c
 
 1 
 	~"¸c16.h
@@ -389,7 +763,7 @@ ui_¸c
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\crc16.h
 
 1 #i‚de‡
 __CRC16_H__
@@ -425,7 +799,7 @@ uc_d©a
 uc_numbî
 );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser.c
 
 4 
 	~"hw.h
@@ -448,40 +822,56 @@ uc_numbî
 "
 
 10 
+	~"comm_queue.h
+"
+
+11 
 	~"∑r£r_‰⁄t.h
 "
 
-13 #i‡
+14 
+	#MAX_COMM_RX_BUF_SZ
+ 255
+
+	)
+
+15 
+	#MAX_COMM_TX_BUF_SZ
+ 255
+
+	)
+
+16 #i‡
 DEBUG_COMM
 
 
-14 
+17 
 	s_debug_comm_
 
 
-16 
+19 
 U32
  
 	mrx_˙t
 ;
 
-17 
+20 
 U32
  
 	mrx_îr
 ;
 
-19 
+22 
 U32
  
 	mtx_˙t
 ;
 
-20 } 
+23 } 
 	tdebug_comm_t
 ;
 
-21 
+24 
 debug_comm_t
  
 	gd_comm
@@ -489,7 +879,7 @@ debug_comm_t
 MAX_COMM_ID
  ];
 
-25 vﬁ©ûê
+28 vﬁ©ûê
 U8
  
 	gpkt_ªcv
@@ -497,13 +887,13 @@ U8
 MAX_COMM_RX_BUF_SZ
  ];
 
-26 
+29 
 I16
  
 	gpkt_ªcv_Àn
  = 0;
 
-29 vﬁ©ûê
+32 vﬁ©ûê
 U8
  
 	gpkt_£nd
@@ -511,13 +901,13 @@ U8
 MAX_COMM_TX_BUF_SZ
  ];
 
-30 
+33 
 I16
  
 	gpkt_£nd_Àn
  = 0;
 
-35 
+38 
 	$I16
  (*
 	t‚_∑r£r_rx_t
@@ -531,45 +921,45 @@ I16
 	tÀn
  );
 
-36 
+39 
 	s_∑r£r_li°_
 
 
-38 
+41 
 U8
  
 TimîId
 ;
 
-39 
+42 
 U8
  
 CommId
 ;
 
-40 
+43 
 ‚_∑r£r_rx_t
  
 IsVÆidPkt
 ;
 
-41 
+44 
 ‚_∑r£r_rx_t
  
 P¨£rPkt
 ;
 
-42 } 
+45 } 
 	t∑r£r_rx_li°_t
 ;
 
-44 c⁄° 
+47 c⁄° 
 ∑r£r_rx_li°_t
  
 ∑r£r_rx_li°
 [] =
 
-47 { 
+49 { 
 TIMER_ID_COMM_FRONT_RX
 , 
 COMM_ID_FRONT
@@ -771,17 +1161,17 @@ make_pkt
 ¸c16
 ;
 
-101 } 
+100 } 
 	t∑r£r_tx_li°_t
 ;
 
-103 c⁄° 
+102 c⁄° 
 ∑r£r_tx_li°_t
  
 ∑r£r_tx_li°
 [] =
 
-106 { 
+104 { 
 TIMER_ID_COMM_FRONT_TX
 , 
 COMM_ID_FRONT
@@ -791,11 +1181,11 @@ MakePkt_Fr⁄t
 Crc16_Fr⁄t
  },
 
-109 
+105 
 	}
 };
 
-110 
+106 
 	#MAX_PARSER_TX_NUM
  ( –
 ∑r£r_tx_li°
@@ -805,35 +1195,35 @@ Crc16_Fr⁄t
 
 	)
 
-112 
-	$SídPackëH™dÀr
-( )
+108 
+	$SídPackë
+()
 
-114 
+110 
 ∑r£r_tx_li°_t
  *
 p_li°
 ;
 
-115 
+111 
 U8
  
 i
 ;
 
-116 
+112 
 CommHódî_T
  
 p_comm
 ;
 
-119  
+115  
 i
  = 0 ; i < 
 MAX_PARSER_TX_NUM
  ; i++ )
 
-121 
+117 
 p_li°
  = &
 ∑r£r_tx_li°
@@ -841,7 +1231,7 @@ p_li°
 i
  ];
 
-123 if–
+119 if–
 	`IsExpúedTimî
 –
 p_li°
@@ -851,7 +1241,7 @@ TimîId
 TIMER_EXPIRE
  )
 
-125 
+121 
 	`DißbÀTimî
 –
 p_li°
@@ -859,7 +1249,7 @@ p_li°
 TimîId
  );
 
-127 
+123 
 p_comm
  = 
 	`GëCommHódî
@@ -869,7 +1259,7 @@ p_li°
 CommId
  );
 
-130 
+126 
 	`MEMSET
 –(
 __FAR
@@ -879,7 +1269,7 @@ pkt_£nd
 MAX_COMM_TX_BUF_SZ
  );
 
-131 
+127 
 pkt_£nd_Àn
  = 
 p_li°
@@ -893,11 +1283,11 @@ p_comm
 pkt_£nd
  );
 
-132 if–
+128 if–
 pkt_£nd_Àn
  > 0 )
 
-135 
+131 
 pkt_£nd_Àn
  = 
 p_li°
@@ -907,7 +1297,7 @@ p_li°
 pkt_£nd
 ,Ökt_send_len );
 
-138 
+134 
 	`CommSídPackë
 –
 p_li°
@@ -919,11 +1309,11 @@ pkt_£nd
 pkt_£nd_Àn
  );
 
-140 #i‡
+136 #i‡
 DEBUG_COMM
 
 
-141 
+137 
 d_comm
 [ 
 p_li°
@@ -933,7 +1323,7 @@ CommId
 tx_˙t
 ++;
 
-146 
+142 
 	`HAL_InôCommId
 –
 p_li°
@@ -941,11 +1331,27 @@ p_li°
 CommId
  );
 
-150 
+146 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.h
+149 
+	$SídPackëH™dÀr
+( )
+
+151 
+	`SídPackëQueueFr⁄t
+();
+
+152 
+	`SídPackë
+();
+
+153 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser.h
 
 1 #i‚de‡
 __PARSER_H__
@@ -969,7 +1375,7 @@ RecvPackëH™dÀr
 SídPackëH™dÀr
 ( );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser_front.c
 
 4 
 	~<°dio.h
@@ -999,31 +1405,35 @@ SídPackëH™dÀr
 	~"hÆ_key.h
 "
 
-18 
+12 
+	~"comm_queue.h
+"
+
+19 
 	#STX
  0xAA
 
 	)
 
-19 
+20 
 	#ETX
  0x55
 
 	)
 
-21 
+22 
 	#PKT_ACK
  0x80
 
 	)
 
-23 
+24 
 	#PKT_REQ_LED
  0x01
 
 	)
 
-24 
+25 
 	#PKT_ACK_LED
  (
 PKT_ACK
@@ -1033,13 +1443,13 @@ PKT_REQ_LED
 
 	)
 
-26 
+27 
 	#PKT_REQ_KEY
  0x10
 
 	)
 
-27 
+28 
 	#PKT_ACK_KEY
  (
 PKT_ACK
@@ -1049,13 +1459,13 @@ PKT_REQ_KEY
 
 	)
 
-29 
+30 
 	#MIN_PKT_SZ
  5
 
 	)
 
-31 
+32 
 U16
  
 	$Rx_CRC_CCITT
@@ -1069,41 +1479,41 @@ U16
 usD©aLí
 )
 
-33 
+34 
 U8
  
 i
  = 0;
 
-34 
+35 
 U16
  
 wCRCö
  = 0x0000;
 
-35 
+36 
 U16
  
 wCPﬁy
  = 0x1021;
 
-36 
+37 
 U8
  
 wCh¨
  = 0;
 
-38 
+39 
 usD©aLí
 --)
 
-40 
+41 
 wCh¨
  = *(
 puchMsg
 ++);
 
-41 
+42 
 wCRCö
  ^((
 U16
@@ -1111,33 +1521,33 @@ U16
 wCh¨
  << 8);
 
-42 
+43 
 i
  = 0; i < 8; i++)
 
-44 i‡(
+45 i‡(
 wCRCö
  & 0x8000)
 
-46 
+47 
 wCRCö
  = (wCRCö << 1Ë^ 
 wCPﬁy
 ;
 
-50 
+51 
 wCRCö
  = wCRCin << 1;
 
-55  (
+56  (
 wCRCö
 );
 
-56 
+57 
 	}
 }
 
-58 
+59 
 U8
  
 	$check_¸c
@@ -1151,13 +1561,13 @@ I16
 Àn
  )
 
-60 
+61 
 U16
  
 ¸c16
  = 0;
 
-64 
+65 
 ¸c16
  = 
 	`GET_UINT_WORD
@@ -1167,7 +1577,7 @@ buf
 Àn
 -2], buf[len-3] );
 
-66 if–
+67 if–
 ¸c16
  !
 	`Rx_CRC_CCITT
@@ -1179,19 +1589,19 @@ U16
 Àn
  - 3 ) ) )
 
-68  
+69  
 FALSE
 ;
 
-71  
+72  
 TRUE
 ;
 
-72 
+73 
 	}
 }
 
-74 
+75 
 I16
  
 	$IsVÆidPkt_Fr⁄t
@@ -1205,27 +1615,27 @@ I16
 Àn
  )
 
-76 if–
+77 if–
 buf
  =
 NULL
  )
 
-78  
+79  
 FALSE
 ;
 
-81 if–
+82 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-83  
+84  
 FALSE
 ;
 
-86 if–
+87 if–
 	`check_¸c
 –
 buf
@@ -1235,19 +1645,19 @@ buf
 FALSE
  )
 
-88  
+89  
 FALSE
 ;
 
-91  
+92  
 TRUE
 ;
 
-92 
+93 
 	}
 }
 
-95 
+96 
 I16
  
 P¨£rReqKey
@@ -1257,7 +1667,17 @@ U8
 buf
 );
 
-97 
+97 
+I16
+ 
+P¨£rAckLed
+(
+U8
+ *
+buf
+);
+
+99 
 	$I16
  (*
 	ta˘i⁄_t
@@ -1267,43 +1687,49 @@ buf
 	tbuf
  );
 
-98 
+100 
 	s_∑r£r_li°_t
 
 
-100 
+102 
 U8
  
 Ty≥
 ;
 
-101 
+103 
 a˘i⁄_t
  
 P¨£r
 ;
 
-102 } 
+104 } 
 	t∑r£r_li°_t
 ;
 
-103 c⁄° 
+105 c⁄° 
 ∑r£r_li°_t
  
 ∑r£r_li°
 [] =
 
-105 { 
+107 { 
 PKT_REQ_KEY
 , 
 P¨£rReqKey
  },
 
-106 
+108 { 
+PKT_FRONT_ACK_LED
+, 
+P¨£rAckLed
+ },
+
+109 
 	}
 };
 
-108 
+111 
 	#SZ_PS_TABLE
  ( –
 ∑r£r_li°
@@ -1313,7 +1739,7 @@ P¨£rReqKey
 
 	)
 
-110 
+113 
 I16
  
 	$P¨£rPkt_Fr⁄t
@@ -1327,31 +1753,31 @@ I16
 Àn
 )
 
-112 
+115 
 U8
  
 mu8Ty≥
 ;
 
-113 
+116 
 a˘i⁄_t
  
 pP¨£r
 ;
 
-114 
+117 
 U8
  
 i
 ;
 
-117  
+120  
 i
  = 0; i < 
 SZ_PS_TABLE
 ; i++ )
 
-119 
+122 
 mu8Ty≥
  = 
 ∑r£r_li°
@@ -1361,7 +1787,7 @@ i
 Ty≥
 ;
 
-120 
+123 
 pP¨£r
  = 
 ∑r£r_li°
@@ -1371,19 +1797,19 @@ i
 P¨£r
 ;
 
-122 if–
+125 if–
 mu8Ty≥
  =
 buf
 [1] )
 
-124 if–
+127 if–
 pP¨£r
  !
 NULL
  )
 
-126 
+129 
 Àn
  = 
 	`pP¨£r
@@ -1391,7 +1817,7 @@ NULL
 buf
 [2] );
 
-127 
+130 
 	`SèπTimî
 –
 TIMER_ID_COMM_FRONT_RX_ERR
@@ -1399,15 +1825,15 @@ TIMER_ID_COMM_FRONT_RX_ERR
 	`SEC
 (3));
 
-133  
+136  
 Àn
 ;
 
-134 
+137 
 	}
 }
 
-136 
+139 
 I16
  
 	$Crc16_Fr⁄t
@@ -1421,19 +1847,19 @@ I16
 Àn
  )
 
-138 
+141 
 U16
  
 mu16Chksum
  = 0;
 
-141 if–
+144 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-146 
+149 
 mu16Chksum
  = 
 	`Rx_CRC_CCITT
@@ -1445,7 +1871,7 @@ U16
 Àn
  - 3));
 
-147 
+150 
 buf
 [ 
 Àn
@@ -1455,7 +1881,7 @@ buf
 mu16Chksum
 );
 
-148 
+151 
 buf
 [ 
 Àn
@@ -1465,21 +1891,21 @@ buf
 mu16Chksum
 );
 
-150  
+153  
 Àn
 ;
 
-151 
+154 
 	}
 }
 
-155 
+158 
 U8
  
 	g¶idî
 [4];
 
-156 
+159 
 I16
  
 	$P¨£rReqKey
@@ -1489,13 +1915,13 @@ U8
 buf
 )
 
-158 
+161 
 U32
  
 key
 ;
 
-160 
+163 
 key
  = 
 	`GET_UINT_WORD_32
@@ -1503,65 +1929,113 @@ key
 buf
 [0], buf[1], buf[2], buf[3] );
 
-161 
+164 
 	`HAL_SëKeyVÆ
 –
 key
  );
 
-163 
+166 
 ¶idî
 [0] = 
 buf
 [4];
 
-164 
+167 
 ¶idî
 [1] = 
 buf
 [5];
 
-165 
+168 
 ¶idî
 [2] = 
 buf
 [6];
 
-166 
+169 
 ¶idî
 [3] = 
 buf
 [7];
 
-168  
+173 
+	`SëCommHódî
+–
+COMM_ID_FRONT
+, 
+PKT_ACK_KEY
+ );
+
+174 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_TX
+, 0 );
+
+176  
 TRUE
 ;
 
-169 
+177 
 	}
 }
 
-172 
+179 
+I16
+ 
+	$P¨£rAckLed
+(
+U8
+ *
+buf
+)
+
+181 
+	`Re˚ivedFr⁄tAck
+–
+PKT_FRONT_ACK_LED
+ );
+
+182  
+TRUE
+;
+
+183 
+	}
+}
+
+186 
 	s_make_li°_t
 
 
-174 
+188 
 U8
  
 	mTy≥
 ;
 
-175 
+189 
 a˘i⁄_t
  
 	mMakePkt
 ;
 
-176 } 
+190 } 
 	tmake_li°_t
 ;
 
-178 
+192 
+I16
+ 
+MakePktAckKey
+–
+U8
+ *
+buf
+ );
+
+193 
 I16
  
 MakePktReqLed
@@ -1571,19 +2045,25 @@ U8
 buf
  );
 
-179 c⁄° 
+194 c⁄° 
 make_li°_t
  
 	gmake_li°
 [] =
 
-181 { 
+196 { 
+PKT_ACK_KEY
+, 
+MakePktAckKey
+ },
+
+197 { 
 PKT_FRONT_REQ_LED
 , 
 MakePktReqLed
  },
 
-183 
+199 
 	#SZ_TABLE
  ( –
 make_li°
@@ -1593,7 +2073,7 @@ make_li°_t
 
 	)
 
-185 
+201 
 I16
  
 	$MakePkt_Fr⁄t
@@ -1607,37 +2087,37 @@ U8
 buf
  )
 
-187 
+203 
 U8
  
 mu8Ty≥
 ;
 
-188 
+204 
 a˘i⁄_t
  
 p_make_pkt
 ;
 
-189 
+205 
 U8
  
 i
 ;
 
-190 
+206 
 I16
  
 Àn
  = -1;
 
-193  
+209  
 i
  = 0; i < 
 SZ_TABLE
 ; i++ )
 
-195 
+211 
 mu8Ty≥
  = 
 make_li°
@@ -1647,7 +2127,7 @@ i
 Ty≥
 ;
 
-196 
+212 
 p_make_pkt
  = 
 make_li°
@@ -1657,7 +2137,7 @@ i
 MakePkt
 ;
 
-198 if–
+214 if–
 mu8Ty≥
  =(
 U8
@@ -1665,13 +2145,13 @@ U8
 p_comm
  )
 
-200 if–
+216 if–
 p_make_pkt
  !
 NULL
  )
 
-202 
+218 
 Àn
  = 
 	`p_make_pkt
@@ -1679,15 +2159,99 @@ NULL
 buf
  );
 
-208  
+224  
 Àn
 ;
 
-209 
+225 
 	}
 }
 
-212 
+227 
+U8
+ 
+	gdbg_the_ack_key
+ = 0;
+
+228 
+I16
+ 
+	$MakePktAckKey
+–
+U8
+ *
+buf
+ )
+
+230 
+I16
+ 
+mi16Lí
+ = 0;
+
+231 
+U8
+ 
+mu8Buf
+[
+MAX_LED_BUF
+];
+
+234 
+buf
+[ 
+mi16Lí
+++ ] = 
+STX
+;
+
+237 
+buf
+[ 
+mi16Lí
+++ ] = 
+PKT_ACK_KEY
+;
+
+240 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+241 
+buf
+[ 
+mi16Lí
+++ ] = 0;
+
+243 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+245 
+dbg_the_ack_key
+++;
+
+246  
+mi16Lí
+;
+
+247 
+	}
+}
+
+249 
+U8
+ 
+	gdbg_the_ªq_Àd
+ = 0;
+
+250 
 I16
  
 	$MakePktReqLed
@@ -1697,13 +2261,13 @@ U8
 buf
  )
 
-214 
+252 
 I16
  
 mi16Lí
  = 0;
 
-215 
+253 
 U8
  
 mu8Buf
@@ -1711,13 +2275,17 @@ mu8Buf
 MAX_LED_BUF
 ];
 
-216 
+254 
 U8
  
 i
 ;
 
-220 
+256 
+dbg_the_ªq_Àd
+++;
+
+259 
 buf
 [ 
 mi16Lí
@@ -1725,7 +2293,7 @@ mi16Lí
 STX
 ;
 
-223 
+262 
 buf
 [ 
 mi16Lí
@@ -1733,19 +2301,19 @@ mi16Lí
 PKT_FRONT_REQ_LED
 ;
 
-226 
+265 
 	`HAL_GëLedOnOffSètus
 –&
 mu8Buf
 [0] );
 
-227  
+266  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-229 
+268 
 buf
 [ 
 mi16Lí
@@ -1755,19 +2323,19 @@ mu8Buf
 i
 ];
 
-233 
+272 
 	`HAL_GëLedDimmögSètus
 –&
 mu8Buf
 [0]);
 
-234  
+273  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-236 
+275 
 buf
 [ 
 mi16Lí
@@ -1777,7 +2345,7 @@ mu8Buf
 i
 ];
 
-240 
+279 
 buf
 [ 
 mi16Lí
@@ -1785,7 +2353,7 @@ mi16Lí
 	`HAL_GëLedDimmögDuty
 ();
 
-243 
+282 
 buf
 [ 
 mi16Lí
@@ -1793,37 +2361,37 @@ mi16Lí
 	`HAL_GëLedDuty
 ();
 
-246 
+285 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-249 
+288 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-252 
+291 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-255 
+294 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-256 
+295 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-258 
+297 
 buf
 [ 
 mi16Lí
@@ -1831,15 +2399,15 @@ mi16Lí
 ETX
 ;
 
-259  
+298  
 mi16Lí
 ;
 
-260 
+299 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser_front.h
 
 1 #i‚de‡
 __PARSER_FRONT_H__
@@ -1921,7 +2489,7 @@ U8
 buf
  );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\config.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\config.h
 
 1 #i‚de‡
 __CONFIG_H__
@@ -1951,7 +2519,7 @@ __CONFIG_H__
 
 	)
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display.c
 
 1 
 	~"di•œy.h
@@ -4115,7 +4683,7 @@ ON
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display.h
 
 1 #i‚de‡
 __DISPLAY_H__
@@ -4295,7 +4863,7 @@ U8
 pos
 );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_clock.c
 
 1 
 	~"di•œy_˛ock.h
@@ -4991,7 +5559,7 @@ u8Hour
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_clock.h
 
 1 #i‚de‡
 __DISPLAY_CLOCK_H__
@@ -5145,7 +5713,7 @@ pAm
 pHour12
 );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_eol.c
 
 1 
 	~"hw.h
@@ -6777,7 +7345,7 @@ EOL_TYPE_FRONT
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_eol.h
 
 1 #i‚de‡
 __DISPLAY_EOL_H__
@@ -6801,7 +7369,7 @@ __DISPLAY_EOL_H__
 Pro˚ssDi•œyEﬁ
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_error.c
 
 1 
 	~"hw.h
@@ -7207,7 +7775,7 @@ mu8Eº‹Code
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_error.h
 
 1 #i‚de‡
 __DISPLAY_ERROR_H__
@@ -7233,7 +7801,7 @@ mu8EºCode
 mu8ToggÀ
  );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_lib.c
 
 1 
 	~"di•œy_lib.h
@@ -7533,7 +8101,7 @@ i
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_lib.h
 
 1 #i‚de‡
 __DISPLAY_LIB_H__
@@ -7701,7 +8269,7 @@ mu8TimîId
 	`Upd©eDi•œyTimî
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\front.c
 
 1 
 	~"‰⁄t.h
@@ -8471,7 +9039,7 @@ LimôTimî
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\front.h
 
 1 #i‚de‡
 __FRONT_H__
@@ -8709,7 +9277,7 @@ IsExpúedTe°KeyLimôTimî
 Upd©eTe°KeyLimôTimî
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\process_display.c
 
 1 
 	~"hw.h
@@ -8747,67 +9315,67 @@ Upd©eTe°KeyLimôTimî
 	~"hÆ_Àd.h
 "
 
-14 
+11 
+	~"comm_queue.h
+"
+
+16 
 Di•œySñW©î
 ();
 
-15 
+17 
 Di•œySñHŸ
 ();
 
-16 
+18 
 Di•œySñAmou¡
 ();
 
-17 
+19 
 Di•œy7Segmít
 ();
 
-19 
+21 
 Upd©eTimî
 ();
 
-20 
+22 
 Pro˚ssDi•œyBoŸ
 ();
 
-21 
-Pro˚ssDi•œyN‹mÆMode_Movög
-();
-
-22 
+23 
 Pro˚ssDi•œyN‹mÆMode
 ();
 
-25 
+26 
 	s_di•œy_
 
 
-27 
+28 
 U8
  
 	mInô
 ;
 
-28 } 
+29 } 
 	tDi•œy_T
 ;
 
-30 
+31 
 Di•œy_T
  
 	gDi•
 ;
 
-33 
+34 
 	$InôDi•œy
 ()
 
-36 
+37 
 	`InôDi•Timî
 ();
 
-39 
+40 
 Di•
 .
 Inô
@@ -8815,35 +9383,35 @@ Inô
 FALSE
 ;
 
-42 
+43 
 	`Tu∫OffAŒLED
 ();
 
-43 
+44 
 	}
 }
 
-46 
+47 
 U8
  
 	$GëDi•œyInô
 ()
 
-48  
+49  
 Di•
 .
 Inô
 ;
 
-49 
+50 
 	}
 }
 
-51 
+52 
 	$SèπDi•œyInô
 ()
 
-53 
+54 
 Di•
 .
 Inô
@@ -8851,47 +9419,47 @@ Inô
 FALSE
 ;
 
-55 
+56 
 	`InôDi•Timî
 ();
 
-56 
+57 
 	}
 }
 
-58 
+59 
 	s_di•_id_time_
 
 
-60 
+61 
 U8
  
 	mid
 ;
 
-61 
+62 
 U16
  
 	mmTime
 ;
 
-62 } 
+63 } 
 	tDi•TimîVÆ_T
 ;
 
-64 
+65 
 Di•TimîVÆ_T
  
 	gDi•TimîVÆTabÀ
 [] =
 
-66 { 
+67 { 
 DISP_TIMER_CONFIG
 , 
 TIMER_5SEC
  }
 
-68 
+69 
 	#SZ_DISP_TIMER_TABLE
  ((
 Di•TimîVÆTabÀ
@@ -8901,7 +9469,7 @@ Di•TimîVÆ_T
 
 	)
 
-70 
+71 
 U16
  
 	$FödTimeVÆ
@@ -8911,19 +9479,19 @@ U8
 id
 )
 
-72 
+73 
 U8
  
 i
 ;
 
-74  
+75  
 i
  = 0; i < 
 SZ_DISP_TIMER_TABLE
 ; i++ )
 
-76 if–
+77 if–
 id
  =
 Di•TimîVÆTabÀ
@@ -8931,7 +9499,7 @@ Di•TimîVÆTabÀ
 i
  ].id )
 
-78  
+79  
 Di•TimîVÆTabÀ
 [ 
 i
@@ -8939,11 +9507,11 @@ i
 mTime
 ;
 
-83 
+84 
 	}
 }
 
-86 
+87 
 	$SèπDi•TimîId
 (
 U8
@@ -8951,13 +9519,13 @@ U8
 id
 )
 
-88 
+89 
 U16
  
 mTime
 ;
 
-90 
+91 
 mTime
  = 
 	`FödTimeVÆ
@@ -8965,7 +9533,7 @@ mTime
 id
  );
 
-91 
+92 
 	`SëDi•Timî
 –
 id
@@ -8973,11 +9541,11 @@ id
 mTime
  );
 
-92 
+93 
 	}
 }
 
-94 
+95 
 	$St›Di•TimîId
 (
 U8
@@ -8985,33 +9553,33 @@ U8
 id
 )
 
-96 
+97 
 	`SëDi•Timî
 –
 id
 , 0);
 
-97 
+98 
 	}
 }
 
-101 
+102 
 	$Pro˚ssDi•œyBoŸ
 ()
 
-103 
+104 
 U8
  
 mu8Cou¡
  = 5;
 
-104 
+105 
 U8
  
 mu8ToggÀ
  = 0;
 
-106 if–
+107 if–
 	`IsExpúedDi•BlökTimî
 –
 DISP_TIMER_ID_500MS
@@ -9019,23 +9587,23 @@ DISP_TIMER_ID_500MS
 TRUE
  )
 
-108 
+109 
 mu8ToggÀ
  = !mu8Toggle;
 
-110 
+111 
 mu8Cou¡
 --;
 
-111 if–
+112 if–
 mu8Cou¡
  == 0 )
 
-113 
+114 
 	`Tu∫OffAŒLED
 ();
 
-115 
+116 
 Di•
 .
 Inô
@@ -9043,325 +9611,1061 @@ Inô
 TRUE
 ;
 
-116 
+117 
 mu8Cou¡
  = 5;
 
-121 if–
+122 if–
 mu8ToggÀ
  == 0 )
 
-123 
+124 
 	`Tu∫OffAŒLED
 ();
 
-127 
+128 
 	`Tu∫OnAŒLED
 ();
 
-129 
+130 
 	}
 }
-
-132 
-U16
- 
-	gdbg_vÆ
- = 0;
 
 133 
+I16
+ 
+	gdñè_t
+[20] = {0};
+
+135 
 U8
  
-	gdbg_b¨
+	gödex
  = 0;
 
-134 
+136 
 U8
  
-	gdú_b¨
+	g¥ev_up_down_vÆ
  = 0;
 
-135 
-	$Pro˚ssDi•œyN‹mÆMode_Movög
-()
-
-137 
-	`Di•LedDuty
-();
-
-139 
-	`Di•Temp
-(
-dbg_vÆ
-);
-
-140 if–
-dbg_vÆ
-++ > 999 )
-
-142 
-dbg_vÆ
- = 0;
-
-145 
-	`Di•B¨Sèck
-–
-dbg_b¨
- );
-
-146 if–
-dú_b¨
- == 0 )
-
-148 
-dbg_b¨
-++;
-
-149 if–
-dbg_b¨
- >= 14 )
-
-151 
-dú_b¨
- = 1;
-
-156 
-dbg_b¨
---;
-
-157 if–
-dbg_b¨
- == 1 )
-
-159 
-dú_b¨
- = 0;
-
-162 
-	}
-}
-
-165 
-	#SLIDER_TEMP_END
- 255
+137 
+	#DIR_UP
+ 2
 
 	)
 
-166 
-	#SLIDER_TEMP_LEVEL
- 4
-
-	)
-
-169 
-	#SLIDER_MODE_SELECT
- 0
-
-	)
-
-170 
-	#SLIDER_MODE_SWIFT
+138 
+	#DIR_DOWN
  1
 
 	)
 
-172 
+139 
+	#DIR_NONE
+ 0
+
+	)
+
+140 
 U8
  
-	gSlidîMode
+	$ˇlcDúe˘i⁄
+(
+U16
+ 
+vÆ
+)
+
+142 
+U8
+ 
+ªt
  = 
-SLIDER_MODE_SELECT
+DIR_NONE
 ;
 
-173 
-U8
- 
-	gLevñVÆue
-[
-SLIDER_TEMP_LEVEL
-] = { 64, 128, 191, 255 };
+144 if–
+vÆ
+ == 0 )
 
-175 
-	$SlidîDi•Temp
-()
+146 
+¥ev_up_down_vÆ
+ = 
+vÆ
+;
 
-177 if–
-SlidîMode
- =
-SLIDER_MODE_SELECT
+147  
+DIR_NONE
+;
+
+150 if–
+¥ev_up_down_vÆ
+ !
+vÆ
+
+
+151 && 
+¥ev_up_down_vÆ
+ == 0 )
+
+153 
+¥ev_up_down_vÆ
+ = 
+vÆ
+;
+
+155  
+DIR_NONE
+;
+
+158 if–
+¥ev_up_down_vÆ
+ !
+vÆ
  )
 
-179 if–
-¶idî
-[1] > 0 )
+160 if–
+¥ev_up_down_vÆ
+ > 
+vÆ
+ )
 
-181 
-SlidîMode
+162 
+ªt
  = 
-SLIDER_MODE_SWIFT
+DIR_UP
 ;
 
-184 if–
-¶idî
-[1]
+164 if–
+¥ev_up_down_vÆ
+ < 
+vÆ
+ )
 
-189 
+166 
+ªt
+ = 
+DIR_DOWN
+;
+
+171 
+dñè_t
+[ 
+ödex
+++ ] = 
+¥ev_up_down_vÆ
+ - 
+vÆ
+;
+
+172 if–
+ödex
+ >= 20 )
+
+174 
+ödex
+ = 0;
+
+178 
+¥ev_up_down_vÆ
+ = 
+vÆ
+;
+
+181  
+ªt
+;
+
+182 
 	}
 }
 
+184 
+	#SPEED_L5
+ 5
+
+	)
+
+185 
+	#SPEED_L4
+ 4
+
+	)
+
+186 
+	#SPEED_L3
+ 3
+
+	)
+
+187 
+	#SPEED_L2
+ 2
+
+	)
+
+188 
+	#SPEED_L1
+ 1
+
+	)
+
+189 
+	#SPEED_L0
+ 0
+
+	)
+
 191 
+I16
+ 
+	g¥ev_•ìd_vÆ
+ = 0;
+
+192 
+I16
+ 
+	gdñè
+;
+
+193 
+U8
+ 
+	gdbg_•ìd
+ = 0;
+
+194 
+U8
+ 
+	gdbg_dñè
+ = 0;
+
+195 
+U8
+ 
+	$ˇlcS≥ed
+(
+U16
+ 
+vÆ
+)
+
+197 
+U8
+ 
+ªt
+ = 
+SPEED_L1
+;
+
+200 if–
+vÆ
+ == 0 )
+
+202 
+¥ev_•ìd_vÆ
+ = 
+vÆ
+;
+
+203  
+ªt
+;
+
+207 if–
+¥ev_•ìd_vÆ
+ !
+vÆ
+
+
+208 && 
+¥ev_•ìd_vÆ
+ == 0 )
+
+210 
+¥ev_•ìd_vÆ
+ = (
+I16
+)
+vÆ
+;
+
+212  
+SPEED_L1
+;
+
+215 if–
+¥ev_•ìd_vÆ
+ !
+vÆ
+ )
+
+217 
+dñè
+ = 
+¥ev_•ìd_vÆ
+ - (
+I16
+)
+vÆ
+;
+
+218 
+dñè
+ = 
+	`abs
+( delta );
+
+220 if(
+dñè
+ >100 ) { 
+ªt
+ = 
+SPEED_L5
+; }
+
+221 if(
+dñè
+ >55 ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+222 if(
+dñè
+ >45 ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+223 if(
+dñè
+ >35 ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+224 if(
+dñè
+ >3 ) { 
+ªt
+ = 
+SPEED_L1
+; }
+
+225 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+228 
+¥ev_•ìd_vÆ
+ = (
+I16
+)
+vÆ
+;
+
+232 
+dbg_dñè
+ = 
+dñè
+;
+
+233 
+dbg_•ìd
+ = 
+ªt
+;
+
+235  
+ªt
+;
+
+236 
+	}
+}
+
+239 
 U8
  
 ¶idî
 [4];
 
-192 
+240 
 U8
  
 	gthe_di•_Àvñ
  =0;
 
-193 
+241 
 U8
  
 	gthe_¶ide
  = 0;
 
-194 
+242 
 I8
  
 	gãmp_ödex
  = 0;
 
-195 
+243 
 U8
  
 	gãmp_hŸ
-[12] = {
+[5] = { 0, 45, 70, 85, 100 };
 
-199 
+245 
+U16
+ 
+	g¶ide_di•_time
+ = 0;
+
+246 
+U8
+ 
+	gthe_ãmp
+ = 0;
+
+247 
+	#TEMP_TICK
+ 1
+
+	)
+
+248 
+	#MAX_TEMP
+ 100
+
+	)
+
+249 
+	#MIN_TEMP
+ 40
+
+	)
+
+251 
+U8
+ 
+	$GëTempTick
+(
+U8
+ 
+•ìd
+)
+
+253 
+U8
+ 
+ªt_tick
+ = 1;
+
+255 if–
+•ìd
+ =
+SPEED_L5
+ ) { 
+ªt_tick
+ = 10; }
+
+256 if–
+•ìd
+ =
+SPEED_L4
+ ){ 
+ªt_tick
+ = 5; }
+
+257 if–
+•ìd
+ =
+SPEED_L3
+ ){ 
+ªt_tick
+ = 4; }
+
+258 if–
+•ìd
+ =
+SPEED_L2
+ ){ 
+ªt_tick
+ = 2; }
+
+259 if–
+•ìd
+ =
+SPEED_L1
+ ){ 
+ªt_tick
+ = 1; }
+
+260 
+ªt_tick
+ = 0;
+
+262  
+ªt_tick
+;
+
+263 
+	}
+}
+
+265 
+U16
+ 
+	gef„˘_time_vÆ
+ = 2;
+
+266 
+U16
+ 
+	gef„˘_time
+ = 2;
+
+267 
+	$Di•œyEf„˘Temp
+(
+U16
+ 
+ãmp
+, 
+U8
+ 
+up_down
+)
+
+269 
+U16
+ 
+èrgë_ãmp
+ = 0;
+
+270 
+U16
+ 
+cuºít_ãmp
+ = 0;
+
+274 
+èrgë_ãmp
+ = 
+ãmp
+;
+
+276 if–
+ef„˘_time
+ != 0 )
+
+278 
+ef„˘_time
+--;
+
+279 
+	`Di•Temp
+–
+cuºít_ãmp
+ );
+
+282 if–
+èrgë_ãmp
+ > 
+cuºít_ãmp
+ )
+
+284 
+cuºít_ãmp
+ += 1;
+
+285 
+ef„˘_time
+ = 
+ef„˘_time_vÆ
+;
+
+286 
+	`Di•Temp
+–
+cuºít_ãmp
+ );
+
+289 if–
+èrgë_ãmp
+ < 
+cuºít_ãmp
+ )
+
+291 
+cuºít_ãmp
+ -= 1;
+
+292 
+ef„˘_time
+ = 
+ef„˘_time_vÆ
+;
+
+293 
+	`Di•Temp
+–
+cuºít_ãmp
+ );
+
+296 
+	}
+}
+
+298 
 	$Pro˚ssDi•œyN‹mÆMode
 ()
 
-201 
+300 
 U8
  
 ¥ev_¶ide
  = 0;
 
-202 
+301 
 U8
  
 ¥ev_di•_Àvñ
  = 0;
 
-203 
+302 
 U8
  
 dú
  = 0;
 
-206 
+305 
 	`Di•LedDuty
 ();
 
-208 if–
+308 if–
 ¶idî
 [1] > 0 )
 
-210 
+310 
 the_¶ide
- = 256 - 
+ = (
+U8
+)(256U - 
 ¶idî
-[1];
+[1]);
 
-214 
+314 
 the_¶ide
  = 0;
 
-217 if–
+319 i‡(
+¥ev_¶ide
+ !
+the_¶ide
+)
+
+321 if–
+¥ev_¶ide
+ > 0 && 
+the_¶ide
+ == 0 )
+
+324 
+¶ide_di•_time
+ = 500;
+
+326 if–
+¥ev_¶ide
+ =0 && 
+the_¶ide
+ != 0 )
+
+328 if–
+¶ide_di•_time
+ == 0 )
+
+331 
+	`Sound
+–
+SOUND_SELECT
+ );
+
+335 
+¥ev_¶ide
+ = 
+the_¶ide
+;
+
+339 if–
+¶ide_di•_time
+ != 0
+
+340 && 
+the_¶ide
+ != 0 )
+
+342 
+¶ide_di•_time
+ = 500;
+
+346 if–
+¶ide_di•_time
+ != 0 )
+
+349 
+¶ide_di•_time
+--;
+
+353 if–
+¶ide_di•_time
+ == 0 )
+
+355 if–
+the_¶ide
+ > 192 ) { 
+ãmp_ödex
+ = 4; }
+
+356 if–
+the_¶ide
+ > 128 ) { 
+ãmp_ödex
+ = 3; }
+
+357 if–
+the_¶ide
+ > 64 ) { 
+ãmp_ödex
+ = 2; }
+
+358 if–
+the_¶ide
+ > 0 ) { 
+ãmp_ödex
+ = 1; }
+
+359 { 
+ãmp_ödex
+ = 0; }
+
+363 if–
+¶ide_di•_time
+ != 0
+
+364 && 
+the_¶ide
+ != 0 )
+
+366 
+U8
+ 
+up_down
+ = 0;
+
+367 
+U8
+ 
+•ìd
+ = 0;
+
+369 
+•ìd
+ = 
+	`ˇlcS≥ed
+–
+the_¶ide
+ );
+
+370 
+up_down
+ = 
+	`ˇlcDúe˘i⁄
+–
+the_¶ide
+ );
+
+371 if–
+up_down
+ =
+DIR_DOWN
+ )
+
+373 
+the_ãmp
+ +
+	`GëTempTick
+–
+•ìd
+ );
+
+375 if–
+up_down
+ =
+DIR_UP
+ )
+
+377 
+the_ãmp
+ -
+	`GëTempTick
+–
+•ìd
+ );
+
+379 if–
+up_down
+ =
+DIR_NONE
+ )
+
+384 if–
+the_ãmp
+ < 
+MIN_TEMP
+ )
+
+386 
+the_ãmp
+ = 
+MIN_TEMP
+;
+
+388 if–
+the_ãmp
+ > 
+MAX_TEMP
+ )
+
+390 
+the_ãmp
+ = 
+MAX_TEMP
+;
+
+393 
+	`Di•œyEf„˘Temp
+–
+the_ãmp
+, 
+up_down
+ );
+
+395 
+	`Di•B¨Sèck
+–
+ãmp_ödex
+ * 3 );
+
+397 if–
+¶ide_di•_time
+ !0 && 
+the_¶ide
+ == 0 )
+
+400 
+	`ˇlcS≥ed
+–
+the_¶ide
+ );
+
+401 
+	`ˇlcDúe˘i⁄
+–
+the_¶ide
+ );
+
+402 
+	`Di•œyEf„˘Temp
+–
+the_ãmp
+, 0 );
+
+407 
+the_ãmp
+ = 
+ãmp_hŸ
+[ 
+ãmp_ödex
+ ];
+
+408 
+	`Di•Temp
+–
+the_ãmp
+ );
+
+409 
+	`Di•B¨Sèck
+–
+ãmp_ödex
+ * 3 );
+
+412 
+	}
+}
+
+416 
+U8
+ 
+¶idî
+[4];
+
+417 
+U8
+ 
+	gthe_di•_Àvñ
+ =0;
+
+418 
+U8
+ 
+	gthe_¶ide
+ = 0;
+
+419 
+I8
+ 
+	gãmp_ödex
+ = 0;
+
+420 
+U8
+ 
+	gãmp_hŸ
+[12] = {
+
+424 
+	$Pro˚ssDi•œyN‹mÆMode
+()
+
+426 
+U8
+ 
+¥ev_¶ide
+ = 0;
+
+427 
+U8
+ 
+¥ev_di•_Àvñ
+ = 0;
+
+428 
+U8
+ 
+dú
+ = 0;
+
+431 
+	`Di•LedDuty
+();
+
+433 if–
+¶idî
+[1] > 0 )
+
+435 
+the_¶ide
+ = (
+U8
+)(256U - 
+¶idî
+[1]);
+
+439 
+the_¶ide
+ = 0;
+
+442 if–
 the_¶ide
  >= 5 )
 
-219 
+444 
 the_di•_Àvñ
  = 
 the_¶ide
  / 18;
 
-220 
+445 
 the_di•_Àvñ
 ++;
 
-221 
+446 
 	`Di•B¨Sèck
 –
 the_di•_Àvñ
  );
 
-223 if–
+448 if–
 ¥ev_di•_Àvñ
  !
 the_di•_Àvñ
 )
 
-225 if–
+450 if–
 ¥ev_di•_Àvñ
  < 
 the_di•_Àvñ
  )
 
-227 if–
+452 if–
 dú
  == 1 )
 
-229 
+454 
 ãmp_ödex
 ++;
 
-231 
+456 
 dú
  = 1;
 
-235 if–
+460 if–
 dú
  == 0 )
 
-237 
+462 
 ãmp_ödex
 --;
 
-239 
+464 
 dú
  = 0;
 
-241 
+466 
 ¥ev_di•_Àvñ
  = 
 the_di•_Àvñ
 ;
 
-246 
+471 
 	`Di•B¨Sèck
 ( 0 );
 
-249 if–
+474 if–
 ãmp_ödex
  >= 12 )
 
-251 
+476 
 ãmp_ödex
  = 11;
 
-253 if–
+478 if–
 ãmp_ödex
  <= 0 )
 
-255 
+480 
 ãmp_ödex
  = 0;
 
-258 
+483 
 	`Di•Temp
 –
 ãmp_hŸ
@@ -9369,51 +10673,53 @@ the_di•_Àvñ
 ãmp_ödex
  ] );
 
-259 
+484 
 	}
 }
 
-263 
+489 
+U8
+ 
+	gdbg_the_di•_upd©e
+ = 0;
+
+490 
 	$Upd©e
 ()
 
-265 if–
+492 if–
 	`HAL_IsUpd©eLed
 (Ë=
 TRUE
  )
 
-267 
-	`SëCommHódî
+494 
+	`SëCommQueueFr⁄t
 –
-COMM_ID_FRONT
-, 
 PKT_FRONT_REQ_LED
  );
 
-268 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_TX
-, 0 );
-
-270 
+496 
 	`HAL_Upd©eLed
 ();
 
-272 
+497 
+dbg_the_di•_upd©e
+++;
+
+499 
 	}
 }
 
-274 
+501 
 	$Pro˚ssDi•œy
 ()
 
-276 
+503 
 	`Upd©eDi•œyTimî
 ();
 
-279 if–
+506 if–
 Di•
 .
 Inô
@@ -9421,27 +10727,27 @@ Inô
 FALSE
  )
 
-281 
+508 
 	`Pro˚ssDi•œyBoŸ
 ();
 
-282 
+509 
 	`Upd©e
 ();
 
-288 
-	`SlidîDi•Temp
+514 
+	`Pro˚ssDi•œyN‹mÆMode
 ();
 
-289 
+516 
 	`Upd©e
 ();
 
-290 
+517 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\process_display.h
 
 1 #i‚de‡
 __PROCESS_DISPLAY_H__
@@ -9495,7 +10801,7 @@ id
 Pro˚ssDi•œy
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_key.c
 
 1 
 	~"hw.h
@@ -9709,7 +11015,7 @@ W©îOut
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_key.h
 
 1 #i‚de‡
 __HAL_KEY_H__
@@ -9897,7 +11203,7 @@ U8
 HAL_GëLevîW©î
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.c
 
 1 
 	~"hw.h
@@ -10611,7 +11917,7 @@ Led_T
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.h
 
 1 #i‚de‡
 __HAL_LED_H__
@@ -10915,7 +12221,7 @@ HAL_IsUpd©eLed
 HAL_Upd©eLed
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.c
 
 1 
 	#CONFIG_UART_0
@@ -11030,280 +12336,340 @@ r_u¨t3_öãºu±_ª˚ive
 "
 
 33 
-	~<°rög.h
->
-
-34 
 	~"timî.h
 "
 
-38 #i‡
+34 
+	~<°rög.h
+>
+
+37 #i‡
 CONFIG_UART_0
 
 
-39 
-	#COMP_TXD
+38 
+	#UART_0_TXD
  
 TXD0
 
 
 	)
 
-40 
-	#COMP_RXD
+39 
+	#UART_0_RXD
  
 RXD0
 
 
 	)
 
-43 #i‡
+42 #i‡
 CONFIG_UART_1
 
 
-44 
-	#TOF_TXD
+43 
+	#UART_1_TXD
  
 TXD1
 
 
 	)
 
-45 
-	#TOF_RXD
+44 
+	#UART_1_RXD
  
 RXD1
 
 
 	)
 
-48 #i‡
+47 #i‡
 CONFIG_UART_2
 
 
-49 
-	#FRONT_TXD
+48 
+	#UART_2_TXD
  
 TXD2
 
 
 	)
 
-50 
-	#FRONT_RXD
+49 
+	#UART_2_RXD
  
 RXD2
 
 
 	)
 
-53 #i‡
+52 #i‡
 CONFIG_UART_3
 
 
-54 
-	#EOL_TXD
+53 
+	#UART_3_TXD
  
 TXD3
 
 
 	)
 
-55 
-	#EOL_RXD
+54 
+	#UART_3_RXD
  
 RXD3
 
 
 	)
 
-59 
-	#UART0_RX_TIME_STAMP
- 100
+58 
+	#MAX_UART_0_RX_BUF_SZ
+ 30
 
 	)
 
-60 
-	#UART1_RX_TIME_STAMP
- 10
+59 
+	#MAX_UART_0_TX_BUF_SZ
+ 30
 
 	)
 
 61 
-	#UART2_RX_TIME_STAMP
- 10
+	#MAX_UART_1_RX_BUF_SZ
+ 128
 
 	)
 
 62 
-	#UART3_RX_TIME_STAMP
+	#MAX_UART_1_TX_BUF_SZ
+ 128
+
+	)
+
+64 
+	#MAX_UART_2_RX_BUF_SZ
+ 128
+
+	)
+
+65 
+	#MAX_UART_2_TX_BUF_SZ
+ 128
+
+	)
+
+67 
+	#MAX_UART_3_RX_BUF_SZ
+ 255
+
+	)
+
+68 
+	#MAX_UART_3_TX_BUF_SZ
+ 255
+
+	)
+
+74 
+	#UART_0_RX_TIME_STAMP
+ 100
+
+	)
+
+75 
+	#UART_1_RX_TIME_STAMP
  10
 
 	)
 
-65 #i‡
+76 
+	#UART_2_RX_TIME_STAMP
+ 10
+
+	)
+
+77 
+	#UART_3_RX_TIME_STAMP
+ 10
+
+	)
+
+80 #i‡
 CONFIG_UART_0
 
 
-66 
+81 
 U8
  
 	gªcv_0_buf
 [ 
-MAX_COMM_0_RX_BUF_SZ
+MAX_UART_0_RX_BUF_SZ
  ];
-
-67 
-U8
- 
-	g£nd_0_buf
-[ 
-MAX_COMM_0_TX_BUF_SZ
- ];
-
-69 
-U8
- 
-	gªcv_0_buf
-[ 1 ];
-
-70 
-U8
- 
-	g£nd_0_buf
-[ 1 ];
-
-73 #i‡
-CONFIG_UART_1
-
-
-74 
-U8
- 
-	gªcv_1_buf
-[ 
-MAX_COMM_1_RX_BUF_SZ
- ];
-
-75 
-U8
- 
-	g£nd_1_buf
-[ 
-MAX_COMM_1_TX_BUF_SZ
- ];
-
-77 
-U8
- 
-	gªcv_1_buf
-[ 1 ];
-
-78 
-U8
- 
-	g£nd_1_buf
-[ 1 ];
-
-81 #i‡
-CONFIG_UART_2
-
 
 82 
 U8
  
-	gªcv_2_buf
+	g£nd_0_buf
 [ 
-MAX_COMM_2_RX_BUF_SZ
+MAX_UART_0_TX_BUF_SZ
  ];
 
-83 
+84 
 U8
  
-	g£nd_2_buf
-[ 
-MAX_COMM_2_TX_BUF_SZ
- ];
+	gªcv_0_buf
+[ 1 ];
 
 85 
 U8
  
+	g£nd_0_buf
+[ 1 ];
+
+88 #i‡
+CONFIG_UART_1
+
+
+89 
+U8
+ 
+	gªcv_1_buf
+[ 
+MAX_UART_1_RX_BUF_SZ
+ ];
+
+90 
+U8
+ 
+	g£nd_1_buf
+[ 
+MAX_UART_1_TX_BUF_SZ
+ ];
+
+92 
+U8
+ 
+	gªcv_1_buf
+[ 1 ];
+
+93 
+U8
+ 
+	g£nd_1_buf
+[ 1 ];
+
+96 #i‡
+CONFIG_UART_2
+
+
+97 
+U8
+ 
+	gªcv_2_buf
+[ 
+MAX_UART_2_RX_BUF_SZ
+ ];
+
+98 
+U8
+ 
+	g£nd_2_buf
+[ 
+MAX_UART_2_TX_BUF_SZ
+ ];
+
+100 
+U8
+ 
 	gªcv_2_buf
 [ 1 ];
 
-86 
+101 
 U8
  
 	g£nd_2_buf
 [ 1 ];
 
-89 #i‡
+104 #i‡
 CONFIG_UART_3
 
 
-90 
+105 
 U8
  
 	gªcv_3_buf
 [ 
-MAX_COMM_3_RX_BUF_SZ
+MAX_UART_3_RX_BUF_SZ
  ];
 
-91 
+106 
 U8
  
 	g£nd_3_buf
 [ 
-MAX_COMM_3_TX_BUF_SZ
+MAX_UART_3_TX_BUF_SZ
  ];
 
-93 
+108 
 U8
  
 	gªcv_3_buf
 [ 1 ];
 
-94 
+109 
 U8
  
 	g£nd_3_buf
 [ 1 ];
 
-97 
+112 
 	s_comm_
 
 
-100 
+114 
 I16
  
 	mªcv_Àn
 ;
 
-102 
+115 
 I16
  
 	m£nd_Àn
 ;
 
-103 
+116 
 I16
  
 	mtx_Àn
 ;
 
-104 } 
+118 vﬁ©ûê
+I16
+ 
+	mhód
+;
+
+119 vﬁ©ûê
+I16
+ 
+	mèû
+;
+
+120 } 
 	tcomm_t
 ;
 
-106 
+122 
 comm_t
  
 	gcomm
 [ 
-MAX_COMM_ID
+MAX_UART_ID
  ];
 
-110 
+126 
 	$HAL_InôCommId
 –
 U8
@@ -11311,121 +12677,127 @@ U8
 u¨t_id
  )
 
-112 if–
+128 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-114 #i‡
+130 #i‡
 CONFIG_UART_0
 
 
-115 
+131 
 	`MEMSET
 –(
 __FAR
  *)&
 ªcv_0_buf
 [0], 0, 
-MAX_COMM_0_RX_BUF_SZ
+MAX_UART_0_RX_BUF_SZ
  );
 
-116 
+132 
 	`MEMSET
 –(
 __FAR
  *)&
 £nd_0_buf
 [0], 0, 
-MAX_COMM_0_TX_BUF_SZ
+MAX_UART_0_TX_BUF_SZ
  );
 
-119 if–
+135 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-121 #i‡
+137 #i‡
 CONFIG_UART_1
 
 
-122 
+138 
 	`MEMSET
 –(
 __FAR
  *)&
 ªcv_1_buf
 [0], 0, 
-MAX_COMM_1_RX_BUF_SZ
+MAX_UART_1_RX_BUF_SZ
  );
 
-123 
+139 
 	`MEMSET
 –(
 __FAR
  *)&
 £nd_1_buf
 [0], 0, 
-MAX_COMM_1_TX_BUF_SZ
+MAX_UART_1_TX_BUF_SZ
  );
 
-126 if–
+142 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-128 #i‡
+144 #i‡
 CONFIG_UART_2
 
 
-129 
+145 
 	`MEMSET
 –(
 __FAR
  *)&
 ªcv_2_buf
 [0], 0, 
-MAX_COMM_2_RX_BUF_SZ
+MAX_UART_2_RX_BUF_SZ
  );
 
-130 
+146 
 	`MEMSET
 –(
 __FAR
  *)&
 £nd_2_buf
 [0], 0, 
-MAX_COMM_2_TX_BUF_SZ
+MAX_UART_2_TX_BUF_SZ
  );
 
-135 #i‡
+149 if–
+u¨t_id
+ =
+UART_ID_3
+)
+
+151 #i‡
 CONFIG_UART_3
 
 
-136 
+152 
 	`MEMSET
 –(
 __FAR
  *)&
 ªcv_3_buf
 [0], 0, 
-MAX_COMM_3_RX_BUF_SZ
+MAX_UART_3_RX_BUF_SZ
  );
 
-137 
+153 
 	`MEMSET
 –(
 __FAR
  *)&
 £nd_3_buf
 [0], 0, 
-MAX_COMM_3_TX_BUF_SZ
+MAX_UART_3_TX_BUF_SZ
  );
 
-141 
+157 
 	`MEMSET
 –(
 __FAR
@@ -11437,75 +12809,75 @@ u¨t_id
 comm_t
  ) );
 
-142 
+158 
 	}
 }
 
-144 
+160 
 	$HAL_InôComm
 ( )
 
-146 #i‡
+162 #i‡
 CONFIG_UART_0
 
 
-147 
+163 
 	`HAL_InôCommId
 –
-COMM_ID_COMP
+UART_ID_0
  );
 
-148 
+164 
 	`R_UART0_Sèπ
 ();
 
-151 #i‡
+167 #i‡
 CONFIG_UART_1
 
 
-152 
+168 
 	`HAL_InôCommId
 –
-COMM_ID_TOF
+UART_ID_1
  );
 
-153 
+169 
 	`R_UART1_Sèπ
 ();
 
-156 #i‡
+172 #i‡
 CONFIG_UART_2
 
 
-157 
+173 
 	`HAL_InôCommId
 –
-COMM_ID_FRONT
+UART_ID_2
  );
 
-158 
+174 
 	`R_UART2_Sèπ
 ();
 
-161 #i‡
+177 #i‡
 CONFIG_UART_3
 
 
-162 
+178 
 	`HAL_InôCommId
 –
-COMM_ID_EOL
+UART_ID_3
  );
 
-163 
+179 
 	`R_UART3_Sèπ
 ();
 
-166 
+182 
 	}
 }
 
-168 
+184 
 I16
  
 	$HAL_GëMaxRecvBuf„rLígth
@@ -11515,39 +12887,39 @@ U8
 u¨t_id
 )
 
-170 if–
+186 if–
 u¨t_id
  == 0 )
 
-172  
-MAX_COMM_0_RX_BUF_SZ
+188  
+MAX_UART_0_RX_BUF_SZ
 ;
 
-174 if–
+190 if–
 u¨t_id
  == 1 )
 
-176  
-MAX_COMM_1_RX_BUF_SZ
+192  
+MAX_UART_1_RX_BUF_SZ
 ;
 
-178 if–
+194 if–
 u¨t_id
  == 2 )
 
-180  
-MAX_COMM_2_RX_BUF_SZ
+196  
+MAX_UART_2_RX_BUF_SZ
 ;
 
-183  
-MAX_COMM_3_RX_BUF_SZ
+199  
+MAX_UART_3_RX_BUF_SZ
 ;
 
-184 
+200 
 	}
 }
 
-186 
+202 
 U8
  
 	$HAL_IsFuŒRecvBuf„r
@@ -11557,7 +12929,7 @@ U8
 u¨t_id
  )
 
-188 if–
+205 if–
 comm
 [ 
 u¨t_id
@@ -11567,19 +12939,53 @@ u¨t_id
 	`HAL_GëMaxRecvBuf„rLígth
 ( uart_id ) )
 
-190  
+207  
 TRUE
 ;
 
-193  
+210  
 FALSE
 ;
 
-194 
+212 
+I16
+ 
+buf_size
+;
+
+214 
+buf_size
+ = 
+	`HAL_GëMaxRecvBuf„rLígth
+–
+u¨t_id
+ );
+
+215 if–((
+comm
+[
+u¨t_id
+].
+hód
+ + 1Ë% 
+buf_size
+Ë=comm[u¨t_id].
+èû
+)
+
+217  
+TRUE
+;
+
+220  
+FALSE
+;
+
+222 
 	}
 }
 
-196 
+224 
 U8
  
 	$HAL_IsEm±yRecvBuf„r
@@ -11589,7 +12995,7 @@ U8
 u¨t_id
  )
 
-198 if–
+226 if–
 comm
 [ 
 u¨t_id
@@ -11597,19 +13003,19 @@ u¨t_id
 ªcv_Àn
  > 0 )
 
-200  
+228  
 FALSE
 ;
 
-203  
+231  
 TRUE
 ;
 
-205 
+233 
 	}
 }
 
-207 
+235 
 I16
  
 	$HAL_GëMaxSídBuf„rLígth
@@ -11619,39 +13025,39 @@ U8
 u¨t_id
 )
 
-209 if–
+237 if–
 u¨t_id
  == 0 )
 
-211  
-MAX_COMM_0_TX_BUF_SZ
+239  
+MAX_UART_0_TX_BUF_SZ
 ;
 
-213 if–
+241 if–
 u¨t_id
  == 1 )
 
-215  
-MAX_COMM_1_TX_BUF_SZ
+243  
+MAX_UART_1_TX_BUF_SZ
 ;
 
-217 if–
+245 if–
 u¨t_id
  == 2 )
 
-219  
-MAX_COMM_2_TX_BUF_SZ
+247  
+MAX_UART_2_TX_BUF_SZ
 ;
 
-222  
-MAX_COMM_3_TX_BUF_SZ
+250  
+MAX_UART_3_TX_BUF_SZ
 ;
 
-223 
+251 
 	}
 }
 
-225 
+253 
 U8
  
 	$HAL_IsFuŒSídBuf„r
@@ -11661,7 +13067,7 @@ U8
 u¨t_id
  )
 
-227 if–
+255 if–
 comm
 [ 
 u¨t_id
@@ -11671,19 +13077,47 @@ u¨t_id
 	`HAL_GëMaxSídBuf„rLígth
 ( uart_id ) )
 
-229  
+257  
 TRUE
 ;
 
-232  
+260  
 FALSE
 ;
 
-233 
+261 
 	}
 }
 
-235 
+263 
+U8
+ 
+IsCom∂ëeTx
+–U8 
+u¨t_id
+ );
+
+264 
+U8
+ 
+	$HAL_IsEm±ySídBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+266  
+	`IsCom∂ëeTx
+–
+u¨t_id
+ );
+
+267 
+	}
+}
+
+269 
 	$HAL_InôRecvLígth
 (
 U8
@@ -11691,7 +13125,7 @@ U8
 u¨t_id
  )
 
-237 
+271 
 comm
 [ 
 u¨t_id
@@ -11699,11 +13133,11 @@ u¨t_id
 ªcv_Àn
  = 0;
 
-238 
+272 
 	}
 }
 
-240 
+274 
 I16
  
 	$HAL_GëRecvLígth
@@ -11713,7 +13147,7 @@ U8
 u¨t_id
  )
 
-242  
+276  
 comm
 [ 
 u¨t_id
@@ -11721,11 +13155,11 @@ u¨t_id
 ªcv_Àn
 ;
 
-243 
+277 
 	}
 }
 
-245 
+279 
 I16
  
 	$HAL_GëSídLígth
@@ -11735,7 +13169,7 @@ U8
 u¨t_id
  )
 
-247  
+281  
 comm
 [ 
 u¨t_id
@@ -11743,11 +13177,11 @@ u¨t_id
 £nd_Àn
 ;
 
-248 
+282 
 	}
 }
 
-251 
+285 
 	$HAL_SëRecvBuf„r
 (
 U8
@@ -11757,13 +13191,13 @@ u¨t_id
 _byã
  )
 
-253 
+288 
 comm_t
  *
 p_comm
 ;
 
-255 
+290 
 p_comm
  = &
 comm
@@ -11771,23 +13205,13 @@ comm
 u¨t_id
  ];
 
-257 
-p_comm
-->
-ªcv_buf
-[Ö_comm->
-ªcv_Àn
- ] = 
-_byã
-;
-
-259 if–
+291 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-261 
+293 
 ªcv_0_buf
 [ 
 p_comm
@@ -11797,13 +13221,13 @@ p_comm
 _byã
 ;
 
-263 if–
+295 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-265 
+297 
 ªcv_1_buf
 [ 
 p_comm
@@ -11813,13 +13237,13 @@ p_comm
 _byã
 ;
 
-267 if–
+299 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-269 
+301 
 ªcv_2_buf
 [ 
 p_comm
@@ -11829,7 +13253,7 @@ p_comm
 _byã
 ;
 
-273 
+305 
 ªcv_3_buf
 [ 
 p_comm
@@ -11839,17 +13263,111 @@ p_comm
 _byã
 ;
 
-276 
+307 
 p_comm
 ->
 ªcv_Àn
 ++;
 
-278 
+309 
+comm_t
+ *
+p_comm
+;
+
+310 
+I16
+ 
+buf_Àn
+;
+
+312 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+313 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+315 
+ªcv_0_buf
+[ 
+p_comm
+->
+hód
+ ] = 
+_byã
+;
+
+317 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+319 
+ªcv_1_buf
+[ 
+p_comm
+->
+hód
+ ] = 
+_byã
+;
+
+321 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+323 
+ªcv_2_buf
+[ 
+p_comm
+->
+hód
+ ] = 
+_byã
+;
+
+327 
+ªcv_3_buf
+[ 
+p_comm
+->
+hód
+ ] = 
+_byã
+;
+
+330 
+buf_Àn
+ = 
+	`HAL_GëMaxSídBuf„rLígth
+–
+u¨t_id
+ );
+
+331 
+p_comm
+->
+hód
+ = (p_comm->hód + 1Ë% 
+buf_Àn
+;
+
+334 
 	}
 }
 
-280 
+336 
 U8
  
 	$HAL_GëRecvBuf„r
@@ -11857,69 +13375,159 @@ U8
 U8
  
 u¨t_id
-, 
-U16
- 
-ödex
  )
 
-283  
-comm
-[ 
-u¨t_id
- ].
-ªcv_buf
-[ 
-ödex
- ];
-
-285 if–
+339 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-287  
+341  
 ªcv_0_buf
 [ 
 ödex
  ];
 
-289 if–
+343 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-291  
+345  
 ªcv_1_buf
 [ 
 ödex
  ];
 
-293 if–
+347 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-295  
+349  
 ªcv_2_buf
 [ 
 ödex
  ];
 
-299  
+353  
 ªcv_3_buf
 [ 
 ödex
  ];
 
-302 
+357 
+comm_t
+ *
+p_comm
+;
+
+358 
+I16
+ 
+buf_Àn
+;
+
+359 
+U8
+ 
+_byã
+ = 0;
+
+361 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+362 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+364 
+_byã
+ = 
+ªcv_0_buf
+[ 
+p_comm
+->
+èû
+ ];
+
+366 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+368 
+_byã
+ = 
+ªcv_1_buf
+[ 
+p_comm
+->
+èû
+ ];
+
+370 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+372 
+_byã
+ = 
+ªcv_2_buf
+[ 
+p_comm
+->
+èû
+ ];
+
+376 
+_byã
+ = 
+ªcv_3_buf
+[ 
+p_comm
+->
+èû
+ ];
+
+379 
+buf_Àn
+ = 
+	`HAL_GëMaxSídBuf„rLígth
+–
+u¨t_id
+ );
+
+380 
+p_comm
+->
+èû
+ = (p_comm->èû + 1Ë% 
+buf_Àn
+;
+
+383  
+_byã
+;
+
+385 
 	}
 }
 
-305 
+388 
 	$HAL_SëSídBuf„r
 –
 U8
@@ -11929,13 +13537,13 @@ u¨t_id
 _byã
  )
 
-307 
+390 
 comm_t
  *
 p_comm
 ;
 
-309 if–
+392 if–
 	`HAL_IsFuŒSídBuf„r
 –
 u¨t_id
@@ -11943,7 +13551,7 @@ u¨t_id
 FALSE
  )
 
-311 
+394 
 p_comm
  = &
 comm
@@ -11951,23 +13559,13 @@ comm
 u¨t_id
  ];
 
-313 
-p_comm
-->
-£nd_buf
-[Ö_comm->
-£nd_Àn
- ] = 
-_byã
-;
-
-315 if–
+395 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-317 
+397 
 £nd_0_buf
 [ 
 p_comm
@@ -11977,13 +13575,13 @@ p_comm
 _byã
 ;
 
-319 if–
+399 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-321 
+401 
 £nd_1_buf
 [ 
 p_comm
@@ -11993,13 +13591,13 @@ p_comm
 _byã
 ;
 
-323 if–
+403 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-325 
+405 
 £nd_2_buf
 [ 
 p_comm
@@ -12009,7 +13607,7 @@ p_comm
 _byã
 ;
 
-329 
+409 
 £nd_3_buf
 [ 
 p_comm
@@ -12019,17 +13617,17 @@ p_comm
 _byã
 ;
 
-332 
+411 
 p_comm
 ->
 £nd_Àn
 ++;
 
-334 
+413 
 	}
 }
 
-336 
+415 
 U8
  
 	$HAL_GëSídBuf„r
@@ -12043,63 +13641,53 @@ U16
 ödex
  )
 
-339  
-comm
-[ 
-u¨t_id
- ].
-£nd_buf
-[ 
-ödex
- ];
-
-341 if–
+417 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-343  
+419  
 £nd_0_buf
 [
 ödex
 ];
 
-345 if–
+421 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-347  
+423  
 £nd_1_buf
 [
 ödex
 ];
 
-349 if–
+425 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-351  
+427  
 £nd_2_buf
 [
 ödex
 ];
 
-355  
+431  
 £nd_3_buf
 [
 ödex
 ];
 
-358 
+433 
 	}
 }
 
-361 
+436 
 	$HAL_SídByã
 –
 U8
@@ -12107,19 +13695,19 @@ U8
 u¨t_id
  )
 
-363 
+438 
 U8
  
 ch
 ;
 
-364 
+439 
 comm_t
  *
 p_comm
 ;
 
-367 
+442 
 p_comm
  = &
 comm
@@ -12127,23 +13715,13 @@ comm
 u¨t_id
  ];
 
-369 
-ch
- = 
-p_comm
-->
-£nd_buf
-[Ö_comm->
-tx_Àn
- ];
-
-371 if–
+443 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-373 
+445 
 ch
  = 
 £nd_0_buf
@@ -12153,13 +13731,13 @@ p_comm
 tx_Àn
 ];
 
-375 if–
+447 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-377 
+449 
 ch
  = 
 £nd_1_buf
@@ -12169,13 +13747,13 @@ p_comm
 tx_Àn
 ];
 
-379 if–
+451 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
 )
 
-381 
+453 
 ch
  = 
 £nd_2_buf
@@ -12185,7 +13763,13 @@ p_comm
 tx_Àn
 ];
 
-385 
+455 if–
+u¨t_id
+ =
+UART_ID_3
+)
+
+457 
 ch
  = 
 £nd_3_buf
@@ -12195,81 +13779,81 @@ p_comm
 tx_Àn
 ];
 
-389 
+460 
 p_comm
 ->
 tx_Àn
 ++;
 
-391 if–
+462 if–
 u¨t_id
  =
-COMM_ID_COMP
+UART_ID_0
  )
 
-393 #i‡
+464 #i‡
 CONFIG_UART_0
 
 
-394 
-COMP_TXD
+465 
+UART_0_TXD
  = 
 ch
 ;
 
-397 if–
+468 if–
 u¨t_id
  =
-COMM_ID_TOF
+UART_ID_1
  )
 
-399 #i‡
+470 #i‡
 CONFIG_UART_1
 
 
-400 
-TOF_TXD
+471 
+UART_1_TXD
  = 
 ch
 ;
 
-403 if–
+474 if–
 u¨t_id
  =
-COMM_ID_FRONT
+UART_ID_2
  )
 
-405 #i‡
+476 #i‡
 CONFIG_UART_2
 
 
-406 
-FRONT_TXD
+477 
+UART_2_TXD
  = 
 ch
 ;
 
-409 if–
+480 if–
 u¨t_id
  =
-COMM_ID_EOL
+UART_ID_3
  )
 
-411 #i‡
+482 #i‡
 CONFIG_UART_3
 
 
-412 
-EOL_TXD
+483 
+UART_3_TXD
  = 
 ch
 ;
 
-415 
+486 
 	}
 }
 
-417 
+488 
 U8
  
 	$IsCom∂ëeTx
@@ -12279,7 +13863,7 @@ U8
 u¨t_id
  )
 
-419 if–
+490 if–
 comm
 [
 u¨t_id
@@ -12289,41 +13873,41 @@ tx_Àn
 £nd_Àn
  )
 
-421  
+492  
 FALSE
 ;
 
-424  
+495  
 TRUE
 ;
 
-426 
+497 
 	}
 }
 
-431 #i‡
+502 #i‡
 CONFIG_UART_0
 
 
-432 
+503 
 __öãºu±
  
 	$r_u¨t0_öãºu±_ª˚ive
 ()
 
-434 vﬁ©ûê
+505 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-435 vﬁ©ûê
+506 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-438 
+509 
 îr_ty≥
  = (
 uöt8_t
@@ -12331,7 +13915,7 @@ uöt8_t
 SSR01
  & 0x0007U);
 
-439 
+510 
 SIR01
  = (
 uöt16_t
@@ -12339,103 +13923,103 @@ uöt16_t
 îr_ty≥
 ;
 
-441 
+512 
 rx_d©a
  = 
-COMP_RXD
+UART_0_RXD
 ;
 
-443 if–
+514 if–
 îr_ty≥
  == 0 )
 
-445 if–
+516 if–
 	`HAL_IsFuŒRecvBuf„r
 –
-COMM_ID_COMP
+UART_ID_0
  ) =
 FALSE
  )
 
-447 
+518 
 	`HAL_SëRecvBuf„r
 –
-COMM_ID_COMP
+UART_ID_0
 , 
 rx_d©a
  );
 
-451 
+522 
 	`HAL_InôCommId
 –
-COMM_ID_COMP
+UART_ID_0
  );
 
-454 
+525 
 	`SèπTimî
 –
-TIMER_ID_COMM_COMP_RX
+TIMER_ID_UART_0_RX
 , 
-UART0_RX_TIME_STAMP
+UART_0_RX_TIME_STAMP
  );
 
-456 
+527 
 	}
 }
 
-458 
+529 
 __öãºu±
  
 	$r_u¨t0_öãºu±_£nd
 ()
 
-460 if–
+531 if–
 	`IsCom∂ëeTx
 –
-COMM_ID_COMP
+UART_ID_0
  ) =
 FALSE
  )
 
-462 
+533 
 	`HAL_SídByã
 –
-COMM_ID_COMP
+UART_ID_0
  );
 
-466 
+537 
 	`HAL_InôCommId
 –
-COMM_ID_COMP
+UART_ID_0
  );
 
-468 
+539 
 	}
 }
 
-472 #i‡
+543 #i‡
 CONFIG_UART_1
 
 
-473 
+544 
 __öãºu±
  
 	$r_u¨t1_öãºu±_ª˚ive
 ()
 
-475 vﬁ©ûê
+546 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-476 vﬁ©ûê
+547 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-478 
+549 
 îr_ty≥
  = (
 U8
@@ -12443,7 +14027,7 @@ U8
 SSR03
  & 0x0007U);
 
-479 
+550 
 SIR03
  = (
 U16
@@ -12451,109 +14035,115 @@ U16
 îr_ty≥
 ;
 
-481 
+552 
 rx_d©a
  = 
-TOF_RXD
+UART_1_RXD
 ;
 
-483 if–
+554 if–
 îr_ty≥
  == 0 )
 
-485 if–
+556 if–
 	`HAL_IsFuŒRecvBuf„r
 –
-COMM_ID_TOF
+UART_ID_1
  ) =
 FALSE
  )
 
-487 
+558 
 	`HAL_SëRecvBuf„r
 –
-COMM_ID_TOF
+UART_ID_1
 , 
 rx_d©a
  );
 
-491 
+562 
 	`HAL_InôCommId
 –
-COMM_ID_TOF
+UART_ID_1
  );
 
-495 
+566 
 	`SèπTimî
 –
-TIMER_ID_COMM_TOF_RX
+TIMER_ID_COMM_FRONT_RX
 , 
-UART1_RX_TIME_STAMP
+UART_1_RX_TIME_STAMP
  );
 
-496 
+567 
 	}
 }
 
-498 
+569 
 __öãºu±
  
 	$r_u¨t1_öãºu±_£nd
 ()
 
-500 if–
+571 if–
 	`IsCom∂ëeTx
 –
-COMM_ID_TOF
+UART_ID_1
  ) =
 FALSE
  )
 
-502 
+573 
 	`HAL_SídByã
 –
-COMM_ID_TOF
+UART_ID_1
  );
 
-506 
+574 
+	`SèπTimî
+–
+TIMER_ID_UART_1_TX_DONE
+, 60 );
+
+578 
 	`HAL_InôCommId
 –
-COMM_ID_TOF
+UART_ID_1
  );
 
-508 
+580 
 	}
 }
 
-512 #i‡
+584 #i‡
 CONFIG_UART_2
 
 
-513 
+585 
 U16
  
 	gthe_rx_îr_cou¡
  = 0;
 
-514 
+586 
 __öãºu±
  
 	$r_u¨t2_öãºu±_ª˚ive
 ()
 
-516 vﬁ©ûê
+588 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-517 vﬁ©ûê
+589 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-519 
+591 
 îr_ty≥
  = (
 uöt8_t
@@ -12561,7 +14151,7 @@ uöt8_t
 SSR11
  & 0x0007U);
 
-520 
+592 
 SIR11
  = (
 uöt16_t
@@ -12569,121 +14159,127 @@ uöt16_t
 îr_ty≥
 ;
 
-522 
+594 
 rx_d©a
  = 
-FRONT_RXD
+UART_2_RXD
 ;
 
-524 
+596 
 	`EI
 ();
 
-525 if–
+597 if–
 îr_ty≥
  == 0 )
 
-527 if–
+599 if–
 	`HAL_IsFuŒRecvBuf„r
 –
-COMM_ID_FRONT
+UART_ID_2
  ) =
 FALSE
  )
 
-529 
+601 
 	`HAL_SëRecvBuf„r
 –
-COMM_ID_FRONT
+UART_ID_2
 , 
 rx_d©a
  );
 
-533 
+605 
 	`HAL_InôCommId
 –
-COMM_ID_FRONT
+UART_ID_2
  );
 
-536 
+608 
 	`SèπTimî
 –
-TIMER_ID_COMM_FRONT_RX
+TIMER_ID_UART_2_RX
 , 
-UART2_RX_TIME_STAMP
+UART_2_RX_TIME_STAMP
  );
 
-540 
+612 
 the_rx_îr_cou¡
 ++;
 
-542 
+614 
 	}
 }
 
-544 
+616 
 __öãºu±
  
 	$r_u¨t2_öãºu±_£nd
 ()
 
-546 
+618 
 	`EI
 ();
 
-547 if–
+619 if–
 	`IsCom∂ëeTx
 –
-COMM_ID_FRONT
+UART_ID_2
  ) =
 FALSE
  )
 
-549 
+621 
 	`HAL_SídByã
 –
-COMM_ID_FRONT
+UART_ID_2
  );
 
-553 
+622 
+	`SèπTimî
+–
+TIMER_ID_UART_2_TX_DONE
+, 60 );
+
+626 
 	`HAL_InôCommId
 –
-COMM_ID_FRONT
+UART_ID_2
  );
 
-555 
+629 
 	}
 }
 
-560 #i‡
+634 #i‡
 CONFIG_UART_3
 
 
-561 
+635 
 U16
  
 	gthe_i§_îr_cou¡
  = 0;
 
-562 
+636 
 __öãºu±
  
 	$r_u¨t3_öãºu±_ª˚ive
 ()
 
-564 vﬁ©ûê
+638 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-565 vﬁ©ûê
+639 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-567 
+641 
 îr_ty≥
  = (
 uöt8_t
@@ -12691,7 +14287,7 @@ uöt8_t
 SSR13
  & 0x0007U);
 
-568 
+642 
 SIR13
  = (
 uöt16_t
@@ -12699,85 +14295,85 @@ uöt16_t
 îr_ty≥
 ;
 
-570 
+644 
 rx_d©a
  = 
-EOL_RXD
+UART_3_RXD
 ;
 
-572 if–
+646 if–
 îr_ty≥
  == 0 )
 
-574 if–
+648 if–
 	`HAL_IsFuŒRecvBuf„r
 –
-COMM_ID_EOL
+UART_ID_3
  ) =
 FALSE
  )
 
-576 
+650 
 	`HAL_SëRecvBuf„r
 –
-COMM_ID_EOL
+UART_ID_3
 , 
 rx_d©a
  );
 
-580 
+654 
 	`HAL_InôCommId
 –
-COMM_ID_EOL
+UART_ID_3
  );
 
-583 
+657 
 	`SèπTimî
 –
-TIMER_ID_COMM_EOL_RX
+TIMER_ID_UART_3_RX
 , 
-UART3_RX_TIME_STAMP
+UART_3_RX_TIME_STAMP
  );
 
-587 
+661 
 the_i§_îr_cou¡
 ++;
 
-589 
+663 
 	}
 }
 
-592 
+666 
 __öãºu±
  
 	$r_u¨t3_öãºu±_£nd
 ()
 
-594 if–
+668 if–
 	`IsCom∂ëeTx
 –
-COMM_ID_EOL
+UART_ID_3
  ) =
 FALSE
  )
 
-596 
+670 
 	`HAL_SídByã
 –
-COMM_ID_EOL
+UART_ID_3
  );
 
-600 
+674 
 	`HAL_InôCommId
 –
-COMM_ID_EOL
+UART_ID_3
  );
 
-602 
+676 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.h
 
 1 #i‚de‡
 __HAL_SERIAL_H__
@@ -12794,96 +14390,36 @@ __HAL_SERIAL_H__
 "
 
 7 
-	#COMM_ID_COMP
+	#UART_ID_0
  0
 
 	)
 
 8 
-	#COMM_ID_TOF
+	#UART_ID_1
  1
 
 	)
 
 9 
-	#COMM_ID_FRONT
+	#UART_ID_2
  2
 
 	)
 
 10 
-	#COMM_ID_EOL
+	#UART_ID_3
  3
 
 	)
 
 11 
-	#MAX_COMM_ID
+	#MAX_UART_ID
  4
 
 	)
 
-15 
-	#MAX_COMM_0_RX_BUF_SZ
- 30
-
-	)
-
-16 
-	#MAX_COMM_0_TX_BUF_SZ
- 30
-
-	)
-
-19 
-	#MAX_COMM_1_RX_BUF_SZ
- 128
-
-	)
-
-20 
-	#MAX_COMM_1_TX_BUF_SZ
- 128
-
-	)
-
-23 
-	#MAX_COMM_2_RX_BUF_SZ
- 128
-
-	)
-
-24 
-	#MAX_COMM_2_TX_BUF_SZ
- 128
-
-	)
-
-27 
-	#MAX_COMM_3_RX_BUF_SZ
- 255
-
-	)
-
-28 
-	#MAX_COMM_3_TX_BUF_SZ
- 255
-
-	)
-
-31 
-	#MAX_COMM_RX_BUF_SZ
- 255
-
-	)
-
-32 
-	#MAX_COMM_TX_BUF_SZ
- 255
-
-	)
-
-36 
+14 
 HAL_InôCommId
 –
 U8
@@ -12891,11 +14427,11 @@ U8
 u¨t_id
  );
 
-37 
+15 
 HAL_InôComm
 ( );
 
-39 
+17 
 U8
  
 HAL_IsFuŒRecvBuf„r
@@ -12903,7 +14439,7 @@ HAL_IsFuŒRecvBuf„r
 u¨t_id
  );
 
-40 
+18 
 U8
  
 HAL_IsEm±yRecvBuf„r
@@ -12911,7 +14447,7 @@ HAL_IsEm±yRecvBuf„r
 u¨t_id
  );
 
-41 
+19 
 U8
  
 HAL_IsFuŒSídBuf„r
@@ -12919,7 +14455,15 @@ HAL_IsFuŒSídBuf„r
 u¨t_id
  );
 
-43 
+20 
+U8
+ 
+HAL_IsEm±ySídBuf„r
+–U8 
+u¨t_id
+ );
+
+22 
 HAL_InôRecvLígth
 (
 U8
@@ -12927,7 +14471,7 @@ U8
 u¨t_id
  );
 
-44 
+23 
 I16
  
 HAL_GëRecvLígth
@@ -12937,7 +14481,7 @@ U8
 u¨t_id
  );
 
-45 
+24 
 I16
  
 HAL_GëSídLígth
@@ -12947,7 +14491,7 @@ U8
 u¨t_id
  );
 
-47 
+26 
 HAL_SëRecvBuf„r
 (
 U8
@@ -12957,19 +14501,15 @@ u¨t_id
 _byã
  );
 
-48 
+28 
 U8
  
 HAL_GëRecvBuf„r
 –U8 
 u¨t_id
-, 
-U16
- 
-ödex
  );
 
-50 
+30 
 HAL_SëSídBuf„r
 –
 U8
@@ -12979,7 +14519,7 @@ u¨t_id
 _byã
  );
 
-51 
+31 
 U8
  
 HAL_GëSídBuf„r
@@ -12991,7 +14531,7 @@ U16
 ödex
  );
 
-53 
+33 
 HAL_SídByã
 –
 U8
@@ -12999,7 +14539,2089 @@ U8
 u¨t_id
  );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hw.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.c
+
+1 
+	#CONFIG_UART_0
+ 0
+
+	)
+
+2 
+	#CONFIG_UART_1
+ 1
+
+	)
+
+3 
+	#CONFIG_UART_2
+ 0
+
+	)
+
+4 
+	#CONFIG_UART_3
+ 0
+
+	)
+
+6 #i‡
+CONFIG_UART_0
+
+
+7 #¥agm®
+öãºu±
+ 
+INTST0
+ 
+r_u¨t0_öãºu±_£nd
+
+
+8 #¥agm®
+öãºu±
+ 
+INTSR0
+ 
+r_u¨t0_öãºu±_ª˚ive
+
+
+11 #i‡
+CONFIG_UART_1
+
+
+12 #¥agm®
+öãºu±
+ 
+INTST1
+ 
+r_u¨t1_öãºu±_£nd
+
+
+13 #¥agm®
+öãºu±
+ 
+INTSR1
+ 
+r_u¨t1_öãºu±_ª˚ive
+
+
+16 #i‡
+CONFIG_UART_2
+
+
+17 #¥agm®
+öãºu±
+ 
+INTST2
+ 
+r_u¨t2_öãºu±_£nd
+
+
+18 #¥agm®
+öãºu±
+ 
+INTSR2
+ 
+r_u¨t2_öãºu±_ª˚ive
+
+
+21 #i‡
+CONFIG_UART_3
+
+
+22 #¥agm®
+öãºu±
+ 
+INTST3
+ 
+r_u¨t3_öãºu±_£nd
+
+
+23 #¥agm®
+öãºu±
+ 
+INTSR3
+ 
+r_u¨t3_öãºu±_ª˚ive
+
+
+27 
+	~"hw.h
+"
+
+28 
+	~"hÆ_£rül.h
+"
+
+29 
+	~"timî.h
+"
+
+30 
+	~<°rög.h
+>
+
+33 #i‡
+CONFIG_UART_0
+
+
+34 
+	#UART_0_TXD
+ 
+TXD0
+
+
+	)
+
+35 
+	#UART_0_RXD
+ 
+RXD0
+
+
+	)
+
+38 #i‡
+CONFIG_UART_1
+
+
+39 
+	#UART_1_TXD
+ 
+TXD1
+
+
+	)
+
+40 
+	#UART_1_RXD
+ 
+RXD1
+
+
+	)
+
+43 #i‡
+CONFIG_UART_2
+
+
+44 
+	#UART_2_TXD
+ 
+TXD2
+
+
+	)
+
+45 
+	#UART_2_RXD
+ 
+RXD2
+
+
+	)
+
+48 #i‡
+CONFIG_UART_3
+
+
+49 
+	#UART_3_TXD
+ 
+TXD3
+
+
+	)
+
+50 
+	#UART_3_RXD
+ 
+RXD3
+
+
+	)
+
+54 
+	#MAX_UART_0_RX_BUF_SZ
+ 30
+
+	)
+
+55 
+	#MAX_UART_0_TX_BUF_SZ
+ 30
+
+	)
+
+57 
+	#MAX_UART_1_RX_BUF_SZ
+ 128
+
+	)
+
+58 
+	#MAX_UART_1_TX_BUF_SZ
+ 128
+
+	)
+
+60 
+	#MAX_UART_2_RX_BUF_SZ
+ 128
+
+	)
+
+61 
+	#MAX_UART_2_TX_BUF_SZ
+ 128
+
+	)
+
+63 
+	#MAX_UART_3_RX_BUF_SZ
+ 255
+
+	)
+
+64 
+	#MAX_UART_3_TX_BUF_SZ
+ 255
+
+	)
+
+70 
+	#UART_0_RX_TIME_STAMP
+ 100
+
+	)
+
+71 
+	#UART_1_RX_TIME_STAMP
+ 10
+
+	)
+
+72 
+	#UART_2_RX_TIME_STAMP
+ 10
+
+	)
+
+73 
+	#UART_3_RX_TIME_STAMP
+ 10
+
+	)
+
+76 #i‡
+CONFIG_UART_0
+
+
+77 
+U8
+ 
+	gªcv_0_buf
+[ 
+MAX_UART_0_RX_BUF_SZ
+ ];
+
+78 
+U8
+ 
+	g£nd_0_buf
+[ 
+MAX_UART_0_TX_BUF_SZ
+ ];
+
+80 
+U8
+ 
+	gªcv_0_buf
+[ 1 ];
+
+81 
+U8
+ 
+	g£nd_0_buf
+[ 1 ];
+
+84 #i‡
+CONFIG_UART_1
+
+
+85 
+U8
+ 
+	gªcv_1_buf
+[ 
+MAX_UART_1_RX_BUF_SZ
+ ];
+
+86 
+U8
+ 
+	g£nd_1_buf
+[ 
+MAX_UART_1_TX_BUF_SZ
+ ];
+
+88 
+U8
+ 
+	gªcv_1_buf
+[ 1 ];
+
+89 
+U8
+ 
+	g£nd_1_buf
+[ 1 ];
+
+92 #i‡
+CONFIG_UART_2
+
+
+93 
+U8
+ 
+	gªcv_2_buf
+[ 
+MAX_UART_2_RX_BUF_SZ
+ ];
+
+94 
+U8
+ 
+	g£nd_2_buf
+[ 
+MAX_UART_2_TX_BUF_SZ
+ ];
+
+96 
+U8
+ 
+	gªcv_2_buf
+[ 1 ];
+
+97 
+U8
+ 
+	g£nd_2_buf
+[ 1 ];
+
+100 #i‡
+CONFIG_UART_3
+
+
+101 
+U8
+ 
+	gªcv_3_buf
+[ 
+MAX_UART_3_RX_BUF_SZ
+ ];
+
+102 
+U8
+ 
+	g£nd_3_buf
+[ 
+MAX_UART_3_TX_BUF_SZ
+ ];
+
+104 
+U8
+ 
+	gªcv_3_buf
+[ 1 ];
+
+105 
+U8
+ 
+	g£nd_3_buf
+[ 1 ];
+
+108 
+	s_comm_
+
+
+110 
+I16
+ 
+	mªcv_Àn
+;
+
+111 
+I16
+ 
+	m£nd_Àn
+;
+
+112 
+I16
+ 
+	mtx_Àn
+;
+
+113 } 
+	tcomm_t
+;
+
+115 
+comm_t
+ 
+	gcomm
+[ 
+MAX_UART_ID
+ ];
+
+119 
+	$HAL_InôCommId
+–
+U8
+ 
+u¨t_id
+ )
+
+121 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+123 #i‡
+CONFIG_UART_0
+
+
+124 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_0_buf
+[0], 0, 
+MAX_UART_0_RX_BUF_SZ
+ );
+
+125 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_0_buf
+[0], 0, 
+MAX_UART_0_TX_BUF_SZ
+ );
+
+128 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+130 #i‡
+CONFIG_UART_1
+
+
+131 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_1_buf
+[0], 0, 
+MAX_UART_1_RX_BUF_SZ
+ );
+
+132 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_1_buf
+[0], 0, 
+MAX_UART_1_TX_BUF_SZ
+ );
+
+135 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+137 #i‡
+CONFIG_UART_2
+
+
+138 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_2_buf
+[0], 0, 
+MAX_UART_2_RX_BUF_SZ
+ );
+
+139 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_2_buf
+[0], 0, 
+MAX_UART_2_TX_BUF_SZ
+ );
+
+142 if–
+u¨t_id
+ =
+UART_ID_3
+)
+
+144 #i‡
+CONFIG_UART_3
+
+
+145 
+	`MEMSET
+–(
+__FAR
+ *)&
+ªcv_3_buf
+[0], 0, 
+MAX_UART_3_RX_BUF_SZ
+ );
+
+146 
+	`MEMSET
+–(
+__FAR
+ *)&
+£nd_3_buf
+[0], 0, 
+MAX_UART_3_TX_BUF_SZ
+ );
+
+150 
+	`MEMSET
+–(
+__FAR
+ *)&
+comm
+[ 
+u¨t_id
+ ], 0, –
+comm_t
+ ) );
+
+151 
+	}
+}
+
+153 
+	$HAL_InôComm
+( )
+
+155 #i‡
+CONFIG_UART_0
+
+
+156 
+	`HAL_InôCommId
+–
+UART_ID_0
+ );
+
+157 
+	`R_UART0_Sèπ
+();
+
+160 #i‡
+CONFIG_UART_1
+
+
+161 
+	`HAL_InôCommId
+–
+UART_ID_1
+ );
+
+162 
+	`R_UART1_Sèπ
+();
+
+165 #i‡
+CONFIG_UART_2
+
+
+166 
+	`HAL_InôCommId
+–
+UART_ID_2
+ );
+
+167 
+	`R_UART2_Sèπ
+();
+
+170 #i‡
+CONFIG_UART_3
+
+
+171 
+	`HAL_InôCommId
+–
+UART_ID_3
+ );
+
+172 
+	`R_UART3_Sèπ
+();
+
+175 
+	}
+}
+
+177 
+I16
+ 
+	$HAL_GëMaxRecvBuf„rLígth
+(
+U8
+ 
+u¨t_id
+)
+
+179 if–
+u¨t_id
+ == 0 )
+
+181  
+MAX_UART_0_RX_BUF_SZ
+;
+
+183 if–
+u¨t_id
+ == 1 )
+
+185  
+MAX_UART_1_RX_BUF_SZ
+;
+
+187 if–
+u¨t_id
+ == 2 )
+
+189  
+MAX_UART_2_RX_BUF_SZ
+;
+
+192  
+MAX_UART_3_RX_BUF_SZ
+;
+
+193 
+	}
+}
+
+195 
+U8
+ 
+	$HAL_IsFuŒRecvBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+197 if–
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ >
+	`HAL_GëMaxRecvBuf„rLígth
+( uart_id ) )
+
+199  
+TRUE
+;
+
+202  
+FALSE
+;
+
+203 
+	}
+}
+
+205 
+U8
+ 
+	$HAL_IsEm±yRecvBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+207 if–
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ > 0 )
+
+209  
+FALSE
+;
+
+212  
+TRUE
+;
+
+214 
+	}
+}
+
+216 
+I16
+ 
+	$HAL_GëMaxSídBuf„rLígth
+(
+U8
+ 
+u¨t_id
+)
+
+218 if–
+u¨t_id
+ == 0 )
+
+220  
+MAX_UART_0_TX_BUF_SZ
+;
+
+222 if–
+u¨t_id
+ == 1 )
+
+224  
+MAX_UART_1_TX_BUF_SZ
+;
+
+226 if–
+u¨t_id
+ == 2 )
+
+228  
+MAX_UART_2_TX_BUF_SZ
+;
+
+231  
+MAX_UART_3_TX_BUF_SZ
+;
+
+232 
+	}
+}
+
+234 
+U8
+ 
+	$HAL_IsFuŒSídBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+236 if–
+comm
+[ 
+u¨t_id
+ ].
+£nd_Àn
+ >
+	`HAL_GëMaxSídBuf„rLígth
+( uart_id ) )
+
+238  
+TRUE
+;
+
+241  
+FALSE
+;
+
+242 
+	}
+}
+
+244 
+U8
+ 
+IsCom∂ëeTx
+–U8 
+u¨t_id
+ );
+
+245 
+U8
+ 
+	$HAL_IsEm±ySídBuf„r
+–
+U8
+ 
+u¨t_id
+ )
+
+247  
+	`IsCom∂ëeTx
+–
+u¨t_id
+ );
+
+248 
+	}
+}
+
+250 
+	$HAL_InôRecvLígth
+(
+U8
+ 
+u¨t_id
+ )
+
+252 
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+ = 0;
+
+253 
+	}
+}
+
+255 
+I16
+ 
+	$HAL_GëRecvLígth
+–
+U8
+ 
+u¨t_id
+ )
+
+257  
+comm
+[ 
+u¨t_id
+ ].
+ªcv_Àn
+;
+
+258 
+	}
+}
+
+260 
+I16
+ 
+	$HAL_GëSídLígth
+–
+U8
+ 
+u¨t_id
+ )
+
+262  
+comm
+[ 
+u¨t_id
+].
+£nd_Àn
+;
+
+263 
+	}
+}
+
+266 
+	$HAL_SëRecvBuf„r
+(
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ )
+
+268 
+comm_t
+ *
+p_comm
+;
+
+270 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+271 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+273 
+ªcv_0_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+275 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+277 
+ªcv_1_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+279 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+281 
+ªcv_2_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+285 
+ªcv_3_buf
+[ 
+p_comm
+->
+ªcv_Àn
+ ] = 
+_byã
+;
+
+287 
+p_comm
+->
+ªcv_Àn
+++;
+
+289 
+	}
+}
+
+291 
+U8
+ 
+	$HAL_GëRecvBuf„r
+–
+U8
+ 
+u¨t_id
+, 
+U16
+ 
+ödex
+ )
+
+293 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+295  
+ªcv_0_buf
+[ 
+ödex
+ ];
+
+297 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+299  
+ªcv_1_buf
+[ 
+ödex
+ ];
+
+301 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+303  
+ªcv_2_buf
+[ 
+ödex
+ ];
+
+307  
+ªcv_3_buf
+[ 
+ödex
+ ];
+
+309 
+	}
+}
+
+312 
+	$HAL_SëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ )
+
+314 
+comm_t
+ *
+p_comm
+;
+
+316 if–
+	`HAL_IsFuŒSídBuf„r
+–
+u¨t_id
+ ) =
+FALSE
+ )
+
+318 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+319 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+321 
+£nd_0_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+323 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+325 
+£nd_1_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+327 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+329 
+£nd_2_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+333 
+£nd_3_buf
+[ 
+p_comm
+->
+£nd_Àn
+ ] = 
+_byã
+;
+
+335 
+p_comm
+->
+£nd_Àn
+++;
+
+337 
+	}
+}
+
+339 
+U8
+ 
+	$HAL_GëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, 
+U16
+ 
+ödex
+ )
+
+341 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+343  
+£nd_0_buf
+[
+ödex
+];
+
+345 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+347  
+£nd_1_buf
+[
+ödex
+];
+
+349 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+351  
+£nd_2_buf
+[
+ödex
+];
+
+355  
+£nd_3_buf
+[
+ödex
+];
+
+357 
+	}
+}
+
+360 
+	$HAL_SídByã
+–
+U8
+ 
+u¨t_id
+ )
+
+362 
+U8
+ 
+ch
+;
+
+363 
+comm_t
+ *
+p_comm
+;
+
+366 
+p_comm
+ = &
+comm
+[ 
+u¨t_id
+ ];
+
+367 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+369 
+ch
+ = 
+£nd_0_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+371 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+373 
+ch
+ = 
+£nd_1_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+375 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+377 
+ch
+ = 
+£nd_2_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+379 if–
+u¨t_id
+ =
+UART_ID_3
+)
+
+381 
+ch
+ = 
+£nd_3_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+384 
+p_comm
+->
+tx_Àn
+++;
+
+386 if–
+u¨t_id
+ =
+UART_ID_0
+ )
+
+388 #i‡
+CONFIG_UART_0
+
+
+389 
+UART_0_TXD
+ = 
+ch
+;
+
+392 if–
+u¨t_id
+ =
+UART_ID_1
+ )
+
+394 #i‡
+CONFIG_UART_1
+
+
+395 
+UART_1_TXD
+ = 
+ch
+;
+
+398 if–
+u¨t_id
+ =
+UART_ID_2
+ )
+
+400 #i‡
+CONFIG_UART_2
+
+
+401 
+UART_2_TXD
+ = 
+ch
+;
+
+404 if–
+u¨t_id
+ =
+UART_ID_3
+ )
+
+406 #i‡
+CONFIG_UART_3
+
+
+407 
+UART_3_TXD
+ = 
+ch
+;
+
+410 
+	}
+}
+
+412 
+U8
+ 
+	$IsCom∂ëeTx
+–
+U8
+ 
+u¨t_id
+ )
+
+414 if–
+comm
+[
+u¨t_id
+].
+tx_Àn
+ < comm[ u¨t_id ].
+£nd_Àn
+ )
+
+416  
+FALSE
+;
+
+419  
+TRUE
+;
+
+421 
+	}
+}
+
+426 #i‡
+CONFIG_UART_0
+
+
+427 
+__öãºu±
+ 
+	$r_u¨t0_öãºu±_ª˚ive
+()
+
+429 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+430 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+433 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR01
+ & 0x0007U);
+
+434 
+SIR01
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+436 
+rx_d©a
+ = 
+UART_0_RXD
+;
+
+438 if–
+îr_ty≥
+ == 0 )
+
+440 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+UART_ID_0
+ ) =
+FALSE
+ )
+
+442 
+	`HAL_SëRecvBuf„r
+–
+UART_ID_0
+, 
+rx_d©a
+ );
+
+446 
+	`HAL_InôCommId
+–
+UART_ID_0
+ );
+
+449 
+	`SèπTimî
+–
+TIMER_ID_UART_0_RX
+, 
+UART_0_RX_TIME_STAMP
+ );
+
+451 
+	}
+}
+
+453 
+__öãºu±
+ 
+	$r_u¨t0_öãºu±_£nd
+()
+
+455 if–
+	`IsCom∂ëeTx
+–
+UART_ID_0
+ ) =
+FALSE
+ )
+
+457 
+	`HAL_SídByã
+–
+UART_ID_0
+ );
+
+461 
+	`HAL_InôCommId
+–
+UART_ID_0
+ );
+
+463 
+	}
+}
+
+467 #i‡
+CONFIG_UART_1
+
+
+468 
+__öãºu±
+ 
+	$r_u¨t1_öãºu±_ª˚ive
+()
+
+470 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+471 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+473 
+îr_ty≥
+ = (
+U8
+)(
+SSR03
+ & 0x0007U);
+
+474 
+SIR03
+ = (
+U16
+)
+îr_ty≥
+;
+
+476 
+rx_d©a
+ = 
+UART_1_RXD
+;
+
+478 if–
+îr_ty≥
+ == 0 )
+
+480 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+UART_ID_1
+ ) =
+FALSE
+ )
+
+482 
+	`HAL_SëRecvBuf„r
+–
+UART_ID_1
+, 
+rx_d©a
+ );
+
+486 
+	`HAL_InôCommId
+–
+UART_ID_1
+ );
+
+490 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_RX
+, 
+UART_1_RX_TIME_STAMP
+ );
+
+491 
+	}
+}
+
+493 
+__öãºu±
+ 
+	$r_u¨t1_öãºu±_£nd
+()
+
+495 if–
+	`IsCom∂ëeTx
+–
+UART_ID_1
+ ) =
+FALSE
+ )
+
+497 
+	`HAL_SídByã
+–
+UART_ID_1
+ );
+
+498 
+	`SèπTimî
+–
+TIMER_ID_UART_1_TX_DONE
+, 60 );
+
+502 
+	`HAL_InôCommId
+–
+UART_ID_1
+ );
+
+504 
+	}
+}
+
+508 #i‡
+CONFIG_UART_2
+
+
+509 
+U16
+ 
+	gthe_rx_îr_cou¡
+ = 0;
+
+510 
+__öãºu±
+ 
+	$r_u¨t2_öãºu±_ª˚ive
+()
+
+512 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+513 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+515 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR11
+ & 0x0007U);
+
+516 
+SIR11
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+518 
+rx_d©a
+ = 
+UART_2_RXD
+;
+
+520 
+	`EI
+();
+
+521 if–
+îr_ty≥
+ == 0 )
+
+523 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+UART_ID_2
+ ) =
+FALSE
+ )
+
+525 
+	`HAL_SëRecvBuf„r
+–
+UART_ID_2
+, 
+rx_d©a
+ );
+
+529 
+	`HAL_InôCommId
+–
+UART_ID_2
+ );
+
+532 
+	`SèπTimî
+–
+TIMER_ID_UART_2_RX
+, 
+UART_2_RX_TIME_STAMP
+ );
+
+536 
+the_rx_îr_cou¡
+++;
+
+538 
+	}
+}
+
+540 
+__öãºu±
+ 
+	$r_u¨t2_öãºu±_£nd
+()
+
+542 
+	`EI
+();
+
+543 if–
+	`IsCom∂ëeTx
+–
+UART_ID_2
+ ) =
+FALSE
+ )
+
+545 
+	`HAL_SídByã
+–
+UART_ID_2
+ );
+
+546 
+	`SèπTimî
+–
+TIMER_ID_UART_2_TX_DONE
+, 60 );
+
+550 
+	`HAL_InôCommId
+–
+UART_ID_2
+ );
+
+553 
+	}
+}
+
+558 #i‡
+CONFIG_UART_3
+
+
+559 
+U16
+ 
+	gthe_i§_îr_cou¡
+ = 0;
+
+560 
+__öãºu±
+ 
+	$r_u¨t3_öãºu±_ª˚ive
+()
+
+562 vﬁ©ûê
+U8
+ 
+îr_ty≥
+;
+
+563 vﬁ©ûê
+U8
+ 
+rx_d©a
+;
+
+565 
+îr_ty≥
+ = (
+uöt8_t
+)(
+SSR13
+ & 0x0007U);
+
+566 
+SIR13
+ = (
+uöt16_t
+)
+îr_ty≥
+;
+
+568 
+rx_d©a
+ = 
+UART_3_RXD
+;
+
+570 if–
+îr_ty≥
+ == 0 )
+
+572 if–
+	`HAL_IsFuŒRecvBuf„r
+–
+UART_ID_3
+ ) =
+FALSE
+ )
+
+574 
+	`HAL_SëRecvBuf„r
+–
+UART_ID_3
+, 
+rx_d©a
+ );
+
+578 
+	`HAL_InôCommId
+–
+UART_ID_3
+ );
+
+581 
+	`SèπTimî
+–
+TIMER_ID_UART_3_RX
+, 
+UART_3_RX_TIME_STAMP
+ );
+
+585 
+the_i§_îr_cou¡
+++;
+
+587 
+	}
+}
+
+590 
+__öãºu±
+ 
+	$r_u¨t3_öãºu±_£nd
+()
+
+592 if–
+	`IsCom∂ëeTx
+–
+UART_ID_3
+ ) =
+FALSE
+ )
+
+594 
+	`HAL_SídByã
+–
+UART_ID_3
+ );
+
+598 
+	`HAL_InôCommId
+–
+UART_ID_3
+ );
+
+600 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.h
+
+1 #i‚de‡
+__HAL_SERIAL_H__
+
+
+2 
+	#__HAL_SERIAL_H__
+
+
+	)
+
+4 
+	~"¥j_ty≥.h
+"
+
+7 
+	#UART_ID_0
+ 0
+
+	)
+
+8 
+	#UART_ID_1
+ 1
+
+	)
+
+9 
+	#UART_ID_2
+ 2
+
+	)
+
+10 
+	#UART_ID_3
+ 3
+
+	)
+
+11 
+	#MAX_UART_ID
+ 4
+
+	)
+
+14 
+HAL_InôCommId
+–
+U8
+ 
+u¨t_id
+ );
+
+15 
+HAL_InôComm
+( );
+
+17 
+U8
+ 
+HAL_IsFuŒRecvBuf„r
+–U8 
+u¨t_id
+ );
+
+18 
+U8
+ 
+HAL_IsEm±yRecvBuf„r
+–U8 
+u¨t_id
+ );
+
+19 
+U8
+ 
+HAL_IsFuŒSídBuf„r
+–U8 
+u¨t_id
+ );
+
+20 
+U8
+ 
+HAL_IsEm±ySídBuf„r
+–U8 
+u¨t_id
+ );
+
+22 
+HAL_InôRecvLígth
+(
+U8
+ 
+u¨t_id
+ );
+
+23 
+I16
+ 
+HAL_GëRecvLígth
+–
+U8
+ 
+u¨t_id
+ );
+
+24 
+I16
+ 
+HAL_GëSídLígth
+–
+U8
+ 
+u¨t_id
+ );
+
+26 
+HAL_SëRecvBuf„r
+(
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ );
+
+27 
+U8
+ 
+HAL_GëRecvBuf„r
+–U8 
+u¨t_id
+, 
+U16
+ 
+ödex
+ );
+
+29 
+HAL_SëSídBuf„r
+–
+U8
+ 
+u¨t_id
+, U8 
+_byã
+ );
+
+30 
+U8
+ 
+HAL_GëSídBuf„r
+–U8 
+u¨t_id
+, 
+U16
+ 
+ödex
+ );
+
+32 
+HAL_SídByã
+–
+U8
+ 
+u¨t_id
+ );
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hw.h
 
 1 #i‚de‡
 __HW__H__
@@ -13063,7 +16685,7 @@ P0
 
 	)
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\mcu.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\mcu.h
 
 1 #i‚de‡
 __MCU_H__
@@ -13087,7 +16709,7 @@ __MCU_H__
 	~"c⁄fig.h
 "
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key.c
 
 1 
 	~"hw.h
@@ -13575,7 +17197,7 @@ KEY_STATUS_TIME_OUT
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key.h
 
 1 #i‚de‡
 __KEY_H__
@@ -13733,7 +17355,7 @@ mu8Evít
 Pro˚ssSˇnKey
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_common_handler.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_common_handler.h
 
 1 #i‚de‡
 __KEY_COMMON_HANDLER_H__
@@ -13823,7 +17445,7 @@ KEY_ACTION_NUM
 	tKeyEvítSize_T
 )();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_event_lib.c
 
 1 
 	~"key_evít_lib.h
@@ -14065,7 +17687,7 @@ SOUND_NONE
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_event_lib.h
 
 1 #i‚de‡
 __KEY_EVENT_LIB_H__
@@ -14125,7 +17747,7 @@ U8
 	`KeySt›C⁄t
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_handler.c
 
 1 
 	~"key_h™dÀr.h
@@ -14261,7 +17883,7 @@ gu8Li°Size
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_handler.h
 
 1 #i‚de‡
 __KEY_HANDLER_H__
@@ -14317,7 +17939,7 @@ U8
 GëKeyEvítLi°Size
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_normal_handler.c
 
 1 
 	~"hw.h
@@ -14491,7 +18113,7 @@ SOUND_SELECT
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_normal_handler.h
 
 1 #i‚de‡
 __KEY_NORMAL_HANDLER_H__
@@ -14531,7 +18153,7 @@ GëN‹mÆKeyEvítLi°Size
 C⁄tySëtögClockKey
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\process_key.c
 
 1 
 	~"hw.h
@@ -15201,7 +18823,7 @@ mu16Dñay
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\process_key.h
 
 1 #i‚de‡
 __PROCESS_KEY_H__
@@ -15221,7 +18843,7 @@ __PROCESS_KEY_H__
 Pro˚ssKeyEvítH™dÀr
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\main.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\main.c
 
 1 
 	~"hw.h
@@ -15304,64 +18926,76 @@ TIMER_ID_COMM_FRONT_RX_ERR
 (10) );
 
 23 
+	`SèπTimî
+–
+TIMER_ID_COMM_WAIT_1
+, 1);
+
+24 
+	`SèπTimî
+–
+TIMER_ID_COMM_FRONT_TX_DONE
+, 1);
+
+25 
 	}
 }
 
-26 
+28 
 	$maö
 ( )
 
-28 
+30 
 	`Dñay_MS
 ( 500 );
 
-30 
-	`R_WDT_Re°¨t
-();
-
 32 
-	`InôSy°em
-();
-
-33 
-	`InôSèπTimîs
+	`R_WDT_Re°¨t
 ();
 
 34 
+	`InôSy°em
+();
+
+35 
+	`InôSèπTimîs
+();
+
+36 
 	`EI
 ();
 
-37 
+39 
 	`R_WDT_Re°¨t
 ();
 
-40 
+42 
 	`Sound
 –
 SOUND_POWER_ON
  );
 
-43 
+45 
 	`R_WDT_Re°¨t
 ();
 
-45 
+47 
 	`Pro˚ssEvítH™dÀr
 ();
 
-48 
+50 
 	`RecvPackëH™dÀr
 ();
 
-49 
+51 
 	`SídPackëH™dÀr
 ();
 
-51 
+53 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\prj_type.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\prj_type.h
 
 1 #i‚de‡
 __PRJ_TYPE_H__
@@ -15665,7 +19299,7 @@ memcmp_f
 
 	)
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\process_sys_event.c
 
 1 
 	~<°dio.h
@@ -15695,85 +19329,89 @@ memcmp_f
 	~"buzzî.h
 "
 
-8 
-	~"∑r£r.h
-"
-
 9 
-	~"∑r£r_‰⁄t.h
+	~"comm_queue.h
 "
 
 10 
-	~"¥o˚ss_di•œy.h
+	~"∑r£r.h
 "
 
 11 
+	~"∑r£r_‰⁄t.h
+"
+
+12 
+	~"¥o˚ss_di•œy.h
+"
+
+13 
 	~"¥o˚ss_sys_evít.h
 "
 
-14 (*
+16 (*
 	tA˘i⁄_T
 )();
 
-15 
+17 
 	s_sys_evít_
 
 
-17 
+19 
 U8
  
 timîId
 ;
 
-18 
+20 
 A˘i⁄_T
  
 pFun
 ;
 
-19 
+21 
 A˘i⁄_T
  
 pFun_FCT
 ;
 
-20 
+22 
 A˘i⁄_T
  
 pFun_EOL
 ;
 
-21 } 
+23 } 
 	tSysEvít_T
 ;
 
-24 
+26 
 	`Evt_1ms_H™dÀr
 ( );
 
-25 
+27 
 	`Evt_10ms_H™dÀr
 ( );
 
-26 
+28 
 	`Evt_100ms_H™dÀr
 ( );
 
-27 
+29 
 	`Evt_1£c_H™dÀr
 ( );
 
-28 
+30 
 	`Evt_Fr⁄t_H™dÀr
 ( );
 
-32 c⁄° 
+34 c⁄° 
 SysEvít_T
  
 SysEvítLi°
 [] =
 
-35 { 
+37 { 
 TIMER_ID_1MS
 , 
 Evt_1ms_H™dÀr
@@ -15781,7 +19419,7 @@ Evt_1ms_H™dÀr
 NULL
 , NULL },
 
-36 { 
+38 { 
 TIMER_ID_10MS
 , 
 Evt_10ms_H™dÀr
@@ -15789,7 +19427,7 @@ Evt_10ms_H™dÀr
 NULL
 , NULL },
 
-37 { 
+39 { 
 TIMER_ID_100MS
 , 
 Evt_100ms_H™dÀr
@@ -15797,7 +19435,7 @@ Evt_100ms_H™dÀr
 NULL
 , NULL },
 
-38 { 
+40 { 
 TIMER_ID_1SEC
 , 
 Evt_1£c_H™dÀr
@@ -15805,7 +19443,7 @@ Evt_1£c_H™dÀr
 NULL
 , NULL },
 
-39 { 
+41 { 
 TIMER_ID_FRONT
 , 
 Evt_Fr⁄t_H™dÀr
@@ -15813,11 +19451,11 @@ Evt_Fr⁄t_H™dÀr
 NULL
 , NULL },
 
-40 
+42 
 	}
 };
 
-41 
+43 
 	#SZ_LIST
  ( –
 SysEvítLi°
@@ -15827,29 +19465,29 @@ SysEvít_T
 
 	)
 
-43 
+45 
 	$Pro˚ssEvítH™dÀr
 ( )
 
-45 
+47 
 U8
  
 i
 ;
 
-46 
+48 
 A˘i⁄_T
  
 fun
 ;
 
-48  
+50  
 i
  = 0; i < 
 SZ_LIST
  ; i++ )
 
-50 if–
+52 if–
 	`IsExpúedTimî
 –
 SysEvítLi°
@@ -15861,7 +19499,7 @@ timîId
 TIMER_EXPIRE
  )
 
-53 
+55 
 	`DißbÀTimî
 –
 SysEvítLi°
@@ -15871,7 +19509,7 @@ i
 timîId
  );
 
-56 
+58 
 fun
  = 
 SysEvítLi°
@@ -15881,71 +19519,71 @@ i
 pFun
 ;
 
-59 if–
+61 if–
 fun
  !
 NULL
  )
 
-61 
+63 
 	`fun
 ();
 
-65 
+67 
 	}
 }
 
-67 
+69 
 	$Evt_1ms_H™dÀr
 ( )
 
-69 
+71 
 	`SèπTimî
 –
 TIMER_ID_1MS
 , 1);
 
-72 
+74 
 	}
 }
 
-75 
+77 
 	$Evt_10ms_H™dÀr
 ( )
 
-77 
+79 
 	`SèπTimî
 –
 TIMER_ID_10MS
 , 10);
 
-78 
+80 
 	`Pro˚ssDi•œy
 ();
 
-79 
+81 
 	}
 }
 
-82 
+84 
 	$Evt_100ms_H™dÀr
 ()
 
-84 
+86 
 	`SèπTimî
 –
 TIMER_ID_100MS
 , 100);
 
-87 
+89 
 	}
 }
 
-90 
+92 
 	$Evt_1£c_H™dÀr
 ( )
 
-92 
+94 
 	`SèπTimî
 –
 TIMER_ID_1SEC
@@ -15953,21 +19591,21 @@ TIMER_ID_1SEC
 	`SEC
 (1) );
 
-93 
+95 
 	}
 }
 
-98 
+100 
 	#FRONT_REFRESH_TIME
  50
 
-99 
+101 
 	`Evt_Fr⁄t_H™dÀr
 –)
 
 	)
 
-101 
+103 
 SèπTimî
 –
 TIMER_ID_FRONT
@@ -15975,49 +19613,53 @@ TIMER_ID_FRONT
 FRONT_REFRESH_TIME
  );
 
-114 
+116 
 	$TimîI§CÆlback
 ()
 
-116 
+118 
 	`BuzC⁄åﬁ
 ();
 
-117 
+119 
 	}
 }
 
-119 
+121 
 	$InôSy°em
 ()
 
-122 
+124 
 	`HAL_InôComm
 ();
 
-123 
+125 
 	`InôBuzzî
 ();
 
-125 
+127 
 	`HAL_InôLed
 ();
 
-126 
+128 
 	`InôDi•œy
 ();
 
-128 
+130 
+	`InôCommQueue
+();
+
+132 
 	`Regi°îTimîISR
 –
 TimîI§CÆlback
  );
 
-129 
+133 
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\process_sys_event.h
 
 1 #i‚de‡
 __PROCESS_SYS_EVENT_H__
@@ -16037,7 +19679,411 @@ InôSy°em
 Pro˚ssEvítH™dÀr
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\queue.c
+
+6 
+	~"queue.h
+"
+
+10 
+	$InôQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+mUd©a
+, 
+U8
+ 
+mUd©aSize
+, U8 
+mUqueueNum
+ )
+
+12 
+	`MEMSET
+–(
+__FAR
+ *)
+mUd©a
+, 0, (
+mUd©aSize
+ * 
+mUqueueNum
+) );
+
+14 
+xStQueue
+->
+mUª¨
+ = 0;
+
+15 
+xStQueue
+->
+mU‰⁄t
+ = 0;
+
+16 
+xStQueue
+->
+mUd©a
+ = mUdata;
+
+17 
+xStQueue
+->
+mUd©aSize
+ = mUdataSize;
+
+18 
+xStQueue
+->
+mUqueueNum
+ = mUqueueNum;
+
+19 
+	}
+}
+
+21 
+U8
+ 
+	$IsQueueEm±y
+(
+SQueue_T
+ *
+xStQueue
+)
+
+23 if–
+xStQueue
+->
+mUª¨
+ =xStQueue->
+mU‰⁄t
+ )
+
+25  
+TRUE
+;
+
+28  
+FALSE
+;
+
+29 
+	}
+}
+
+31 
+U8
+ 
+	$IsQueueFuŒ
+(
+SQueue_T
+ *
+xStQueue
+)
+
+33 if–
+xStQueue
+->
+mU‰⁄t
+ =–xStQueue->
+mUª¨
+ + 1 ) % xStQueue->
+mUqueueNum
+ )
+
+35  
+TRUE
+;
+
+38  
+FALSE
+;
+
+39 
+	}
+}
+
+41 
+	$EnQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+)
+
+43 if–
+	`IsQueueFuŒ
+(
+xStQueue
+Ë=
+TRUE
+ )
+
+48 
+	`MEMCPY
+((
+U8
+ *)
+xStQueue
+->
+mUd©a
+ + (xStQueue->
+mUª¨
+ * xStQueue->
+mUd©aSize
+), 
+xUd©a
+, xStQueue->mUdataSize);
+
+49 
+xStQueue
+->
+mUª¨
+ = (xStQueue->mUª¨ + 1Ë% xStQueue->
+mUqueueNum
+;
+
+50 
+	}
+}
+
+52 
+U8
+ 
+	$DeQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+)
+
+54 if–
+	`IsQueueEm±y
+(
+xStQueue
+Ë=
+TRUE
+ )
+
+56  
+FALSE
+;
+
+59 
+	`MEMCPY
+(
+xU±rD©a
+, (
+U8
+ *)
+xStQueue
+->
+mUd©a
+ + (xStQueue->
+mU‰⁄t
+ * xStQueue->
+mUd©aSize
+), xStQueue->mUdataSize);
+
+60 
+xStQueue
+->
+mU‰⁄t
+ = (xStQueue->mU‰⁄à+ 1Ë% xStQueue->
+mUqueueNum
+;
+
+62  
+TRUE
+;
+
+63 
+	}
+}
+
+65 
+U8
+ 
+	$PìkQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+)
+
+67 if–
+	`IsQueueEm±y
+(
+xStQueue
+Ë=
+TRUE
+ )
+
+69  
+FALSE
+;
+
+72 
+	`MEMCPY
+(
+xU±rD©a
+, (
+U8
+ *)
+xStQueue
+->
+mUd©a
+ + ((xStQueue->
+mU‰⁄t
+ + 1Ë% xStQueue->
+mUqueueNum
+ * xStQueue->
+mUd©aSize
+), xStQueue->mUdataSize);
+
+74  
+TRUE
+;
+
+75 
+	}
+}
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\queue.h
+
+6 #i‚de‡
+__QUEUE_H__
+
+
+7 
+	#__QUEUE_H__
+
+
+	)
+
+9 
+	~"¥j_ty≥.h
+"
+
+12 
+	s_queue_
+
+
+14 **
+	mmUd©a
+;
+
+15 
+U16
+ 
+	mmUqueueNum
+;
+
+16 
+U8
+ 
+	mmUd©aSize
+;
+
+18 
+U16
+ 
+	mmUª¨
+;
+
+19 
+U16
+ 
+	mmU‰⁄t
+;
+
+20 } 
+	tSQueue_T
+;
+
+22 
+InôQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+mUd©a
+, 
+U8
+ 
+mUd©aSize
+, U8 
+mUqueueNum
+ );
+
+24 
+U8
+ 
+IsQueueEm±y
+(
+SQueue_T
+ *
+xStQueue
+);
+
+25 
+U8
+ 
+IsQueueFuŒ
+(
+SQueue_T
+ *
+xStQueue
+);
+
+27 
+EnQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+);
+
+28 
+U8
+ 
+DeQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+);
+
+29 
+U8
+ 
+PìkQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+);
+
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\buzzer.c
 
 1 
 	~"hw.h
@@ -20303,7 +24349,7 @@ gu8Buzzî_Mode
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\buzzer.h
 
 1 #i‚de‡
 __BUZZER_H__
@@ -20941,7 +24987,7 @@ BuzTimeCou¡î
 BuzC⁄åﬁ
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\sound.c
 
 1 
 	~"sound.h
@@ -21309,7 +25355,7 @@ cou¡
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\sound.h
 
 1 #i‚de‡
 __SOUND_H__
@@ -21461,7 +25507,7 @@ mId
 TEST_Sound
 ();
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer.c
 
 1 #¥agm®
 öãºu±
@@ -21811,7 +25857,7 @@ NULL
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer.h
 
 1 #i‚de‡
 __TIMER_H__
@@ -21971,7 +26017,7 @@ Regi°îTimîISR
 pU£rISR
 )() );
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer_id.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer_id.h
 
 1 #i‚de‡
 __TIMER_ID_H__
@@ -22011,59 +26057,115 @@ __TIMER_ID_H__
 	mTIMER_ID_COMM_FRONT_RX_ERR
 ,
 
-17 
-	mTIMER_ID_COMM_TOF_RX
+16 
+	mTIMER_ID_COMM_FRONT_TX_DONE
 ,
 
 18 
-	mTIMER_ID_COMM_TOF_TX
+	mTIMER_ID_COMM_TOF_RX
 ,
 
 19 
+	mTIMER_ID_COMM_TOF_TX
+,
+
+20 
 	mTIMER_ID_COMM_TOF_RX_ERR
 ,
 
-21 
-	mTIMER_ID_1MS
-,
-
 22 
-	mTIMER_ID_10MS
+	mTIMER_ID_UART_0_TX_DONE
 ,
 
 23 
-	mTIMER_ID_100MS
+	mTIMER_ID_UART_1_TX_DONE
 ,
 
 24 
-	mTIMER_ID_1SEC
+	mTIMER_ID_UART_2_TX_DONE
 ,
 
 25 
-	mTIMER_ID_40SEC
+	mTIMER_ID_UART_3_TX_DONE
 ,
 
 26 
-	mTIMER_ID_1MIN
+	mTIMER_ID_UART_0_RX
 ,
 
 27 
-	mTIMER_ID_DEBUG
+	mTIMER_ID_UART_1_RX
 ,
 
 28 
-	mTIMER_ID_FRONT
+	mTIMER_ID_UART_2_RX
 ,
 
 29 
-	mTIMER_ID_TOF
+	mTIMER_ID_UART_3_RX
+,
+
+30 
+	mTIMER_ID_COMM_WAIT_1
+,
+
+31 
+	mTIMER_ID_COMM_WAIT_2
 ,
 
 32 
+	mTIMER_ID_COMM_WAIT_3
+,
+
+33 
+	mTIMER_ID_COMM_WAIT_4
+,
+
+35 
+	mTIMER_ID_COMM_TX_COMPLETE_1
+,
+
+37 
+	mTIMER_ID_1MS
+,
+
+38 
+	mTIMER_ID_10MS
+,
+
+39 
+	mTIMER_ID_100MS
+,
+
+40 
+	mTIMER_ID_1SEC
+,
+
+41 
+	mTIMER_ID_40SEC
+,
+
+42 
+	mTIMER_ID_1MIN
+,
+
+43 
+	mTIMER_ID_DEBUG
+,
+
+44 
+	mTIMER_ID_FRONT
+,
+
+45 
+	mTIMER_ID_TOF
+,
+
+48 
 	mMAX_TIMER_ID_NUM
 
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.c
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\util.c
 
 1 
 	~"mcu.h
@@ -22435,7 +26537,7 @@ mu8VÆ
 	}
 }
 
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.h
+	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\util.h
 
 1 #i‚de‡
 __UTIL_H__
@@ -23087,6 +27189,128 @@ InôSy°em
 Pro˚ssEvítH™dÀr
 ();
 
+	@queue.h
+
+6 #i‚de‡
+__QUEUE_H__
+
+
+7 
+	#__QUEUE_H__
+
+
+	)
+
+9 
+	~"¥j_ty≥.h
+"
+
+12 
+	s_queue_
+
+
+14 **
+	mmUd©a
+;
+
+15 
+U16
+ 
+	mmUqueueNum
+;
+
+16 
+U8
+ 
+	mmUd©aSize
+;
+
+18 
+U16
+ 
+	mmUª¨
+;
+
+19 
+U16
+ 
+	mmU‰⁄t
+;
+
+20 } 
+	tSQueue_T
+;
+
+22 
+InôQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+mUd©a
+, 
+U8
+ 
+mUd©aSize
+, U8 
+mUqueueNum
+ );
+
+24 
+U8
+ 
+IsQueueEm±y
+(
+SQueue_T
+ *
+xStQueue
+);
+
+25 
+U8
+ 
+IsQueueFuŒ
+(
+SQueue_T
+ *
+xStQueue
+);
+
+27 
+EnQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+);
+
+28 
+U8
+ 
+DeQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+);
+
+29 
+U8
+ 
+PìkQueue
+(
+SQueue_T
+ *
+xStQueue
+, *
+xU±rD©a
+);
+
 	@util.h
 
 1 #i‚de‡
@@ -23389,64 +27613,71 @@ mu8Inô
 1
 .
 0
-59
-5204
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\comm.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\crc16.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\comm\parser_front.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\config.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_clock.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_eol.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_error.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\display_lib.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\front.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\display\process_display.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_key.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_led.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hal_serial.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\hw.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\hal\mcu.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_common_handler.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_event_lib.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_handler.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\key_normal_handler.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\key\process_key.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\main.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\prj_type.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\process_sys_event.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\buzzer.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\sound\sound.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\timer\timer_id.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\TestCommDelay\Main\Source\util.h
+66
+4930
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\crc16.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\crc16.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser_front.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\parser_front.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\config.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_clock.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_clock.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_eol.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_eol.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_error.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_error.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_lib.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\display_lib.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\front.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\front.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\process_display.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\display\process_display.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hw.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\mcu.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_common_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_event_lib.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_event_lib.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_handler.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_normal_handler.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key_normal_handler.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\process_key.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\process_key.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\main.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\prj_type.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\process_sys_event.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\process_sys_event.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\queue.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\queue.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\buzzer.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\buzzer.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\sound.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\sound\sound.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\timer\timer_id.h
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\util.c
+D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\util.h
 config.h
 prj_type.h
 process_sys_event.h
+queue.h
 util.h

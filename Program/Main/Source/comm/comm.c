@@ -4,6 +4,8 @@
  *  HEADER
  */
 
+
+
 CommHeader_T    comm_header[ MAX_COMM_ID ];
 
 
@@ -47,14 +49,15 @@ I16 CommSendPacket( U8 id,  U8 *send_pkt , I16  len )
 /***********************************************************************************************
  *  RECV PACKET 
  */
-I8 CommRecvPacket( U8 id , U8 *recv_pkt )
+#if 0
+I16 CommRecvPacket( U8 id , U8 *recv_pkt )
 {
+#if 0
     U16  i;
     I16 len;
 
     if( HAL_IsEmptyRecvBuffer( id ) != TRUE )
     {
-        len = HAL_GetRecvLength( id );
         for( i = 0; i < len ; i++ )
         {
             recv_pkt[ i ] = HAL_GetRecvBuffer( id, i );
@@ -64,5 +67,17 @@ I8 CommRecvPacket( U8 id , U8 *recv_pkt )
     }
 
     return -1;  /* ERROR - THERE IS NO DATA */
-}
+#else
+    U16  i = 0;
+    I16 len = 0;
 
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        recv_pkt[ i++ ] = HAL_GetRecvBuffer( id );
+        len++;
+    }
+
+    return len; /* RECEIVED BUF SIZE */
+#endif
+}
+#endif

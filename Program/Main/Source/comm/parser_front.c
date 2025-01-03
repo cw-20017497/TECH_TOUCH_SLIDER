@@ -9,6 +9,7 @@
 #include "timer.h"
 #include "hal_led.h"
 #include "hal_key.h"
+#include "comm_queue.h"
 
 
 /***********************************************************************************************
@@ -26,7 +27,7 @@
 #define PKT_REQ_KEY         0x10
 #define PKT_ACK_KEY         (PKT_ACK|PKT_REQ_KEY)
 
-#define MIN_PKT_SZ          5
+#define MIN_PKT_SZ          3   /* STX, ETX, CHECKSUM */
 
 static U16 Rx_CRC_CCITT(U8 *puchMsg, U16 usDataLen)
 {
@@ -58,12 +59,11 @@ static U16 Rx_CRC_CCITT(U8 *puchMsg, U16 usDataLen)
 static U8   check_crc( U8 *buf, I16 len )
 {
     U16 crc16 = 0;
+    U16 crc16_cal = 0;
 
-    //crc16 = ( ( (U16)buf[ len - 1 ] ) << 8 ) & 0xFF00;
-    //crc16 |=    ( buf[ len - 2 ] );
-    crc16 = GET_UINT_WORD( buf[len-2], buf[len-3] );
-
-    if( crc16 != Rx_CRC_CCITT( buf, (U16)( len - 3 ) ) )
+    crc16 = GET_UINT_WORD( buf[len-4], buf[len-5] );
+    crc16_cal = Rx_CRC_CCITT( buf, (U16)( len - 5 ) );
+    if( crc16 != crc16_cal )
     {
         return FALSE;
     }
@@ -71,8 +71,62 @@ static U8   check_crc( U8 *buf, I16 len )
     return TRUE;
 }
 
+
+I16 ReadPacket_Front( U8 id , U8 *recv_pkt )
+{
+    U16  i = 0;
+    I16 len = 0;
+    U8 buf;
+    U8 startRead = FALSE;
+    static U8 etx_count = 0;
+
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        buf = HAL_GetRecvBuffer( id );
+        if( startRead == FALSE &&
+                buf == STX )
+        {
+            startRead = TRUE;
+            etx_count = 0;
+            recv_pkt[ len++ ] = buf;
+        }
+        else if( startRead == TRUE )
+        {
+            recv_pkt[ len++ ] = buf;
+            if( buf != ETX )
+            {
+                etx_count = 0;
+            }
+            else
+            {
+                etx_count++;
+                if(etx_count >= 3 )
+                {
+                    etx_count = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    return len; /* RECEIVED BUF SIZE */
+
+}
+
+
+
+U8 dbg_valid_err_1 = 0;
+U8 dbg_valid_err_2 = 0;
+U8 dbg_valid_err_3 = 0;
+U8 dbg_valid_msg[5][40];
+U8 dbg_valid_ok_msg[5][40];
+
 I16 IsValidPkt_Front( U8 *buf, I16 len )
 {
+    static U8 i = 0;
+    static U8 j = 0;
+
+
     if( buf == NULL )
     {
         return FALSE;
@@ -80,12 +134,23 @@ I16 IsValidPkt_Front( U8 *buf, I16 len )
 
     if( len < MIN_PKT_SZ )
     {
+        dbg_valid_err_1++;
         return FALSE;
     }
 
     if( check_crc( buf, len ) == FALSE )
     {
+        dbg_valid_err_2++;
+        memcpy( &dbg_valid_msg[i++][0], buf, len );
+        if( i >= 4 ) i = 0;
         return FALSE;
+    }
+    else
+    {
+
+        dbg_valid_ok_msg[j][0] = (U8)len;
+        memcpy( &dbg_valid_ok_msg[j++][1], buf, len );
+        if( j >= 4 ) j = 0;
     }
 
     return TRUE;
@@ -93,6 +158,7 @@ I16 IsValidPkt_Front( U8 *buf, I16 len )
 
 
 static I16 ParserReqKey(U8 *buf);
+static I16 ParserAckLed(U8 *buf);
 
 typedef I16 (*action_t)( U8 *buf );
 typedef struct _parser_list_t
@@ -102,7 +168,8 @@ typedef struct _parser_list_t
 } parser_list_t;
 const static parser_list_t parser_list[] = 
 {
-    { PKT_REQ_KEY,  ParserReqKey },
+    { PKT_REQ_KEY,          ParserReqKey },
+    { PKT_FRONT_ACK_LED,    ParserAckLed },
 };
 
 #define SZ_PS_TABLE ( sizeof( parser_list ) / sizeof( parser_list_t ))
@@ -124,7 +191,6 @@ I16 ParserPkt_Front( U8 *buf, I16 len)
             if( pParser != NULL )
             {
                 len = pParser( &buf[2] );
-                StartTimer( TIMER_ID_COMM_FRONT_RX_ERR, SEC(3));
             }
             break;
         }
@@ -165,6 +231,19 @@ static I16 ParserReqKey(U8 *buf)
     slider[2] = buf[6];
     slider[3] = buf[7];
 
+
+    // ACK 
+    SetCommHeader( COMM_ID_FRONT, PKT_ACK_KEY );
+    StartTimer( TIMER_ID_COMM_FRONT_TX, 0 );
+
+    return TRUE;
+}
+
+U8 dbg_led_ack_count = 0;
+static I16 ParserAckLed(U8 *buf)
+{
+    ReceivedFrontAck( PKT_FRONT_REQ_LED );
+    dbg_led_ack_count++;
     return TRUE;
 }
 
@@ -175,9 +254,11 @@ typedef struct _make_list_t
     action_t    MakePkt;
 } make_list_t;
 
+static I16 MakePktAckKey( U8 *buf );
 static I16 MakePktReqLed( U8 *buf );
 const static make_list_t make_list[] = 
 {
+    { PKT_ACK_KEY,        MakePktAckKey },
     { PKT_FRONT_REQ_LED,  MakePktReqLed  },
 };
 #define SZ_TABLE    ( sizeof( make_list ) / sizeof( make_list_t ))
@@ -208,13 +289,36 @@ I16 MakePkt_Front( CommHeader_T *p_comm, U8 *buf )
     return len;
 }
 
+U8 dbg_the_ack_key = 0;
+static I16 MakePktAckKey( U8 *buf )
+{
+    I16 mi16Len = 0;
+    U8  mu8Buf[MAX_LED_BUF];
 
+    // STX 
+    buf[ mi16Len++ ] = STX;
+
+    // MESSAGE TYPE
+    buf[ mi16Len++ ] = PKT_ACK_KEY;
+
+    // CRC-16
+    buf[ mi16Len++ ] = 0;
+    buf[ mi16Len++ ] = 0;
+
+    buf[ mi16Len++ ] = ETX;
+
+    dbg_the_ack_key++;
+    return mi16Len;
+}
+
+U8 dbg_the_req_led = 0;
 static I16 MakePktReqLed( U8 *buf )
 {
     I16 mi16Len = 0;
     U8  mu8Buf[MAX_LED_BUF];
     U8 i;
 
+    dbg_the_req_led++;
 
     // STX 
     buf[ mi16Len++ ] = STX;
