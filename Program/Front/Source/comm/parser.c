@@ -9,9 +9,12 @@
 
 #include "parser_main.h"
 #include "parser_key.h"
+#include "comm_queue.h"
 
 #define DEBUG_COMM 1
 
+#define MAX_COMM_RX_BUF_SZ      255
+#define MAX_COMM_TX_BUF_SZ      255
 #if DEBUG_COMM
 typedef struct _debug_comm_
 {
@@ -34,6 +37,7 @@ I16 pkt_send_len = 0;
 /***********************************************************************************************
  * RECEIVE PACKET 
  */
+typedef I16 (*fn_parser_read_t)( U8 id, U8 *buf );
 typedef I16 (*fn_parser_rx_t)( U8 *buf, I16 len );
 typedef struct _parser_list_
 {
@@ -41,14 +45,17 @@ typedef struct _parser_list_
     U8 CommId;
     fn_parser_rx_t  IsValidPkt;
     fn_parser_rx_t  ParserPkt;
+    fn_parser_read_t  ReadPacket;
 } parser_rx_list_t;
 
 static const parser_rx_list_t parser_rx_list[] = 
 {
-    { TIMER_ID_COMM_MAIN_RX,   COMM_ID_MAIN   ,  IsValidPkt_Main,   ParserPkt_Main  },
-    { TIMER_ID_COMM_KEY_RX,    COMM_ID_KEY   ,  IsValidPkt_Key,   ParserPkt_Key  }
+    { TIMER_ID_UART_0_RX,   COMM_ID_KEY,  IsValidPkt_Key,   ParserPkt_Key, ReadPacket_Key },
+    { TIMER_ID_UART_1_RX,   COMM_ID_MAIN, IsValidPkt_Main,  ParserPkt_Main, ReadPacket_Main }
 };
 #define MAX_PARSER_RX_NUM   ( sizeof( parser_rx_list) / sizeof( parser_rx_list_t ) )
+U8 dbg_log_buf[21][20];
+U8 dbg_index = 0;
 
 void RecvPacketHandler( void )
 {
@@ -62,26 +69,13 @@ void RecvPacketHandler( void )
         {
             DisableTimer( p_list->TimerId );
 
-            if( ( pkt_recv_len = CommRecvPacket( p_list->CommId, &pkt_recv[0] ) ) > 0 )
+            if( ( pkt_recv_len = p_list->ReadPacket( p_list->CommId, &pkt_recv[0] ) ) > 0 )
             {
-                HAL_InitRecvLength( p_list->CommId );
+                //HAL_InitRecvLength( p_list->CommId );
 
                 if( p_list->IsValidPkt( &pkt_recv[0], pkt_recv_len ) == TRUE )
                 {
                     p_list->ParserPkt( &pkt_recv[0], pkt_recv_len );
-
-                    switch( p_list->CommId )
-                    {
-                        case COMM_ID_MAIN :
-                            break;
-
-                        case COMM_ID_KEY :
-                            break;
-
-                        default :
-                            break;
-                    }
-
 #if DEBUG_COMM
                     d_comm[ p_list->CommId ].rx_cnt++;
 #endif
@@ -93,6 +87,11 @@ void RecvPacketHandler( void )
 #if DEBUG_COMM
                     d_comm[ p_list->CommId ].rx_err++;
 #endif
+                    memcpy( &dbg_log_buf[dbg_index][0], &pkt_recv[0], pkt_recv_len );
+                    if( dbg_index < 21 )
+                    {
+                        dbg_index++;
+                    }
                 }
             }
         }
@@ -121,7 +120,7 @@ static const parser_tx_list_t parser_tx_list[] =
 };
 #define MAX_PARSER_TX_NUM   ( sizeof( parser_tx_list) / sizeof( parser_tx_list_t ) )
 
-void SendPacketHandler( void )
+static void SendPacket( void )
 {
     parser_tx_list_t    *p_list;
     U8  i;
@@ -155,21 +154,16 @@ void SendPacketHandler( void )
             }
             else
             {
-                switch( p_list->TimerId )
-                {
-                    case TIMER_ID_COMM_MAIN_TX :
-                        HAL_InitCommId( COMM_ID_MAIN );
-                        break;
-
-                    case TIMER_ID_COMM_KEY_TX :
-                        HAL_InitCommId( COMM_ID_KEY );
-                        break;
-
-                    default :
-                        break;
-                }
+                HAL_InitCommId( p_list->CommId );
             }
         }
     }
 }
 
+
+
+void SendPacketHandler( void )
+{
+    SendPacketQueueMain();
+    SendPacket();
+}

@@ -61,4 +61,22 @@ typedef double   TEMP_T;
 #define  HIGH     1
 #define  LOW      0
 
+#if (CONFIG_FOTA_LIB == 0)
+#define __FAR       
+#define SPRINTF    sprintf
+#define MEMSET     memset
+#define MEMCPY     memcpy
+#define MEMCMP     memcmp
+#define ATOI       atoi
+#else
+#define __FAR       __far
+#define SPRINTF    sprintf_f
+#define MEMSET     memset_f
+#define MEMCPY     memcpy_f
+#define MEMCMP     memcmp_f
+#define ATOI       atoi_f
+
+#endif  /* CONFIG_FOTA */
+
+
 #endif /* __TYPE_H__ */

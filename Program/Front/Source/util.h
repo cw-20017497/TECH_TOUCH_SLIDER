@@ -25,6 +25,17 @@
 #define SET_BIT_WORD(val,bit)     do{ val |= (U16)(bit); }while(0)
 #define CLEAR_BIT_WORD(val,bit)   do{ val &= (U16)(~bit); }while(0)
 
+#define DOWN_COUNT(val) \
+    do{ \
+        if( val != 0 ) { val--; } \
+    }while(0)
+
+#define DOWN_COUNT_RELOAD(val,reload) \
+    do{ \
+        if( val != 0 ){ val--;}\
+        else{ val=reload;} \
+    }while(0)
+
 I16 GetMin( I16 x, I16 );
 I16 GetMax( I16 x, I16 y );
 
@@ -38,5 +49,10 @@ void Delay_US( U8 us );
 void Delay_MS( U16 ms );
 
 void Reset(void);
+
+// 값을 리미트 제한 한다.
+// min, max를 초과하는 경우 Init Value를 반환한다.
+// 그렇지 않은 경우 mu8Val를 return으로 반환한다.
+U8 CheckLimitValue(U8 mu8Val, U8 mu8Min, U8 mu8Max, U8 mu8Init);
 
 #endif /* __UTIL_H__ */

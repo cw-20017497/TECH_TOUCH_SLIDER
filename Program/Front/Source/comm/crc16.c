@@ -70,7 +70,7 @@ DESCRIPTION
 *****************************************************************************/
 U16 crc16_cal(U8 *uc_data, U8 uc_number)
 {
-    U16 ui_crc = 0;
+    U16 ui_crc = 0xFFFF;
     U16 ui_temp_crc;
 
     for (; uc_number > 0; uc_number--) {

@@ -15,6 +15,10 @@ static void InitStartTimers( void )
     StartTimer( TIMER_ID_1MS,   1);
     StartTimer( TIMER_ID_10MS,  10);
     StartTimer( TIMER_ID_100MS, 100);
+
+    StartTimer( TIMER_ID_COMM_WAIT_1, 100);
+    StartTimer( TIMER_ID_UART_1_TX_DONE, 1);
+    
 }
 
 

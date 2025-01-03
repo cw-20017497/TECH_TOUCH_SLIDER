@@ -8,6 +8,7 @@
 #include "hal_serial.h"
 #include "hal_led.h"
 #include "hal_key.h"
+#include "comm_queue.h"
 
 
 #include <stdio.h>
@@ -86,6 +87,7 @@ void InitSystem(void)
     /* IO */
     HAL_InitComm();
    
+    InitCommQueue();
 
     R_TAU0_Channel1_Start();   // 100us dimming timer interrupt
 }

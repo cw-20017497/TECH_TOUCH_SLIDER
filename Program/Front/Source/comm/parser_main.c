@@ -10,6 +10,7 @@
 
 #include "hal_led.h"
 #include "hal_key.h"
+#include "comm_queue.h"
 
 /***********************************************************************************************
  * DEFINITION 
@@ -17,14 +18,6 @@
 
 #define STX                 0xAA
 #define ETX                 0x55
-
-#define PKT_ACK             0x80
-
-#define PKT_REQ_LED         0x01
-#define PKT_ACK_LED         (PKT_ACK|PKT_REQ_LED)
-
-#define PKT_REQ_KEY         0x10
-#define PKT_ACK_KEY         (PKT_ACK|PKT_REQ_KEY)
 
 #define MIN_PKT_SZ          5
 
@@ -70,20 +63,61 @@ static U8   check_crc( U8 *buf, I16 len )
     return TRUE;
 }
 
+#include "hal_led_onoff.h"
+I16 ReadPacket_Main( U8 id , U8 *recv_pkt )
+{
+    U16  i = 0;
+    I16 len = 0;
+    U8 buf;
+    U8 startRead = FALSE;
+    static U8 toggle = 0;
+
+
+    //toggle = !toggle;
+    HAL_OnOffLed_11( ON );
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        buf = HAL_GetRecvBuffer( id );
+        if( buf == STX )
+        {
+            startRead = TRUE;
+            recv_pkt[ len++ ] = buf;
+        }
+        else if( startRead == TRUE )
+        {
+            recv_pkt[ len++ ] = buf;
+            if( buf == ETX )
+            {
+                break;
+            }
+        }
+    }
+    HAL_OnOffLed_11( OFF );
+
+    return len; /* RECEIVED BUF SIZE */
+
+}
+
+U8 dbg_err_1 = 0;
+U8 dbg_err_2 = 0;
+U8 dbg_err_3 = 0;
 I16 IsValidPkt_Main( U8 *buf, I16 len )
 {
     if( buf == NULL )
     {
+        dbg_err_1++;
         return FALSE;
     }
 
     if( len < MIN_PKT_SZ )
     {
+        dbg_err_2++;
         return FALSE;
     }
 
     if( check_crc( buf, len ) == FALSE )
     {
+        dbg_err_3++;
         return FALSE;
     }
 
@@ -92,6 +126,7 @@ I16 IsValidPkt_Main( U8 *buf, I16 len )
 
 
 static I16 ParserReqLed(U8 *buf);
+static I16 ParserAckKey(U8 *buf);
 
 typedef I16 (*action_t)( U8 *buf );
 typedef struct _parser_list_t
@@ -102,6 +137,7 @@ typedef struct _parser_list_t
 const static parser_list_t parser_list[] = 
 {
     { PKT_REQ_LED,    ParserReqLed  },
+    { PKT_ACK_KEY,    ParserAckKey  },
 };
 
 #define SZ_PS_TABLE ( sizeof( parser_list ) / sizeof( parser_list_t ))
@@ -141,9 +177,9 @@ I16 Crc16_Main( U8 *buf, I16 len )
         return 0; // error..
     }
 
-    mu16Chksum = Rx_CRC_CCITT( buf, (U16)(len - 3));
-    buf[ len - 3 ] = GET_HIGH_BYTE(mu16Chksum);
-    buf[ len - 2 ] = GET_LOW_BYTE(mu16Chksum);
+    mu16Chksum = Rx_CRC_CCITT( buf, (U16)(len - 5));
+    buf[ len - 5 ] = GET_HIGH_BYTE(mu16Chksum);
+    buf[ len - 4 ] = GET_LOW_BYTE(mu16Chksum);
 
     return len;
 }
@@ -175,8 +211,17 @@ static I16 ParserReqLed(U8 *buf)
     //HAL_SetUvOnOffId( UV_WATER, buf[9] );
 
     // Send ACK 
-    //SetCommHeader( COMM_ID_MAIN, PKT_ACK_LED );
-    //StartTimer( TIMER_ID_COMM_MAIN_TX, 1 );
+//    SetCommHeader( COMM_ID_MAIN, PKT_ACK_LED );
+//    StartTimer( TIMER_ID_COMM_MAIN_TX, 1 );
+
+    SetCommQueueMain( PKT_ACK_LED );
+    return TRUE;
+}
+
+static I16 ParserAckKey(U8 *buf)
+{
+    ReceivedMainAck( PKT_REQ_KEY );
+
     return TRUE;
 }
 
@@ -189,10 +234,11 @@ typedef struct _make_list_t
     action_t    MakePkt;
 } make_list_t;
 
+static I16 MakePktAckLed( U8 *buf );
 static I16 MakePktReqKey( U8 *buf );
 const static make_list_t make_list[] = 
 {
-    { PKT_ACK_LED,           NULL  },
+    { PKT_ACK_LED,           MakePktAckLed  },
     { PKT_REQ_KEY,           MakePktReqKey  },
 };
 #define SZ_TABLE    ( sizeof( make_list ) / sizeof( make_list_t ))
@@ -274,6 +320,30 @@ static I16 MakePktReqKey( U8 *buf )
     buf[ mi16Len++ ] = 0;
     buf[ mi16Len++ ] = 0;
 
+    buf[ mi16Len++ ] = ETX;
+    buf[ mi16Len++ ] = ETX;
+    buf[ mi16Len++ ] = ETX;
+    return mi16Len;
+}
+
+static I16 MakePktAckLed( U8 *buf )
+{
+    I16 mi16Len = 0;
+
+
+    // STX 
+    buf[ mi16Len++ ] = STX;
+
+    // MESSAGE TYPE
+    buf[ mi16Len++ ] = PKT_ACK_LED;
+
+
+    // CRC-16
+    buf[ mi16Len++ ] = 0;
+    buf[ mi16Len++ ] = 0;
+
+    buf[ mi16Len++ ] = ETX;
+    buf[ mi16Len++ ] = ETX;
     buf[ mi16Len++ ] = ETX;
     return mi16Len;
 }

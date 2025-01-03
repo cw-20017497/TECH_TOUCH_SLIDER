@@ -118,7 +118,8 @@ typedef struct _onoff_led_
 // GROUP A
 static OnOff_T Group_A_List[] = 
 { 
-    { 0,      HAL_OnOffLed_11 },
+    //{ 0,      HAL_OnOffLed_11 },
+    { 0,      NULL },
     { 1,      HAL_OnOffLed_12 },
     { 2,      HAL_OnOffLed_13 },
     { 3,      HAL_OnOffLed_14 },

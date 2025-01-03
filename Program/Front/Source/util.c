@@ -80,9 +80,9 @@ void    Delay_US( U8 us )
 {
     while( us-- )
     {
-        NOP();
-        NOP();
-        NOP();
+        NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+        NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
+        NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
     }
 }
 
@@ -115,4 +115,14 @@ void Reset(void)
     {
         ; // wait.. watchdog reset
     }
+}
+
+U8 CheckLimitValue(U8 mu8Val, U8 mu8Min, U8 mu8Max, U8 mu8Init)
+{
+    if( mu8Val < mu8Min || mu8Val > mu8Max  )
+    {
+        return mu8Init;
+    }
+
+    return mu8Val;
 }

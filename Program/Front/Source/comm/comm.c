@@ -47,14 +47,15 @@ I16 CommSendPacket( U8 id,  U8 *send_pkt , I16  len )
 /***********************************************************************************************
  *  RECV PACKET 
  */
-I8 CommRecvPacket( U8 id , U8 *recv_pkt )
+#if 0
+I16 CommRecvPacket( U8 id , U8 *recv_pkt )
 {
+#if 0
     U16  i;
     I16 len;
 
     if( HAL_IsEmptyRecvBuffer( id ) != TRUE )
     {
-        len = HAL_GetRecvLength( id );
         for( i = 0; i < len ; i++ )
         {
             recv_pkt[ i ] = HAL_GetRecvBuffer( id, i );
@@ -63,7 +64,48 @@ I8 CommRecvPacket( U8 id , U8 *recv_pkt )
         return len; /* RECEIVED BUF SIZE */
     }
 
-
     return -1;  /* ERROR - THERE IS NO DATA */
+#else
+    U16  i = 0;
+    I16 len = 0;
+
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        recv_pkt[ i++ ] = HAL_GetRecvBuffer( id );
+        len++;
+    }
+
+    return len; /* RECEIVED BUF SIZE */
+#endif
 }
+
+I16 CommRecvPacketByOne( U8 id , U8 *recv_pkt, U8 stx, U8 etx )
+{
+    U16  i = 0;
+    I16 len = 0;
+    U8 buf;
+    U8 startRead = FALSE;
+
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        buf = HAL_GetRecvBuffer( id );
+        if( buf == stx )
+        {
+            startRead = TRUE;
+            recv_pkt[ len++ ] = buf;
+        }
+
+        if( startRead == TRUE )
+        {
+            recv_pkt[ len++ ] = buf;
+            if( buf == etx )
+            {
+                break;
+            }
+        }
+    }
+
+    return len; /* RECEIVED BUF SIZE */
+}
+#endif
 

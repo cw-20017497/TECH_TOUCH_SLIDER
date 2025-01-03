@@ -11,21 +11,22 @@
 #include "hal_led.h"
 #include "hal_key.h"
 
+#include "parser_main.h"
+#include "comm_queue.h"
+
 
 /***********************************************************************************************
  * DEFINITION 
  */
 
-#define STX                 0xAA
-#define ETX                 0x55
+//#define STX                 0xAA
+//#define ETX                 0x55
 
-#define PKT_ACK             0x80
+//#define PKT_REQ_LED         0x01
+//#define PKT_ACK_LED         (0x80|PKT_REQ_LED)
 
-#define PKT_REQ_LED         0x01
-#define PKT_ACK_LED         (PKT_ACK|PKT_REQ_LED)
-
-#define PKT_REQ_KEY         0x10
-#define PKT_ACK_KEY         (PKT_ACK|PKT_REQ_KEY)
+//#define PKT_REQ_KEY         0x10
+//#define PKT_ACK_KEY         (PKT_ACK|PKT_REQ_KEY)
 
 #define MIN_PKT_SZ          5
 
@@ -69,6 +70,20 @@ static U8   check_crc( U8 *buf, I16 len )
     }
 
     return TRUE;
+}
+
+I16 ReadPacket_Key( U8 id , U8 *recv_pkt )
+{
+    U16  i = 0;
+    I16 len = 0;
+
+    while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
+    {
+        recv_pkt[ i++ ] = HAL_GetRecvBuffer( id );
+        len++;
+    }
+
+    return len; /* RECEIVED BUF SIZE */
 }
 
 I16 IsValidPkt_Key( U8 *buf, I16 len )
@@ -128,8 +143,10 @@ static I16 ParserReqLed(U8 *buf)
     HAL_SetSlider( &buf[1] );
 
 
-    SetCommHeader( COMM_ID_MAIN, PKT_REQ_KEY );
-    StartTimer( TIMER_ID_COMM_MAIN_TX, 0 );
+    //SetCommHeader( COMM_ID_MAIN, PKT_REQ_KEY );
+    //StartTimer( TIMER_ID_COMM_MAIN_TX, 0 );
+    SetCommQueueMain( PKT_REQ_KEY );
+
 
     return TRUE;
 }
