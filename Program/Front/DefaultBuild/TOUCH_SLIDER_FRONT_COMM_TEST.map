@@ -1,7 +1,7 @@
 
 
 
-78K0R Linker V1.80                            Date: 2 Jan 2025 Page:   1
+78K0R Linker V1.80                            Date: 6 Jan 2025 Page:   1
 
 Command:   -yC:\Program Files (x86)\Renesas Electronics\CS+\CACX\Device\
            RL78\Devicefile -_msgoff -oDefaultBuild\TOUCH_SLIDER_FRONT_CO
@@ -30,8 +30,8 @@ Directive:
 *** Link information ***
 
     52 output segment(s)
- 2B82H byte(s) real data
-  2742 symbol(s) defined
+ 2B78H byte(s) real data
+  2741 symbol(s) defined
 
 
 *** Memory map ***
@@ -380,7 +380,7 @@ Directive:
                                       00808H    00002H
                   @@RLINIT queue      0080AH    00000H
                   @@RLINIT @rom       0080AH    00000H
-         @@CODEL                      0080AH    02105H  CSEG
+         @@CODEL                      0080AH    020FBH  CSEG
                   @@CODEL  r_systeminit
                                       0080AH    00027H
                   @@CODEL  r_cg_cgc   00831H    00017H
@@ -399,27 +399,27 @@ Directive:
                                       0133FH    00098H
                   @@CODEL  util       013D7H    00145H
                   @@CODEL  parser_main
-                                      0151CH    005D9H
-                  @@CODEL  hal_led    01AF5H    00333H
+                                      0151CH    005CFH
+                  @@CODEL  hal_led    01AEBH    00333H
                   @@CODEL  hal_led_onoff
-                                      01E28H    0015EH
+                                      01E1EH    0015EH
                   @@CODEL  r_cg_port
-                                      01F86H    00040H
+                                      01F7CH    00040H
                   @@CODEL  r_cg_timer
-                                      01FC6H    000E7H
+                                      01FBCH    000E7H
                   @@CODEL  r_cg_serial
-                                      020ADH    002CBH
+                                      020A3H    002CBH
                   @@CODEL  parser_key
-                                      02378H    001D3H
+                                      0236EH    001D3H
                   @@CODEL  comm_queue
-                                      0254BH    000EDH
-                  @@CODEL  queue      02638H    002D7H
-         @@LCODEL                     0290FH    000B1H  CSEG
-                  @@LCODEL @stkinit   0290FH    00044H
-                  @@LCODEL exit       02953H    0001CH
-                  @@LCODEL memcpy_f   0296FH    00032H
-                  @@LCODEL memset_f   029A1H    0001FH
-* gap *                               029C0H    0D440H
+                                      02541H    000EDH
+                  @@CODEL  queue      0262EH    002D7H
+         @@LCODEL                     02905H    000B1H  CSEG
+                  @@LCODEL @stkinit   02905H    00044H
+                  @@LCODEL exit       02949H    0001CH
+                  @@LCODEL memcpy_f   02965H    00032H
+                  @@LCODEL memset_f   02997H    0001FH
+* gap *                               029B6H    0D44AH
          ??OCDROM                     0FE00H    00200H  CSEG
 
   MEMORY=RAM

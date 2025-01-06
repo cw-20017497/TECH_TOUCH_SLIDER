@@ -63,18 +63,14 @@ static U8   check_crc( U8 *buf, I16 len )
     return TRUE;
 }
 
-#include "hal_led_onoff.h"
 I16 ReadPacket_Main( U8 id , U8 *recv_pkt )
 {
     U16  i = 0;
     I16 len = 0;
     U8 buf;
     U8 startRead = FALSE;
-    static U8 toggle = 0;
 
 
-    //toggle = !toggle;
-    HAL_OnOffLed_11( ON );
     while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
     {
         buf = HAL_GetRecvBuffer( id );
@@ -92,7 +88,6 @@ I16 ReadPacket_Main( U8 id , U8 *recv_pkt )
             }
         }
     }
-    HAL_OnOffLed_11( OFF );
 
     return len; /* RECEIVED BUF SIZE */
 
