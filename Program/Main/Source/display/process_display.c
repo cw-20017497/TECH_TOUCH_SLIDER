@@ -188,6 +188,24 @@ static U8 calcDirection(U16 val)
 #define SPEED_L1        1
 #define SPEED_L0        0
 
+U8 dbg_lv5_val = 100;
+U8 dbg_lv4_val = 80;
+U8 dbg_lv3_val = 60;
+U8 dbg_lv2_val = 40;
+U8 dbg_lv1_val = 10;
+#define SPEED_L5_VAL   dbg_lv5_val 
+#define SPEED_L4_VAL   dbg_lv4_val 
+#define SPEED_L3_VAL   dbg_lv3_val 
+#define SPEED_L2_VAL   dbg_lv2_val 
+#define SPEED_L1_VAL   dbg_lv1_val 
+
+//#define SPEED_L5_VAL    50
+//#define SPEED_L4_VAL    35
+//#define SPEED_L3_VAL    25
+//#define SPEED_L2_VAL    15
+//#define SPEED_L1_VAL    5
+
+U16 dbg_speed_list[30] = { 0, };
 I16 prev_speed_val = 0;
 I16 delta;
 U8 dbg_speed = 0;
@@ -196,6 +214,15 @@ static U8 calcSpeed(U16 val)
 {
     U8 ret = SPEED_L1;
     //I16 delta;
+    static U8 prev_raw_val = 0;
+
+    // 1st filtering... 
+    if( prev_raw_val == val )
+    {
+        return ;
+    }
+
+    prev_raw_val = val;
 
     if( val == 0 )
     {
@@ -217,12 +244,60 @@ static U8 calcSpeed(U16 val)
         delta = prev_speed_val - (I16)val;
         delta = abs( delta );
 
-        if(delta >= 100 ) { ret = SPEED_L5; }
-        else if(delta >= 55 ) { ret = SPEED_L4; }
-        else if(delta >= 45 ) { ret = SPEED_L3; }
-        else if(delta >= 35 ) { ret = SPEED_L2; }
-        else if(delta >= 3 ) { ret = SPEED_L1; }
-        else { ret = SPEED_L0; }
+        if( dbg_speed == SPEED_L5 )
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L5; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L4; }
+            else { ret = SPEED_L0; }
+        }
+        else if( dbg_speed == SPEED_L4 )
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L5; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L3; }
+            else { ret = SPEED_L0; }
+        }
+        else if( dbg_speed == SPEED_L3 )
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L2; }
+            else { ret = SPEED_L0; }
+        }
+        else if( dbg_speed == SPEED_L2 )
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L1; }
+            else { ret = SPEED_L0; }
+        }
+        else if( dbg_speed == SPEED_L1 )
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L1; }
+            else { ret = SPEED_L0; }
+        }
+        else
+        {
+            if(delta >= SPEED_L5_VAL ) { ret = SPEED_L5; }
+            else if(delta >= SPEED_L4_VAL ) { ret = SPEED_L4; }
+            else if(delta >= SPEED_L3_VAL ) { ret = SPEED_L3; }
+            else if(delta >= SPEED_L2_VAL ) { ret = SPEED_L2; }
+            else if(delta >= SPEED_L1_VAL ) { ret = SPEED_L1; }
+            else { ret = SPEED_L0; }
+        }
     }
 
     prev_speed_val = (I16)val;
@@ -230,7 +305,14 @@ static U8 calcSpeed(U16 val)
     ///////////////////////////////////////
     // for debug......
     dbg_delta = delta;
-    dbg_speed = ret;
+    {
+        static i = 0;
+
+        dbg_speed_list[ i++ ] = ret; //val;
+        if( i >= 30 )
+            i = 0;
+        dbg_speed = ret;
+    }
     ///////////////////////////////////////
     return ret;
 }
@@ -240,7 +322,7 @@ extern U8 slider[4];
 U8 the_disp_level =0;
 U8 the_slide = 0;
 I8 temp_index = 0;
-U8 temp_hot[5] = { 0, 45, 70, 85, 100 };
+U8 temp_hot[5] = { 45, 70, 85, 100 };
     
 U16 slide_disp_time = 0;        // @10ms..
 U8 the_temp = 0;
@@ -264,10 +346,11 @@ U8 GetTempTick(U8 speed)
 
 U16 effect_time_val = 2;
 U16 effect_time = 2;
+U16 effect_current_temp = 0;
 void DisplayEffectTemp(U16 temp, U8 up_down)
 {
     static U16 target_temp = 0;
-    static U16 current_temp = 0;
+    //static U16 effect_current_temp = 0;
 
 
 
@@ -276,21 +359,21 @@ void DisplayEffectTemp(U16 temp, U8 up_down)
     if( effect_time != 0 )
     {
         effect_time--;
-        DispTemp( current_temp );
+        DispTemp( effect_current_temp );
         return ;
     }
-    else if( target_temp > current_temp )
+    else if( target_temp > effect_current_temp )
     {
-        current_temp += 1;
+        effect_current_temp += 1;
         effect_time = effect_time_val;
-        DispTemp( current_temp );
+        DispTemp( effect_current_temp );
 
     }
-    else if( target_temp < current_temp )
+    else if( target_temp < effect_current_temp )
     {
-        current_temp -= 1;
+        effect_current_temp -= 1;
         effect_time = effect_time_val;
-        DispTemp( current_temp );
+        DispTemp( effect_current_temp );
 
     }
 }
@@ -352,10 +435,11 @@ static void ProcessDisplayNormalMode(void)
     // 표시 대기 시간이 초과
     if( slide_disp_time == 0 )
     {
-        if( the_slide > 192 )       { temp_index = 4; }
-        else if( the_slide > 128 )  { temp_index = 3; }
-        else if( the_slide > 64 )   { temp_index = 2; }
-        else if( the_slide > 0 )    { temp_index = 1; }
+        if( the_slide > 192 )       { temp_index = 3; }
+        else if( the_slide > 128 )  { temp_index = 2; }
+        else if( the_slide > 64 )   { temp_index = 1; }
+        //else if( the_slide > 0 )    { temp_index = 1; }
+        //else if( the_slide > 0 )    { temp_index = 1; }
         else                        { temp_index = 0; }
     }
 
@@ -393,6 +477,7 @@ static void ProcessDisplayNormalMode(void)
         DisplayEffectTemp( the_temp, up_down );
 
         DispBarStack( temp_index * 3 );
+
     }
     else if( slide_disp_time != 0 && the_slide == 0 )
     {
@@ -407,6 +492,7 @@ static void ProcessDisplayNormalMode(void)
         the_temp = temp_hot[ temp_index ];
         DispTemp( the_temp );
         DispBarStack( temp_index * 3 );
+        effect_current_temp = the_temp;
     }
 
 }
