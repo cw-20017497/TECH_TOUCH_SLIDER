@@ -36,7 +36,8 @@
         else{ val=reload;} \
     }while(0)
 
-I16 GetMin( I16 x, I16 );
+
+I16 GetMin( I16 x, I16 y );
 I16 GetMax( I16 x, I16 y );
 
 U8 Hex2Dec(U8 mu8Hex);

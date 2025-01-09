@@ -1,4 +1,4 @@
-cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source"               0000155438
+cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source"               0000150757
 	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.c
 
 1 
@@ -117,7 +117,7 @@ id
 	}
 }
 
-52 
+53 
 I16
  
 	$CommRecvPackë
@@ -129,19 +129,19 @@ id
 ªcv_pkt
  )
 
-55 
+56 
 U16
  
 i
 ;
 
-56 
+57 
 I16
  
 Àn
 ;
 
-58 if–
+59 if–
 	`HAL_IsEm±yRecvBuf„r
 –
 id
@@ -149,13 +149,13 @@ id
 TRUE
  )
 
-60  
+61  
 i
  = 0; i < 
 Àn
  ; i++ )
 
-62 
+63 
 ªcv_pkt
 [ 
 i
@@ -165,49 +165,49 @@ i
 id
 , i );
 
-65  
+66  
 Àn
-;
-
-70 
-U16
- 
-i
 ;
 
 71 
+U16
+ 
+i
+ = 0;
+
+72 
 I16
  
 Àn
- = -1;
+ = 0;
 
-73  
+74  
 	`HAL_IsEm±yRecvBuf„r
 –
 id
- ) !
-TRUE
+ ) =
+FALSE
  )
 
-75 
+76 
 ªcv_pkt
 [ 
 i
- ] = 
+++ ] = 
 	`HAL_GëRecvBuf„r
 –
 id
  );
 
-76 
+77 
 Àn
 ++;
 
-79  
+80  
 Àn
 ;
 
-81 
+82 
 	}
 }
 
@@ -234,7 +234,7 @@ __COMM_H__
 9 
 	#COMM_ID_FRONT
  
-UART_ID_1
+UART_ID_2
 
 
 	)
@@ -289,18 +289,6 @@ id
 Àn
  );
 
-19 
-I16
- 
-CommRecvPackë
-–
-U8
- 
-id
- , U8 *
-ªcv_pkt
- );
-
 	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.c
 
 1 
@@ -321,7 +309,7 @@ id
 
 7 
 	#MAX_QUEUE_NUM
- 30
+ 100
 
 	)
 
@@ -355,14 +343,14 @@ MAX_COMM_ID
 
 14 
 	#RETRY_WAIT_TIME
- 50
+ 100
 
 	)
 
 15 
 CommD©a_T
  
-	g‰⁄t
+	gd©a
 ;
 
 17 
@@ -421,7 +409,17 @@ d©a
 RETRY_ACK_COUNT
 ;
 
-35 
+32 
+	`EnQueueFr⁄t
+–&
+comm_queue
+[ 
+COMM_ID_FRONT
+ ], &
+d©a
+);
+
+36 
 d©a
 .
 ªåy_cou¡
@@ -429,7 +427,7 @@ d©a
 RETRY_REQ_COUNT
 ;
 
-38 
+37 
 	`EnQueue
 –&
 comm_queue
@@ -439,105 +437,127 @@ COMM_ID_FRONT
 d©a
 );
 
-39 
+40 
 	}
 }
 
-43 
+43 
+U8
+ 
+	gdbg_îr_ªåy_cou¡
+[5] = {0,0,0,0,0};
+
+44 
 	$SídPackëQueueFr⁄t
 ()
 
-45 if–
+46 if–
 	`IsExpúedTimî
 –
-TIMER_ID_COMM_WAIT_1
+TIMER_ID_QUEUE_RETRY_WAIT
+ ) !
+TIMER_EXPIRE
+
+
+47 || 
+	`IsExpúedTimî
+–
+TIMER_ID_UART_2_TX_DONE
  ) !
 TIMER_EXPIRE
  )
 
-50 if–
-	`IsExpúedTimî
-–
-TIMER_ID_COMM_FRONT_TX_DONE
- ) !
-TIMER_EXPIRE
- )
-
-55 if–
-‰⁄t
+53 if–
+d©a
 .
 ªåy_cou¡
  == 0 )
 
-57 if–
+55 if–
 	`DeQueue
 –&
 comm_queue
 [ 
 COMM_ID_FRONT
  ], (*)&
-‰⁄t
+d©a
  ) =
-TRUE
+FALSE
  )
 
-60 
-‰⁄t
+61 
+d©a
 .
 ªåy_cou¡
 --;
-
-62 
-	`SëCommHódî
-–
-COMM_ID_FRONT
-, 
-‰⁄t
-.
-∑ckë
-);
 
 63 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_TX
-, 0 );
-
-68 
-‰⁄t
-.
-ªåy_cou¡
---;
-
-70 
 	`SëCommHódî
 –
 COMM_ID_FRONT
 , 
-‰⁄t
+d©a
 .
 ∑ckë
 );
 
-71 
+64 
 	`SèπTimî
 –
 TIMER_ID_COMM_FRONT_TX
 , 0 );
 
-74 
+66 if–
+d©a
+.
+ªåy_cou¡
+ != 0 )
+
+68 
 	`SèπTimî
 –
-TIMER_ID_COMM_WAIT_1
+TIMER_ID_QUEUE_RETRY_WAIT
 , 
 RETRY_WAIT_TIME
  );
 
-75 
+73 if–(
+d©a
+.
+∑ckë
+ & 0x80) != 0x80 )
+
+75 if–
+d©a
+.
+ªåy_cou¡
+ < 4 )
+
+77 
+dbg_îr_ªåy_cou¡
+[ 
+d©a
+.
+ªåy_cou¡
+ ]++;
+
+81 
 	}
 }
 
-78 
+84 
+U8
+ 
+	gdbg_ªåy_ok_cou¡
+ = 0;
+
+85 
+U8
+ 
+	gdbg_ªåy_ng_cou¡
+ = 0;
+
+86 
 	$Re˚ivedFr⁄tAck
 (
 U8
@@ -545,19 +565,33 @@ U8
 ∑ckë
 )
 
-80 if–
+88 if–
 ∑ckë
  =
-‰⁄t
+d©a
 .packet )
 
-82 
-‰⁄t
+90 
+d©a
 .
 ªåy_cou¡
  = 0;
 
-84 
+91 
+dbg_ªåy_ok_cou¡
+++;
+
+93 
+	`SèπTimî
+–
+TIMER_ID_QUEUE_RETRY_WAIT
+, 0 );
+
+97 
+dbg_ªåy_ng_cou¡
+++;
+
+99 
 	}
 }
 
@@ -910,6 +944,18 @@ I16
 38 
 	$I16
  (*
+	t‚_∑r£r_ªad_t
+)–
+	tU8
+ 
+	tid
+, U8 *
+	tbuf
+ );
+
+39 
+	$I16
+ (*
 	t‚_∑r£r_rx_t
 )–
 	tU8
@@ -921,59 +967,67 @@ I16
 	tÀn
  );
 
-39 
+40 
 	s_∑r£r_li°_
 
 
-41 
+42 
 U8
  
 TimîId
 ;
 
-42 
+43 
 U8
  
 CommId
 ;
 
-43 
+44 
 ‚_∑r£r_rx_t
  
 IsVÆidPkt
 ;
 
-44 
+45 
 ‚_∑r£r_rx_t
  
 P¨£rPkt
 ;
 
-45 } 
+46 
+‚_∑r£r_ªad_t
+ 
+RódPackë
+;
+
+47 } 
 	t∑r£r_rx_li°_t
 ;
 
-47 c⁄° 
+49 c⁄° 
 ∑r£r_rx_li°_t
  
 ∑r£r_rx_li°
 [] =
 
-49 { 
-TIMER_ID_COMM_FRONT_RX
+51 { 
+TIMER_ID_UART_2_RX
 , 
 COMM_ID_FRONT
 , 
 IsVÆidPkt_Fr⁄t
 , 
 P¨£rPkt_Fr⁄t
+, 
+RódPackë_Fr⁄t
  },
 
-50 
+52 
 	}
 };
 
-51 
+53 
 	#MAX_PARSER_RX_NUM
  ( –
 ∑r£r_rx_li°
@@ -983,29 +1037,41 @@ P¨£rPkt_Fr⁄t
 
 	)
 
-53 
+55 
+U8
+ 
+	gdbg_log_buf
+[21][20];
+
+56 
+U8
+ 
+	gdbg_ödex
+ = 0;
+
+58 
 	$RecvPackëH™dÀr
 ( )
 
-55 
+60 
 ∑r£r_rx_li°_t
  *
 p_li°
 ;
 
-56 
+61 
 U8
  
 i
 ;
 
-58  
+63  
 i
  = 0 ; i < 
 MAX_PARSER_RX_NUM
  ; i++ )
 
-61 
+65 
 p_li°
  = &
 ∑r£r_rx_li°
@@ -1013,7 +1079,7 @@ p_li°
 i
  ];
 
-62 if–
+66 if–
 	`IsExpúedTimî
 –
 p_li°
@@ -1023,7 +1089,7 @@ TimîId
 TIMER_EXPIRE
  )
 
-64 
+68 
 	`DißbÀTimî
 –
 p_li°
@@ -1031,27 +1097,19 @@ p_li°
 TimîId
  );
 
-66 if––
+70 if––
 pkt_ªcv_Àn
  = 
-	`CommRecvPackë
-–
 p_li°
 ->
+	`RódPackë
+–p_li°->
 CommId
 , &
 pkt_ªcv
 [0] ) ) > 0 )
 
-68 
-	`HAL_InôRecvLígth
-–
-p_li°
-->
-CommId
- );
-
-70 if–
+74 if–
 p_li°
 ->
 	`IsVÆidPkt
@@ -1063,7 +1121,7 @@ pkt_ªcv_Àn
 TRUE
  )
 
-72 
+76 
 p_li°
 ->
 	`P¨£rPkt
@@ -1073,11 +1131,11 @@ pkt_ªcv
 pkt_ªcv_Àn
  );
 
-73 #i‡
+77 #i‡
 DEBUG_COMM
 
 
-74 
+78 
 d_comm
 [ 
 p_li°
@@ -1087,11 +1145,11 @@ CommId
 rx_˙t
 ++;
 
-79 #i‡
+83 #i‡
 DEBUG_COMM
 
 
-80 
+84 
 d_comm
 [ 
 p_li°
@@ -1102,10 +1160,30 @@ rx_îr
 ++;
 
 86 
+	`mem˝y
+–&
+dbg_log_buf
+[
+dbg_ödex
+][0], &
+pkt_ªcv
+[0], 
+pkt_ªcv_Àn
+ );
+
+87 if–
+dbg_ödex
+ < 21 )
+
+89 
+dbg_ödex
+++;
+
+95 
 	}
 }
 
-92 
+101 
 	$I16
  (*
 	t‚_∑r£r_tx_t
@@ -1119,7 +1197,7 @@ rx_îr
 	tbuf
  );
 
-93 
+102 
 	$I16
  (*
 	t‚_¸c16_t
@@ -1133,45 +1211,45 @@ rx_îr
 	tÀn
  );
 
-94 
+103 
 	s_∑r£r_tx_li°_
 
 
-96 
+105 
 U8
  
 TimîId
 ;
 
-97 
+106 
 U8
  
 CommId
 ;
 
-98 
+107 
 ‚_∑r£r_tx_t
  
 make_pkt
 ;
 
-99 
+108 
 ‚_¸c16_t
  
 ¸c16
 ;
 
-100 } 
+109 } 
 	t∑r£r_tx_li°_t
 ;
 
-102 c⁄° 
+111 c⁄° 
 ∑r£r_tx_li°_t
  
 ∑r£r_tx_li°
 [] =
 
-104 { 
+113 { 
 TIMER_ID_COMM_FRONT_TX
 , 
 COMM_ID_FRONT
@@ -1181,11 +1259,11 @@ MakePkt_Fr⁄t
 Crc16_Fr⁄t
  },
 
-105 
+114 
 	}
 };
 
-106 
+115 
 	#MAX_PARSER_TX_NUM
  ( –
 ∑r£r_tx_li°
@@ -1195,35 +1273,35 @@ Crc16_Fr⁄t
 
 	)
 
-108 
+117 
 	$SídPackë
 ()
 
-110 
+119 
 ∑r£r_tx_li°_t
  *
 p_li°
 ;
 
-111 
+120 
 U8
  
 i
 ;
 
-112 
+121 
 CommHódî_T
  
 p_comm
 ;
 
-115  
+124  
 i
  = 0 ; i < 
 MAX_PARSER_TX_NUM
  ; i++ )
 
-117 
+126 
 p_li°
  = &
 ∑r£r_tx_li°
@@ -1231,7 +1309,7 @@ p_li°
 i
  ];
 
-119 if–
+128 if–
 	`IsExpúedTimî
 –
 p_li°
@@ -1241,7 +1319,7 @@ TimîId
 TIMER_EXPIRE
  )
 
-121 
+130 
 	`DißbÀTimî
 –
 p_li°
@@ -1249,7 +1327,7 @@ p_li°
 TimîId
  );
 
-123 
+132 
 p_comm
  = 
 	`GëCommHódî
@@ -1259,7 +1337,7 @@ p_li°
 CommId
  );
 
-126 
+135 
 	`MEMSET
 –(
 __FAR
@@ -1269,7 +1347,7 @@ pkt_£nd
 MAX_COMM_TX_BUF_SZ
  );
 
-127 
+136 
 pkt_£nd_Àn
  = 
 p_li°
@@ -1283,11 +1361,11 @@ p_comm
 pkt_£nd
  );
 
-128 if–
+137 if–
 pkt_£nd_Àn
  > 0 )
 
-131 
+140 
 pkt_£nd_Àn
  = 
 p_li°
@@ -1297,7 +1375,7 @@ p_li°
 pkt_£nd
 ,Ökt_send_len );
 
-134 
+143 
 	`CommSídPackë
 –
 p_li°
@@ -1309,11 +1387,11 @@ pkt_£nd
 pkt_£nd_Àn
  );
 
-136 #i‡
+145 #i‡
 DEBUG_COMM
 
 
-137 
+146 
 d_comm
 [ 
 p_li°
@@ -1323,7 +1401,7 @@ CommId
 tx_˙t
 ++;
 
-142 
+151 
 	`HAL_InôCommId
 –
 p_li°
@@ -1331,23 +1409,23 @@ p_li°
 CommId
  );
 
-146 
+155 
 	}
 }
 
-149 
+158 
 	$SídPackëH™dÀr
 ( )
 
-151 
+160 
 	`SídPackëQueueFr⁄t
 ();
 
-152 
+161 
 	`SídPackë
 ();
 
-153 
+162 
 	}
 }
 
@@ -1461,7 +1539,7 @@ PKT_REQ_KEY
 
 30 
 	#MIN_PKT_SZ
- 5
+ 3
 
 	)
 
@@ -1567,7 +1645,13 @@ U16
 ¸c16
  = 0;
 
-65 
+62 
+U16
+ 
+¸c16_ˇl
+ = 0;
+
+64 
 ¸c16
  = 
 	`GET_UINT_WORD
@@ -1575,11 +1659,11 @@ U16
 buf
 [
 Àn
--2], buf[len-3] );
+-4], buf[len-5] );
 
-67 if–
-¸c16
- !
+65 
+¸c16_ˇl
+ = 
 	`Rx_CRC_CCITT
 –
 buf
@@ -1587,21 +1671,191 @@ buf
 U16
 )–
 Àn
- - 3 ) ) )
+ - 5 ) );
 
-69  
+66 if–
+¸c16
+ !
+¸c16_ˇl
+ )
+
+68  
 FALSE
 ;
 
-72  
+71  
 TRUE
 ;
 
-73 
+72 
 	}
 }
 
 75 
+I16
+ 
+	$RódPackë_Fr⁄t
+–
+U8
+ 
+id
+ , U8 *
+ªcv_pkt
+ )
+
+77 
+U16
+ 
+i
+ = 0;
+
+78 
+I16
+ 
+Àn
+ = 0;
+
+79 
+U8
+ 
+buf
+;
+
+80 
+U8
+ 
+°¨tRód
+ = 
+FALSE
+;
+
+81 
+U8
+ 
+ëx_cou¡
+ = 0;
+
+83  
+	`HAL_IsEm±yRecvBuf„r
+–
+id
+ ) =
+FALSE
+ )
+
+85 
+buf
+ = 
+	`HAL_GëRecvBuf„r
+–
+id
+ );
+
+86 if–
+°¨tRód
+ =
+FALSE
+ &&
+
+87 
+buf
+ =
+STX
+ )
+
+89 
+°¨tRód
+ = 
+TRUE
+;
+
+90 
+ëx_cou¡
+ = 0;
+
+91 
+ªcv_pkt
+[ 
+Àn
+++ ] = 
+buf
+;
+
+93 if–
+°¨tRód
+ =
+TRUE
+ )
+
+95 
+ªcv_pkt
+[ 
+Àn
+++ ] = 
+buf
+;
+
+96 if–
+buf
+ !
+ETX
+ )
+
+98 
+ëx_cou¡
+ = 0;
+
+102 
+ëx_cou¡
+++;
+
+103 if(
+ëx_cou¡
+ >= 3 )
+
+105 
+ëx_cou¡
+ = 0;
+
+112  
+Àn
+;
+
+114 
+	}
+}
+
+118 
+U8
+ 
+	gdbg_vÆid_îr_1
+ = 0;
+
+119 
+U8
+ 
+	gdbg_vÆid_îr_2
+ = 0;
+
+120 
+U8
+ 
+	gdbg_vÆid_îr_3
+ = 0;
+
+121 
+U8
+ 
+	gdbg_vÆid_msg
+[5][40];
+
+122 
+U8
+ 
+	gdbg_vÆid_ok_msg
+[5][40];
+
+124 
 I16
  
 	$IsVÆidPkt_Fr⁄t
@@ -1615,27 +1869,43 @@ I16
 Àn
  )
 
-77 if–
+126 
+U8
+ 
+i
+ = 0;
+
+127 
+U8
+ 
+j
+ = 0;
+
+130 if–
 buf
  =
 NULL
  )
 
-79  
+132  
 FALSE
 ;
 
-82 if–
+135 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-84  
+137 
+dbg_vÆid_îr_1
+++;
+
+138  
 FALSE
 ;
 
-87 if–
+141 if–
 	`check_¸c
 –
 buf
@@ -1645,19 +1915,65 @@ buf
 FALSE
  )
 
-89  
+143 
+dbg_vÆid_îr_2
+++;
+
+144 
+	`mem˝y
+–&
+dbg_vÆid_msg
+[
+i
+++][0], 
+buf
+, 
+Àn
+ );
+
+145 if–
+i
+ >= 4 ) i = 0;
+
+146  
 FALSE
 ;
 
-92  
+151 
+dbg_vÆid_ok_msg
+[
+j
+][0] = (
+U8
+)
+Àn
+;
+
+152 
+	`mem˝y
+–&
+dbg_vÆid_ok_msg
+[
+j
+++][1], 
+buf
+, 
+Àn
+ );
+
+153 if–
+j
+ >= 4 ) j = 0;
+
+156  
 TRUE
 ;
 
-93 
+157 
 	}
 }
 
-96 
+160 
 I16
  
 P¨£rReqKey
@@ -1667,7 +1983,7 @@ U8
 buf
 );
 
-97 
+161 
 I16
  
 P¨£rAckLed
@@ -1677,7 +1993,7 @@ U8
 buf
 );
 
-99 
+163 
 	$I16
  (*
 	ta˘i⁄_t
@@ -1687,49 +2003,49 @@ buf
 	tbuf
  );
 
-100 
+164 
 	s_∑r£r_li°_t
 
 
-102 
+166 
 U8
  
 Ty≥
 ;
 
-103 
+167 
 a˘i⁄_t
  
 P¨£r
 ;
 
-104 } 
+168 } 
 	t∑r£r_li°_t
 ;
 
-105 c⁄° 
+169 c⁄° 
 ∑r£r_li°_t
  
 ∑r£r_li°
 [] =
 
-107 { 
+171 { 
 PKT_REQ_KEY
 , 
 P¨£rReqKey
  },
 
-108 { 
+172 { 
 PKT_FRONT_ACK_LED
 , 
 P¨£rAckLed
  },
 
-109 
+173 
 	}
 };
 
-111 
+175 
 	#SZ_PS_TABLE
  ( –
 ∑r£r_li°
@@ -1739,7 +2055,7 @@ P¨£rAckLed
 
 	)
 
-113 
+177 
 I16
  
 	$P¨£rPkt_Fr⁄t
@@ -1753,31 +2069,31 @@ I16
 Àn
 )
 
-115 
+179 
 U8
  
 mu8Ty≥
 ;
 
-116 
+180 
 a˘i⁄_t
  
 pP¨£r
 ;
 
-117 
+181 
 U8
  
 i
 ;
 
-120  
+184  
 i
  = 0; i < 
 SZ_PS_TABLE
 ; i++ )
 
-122 
+186 
 mu8Ty≥
  = 
 ∑r£r_li°
@@ -1787,7 +2103,7 @@ i
 Ty≥
 ;
 
-123 
+187 
 pP¨£r
  = 
 ∑r£r_li°
@@ -1797,19 +2113,19 @@ i
 P¨£r
 ;
 
-125 if–
+189 if–
 mu8Ty≥
  =
 buf
 [1] )
 
-127 if–
+191 if–
 pP¨£r
  !
 NULL
  )
 
-129 
+193 
 Àn
  = 
 	`pP¨£r
@@ -1817,23 +2133,15 @@ NULL
 buf
 [2] );
 
-130 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_RX_ERR
-, 
-	`SEC
-(3));
-
-136  
+199  
 Àn
 ;
 
-137 
+200 
 	}
 }
 
-139 
+202 
 I16
  
 	$Crc16_Fr⁄t
@@ -1847,19 +2155,19 @@ I16
 Àn
  )
 
-141 
+204 
 U16
  
 mu16Chksum
  = 0;
 
-144 if–
+207 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-149 
+212 
 mu16Chksum
  = 
 	`Rx_CRC_CCITT
@@ -1871,7 +2179,7 @@ U16
 Àn
  - 3));
 
-150 
+213 
 buf
 [ 
 Àn
@@ -1881,7 +2189,7 @@ buf
 mu16Chksum
 );
 
-151 
+214 
 buf
 [ 
 Àn
@@ -1891,21 +2199,21 @@ buf
 mu16Chksum
 );
 
-153  
+216  
 Àn
 ;
 
-154 
+217 
 	}
 }
 
-158 
+221 
 U8
  
 	g¶idî
 [4];
 
-159 
+222 
 I16
  
 	$P¨£rReqKey
@@ -1915,13 +2223,13 @@ U8
 buf
 )
 
-161 
+224 
 U32
  
 key
 ;
 
-163 
+226 
 key
  = 
 	`GET_UINT_WORD_32
@@ -1929,37 +2237,37 @@ key
 buf
 [0], buf[1], buf[2], buf[3] );
 
-164 
+227 
 	`HAL_SëKeyVÆ
 –
 key
  );
 
-166 
+229 
 ¶idî
 [0] = 
 buf
 [4];
 
-167 
+230 
 ¶idî
 [1] = 
 buf
 [5];
 
-168 
+231 
 ¶idî
 [2] = 
 buf
 [6];
 
-169 
+232 
 ¶idî
 [3] = 
 buf
 [7];
 
-173 
+236 
 	`SëCommHódî
 –
 COMM_ID_FRONT
@@ -1967,21 +2275,27 @@ COMM_ID_FRONT
 PKT_ACK_KEY
  );
 
-174 
+237 
 	`SèπTimî
 –
 TIMER_ID_COMM_FRONT_TX
 , 0 );
 
-176  
+239  
 TRUE
 ;
 
-177 
+240 
 	}
 }
 
-179 
+242 
+U8
+ 
+	gdbg_Àd_ack_cou¡
+ = 0;
+
+243 
 I16
  
 	$P¨£rAckLed
@@ -1991,41 +2305,45 @@ U8
 buf
 )
 
-181 
+245 
 	`Re˚ivedFr⁄tAck
 –
-PKT_FRONT_ACK_LED
+PKT_FRONT_REQ_LED
  );
 
-182  
+246 
+dbg_Àd_ack_cou¡
+++;
+
+247  
 TRUE
 ;
 
-183 
+248 
 	}
 }
 
-186 
+251 
 	s_make_li°_t
 
 
-188 
+253 
 U8
  
 	mTy≥
 ;
 
-189 
+254 
 a˘i⁄_t
  
 	mMakePkt
 ;
 
-190 } 
+255 } 
 	tmake_li°_t
 ;
 
-192 
+257 
 I16
  
 MakePktAckKey
@@ -2035,7 +2353,7 @@ U8
 buf
  );
 
-193 
+258 
 I16
  
 MakePktReqLed
@@ -2045,25 +2363,25 @@ U8
 buf
  );
 
-194 c⁄° 
+259 c⁄° 
 make_li°_t
  
 	gmake_li°
 [] =
 
-196 { 
+261 { 
 PKT_ACK_KEY
 , 
 MakePktAckKey
  },
 
-197 { 
+262 { 
 PKT_FRONT_REQ_LED
 , 
 MakePktReqLed
  },
 
-199 
+264 
 	#SZ_TABLE
  ( –
 make_li°
@@ -2073,7 +2391,7 @@ make_li°_t
 
 	)
 
-201 
+266 
 I16
  
 	$MakePkt_Fr⁄t
@@ -2087,37 +2405,37 @@ U8
 buf
  )
 
-203 
+268 
 U8
  
 mu8Ty≥
 ;
 
-204 
+269 
 a˘i⁄_t
  
 p_make_pkt
 ;
 
-205 
+270 
 U8
  
 i
 ;
 
-206 
+271 
 I16
  
 Àn
  = -1;
 
-209  
+274  
 i
  = 0; i < 
 SZ_TABLE
 ; i++ )
 
-211 
+276 
 mu8Ty≥
  = 
 make_li°
@@ -2127,7 +2445,7 @@ i
 Ty≥
 ;
 
-212 
+277 
 p_make_pkt
  = 
 make_li°
@@ -2137,7 +2455,7 @@ i
 MakePkt
 ;
 
-214 if–
+279 if–
 mu8Ty≥
  =(
 U8
@@ -2145,13 +2463,13 @@ U8
 p_comm
  )
 
-216 if–
+281 if–
 p_make_pkt
  !
 NULL
  )
 
-218 
+283 
 Àn
  = 
 	`p_make_pkt
@@ -2159,21 +2477,21 @@ NULL
 buf
  );
 
-224  
+289  
 Àn
 ;
 
-225 
+290 
 	}
 }
 
-227 
+292 
 U8
  
 	gdbg_the_ack_key
  = 0;
 
-228 
+293 
 I16
  
 	$MakePktAckKey
@@ -2183,13 +2501,13 @@ U8
 buf
  )
 
-230 
+295 
 I16
  
 mi16Lí
  = 0;
 
-231 
+296 
 U8
  
 mu8Buf
@@ -2197,7 +2515,7 @@ mu8Buf
 MAX_LED_BUF
 ];
 
-234 
+299 
 buf
 [ 
 mi16Lí
@@ -2205,7 +2523,7 @@ mi16Lí
 STX
 ;
 
-237 
+302 
 buf
 [ 
 mi16Lí
@@ -2213,19 +2531,19 @@ mi16Lí
 PKT_ACK_KEY
 ;
 
-240 
+305 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-241 
+306 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-243 
+308 
 buf
 [ 
 mi16Lí
@@ -2233,25 +2551,25 @@ mi16Lí
 ETX
 ;
 
-245 
+310 
 dbg_the_ack_key
 ++;
 
-246  
+311  
 mi16Lí
 ;
 
-247 
+312 
 	}
 }
 
-249 
+314 
 U8
  
 	gdbg_the_ªq_Àd
  = 0;
 
-250 
+315 
 I16
  
 	$MakePktReqLed
@@ -2261,13 +2579,13 @@ U8
 buf
  )
 
-252 
+317 
 I16
  
 mi16Lí
  = 0;
 
-253 
+318 
 U8
  
 mu8Buf
@@ -2275,17 +2593,17 @@ mu8Buf
 MAX_LED_BUF
 ];
 
-254 
+319 
 U8
  
 i
 ;
 
-256 
+321 
 dbg_the_ªq_Àd
 ++;
 
-259 
+324 
 buf
 [ 
 mi16Lí
@@ -2293,7 +2611,7 @@ mi16Lí
 STX
 ;
 
-262 
+327 
 buf
 [ 
 mi16Lí
@@ -2301,19 +2619,19 @@ mi16Lí
 PKT_FRONT_REQ_LED
 ;
 
-265 
+330 
 	`HAL_GëLedOnOffSètus
 –&
 mu8Buf
 [0] );
 
-266  
+331  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-268 
+333 
 buf
 [ 
 mi16Lí
@@ -2323,19 +2641,19 @@ mu8Buf
 i
 ];
 
-272 
+337 
 	`HAL_GëLedDimmögSètus
 –&
 mu8Buf
 [0]);
 
-273  
+338  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-275 
+340 
 buf
 [ 
 mi16Lí
@@ -2345,7 +2663,7 @@ mu8Buf
 i
 ];
 
-279 
+344 
 buf
 [ 
 mi16Lí
@@ -2353,7 +2671,7 @@ mi16Lí
 	`HAL_GëLedDimmögDuty
 ();
 
-282 
+347 
 buf
 [ 
 mi16Lí
@@ -2361,37 +2679,37 @@ mi16Lí
 	`HAL_GëLedDuty
 ();
 
-285 
+350 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-288 
+353 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-291 
+356 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-294 
+359 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-295 
+360 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-297 
+362 
 buf
 [ 
 mi16Lí
@@ -2399,11 +2717,11 @@ mi16Lí
 ETX
 ;
 
-298  
+363  
 mi16Lí
 ;
 
-299 
+364 
 	}
 }
 
@@ -2442,6 +2760,18 @@ __PARSER_FRONT_H__
 11 
 I16
  
+RódPackë_Fr⁄t
+–
+U8
+ 
+id
+ , U8 *
+ªcv_pkt
+ );
+
+12 
+I16
+ 
 IsVÆidPkt_Fr⁄t
 –
 U8
@@ -2451,7 +2781,7 @@ buf
 Àn
  );
 
-12 
+13 
 I16
  
 P¨£rPkt_Fr⁄t
@@ -2463,7 +2793,7 @@ buf
 Àn
 );
 
-13 
+14 
 I16
  
 Crc16_Fr⁄t
@@ -2475,7 +2805,7 @@ buf
 Àn
  );
 
-14 
+15 
 I16
  
 MakePkt_Fr⁄t
@@ -9631,43 +9961,125 @@ mu8ToggÀ
 	}
 }
 
-133 
+134 
+U8
+ 
+	$GëSlide
+(
+U8
+ 
+Slide
+)
+
+136 if–
+Slide
+ > 0 )
+
+138  (
+U8
+)(256U - 
+Slide
+);
+
+142 
+	}
+}
+
+144 
+	#MAX_TEMP
+ 100
+
+	)
+
+145 
+	#MIN_TEMP
+ 40
+
+	)
+
+146 
+U8
+ 
+	$GëTempMöMax
+(
+U8
+ 
+ãmp
+, U8 
+mö
+, U8 
+max
+)
+
+148 if–
+ãmp
+ < 
+MIN_TEMP
+ )
+
+150 
+ãmp
+ = 
+MIN_TEMP
+;
+
+152 if–
+ãmp
+ > 
+MAX_TEMP
+ )
+
+154 
+ãmp
+ = 
+MAX_TEMP
+;
+
+157  
+ãmp
+;
+
+158 
+	}
+}
+
+160 
 I16
  
 	gdñè_t
 [20] = {0};
 
-135 
+162 
 U8
  
 	gödex
  = 0;
 
-136 
+163 
 U8
  
 	g¥ev_up_down_vÆ
  = 0;
 
-137 
+164 
 	#DIR_UP
  2
 
 	)
 
-138 
+165 
 	#DIR_DOWN
  1
 
 	)
 
-139 
+166 
 	#DIR_NONE
  0
 
 	)
 
-140 
+167 
 U8
  
 	$ˇlcDúe˘i⁄
@@ -9677,7 +10089,7 @@ U16
 vÆ
 )
 
-142 
+169 
 U8
  
 ªt
@@ -9685,71 +10097,71 @@ U8
 DIR_NONE
 ;
 
-144 if–
+171 if–
 vÆ
  == 0 )
 
-146 
+173 
 ¥ev_up_down_vÆ
  = 
 vÆ
 ;
 
-147  
+174  
 DIR_NONE
 ;
 
-150 if–
+177 if–
 ¥ev_up_down_vÆ
  !
 vÆ
 
 
-151 && 
+178 && 
 ¥ev_up_down_vÆ
  == 0 )
 
-153 
+180 
 ¥ev_up_down_vÆ
  = 
 vÆ
 ;
 
-155  
+182  
 DIR_NONE
 ;
 
-158 if–
+185 if–
 ¥ev_up_down_vÆ
  !
 vÆ
  )
 
-160 if–
+187 if–
 ¥ev_up_down_vÆ
  > 
 vÆ
  )
 
-162 
+189 
 ªt
  = 
 DIR_UP
 ;
 
-164 if–
+191 if–
 ¥ev_up_down_vÆ
  < 
 vÆ
  )
 
-166 
+193 
 ªt
  = 
 DIR_DOWN
 ;
 
-171 
+198 
 dñè_t
 [ 
 ödex
@@ -9759,89 +10171,165 @@ dñè_t
 vÆ
 ;
 
-172 if–
+199 if–
 ödex
  >= 20 )
 
-174 
+201 
 ödex
  = 0;
 
-178 
+205 
 ¥ev_up_down_vÆ
  = 
 vÆ
 ;
 
-181  
+208  
 ªt
 ;
 
-182 
+209 
 	}
 }
 
-184 
+211 
 	#SPEED_L5
  5
 
 	)
 
-185 
+212 
 	#SPEED_L4
  4
 
 	)
 
-186 
+213 
 	#SPEED_L3
  3
 
 	)
 
-187 
+214 
 	#SPEED_L2
  2
 
 	)
 
-188 
+215 
 	#SPEED_L1
  1
 
 	)
 
-189 
+216 
 	#SPEED_L0
  0
 
 	)
 
-191 
+218 
+U8
+ 
+	gdbg_lv5_vÆ
+ = 100;
+
+219 
+U8
+ 
+	gdbg_lv4_vÆ
+ = 80;
+
+220 
+U8
+ 
+	gdbg_lv3_vÆ
+ = 60;
+
+221 
+U8
+ 
+	gdbg_lv2_vÆ
+ = 40;
+
+222 
+U8
+ 
+	gdbg_lv1_vÆ
+ = 10;
+
+223 
+	#SPEED_L5_VAL
+ 
+dbg_lv5_vÆ
+
+
+	)
+
+224 
+	#SPEED_L4_VAL
+ 
+dbg_lv4_vÆ
+
+
+	)
+
+225 
+	#SPEED_L3_VAL
+ 
+dbg_lv3_vÆ
+
+
+	)
+
+226 
+	#SPEED_L2_VAL
+ 
+dbg_lv2_vÆ
+
+
+	)
+
+227 
+	#SPEED_L1_VAL
+ 
+dbg_lv1_vÆ
+
+
+	)
+
+235 
+U16
+ 
+	gdbg_•ìd_li°
+[30] = { 0, };
+
+236 
 I16
  
 	g¥ev_•ìd_vÆ
  = 0;
 
-192 
+237 
 I16
  
 	gdñè
 ;
 
-193 
+238 
 U8
  
 	gdbg_•ìd
  = 0;
 
-194 
+239 
 U8
  
 	gdbg_dñè
  = 0;
 
-195 
+240 
 U8
  
 	$ˇlcS≥ed
@@ -9851,39 +10339,45 @@ U16
 vÆ
 )
 
-197 
+243 
 U8
  
-ªt
+¥ev_øw_vÆ
+ = 0;
+
+246 if–
+¥ev_øw_vÆ
+ =
+vÆ
+ )
+
+251 
+¥ev_øw_vÆ
  = 
-SPEED_L1
+vÆ
 ;
 
-200 if–
+253 if–
 vÆ
  == 0 )
 
-202 
+255 
 ¥ev_•ìd_vÆ
  = 
 vÆ
 ;
 
-203  
-ªt
-;
-
-207 if–
+260 if–
 ¥ev_•ìd_vÆ
  !
 vÆ
 
 
-208 && 
+261 && 
 ¥ev_•ìd_vÆ
  == 0 )
 
-210 
+263 
 ¥ev_•ìd_vÆ
  = (
 I16
@@ -9891,17 +10385,17 @@ I16
 vÆ
 ;
 
-212  
+265  
 SPEED_L1
 ;
 
-215 if–
+268 if–
 ¥ev_•ìd_vÆ
  !
 vÆ
  )
 
-217 
+270 
 dñè
  = 
 ¥ev_•ìd_vÆ
@@ -9911,59 +10405,13 @@ I16
 vÆ
 ;
 
-218 
+271 
 dñè
  = 
 	`abs
 ( delta );
 
-220 if(
-dñè
- >100 ) { 
-ªt
- = 
-SPEED_L5
-; }
-
-221 if(
-dñè
- >55 ) { 
-ªt
- = 
-SPEED_L4
-; }
-
-222 if(
-dñè
- >45 ) { 
-ªt
- = 
-SPEED_L3
-; }
-
-223 if(
-dñè
- >35 ) { 
-ªt
- = 
-SPEED_L2
-; }
-
-224 if(
-dñè
- >3 ) { 
-ªt
- = 
-SPEED_L1
-; }
-
-225 { 
-ªt
- = 
-SPEED_L0
-; }
-
-228 
+274 
 ¥ev_•ìd_vÆ
  = (
 I16
@@ -9971,87 +10419,597 @@ I16
 vÆ
 ;
 
-232 
+278 
 dbg_dñè
  = 
 dñè
 ;
 
-233 
+280 
+i
+ = 0;
+
+282 
+dbg_•ìd_li°
+[ 
+i
+++ ] = 
+dñè
+;
+
+283 if–
+i
+ >= 30 )
+
+284 
+i
+ = 0;
+
+287  
+dñè
+;
+
+288 
+	}
+}
+
+290 
+U8
+ 
+	$ˇlcS≥ed
+(
+U16
+ 
+vÆ
+)
+
+292 
+U8
+ 
+ªt
+ = 
+SPEED_L1
+;
+
+294 
+U8
+ 
+¥ev_øw_vÆ
+ = 0;
+
+297 if–
+¥ev_øw_vÆ
+ =
+vÆ
+ )
+
+302 
+¥ev_øw_vÆ
+ = 
+vÆ
+;
+
+304 if–
+vÆ
+ == 0 )
+
+306 
+¥ev_•ìd_vÆ
+ = 
+vÆ
+;
+
+307  
+ªt
+;
+
+311 if–
+¥ev_•ìd_vÆ
+ !
+vÆ
+
+
+312 && 
+¥ev_•ìd_vÆ
+ == 0 )
+
+314 
+¥ev_•ìd_vÆ
+ = (
+I16
+)
+vÆ
+;
+
+316  
+SPEED_L1
+;
+
+319 if–
+¥ev_•ìd_vÆ
+ !
+vÆ
+ )
+
+321 
+dñè
+ = 
+¥ev_•ìd_vÆ
+ - (
+I16
+)
+vÆ
+;
+
+322 
+dñè
+ = 
+	`abs
+( delta );
+
+324 if–
+dbg_•ìd
+ =
+SPEED_L5
+ )
+
+326 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L5
+; }
+
+327 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+328 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+329 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+330 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+331 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+333 if–
+dbg_•ìd
+ =
+SPEED_L4
+ )
+
+335 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L5
+; }
+
+336 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+337 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+338 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+339 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+340 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+342 if–
+dbg_•ìd
+ =
+SPEED_L3
+ )
+
+344 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+345 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+346 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+347 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+348 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+349 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+351 if–
+dbg_•ìd
+ =
+SPEED_L2
+ )
+
+353 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+354 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+355 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+356 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+357 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L1
+; }
+
+358 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+360 if–
+dbg_•ìd
+ =
+SPEED_L1
+ )
+
+362 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+363 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+364 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+365 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+366 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L1
+; }
+
+367 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+371 if(
+dñè
+ >
+SPEED_L5_VAL
+ ) { 
+ªt
+ = 
+SPEED_L5
+; }
+
+372 if(
+dñè
+ >
+SPEED_L4_VAL
+ ) { 
+ªt
+ = 
+SPEED_L4
+; }
+
+373 if(
+dñè
+ >
+SPEED_L3_VAL
+ ) { 
+ªt
+ = 
+SPEED_L3
+; }
+
+374 if(
+dñè
+ >
+SPEED_L2_VAL
+ ) { 
+ªt
+ = 
+SPEED_L2
+; }
+
+375 if(
+dñè
+ >
+SPEED_L1_VAL
+ ) { 
+ªt
+ = 
+SPEED_L1
+; }
+
+376 { 
+ªt
+ = 
+SPEED_L0
+; }
+
+380 
+¥ev_•ìd_vÆ
+ = (
+I16
+)
+vÆ
+;
+
+384 
+dbg_dñè
+ = 
+dñè
+;
+
+386 
+i
+ = 0;
+
+388 
+dbg_•ìd_li°
+[ 
+i
+++ ] = 
+ªt
+;
+
+389 if–
+i
+ >= 30 )
+
+390 
+i
+ = 0;
+
+391 
 dbg_•ìd
  = 
 ªt
 ;
 
-235  
+394  
 ªt
 ;
 
-236 
+395 
 	}
 }
 
-239 
+399 
 U8
  
 ¶idî
 [4];
 
-240 
+400 
 U8
  
 	gthe_di•_Àvñ
  =0;
 
-241 
+401 
 U8
  
 	gthe_¶ide
  = 0;
 
-242 
+402 
 I8
  
 	gãmp_ödex
  = 0;
 
-243 
+403 
 U8
  
 	gãmp_hŸ
-[5] = { 0, 45, 70, 85, 100 };
+[5] = { 45, 70, 85, 100 };
 
-245 
+405 
 U16
  
 	g¶ide_di•_time
  = 0;
 
-246 
+406 
 U8
  
 	gthe_ãmp
  = 0;
 
-247 
+407 
 	#TEMP_TICK
  1
 
 	)
 
-248 
-	#MAX_TEMP
- 100
-
-	)
-
-249 
-	#MIN_TEMP
- 40
-
-	)
-
-251 
+409 
 U8
  
 	$GëTempTick
@@ -10061,13 +11019,13 @@ U8
 •ìd
 )
 
-253 
+411 
 U8
  
 ªt_tick
  = 1;
 
-255 if–
+413 if–
 •ìd
  =
 SPEED_L5
@@ -10075,7 +11033,7 @@ SPEED_L5
 ªt_tick
  = 10; }
 
-256 if–
+414 if–
 •ìd
  =
 SPEED_L4
@@ -10083,7 +11041,7 @@ SPEED_L4
 ªt_tick
  = 5; }
 
-257 if–
+415 if–
 •ìd
  =
 SPEED_L3
@@ -10091,7 +11049,7 @@ SPEED_L3
 ªt_tick
  = 4; }
 
-258 if–
+416 if–
 •ìd
  =
 SPEED_L2
@@ -10099,7 +11057,7 @@ SPEED_L2
 ªt_tick
  = 2; }
 
-259 if–
+417 if–
 •ìd
  =
 SPEED_L1
@@ -10107,283 +11065,359 @@ SPEED_L1
 ªt_tick
  = 1; }
 
-260 
+418 
 ªt_tick
  = 0;
 
-262  
+420  
 ªt_tick
 ;
 
-263 
+421 
 	}
 }
 
-265 
+423 
 U16
  
 	gef„˘_time_vÆ
  = 2;
 
-266 
+424 
 U16
  
 	gef„˘_time
  = 2;
 
-267 
+425 
+U16
+ 
+	gef„˘_cuºít_ãmp
+ = 0;
+
+426 
 	$Di•œyEf„˘Temp
 (
 U16
  
 ãmp
-, 
-U8
- 
-up_down
 )
 
-269 
+428 
 U16
  
 èrgë_ãmp
  = 0;
 
-270 
-U16
- 
-cuºít_ãmp
- = 0;
-
-274 
+433 
 èrgë_ãmp
  = 
 ãmp
 ;
 
-276 if–
+435 if–
 ef„˘_time
  != 0 )
 
-278 
+437 
 ef„˘_time
 --;
 
-279 
+438 
 	`Di•Temp
 –
-cuºít_ãmp
+ef„˘_cuºít_ãmp
  );
 
-282 if–
+441 if–
 èrgë_ãmp
  > 
-cuºít_ãmp
+ef„˘_cuºít_ãmp
  )
 
-284 
-cuºít_ãmp
+443 
+ef„˘_cuºít_ãmp
  += 1;
 
-285 
+444 
 ef„˘_time
  = 
 ef„˘_time_vÆ
 ;
 
-286 
+445 
 	`Di•Temp
 –
-cuºít_ãmp
+ef„˘_cuºít_ãmp
  );
 
-289 if–
+448 if–
 èrgë_ãmp
  < 
-cuºít_ãmp
+ef„˘_cuºít_ãmp
  )
 
-291 
-cuºít_ãmp
+450 
+ef„˘_cuºít_ãmp
  -= 1;
 
-292 
+451 
 ef„˘_time
  = 
 ef„˘_time_vÆ
 ;
 
-293 
+452 
 	`Di•Temp
 –
-cuºít_ãmp
+ef„˘_cuºít_ãmp
  );
 
-296 
+455 
 	}
 }
 
-298 
-	$Pro˚ssDi•œyN‹mÆMode
+457 
+	#WHOLE_LEVEL
+ 256
+
+	)
+
+458 
+	#LEVEL_TICK
+ 16
+
+	)
+
+459 
+U8
+ 
+	gthe_ª°_¶ide
+ = 0;
+
+460 
+U8
+ 
+	$ˇlcLevñ
+(
+U8
+ 
+¶ide
+, U8 *
+p_tick
+)
+
+462 
+U16
+ 
+vÆ
+;
+
+464 
+vÆ
+ = 
+¶ide
+ + 
+the_ª°_¶ide
+;
+
+465 *
+p_tick
+ = (
+U8
+)(
+vÆ
+ / 
+LEVEL_TICK
+);
+
+466 
+the_ª°_¶ide
+ = (
+U8
+)(
+vÆ
+ % (
+LEVEL_TICK
+ * (*
+p_tick
+) ));
+
+468  
+the_ª°_¶ide
+;
+
+469 
+	}
+}
+
+472 
+U8
+ 
+	gdbg_ãmp_tick
+ = 0;
+
+473 
+	$Pro˚ssDi•œyN‹mÆMode_Levñ
 ()
 
-300 
+475 
 U8
  
 ¥ev_¶ide
  = 0;
 
-301 
+476 
 U8
  
 ¥ev_di•_Àvñ
  = 0;
 
-302 
+477 
 U8
  
 dú
  = 0;
 
-305 
+480 
 	`Di•LedDuty
 ();
 
-308 if–
-¶idî
-[1] > 0 )
-
-310 
+483 
 the_¶ide
- = (
-U8
-)(256U - 
+ = 
+	`GëSlide
+–
 ¶idî
-[1]);
+[1] );
 
-314 
-the_¶ide
- = 0;
-
-319 i‡(
+486 i‡(
 ¥ev_¶ide
  !
 the_¶ide
 )
 
-321 if–
+488 if–
 ¥ev_¶ide
  > 0 && 
 the_¶ide
  == 0 )
 
-324 
+491 
 ¶ide_di•_time
  = 500;
 
-326 if–
+493 if–
 ¥ev_¶ide
  =0 && 
 the_¶ide
  != 0 )
 
-328 if–
+495 if–
 ¶ide_di•_time
  == 0 )
 
-331 
+498 
 	`Sound
 –
 SOUND_SELECT
  );
 
-335 
+502 
 ¥ev_¶ide
  = 
 the_¶ide
 ;
 
-339 if–
+506 if–
 ¶ide_di•_time
  != 0
 
-340 && 
+507 && 
 the_¶ide
  != 0 )
 
-342 
+509 
 ¶ide_di•_time
  = 500;
 
-346 if–
+513 if–
 ¶ide_di•_time
  != 0 )
 
-349 
+516 
 ¶ide_di•_time
 --;
 
-353 if–
+520 if–
 ¶ide_di•_time
  == 0 )
 
-355 if–
+522 if–
 the_¶ide
  > 192 ) { 
 ãmp_ödex
- = 4; }
+ = 3; }
 
-356 if–
+523 if–
 the_¶ide
  > 128 ) { 
 ãmp_ödex
- = 3; }
+ = 2; }
 
-357 if–
+524 if–
 the_¶ide
  > 64 ) { 
 ãmp_ödex
- = 2; }
-
-358 if–
-the_¶ide
- > 0 ) { 
-ãmp_ödex
  = 1; }
 
-359 { 
+525 { 
 ãmp_ödex
  = 0; }
 
-363 if–
+529 if–
 ¶ide_di•_time
  != 0
 
-364 && 
+530 && 
 the_¶ide
  != 0 )
 
-366 
+532 
 U8
  
 up_down
  = 0;
 
-367 
+533 
 U8
  
-•ìd
+ãmp_tick
  = 0;
 
-369 
-•ìd
+535 
+the_¶ide
  = 
 	`ˇlcS≥ed
+(Åhe_slide );
+
+536 
+the_ª°_¶ide
+ = 
+	`ˇlcLevñ
 –
 the_¶ide
+, &
+ãmp_tick
  );
 
-370 
+537 
+dbg_ãmp_tick
+ = 
+ãmp_tick
+;
+
+538 
 up_down
  = 
 	`ˇlcDúe˘i⁄
@@ -10391,103 +11425,83 @@ up_down
 the_¶ide
  );
 
-371 if–
+539 if–
 up_down
  =
 DIR_DOWN
  )
 
-373 
+541 
 the_ãmp
  +
-	`GëTempTick
-–
-•ìd
- );
+ãmp_tick
+;
 
-375 if–
+543 if–
 up_down
  =
 DIR_UP
  )
 
-377 
+545 
 the_ãmp
  -
-	`GëTempTick
-–
-•ìd
- );
+ãmp_tick
+;
 
-379 if–
+547 if–
 up_down
  =
 DIR_NONE
  )
 
-384 if–
-the_ãmp
- < 
-MIN_TEMP
- )
-
-386 
+551 
 the_ãmp
  = 
+	`GëTempMöMax
+–the_ãmp, 
 MIN_TEMP
-;
-
-388 if–
-the_ãmp
- > 
+, 
 MAX_TEMP
- )
+ );
 
-390 
-the_ãmp
- = 
-MAX_TEMP
-;
-
-393 
+552 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
-, 
-up_down
  );
 
-395 
+554 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-397 if–
+557 if–
 ¶ide_di•_time
  !0 && 
 the_¶ide
  == 0 )
 
-400 
+560 
 	`ˇlcS≥ed
 –
 the_¶ide
  );
 
-401 
+561 
 	`ˇlcDúe˘i⁄
 –
 the_¶ide
  );
 
-402 
+562 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
-, 0 );
+ );
 
-407 
+567 
 the_ãmp
  = 
 ãmp_hŸ
@@ -10495,83 +11509,63 @@ the_ãmp
 ãmp_ödex
  ];
 
-408 
+568 
 	`Di•Temp
 –
 the_ãmp
  );
 
-409 
+569 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-412 
+570 
+ef„˘_cuºít_ãmp
+ = 
+the_ãmp
+;
+
+571 
+the_ª°_¶ide
+ = 0;
+
+574 
 	}
 }
 
-416 
-U8
- 
-¶idî
-[4];
-
-417 
-U8
- 
-	gthe_di•_Àvñ
- =0;
-
-418 
-U8
- 
-	gthe_¶ide
- = 0;
-
-419 
-I8
- 
-	gãmp_ödex
- = 0;
-
-420 
-U8
- 
-	gãmp_hŸ
-[12] = {
-
-424 
-	$Pro˚ssDi•œyN‹mÆMode
+577 
+	$Pro˚ssDi•œyN‹mÆMode_Ac˚l
 ()
 
-426 
+579 
 U8
  
 ¥ev_¶ide
  = 0;
 
-427 
+580 
 U8
  
 ¥ev_di•_Àvñ
  = 0;
 
-428 
+581 
 U8
  
 dú
  = 0;
 
-431 
+584 
 	`Di•LedDuty
 ();
 
-433 if–
+587 if–
 ¶idî
 [1] > 0 )
 
-435 
+589 
 the_¶ide
  = (
 U8
@@ -10579,93 +11573,395 @@ U8
 ¶idî
 [1]);
 
-439 
+593 
 the_¶ide
  = 0;
 
-442 if–
+598 i‡(
+¥ev_¶ide
+ !
+the_¶ide
+)
+
+600 if–
+¥ev_¶ide
+ > 0 && 
+the_¶ide
+ == 0 )
+
+603 
+¶ide_di•_time
+ = 500;
+
+605 if–
+¥ev_¶ide
+ =0 && 
+the_¶ide
+ != 0 )
+
+607 if–
+¶ide_di•_time
+ == 0 )
+
+610 
+	`Sound
+–
+SOUND_SELECT
+ );
+
+614 
+¥ev_¶ide
+ = 
+the_¶ide
+;
+
+618 if–
+¶ide_di•_time
+ != 0
+
+619 && 
+the_¶ide
+ != 0 )
+
+621 
+¶ide_di•_time
+ = 500;
+
+625 if–
+¶ide_di•_time
+ != 0 )
+
+628 
+¶ide_di•_time
+--;
+
+632 if–
+¶ide_di•_time
+ == 0 )
+
+634 if–
+the_¶ide
+ > 192 ) { 
+ãmp_ödex
+ = 3; }
+
+635 if–
+the_¶ide
+ > 128 ) { 
+ãmp_ödex
+ = 2; }
+
+636 if–
+the_¶ide
+ > 64 ) { 
+ãmp_ödex
+ = 1; }
+
+637 { 
+ãmp_ödex
+ = 0; }
+
+641 if–
+¶ide_di•_time
+ != 0
+
+642 && 
+the_¶ide
+ != 0 )
+
+644 
+U8
+ 
+up_down
+ = 0;
+
+645 
+U8
+ 
+•ìd
+ = 0;
+
+647 
+•ìd
+ = 
+	`ˇlcS≥ed
+–
+the_¶ide
+ );
+
+648 
+up_down
+ = 
+	`ˇlcDúe˘i⁄
+–
+the_¶ide
+ );
+
+649 if–
+up_down
+ =
+DIR_DOWN
+ )
+
+651 
+the_ãmp
+ +
+	`GëTempTick
+–
+•ìd
+ );
+
+653 if–
+up_down
+ =
+DIR_UP
+ )
+
+655 
+the_ãmp
+ -
+	`GëTempTick
+–
+•ìd
+ );
+
+657 if–
+up_down
+ =
+DIR_NONE
+ )
+
+662 
+the_ãmp
+ = 
+	`GëTempMöMax
+–the_ãmp, 
+MIN_TEMP
+, 
+MAX_TEMP
+ );
+
+664 
+	`Di•œyEf„˘Temp
+–
+the_ãmp
+ );
+
+666 
+	`Di•B¨Sèck
+–
+ãmp_ödex
+ * 3 );
+
+669 if–
+¶ide_di•_time
+ !0 && 
+the_¶ide
+ == 0 )
+
+672 
+	`ˇlcS≥ed
+–
+the_¶ide
+ );
+
+673 
+	`ˇlcDúe˘i⁄
+–
+the_¶ide
+ );
+
+674 
+	`Di•œyEf„˘Temp
+–
+the_ãmp
+ );
+
+679 
+the_ãmp
+ = 
+ãmp_hŸ
+[ 
+ãmp_ödex
+ ];
+
+680 
+	`Di•Temp
+–
+the_ãmp
+ );
+
+681 
+	`Di•B¨Sèck
+–
+ãmp_ödex
+ * 3 );
+
+682 
+ef„˘_cuºít_ãmp
+ = 
+the_ãmp
+;
+
+685 
+	}
+}
+
+690 
+U8
+ 
+¶idî
+[4];
+
+691 
+U8
+ 
+	gthe_di•_Àvñ
+ =0;
+
+692 
+U8
+ 
+	gthe_¶ide
+ = 0;
+
+693 
+I8
+ 
+	gãmp_ödex
+ = 0;
+
+694 
+U8
+ 
+	gãmp_hŸ
+[12] = {
+
+698 
+	$Pro˚ssDi•œyN‹mÆMode
+()
+
+700 
+U8
+ 
+¥ev_¶ide
+ = 0;
+
+701 
+U8
+ 
+¥ev_di•_Àvñ
+ = 0;
+
+702 
+U8
+ 
+dú
+ = 0;
+
+705 
+	`Di•LedDuty
+();
+
+707 if–
+¶idî
+[1] > 0 )
+
+709 
+the_¶ide
+ = (
+U8
+)(256U - 
+¶idî
+[1]);
+
+713 
+the_¶ide
+ = 0;
+
+716 if–
 the_¶ide
  >= 5 )
 
-444 
+718 
 the_di•_Àvñ
  = 
 the_¶ide
  / 18;
 
-445 
+719 
 the_di•_Àvñ
 ++;
 
-446 
+720 
 	`Di•B¨Sèck
 –
 the_di•_Àvñ
  );
 
-448 if–
+722 if–
 ¥ev_di•_Àvñ
  !
 the_di•_Àvñ
 )
 
-450 if–
+724 if–
 ¥ev_di•_Àvñ
  < 
 the_di•_Àvñ
  )
 
-452 if–
+726 if–
 dú
  == 1 )
 
-454 
+728 
 ãmp_ödex
 ++;
 
-456 
+730 
 dú
  = 1;
 
-460 if–
+734 if–
 dú
  == 0 )
 
-462 
+736 
 ãmp_ödex
 --;
 
-464 
+738 
 dú
  = 0;
 
-466 
+740 
 ¥ev_di•_Àvñ
  = 
 the_di•_Àvñ
 ;
 
-471 
+745 
 	`Di•B¨Sèck
 ( 0 );
 
-474 if–
+748 if–
 ãmp_ödex
  >= 12 )
 
-476 
+750 
 ãmp_ödex
  = 11;
 
-478 if–
+752 if–
 ãmp_ödex
  <= 0 )
 
-480 
+754 
 ãmp_ödex
  = 0;
 
-483 
+757 
 	`Di•Temp
 –
 ãmp_hŸ
@@ -10673,53 +11969,77 @@ the_di•_Àvñ
 ãmp_ödex
  ] );
 
-484 
+758 
 	}
 }
 
-489 
+763 
 U8
  
 	gdbg_the_di•_upd©e
  = 0;
 
-490 
+764 
+U8
+ 
+	gdbg_upd©e
+ = 0;
+
+765 
 	$Upd©e
 ()
 
-492 if–
+767 
+U8
+ 
+dñay
+ = 5;
+
+769 if–
 	`HAL_IsUpd©eLed
 (Ë=
 TRUE
  )
 
-494 
+773 if–
+dñay
+ != 0 )
+
+775 
+dñay
+--;
+
+779 
+dñay
+ = 5;
+
+780 
 	`SëCommQueueFr⁄t
 –
 PKT_FRONT_REQ_LED
  );
 
-496 
+782 
 	`HAL_Upd©eLed
 ();
 
-497 
+783 
 dbg_the_di•_upd©e
 ++;
 
-499 
+786 
 	}
 }
 
-501 
+788 
 	$Pro˚ssDi•œy
 ()
 
-503 
+790 
 	`Upd©eDi•œyTimî
 ();
 
-506 if–
+793 if–
 Di•
 .
 Inô
@@ -10727,23 +12047,23 @@ Inô
 FALSE
  )
 
-508 
+795 
 	`Pro˚ssDi•œyBoŸ
 ();
 
-509 
+796 
 	`Upd©e
 ();
 
-514 
-	`Pro˚ssDi•œyN‹mÆMode
+801 
+	`Pro˚ssDi•œyN‹mÆMode_Levñ
 ();
 
-516 
+802 
 	`Upd©e
 ();
 
-517 
+803 
 	}
 }
 
@@ -12473,7 +13793,7 @@ RXD3
 
 74 
 	#UART_0_RX_TIME_STAMP
- 100
+ 10
 
 	)
 
@@ -12995,7 +14315,7 @@ U8
 u¨t_id
  )
 
-226 if–
+227 if–
 comm
 [ 
 u¨t_id
@@ -13003,19 +14323,37 @@ u¨t_id
 ªcv_Àn
  > 0 )
 
-228  
+229  
 FALSE
 ;
 
-231  
+232  
 TRUE
 ;
 
-233 
+234 if–
+comm
+[
+u¨t_id
+].
+hód
+ =comm[u¨t_id].
+èû
+)
+
+236  
+TRUE
+;
+
+239  
+FALSE
+;
+
+241 
 	}
 }
 
-235 
+243 
 I16
  
 	$HAL_GëMaxSídBuf„rLígth
@@ -13025,39 +14363,39 @@ U8
 u¨t_id
 )
 
-237 if–
+245 if–
 u¨t_id
  == 0 )
 
-239  
+247  
 MAX_UART_0_TX_BUF_SZ
 ;
 
-241 if–
+249 if–
 u¨t_id
  == 1 )
 
-243  
+251  
 MAX_UART_1_TX_BUF_SZ
 ;
 
-245 if–
+253 if–
 u¨t_id
  == 2 )
 
-247  
+255  
 MAX_UART_2_TX_BUF_SZ
 ;
 
-250  
+258  
 MAX_UART_3_TX_BUF_SZ
 ;
 
-251 
+259 
 	}
 }
 
-253 
+261 
 U8
  
 	$HAL_IsFuŒSídBuf„r
@@ -13067,7 +14405,7 @@ U8
 u¨t_id
  )
 
-255 if–
+263 if–
 comm
 [ 
 u¨t_id
@@ -13077,19 +14415,19 @@ u¨t_id
 	`HAL_GëMaxSídBuf„rLígth
 ( uart_id ) )
 
-257  
+265  
 TRUE
 ;
 
-260  
+268  
 FALSE
 ;
 
-261 
+269 
 	}
 }
 
-263 
+271 
 U8
  
 IsCom∂ëeTx
@@ -13097,7 +14435,7 @@ IsCom∂ëeTx
 u¨t_id
  );
 
-264 
+272 
 U8
  
 	$HAL_IsEm±ySídBuf„r
@@ -13107,17 +14445,17 @@ U8
 u¨t_id
  )
 
-266  
+274  
 	`IsCom∂ëeTx
 –
 u¨t_id
  );
 
-267 
+275 
 	}
 }
 
-269 
+277 
 	$HAL_InôRecvLígth
 (
 U8
@@ -13125,7 +14463,7 @@ U8
 u¨t_id
  )
 
-271 
+279 
 comm
 [ 
 u¨t_id
@@ -13133,11 +14471,11 @@ u¨t_id
 ªcv_Àn
  = 0;
 
-272 
+280 
 	}
 }
 
-274 
+282 
 I16
  
 	$HAL_GëRecvLígth
@@ -13147,7 +14485,7 @@ U8
 u¨t_id
  )
 
-276  
+284  
 comm
 [ 
 u¨t_id
@@ -13155,11 +14493,11 @@ u¨t_id
 ªcv_Àn
 ;
 
-277 
+285 
 	}
 }
 
-279 
+287 
 I16
  
 	$HAL_GëSídLígth
@@ -13169,7 +14507,7 @@ U8
 u¨t_id
  )
 
-281  
+289  
 comm
 [ 
 u¨t_id
@@ -13177,11 +14515,11 @@ u¨t_id
 £nd_Àn
 ;
 
-282 
+290 
 	}
 }
 
-285 
+293 
 	$HAL_SëRecvBuf„r
 (
 U8
@@ -13191,13 +14529,13 @@ u¨t_id
 _byã
  )
 
-288 
+296 
 comm_t
  *
 p_comm
 ;
 
-290 
+298 
 p_comm
  = &
 comm
@@ -13205,13 +14543,13 @@ comm
 u¨t_id
  ];
 
-291 if–
+299 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-293 
+301 
 ªcv_0_buf
 [ 
 p_comm
@@ -13221,13 +14559,13 @@ p_comm
 _byã
 ;
 
-295 if–
+303 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-297 
+305 
 ªcv_1_buf
 [ 
 p_comm
@@ -13237,13 +14575,13 @@ p_comm
 _byã
 ;
 
-299 if–
+307 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-301 
+309 
 ªcv_2_buf
 [ 
 p_comm
@@ -13253,7 +14591,7 @@ p_comm
 _byã
 ;
 
-305 
+313 
 ªcv_3_buf
 [ 
 p_comm
@@ -13263,25 +14601,25 @@ p_comm
 _byã
 ;
 
-307 
+315 
 p_comm
 ->
 ªcv_Àn
 ++;
 
-309 
+317 
 comm_t
  *
 p_comm
 ;
 
-310 
+318 
 I16
  
 buf_Àn
 ;
 
-312 
+320 
 p_comm
  = &
 comm
@@ -13289,13 +14627,13 @@ comm
 u¨t_id
  ];
 
-313 if–
+321 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-315 
+323 
 ªcv_0_buf
 [ 
 p_comm
@@ -13305,13 +14643,13 @@ hód
 _byã
 ;
 
-317 if–
+325 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-319 
+327 
 ªcv_1_buf
 [ 
 p_comm
@@ -13321,13 +14659,13 @@ hód
 _byã
 ;
 
-321 if–
+329 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-323 
+331 
 ªcv_2_buf
 [ 
 p_comm
@@ -13337,7 +14675,7 @@ hód
 _byã
 ;
 
-327 
+335 
 ªcv_3_buf
 [ 
 p_comm
@@ -13347,7 +14685,7 @@ hód
 _byã
 ;
 
-330 
+338 
 buf_Àn
  = 
 	`HAL_GëMaxSídBuf„rLígth
@@ -13355,7 +14693,7 @@ buf_Àn
 u¨t_id
  );
 
-331 
+339 
 p_comm
 ->
 hód
@@ -13363,11 +14701,11 @@ hód
 buf_Àn
 ;
 
-334 
+342 
 	}
 }
 
-336 
+344 
 U8
  
 	$HAL_GëRecvBuf„r
@@ -13377,67 +14715,67 @@ U8
 u¨t_id
  )
 
-339 if–
+347 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-341  
+349  
 ªcv_0_buf
 [ 
 ödex
  ];
 
-343 if–
+351 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-345  
+353  
 ªcv_1_buf
 [ 
 ödex
  ];
 
-347 if–
+355 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-349  
+357  
 ªcv_2_buf
 [ 
 ödex
  ];
 
-353  
+361  
 ªcv_3_buf
 [ 
 ödex
  ];
 
-357 
+365 
 comm_t
  *
 p_comm
 ;
 
-358 
+366 
 I16
  
 buf_Àn
 ;
 
-359 
+367 
 U8
  
 _byã
  = 0;
 
-361 
+369 
 p_comm
  = &
 comm
@@ -13445,13 +14783,13 @@ comm
 u¨t_id
  ];
 
-362 if–
+370 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-364 
+372 
 _byã
  = 
 ªcv_0_buf
@@ -13461,13 +14799,13 @@ p_comm
 èû
  ];
 
-366 if–
+374 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-368 
+376 
 _byã
  = 
 ªcv_1_buf
@@ -13477,13 +14815,13 @@ p_comm
 èû
  ];
 
-370 if–
+378 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-372 
+380 
 _byã
  = 
 ªcv_2_buf
@@ -13493,7 +14831,7 @@ p_comm
 èû
  ];
 
-376 
+384 
 _byã
  = 
 ªcv_3_buf
@@ -13503,7 +14841,7 @@ p_comm
 èû
  ];
 
-379 
+387 
 buf_Àn
  = 
 	`HAL_GëMaxSídBuf„rLígth
@@ -13511,7 +14849,7 @@ buf_Àn
 u¨t_id
  );
 
-380 
+388 
 p_comm
 ->
 èû
@@ -13519,15 +14857,15 @@ p_comm
 buf_Àn
 ;
 
-383  
+391  
 _byã
 ;
 
-385 
+393 
 	}
 }
 
-388 
+396 
 	$HAL_SëSídBuf„r
 –
 U8
@@ -13537,13 +14875,13 @@ u¨t_id
 _byã
  )
 
-390 
+398 
 comm_t
  *
 p_comm
 ;
 
-392 if–
+400 if–
 	`HAL_IsFuŒSídBuf„r
 –
 u¨t_id
@@ -13551,7 +14889,7 @@ u¨t_id
 FALSE
  )
 
-394 
+402 
 p_comm
  = &
 comm
@@ -13559,13 +14897,13 @@ comm
 u¨t_id
  ];
 
-395 if–
+403 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-397 
+405 
 £nd_0_buf
 [ 
 p_comm
@@ -13575,13 +14913,13 @@ p_comm
 _byã
 ;
 
-399 if–
+407 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-401 
+409 
 £nd_1_buf
 [ 
 p_comm
@@ -13591,13 +14929,13 @@ p_comm
 _byã
 ;
 
-403 if–
+411 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-405 
+413 
 £nd_2_buf
 [ 
 p_comm
@@ -13607,7 +14945,7 @@ p_comm
 _byã
 ;
 
-409 
+417 
 £nd_3_buf
 [ 
 p_comm
@@ -13617,17 +14955,17 @@ p_comm
 _byã
 ;
 
-411 
+419 
 p_comm
 ->
 £nd_Àn
 ++;
 
-413 
+421 
 	}
 }
 
-415 
+423 
 U8
  
 	$HAL_GëSídBuf„r
@@ -13641,53 +14979,53 @@ U16
 ödex
  )
 
-417 if–
+425 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-419  
+427  
 £nd_0_buf
 [
 ödex
 ];
 
-421 if–
+429 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-423  
+431  
 £nd_1_buf
 [
 ödex
 ];
 
-425 if–
+433 if–
 u¨t_id
  =
 UART_ID_2
 )
 
-427  
+435  
 £nd_2_buf
 [
 ödex
 ];
 
-431  
+439  
 £nd_3_buf
 [
 ödex
 ];
 
-433 
+441 
 	}
 }
 
-436 
+444 
 	$HAL_SídByã
 –
 U8
@@ -13695,19 +15033,19 @@ U8
 u¨t_id
  )
 
-438 
+446 
 U8
  
 ch
 ;
 
-439 
+447 
 comm_t
  *
 p_comm
 ;
 
-442 
+450 
 p_comm
  = &
 comm
@@ -13715,48 +15053,16 @@ comm
 u¨t_id
  ];
 
-443 if–
+451 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-445 
-ch
- = 
-£nd_0_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-447 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-449 
-ch
- = 
-£nd_1_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-451 if–
-u¨t_id
- =
-UART_ID_2
-)
-
 453 
 ch
  = 
-£nd_2_buf
+£nd_0_buf
 [
 p_comm
 ->
@@ -13766,10 +15072,42 @@ tx_Àn
 455 if–
 u¨t_id
  =
+UART_ID_1
+ )
+
+457 
+ch
+ = 
+£nd_1_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+459 if–
+u¨t_id
+ =
+UART_ID_2
+)
+
+461 
+ch
+ = 
+£nd_2_buf
+[
+p_comm
+->
+tx_Àn
+];
+
+463 if–
+u¨t_id
+ =
 UART_ID_3
 )
 
-457 
+465 
 ch
  = 
 £nd_3_buf
@@ -13779,81 +15117,81 @@ p_comm
 tx_Àn
 ];
 
-460 
+468 
 p_comm
 ->
 tx_Àn
 ++;
 
-462 if–
+470 if–
 u¨t_id
  =
 UART_ID_0
  )
 
-464 #i‡
+472 #i‡
 CONFIG_UART_0
 
 
-465 
+473 
 UART_0_TXD
  = 
 ch
 ;
 
-468 if–
+476 if–
 u¨t_id
  =
 UART_ID_1
  )
 
-470 #i‡
+478 #i‡
 CONFIG_UART_1
 
 
-471 
+479 
 UART_1_TXD
  = 
 ch
 ;
 
-474 if–
+482 if–
 u¨t_id
  =
 UART_ID_2
  )
 
-476 #i‡
+484 #i‡
 CONFIG_UART_2
 
 
-477 
+485 
 UART_2_TXD
  = 
 ch
 ;
 
-480 if–
+488 if–
 u¨t_id
  =
 UART_ID_3
  )
 
-482 #i‡
+490 #i‡
 CONFIG_UART_3
 
 
-483 
+491 
 UART_3_TXD
  = 
 ch
 ;
 
-486 
+494 
 	}
 }
 
-488 
+496 
 U8
  
 	$IsCom∂ëeTx
@@ -13863,7 +15201,7 @@ U8
 u¨t_id
  )
 
-490 if–
+498 if–
 comm
 [
 u¨t_id
@@ -13873,41 +15211,41 @@ tx_Àn
 £nd_Àn
  )
 
-492  
+500  
 FALSE
 ;
 
-495  
+503  
 TRUE
 ;
 
-497 
+505 
 	}
 }
 
-502 #i‡
+510 #i‡
 CONFIG_UART_0
 
 
-503 
+511 
 __öãºu±
  
 	$r_u¨t0_öãºu±_ª˚ive
 ()
 
-505 vﬁ©ûê
+513 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-506 vﬁ©ûê
+514 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-509 
+517 
 îr_ty≥
  = (
 uöt8_t
@@ -13915,7 +15253,7 @@ uöt8_t
 SSR01
  & 0x0007U);
 
-510 
+518 
 SIR01
  = (
 uöt16_t
@@ -13923,17 +15261,17 @@ uöt16_t
 îr_ty≥
 ;
 
-512 
+520 
 rx_d©a
  = 
 UART_0_RXD
 ;
 
-514 if–
+522 if–
 îr_ty≥
  == 0 )
 
-516 if–
+524 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_0
@@ -13941,7 +15279,7 @@ UART_ID_0
 FALSE
  )
 
-518 
+526 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_0
@@ -13949,13 +15287,13 @@ UART_ID_0
 rx_d©a
  );
 
-522 
+530 
 	`HAL_InôCommId
 –
 UART_ID_0
  );
 
-525 
+533 
 	`SèπTimî
 –
 TIMER_ID_UART_0_RX
@@ -13963,17 +15301,17 @@ TIMER_ID_UART_0_RX
 UART_0_RX_TIME_STAMP
  );
 
-527 
+535 
 	}
 }
 
-529 
+537 
 __öãºu±
  
 	$r_u¨t0_öãºu±_£nd
 ()
 
-531 if–
+539 if–
 	`IsCom∂ëeTx
 –
 UART_ID_0
@@ -13981,45 +15319,45 @@ UART_ID_0
 FALSE
  )
 
-533 
+541 
 	`HAL_SídByã
 –
 UART_ID_0
  );
 
-537 
+545 
 	`HAL_InôCommId
 –
 UART_ID_0
  );
 
-539 
+547 
 	}
 }
 
-543 #i‡
+551 #i‡
 CONFIG_UART_1
 
 
-544 
+552 
 __öãºu±
  
 	$r_u¨t1_öãºu±_ª˚ive
 ()
 
-546 vﬁ©ûê
+554 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-547 vﬁ©ûê
+555 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-549 
+557 
 îr_ty≥
  = (
 U8
@@ -14027,7 +15365,7 @@ U8
 SSR03
  & 0x0007U);
 
-550 
+558 
 SIR03
  = (
 U16
@@ -14035,17 +15373,17 @@ U16
 îr_ty≥
 ;
 
-552 
+560 
 rx_d©a
  = 
 UART_1_RXD
 ;
 
-554 if–
+562 if–
 îr_ty≥
  == 0 )
 
-556 if–
+564 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_1
@@ -14053,7 +15391,7 @@ UART_ID_1
 FALSE
  )
 
-558 
+566 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_1
@@ -14061,40 +15399,8 @@ UART_ID_1
 rx_d©a
  );
 
-562 
+570 
 	`HAL_InôCommId
-–
-UART_ID_1
- );
-
-566 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_RX
-, 
-UART_1_RX_TIME_STAMP
- );
-
-567 
-	}
-}
-
-569 
-__öãºu±
- 
-	$r_u¨t1_öãºu±_£nd
-()
-
-571 if–
-	`IsCom∂ëeTx
-–
-UART_ID_1
- ) =
-FALSE
- )
-
-573 
-	`HAL_SídByã
 –
 UART_ID_1
  );
@@ -14102,48 +15408,86 @@ UART_ID_1
 574 
 	`SèπTimî
 –
-TIMER_ID_UART_1_TX_DONE
-, 60 );
+TIMER_ID_UART_1_RX
+, 
+UART_1_RX_TIME_STAMP
+ );
 
-578 
+575 
+	}
+}
+
+577 
+__öãºu±
+ 
+	$r_u¨t1_öãºu±_£nd
+()
+
+579 if–
+	`IsCom∂ëeTx
+–
+UART_ID_1
+ ) =
+FALSE
+ )
+
+581 
+	`HAL_SídByã
+–
+UART_ID_1
+ );
+
+582 
+	`SèπTimî
+–
+TIMER_ID_UART_1_TX_DONE
+, 10 );
+
+586 
 	`HAL_InôCommId
 –
 UART_ID_1
  );
 
-580 
+588 
 	}
 }
 
-584 #i‡
+592 #i‡
 CONFIG_UART_2
 
 
-585 
+593 
 U16
  
-	gthe_rx_îr_cou¡
+	gi§_îr_1_˙t
  = 0;
 
-586 
+594 
+U16
+ 
+	gi§_îr_2_˙t
+ = 0;
+
+595 
 __öãºu±
  
 	$r_u¨t2_öãºu±_ª˚ive
 ()
 
-588 vﬁ©ûê
+597 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-589 vﬁ©ûê
+598 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-591 
+600 
 îr_ty≥
  = (
 uöt8_t
@@ -14151,7 +15495,7 @@ uöt8_t
 SSR11
  & 0x0007U);
 
-592 
+601 
 SIR11
  = (
 uöt16_t
@@ -14159,21 +15503,17 @@ uöt16_t
 îr_ty≥
 ;
 
-594 
+603 
 rx_d©a
  = 
 UART_2_RXD
 ;
 
-596 
-	`EI
-();
-
-597 if–
+606 if–
 îr_ty≥
  == 0 )
 
-599 if–
+608 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_2
@@ -14181,7 +15521,7 @@ UART_ID_2
 FALSE
  )
 
-601 
+610 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_2
@@ -14189,13 +15529,17 @@ UART_ID_2
 rx_d©a
  );
 
-605 
+614 
 	`HAL_InôCommId
 –
 UART_ID_2
  );
 
-608 
+615 
+i§_îr_1_˙t
+++;
+
+618 
 	`SèπTimî
 –
 TIMER_ID_UART_2_RX
@@ -14203,25 +15547,21 @@ TIMER_ID_UART_2_RX
 UART_2_RX_TIME_STAMP
  );
 
-612 
-the_rx_îr_cou¡
+622 
+i§_îr_2_˙t
 ++;
 
-614 
+624 
 	}
 }
 
-616 
+626 
 __öãºu±
  
 	$r_u¨t2_öãºu±_£nd
 ()
 
-618 
-	`EI
-();
-
-619 if–
+629 if–
 	`IsCom∂ëeTx
 –
 UART_ID_2
@@ -14229,57 +15569,57 @@ UART_ID_2
 FALSE
  )
 
-621 
+631 
 	`HAL_SídByã
 –
 UART_ID_2
  );
 
-622 
+632 
 	`SèπTimî
 –
 TIMER_ID_UART_2_TX_DONE
-, 60 );
+, 10 );
 
-626 
+636 
 	`HAL_InôCommId
 –
 UART_ID_2
  );
 
-629 
+639 
 	}
 }
 
-634 #i‡
+644 #i‡
 CONFIG_UART_3
 
 
-635 
+645 
 U16
  
 	gthe_i§_îr_cou¡
  = 0;
 
-636 
+646 
 __öãºu±
  
 	$r_u¨t3_öãºu±_ª˚ive
 ()
 
-638 vﬁ©ûê
+648 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-639 vﬁ©ûê
+649 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-641 
+651 
 îr_ty≥
  = (
 uöt8_t
@@ -14287,7 +15627,7 @@ uöt8_t
 SSR13
  & 0x0007U);
 
-642 
+652 
 SIR13
  = (
 uöt16_t
@@ -14295,17 +15635,17 @@ uöt16_t
 îr_ty≥
 ;
 
-644 
+654 
 rx_d©a
  = 
 UART_3_RXD
 ;
 
-646 if–
+656 if–
 îr_ty≥
  == 0 )
 
-648 if–
+658 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_3
@@ -14313,7 +15653,7 @@ UART_ID_3
 FALSE
  )
 
-650 
+660 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_3
@@ -14321,13 +15661,13 @@ UART_ID_3
 rx_d©a
  );
 
-654 
+664 
 	`HAL_InôCommId
 –
 UART_ID_3
  );
 
-657 
+667 
 	`SèπTimî
 –
 TIMER_ID_UART_3_RX
@@ -14335,21 +15675,21 @@ TIMER_ID_UART_3_RX
 UART_3_RX_TIME_STAMP
  );
 
-661 
+671 
 the_i§_îr_cou¡
 ++;
 
-663 
+673 
 	}
 }
 
-666 
+676 
 __öãºu±
  
 	$r_u¨t3_öãºu±_£nd
 ()
 
-668 if–
+678 if–
 	`IsCom∂ëeTx
 –
 UART_ID_3
@@ -14357,19 +15697,19 @@ UART_ID_3
 FALSE
  )
 
-670 
+680 
 	`HAL_SídByã
 –
 UART_ID_3
  );
 
-674 
+684 
 	`HAL_InôCommId
 –
 UART_ID_3
  );
 
-676 
+686 
 	}
 }
 
@@ -14532,2088 +15872,6 @@ U16
  );
 
 33 
-HAL_SídByã
-–
-U8
- 
-u¨t_id
- );
-
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.c
-
-1 
-	#CONFIG_UART_0
- 0
-
-	)
-
-2 
-	#CONFIG_UART_1
- 1
-
-	)
-
-3 
-	#CONFIG_UART_2
- 0
-
-	)
-
-4 
-	#CONFIG_UART_3
- 0
-
-	)
-
-6 #i‡
-CONFIG_UART_0
-
-
-7 #¥agm®
-öãºu±
- 
-INTST0
- 
-r_u¨t0_öãºu±_£nd
-
-
-8 #¥agm®
-öãºu±
- 
-INTSR0
- 
-r_u¨t0_öãºu±_ª˚ive
-
-
-11 #i‡
-CONFIG_UART_1
-
-
-12 #¥agm®
-öãºu±
- 
-INTST1
- 
-r_u¨t1_öãºu±_£nd
-
-
-13 #¥agm®
-öãºu±
- 
-INTSR1
- 
-r_u¨t1_öãºu±_ª˚ive
-
-
-16 #i‡
-CONFIG_UART_2
-
-
-17 #¥agm®
-öãºu±
- 
-INTST2
- 
-r_u¨t2_öãºu±_£nd
-
-
-18 #¥agm®
-öãºu±
- 
-INTSR2
- 
-r_u¨t2_öãºu±_ª˚ive
-
-
-21 #i‡
-CONFIG_UART_3
-
-
-22 #¥agm®
-öãºu±
- 
-INTST3
- 
-r_u¨t3_öãºu±_£nd
-
-
-23 #¥agm®
-öãºu±
- 
-INTSR3
- 
-r_u¨t3_öãºu±_ª˚ive
-
-
-27 
-	~"hw.h
-"
-
-28 
-	~"hÆ_£rül.h
-"
-
-29 
-	~"timî.h
-"
-
-30 
-	~<°rög.h
->
-
-33 #i‡
-CONFIG_UART_0
-
-
-34 
-	#UART_0_TXD
- 
-TXD0
-
-
-	)
-
-35 
-	#UART_0_RXD
- 
-RXD0
-
-
-	)
-
-38 #i‡
-CONFIG_UART_1
-
-
-39 
-	#UART_1_TXD
- 
-TXD1
-
-
-	)
-
-40 
-	#UART_1_RXD
- 
-RXD1
-
-
-	)
-
-43 #i‡
-CONFIG_UART_2
-
-
-44 
-	#UART_2_TXD
- 
-TXD2
-
-
-	)
-
-45 
-	#UART_2_RXD
- 
-RXD2
-
-
-	)
-
-48 #i‡
-CONFIG_UART_3
-
-
-49 
-	#UART_3_TXD
- 
-TXD3
-
-
-	)
-
-50 
-	#UART_3_RXD
- 
-RXD3
-
-
-	)
-
-54 
-	#MAX_UART_0_RX_BUF_SZ
- 30
-
-	)
-
-55 
-	#MAX_UART_0_TX_BUF_SZ
- 30
-
-	)
-
-57 
-	#MAX_UART_1_RX_BUF_SZ
- 128
-
-	)
-
-58 
-	#MAX_UART_1_TX_BUF_SZ
- 128
-
-	)
-
-60 
-	#MAX_UART_2_RX_BUF_SZ
- 128
-
-	)
-
-61 
-	#MAX_UART_2_TX_BUF_SZ
- 128
-
-	)
-
-63 
-	#MAX_UART_3_RX_BUF_SZ
- 255
-
-	)
-
-64 
-	#MAX_UART_3_TX_BUF_SZ
- 255
-
-	)
-
-70 
-	#UART_0_RX_TIME_STAMP
- 100
-
-	)
-
-71 
-	#UART_1_RX_TIME_STAMP
- 10
-
-	)
-
-72 
-	#UART_2_RX_TIME_STAMP
- 10
-
-	)
-
-73 
-	#UART_3_RX_TIME_STAMP
- 10
-
-	)
-
-76 #i‡
-CONFIG_UART_0
-
-
-77 
-U8
- 
-	gªcv_0_buf
-[ 
-MAX_UART_0_RX_BUF_SZ
- ];
-
-78 
-U8
- 
-	g£nd_0_buf
-[ 
-MAX_UART_0_TX_BUF_SZ
- ];
-
-80 
-U8
- 
-	gªcv_0_buf
-[ 1 ];
-
-81 
-U8
- 
-	g£nd_0_buf
-[ 1 ];
-
-84 #i‡
-CONFIG_UART_1
-
-
-85 
-U8
- 
-	gªcv_1_buf
-[ 
-MAX_UART_1_RX_BUF_SZ
- ];
-
-86 
-U8
- 
-	g£nd_1_buf
-[ 
-MAX_UART_1_TX_BUF_SZ
- ];
-
-88 
-U8
- 
-	gªcv_1_buf
-[ 1 ];
-
-89 
-U8
- 
-	g£nd_1_buf
-[ 1 ];
-
-92 #i‡
-CONFIG_UART_2
-
-
-93 
-U8
- 
-	gªcv_2_buf
-[ 
-MAX_UART_2_RX_BUF_SZ
- ];
-
-94 
-U8
- 
-	g£nd_2_buf
-[ 
-MAX_UART_2_TX_BUF_SZ
- ];
-
-96 
-U8
- 
-	gªcv_2_buf
-[ 1 ];
-
-97 
-U8
- 
-	g£nd_2_buf
-[ 1 ];
-
-100 #i‡
-CONFIG_UART_3
-
-
-101 
-U8
- 
-	gªcv_3_buf
-[ 
-MAX_UART_3_RX_BUF_SZ
- ];
-
-102 
-U8
- 
-	g£nd_3_buf
-[ 
-MAX_UART_3_TX_BUF_SZ
- ];
-
-104 
-U8
- 
-	gªcv_3_buf
-[ 1 ];
-
-105 
-U8
- 
-	g£nd_3_buf
-[ 1 ];
-
-108 
-	s_comm_
-
-
-110 
-I16
- 
-	mªcv_Àn
-;
-
-111 
-I16
- 
-	m£nd_Àn
-;
-
-112 
-I16
- 
-	mtx_Àn
-;
-
-113 } 
-	tcomm_t
-;
-
-115 
-comm_t
- 
-	gcomm
-[ 
-MAX_UART_ID
- ];
-
-119 
-	$HAL_InôCommId
-–
-U8
- 
-u¨t_id
- )
-
-121 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-123 #i‡
-CONFIG_UART_0
-
-
-124 
-	`MEMSET
-–(
-__FAR
- *)&
-ªcv_0_buf
-[0], 0, 
-MAX_UART_0_RX_BUF_SZ
- );
-
-125 
-	`MEMSET
-–(
-__FAR
- *)&
-£nd_0_buf
-[0], 0, 
-MAX_UART_0_TX_BUF_SZ
- );
-
-128 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-130 #i‡
-CONFIG_UART_1
-
-
-131 
-	`MEMSET
-–(
-__FAR
- *)&
-ªcv_1_buf
-[0], 0, 
-MAX_UART_1_RX_BUF_SZ
- );
-
-132 
-	`MEMSET
-–(
-__FAR
- *)&
-£nd_1_buf
-[0], 0, 
-MAX_UART_1_TX_BUF_SZ
- );
-
-135 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-137 #i‡
-CONFIG_UART_2
-
-
-138 
-	`MEMSET
-–(
-__FAR
- *)&
-ªcv_2_buf
-[0], 0, 
-MAX_UART_2_RX_BUF_SZ
- );
-
-139 
-	`MEMSET
-–(
-__FAR
- *)&
-£nd_2_buf
-[0], 0, 
-MAX_UART_2_TX_BUF_SZ
- );
-
-142 if–
-u¨t_id
- =
-UART_ID_3
-)
-
-144 #i‡
-CONFIG_UART_3
-
-
-145 
-	`MEMSET
-–(
-__FAR
- *)&
-ªcv_3_buf
-[0], 0, 
-MAX_UART_3_RX_BUF_SZ
- );
-
-146 
-	`MEMSET
-–(
-__FAR
- *)&
-£nd_3_buf
-[0], 0, 
-MAX_UART_3_TX_BUF_SZ
- );
-
-150 
-	`MEMSET
-–(
-__FAR
- *)&
-comm
-[ 
-u¨t_id
- ], 0, –
-comm_t
- ) );
-
-151 
-	}
-}
-
-153 
-	$HAL_InôComm
-( )
-
-155 #i‡
-CONFIG_UART_0
-
-
-156 
-	`HAL_InôCommId
-–
-UART_ID_0
- );
-
-157 
-	`R_UART0_Sèπ
-();
-
-160 #i‡
-CONFIG_UART_1
-
-
-161 
-	`HAL_InôCommId
-–
-UART_ID_1
- );
-
-162 
-	`R_UART1_Sèπ
-();
-
-165 #i‡
-CONFIG_UART_2
-
-
-166 
-	`HAL_InôCommId
-–
-UART_ID_2
- );
-
-167 
-	`R_UART2_Sèπ
-();
-
-170 #i‡
-CONFIG_UART_3
-
-
-171 
-	`HAL_InôCommId
-–
-UART_ID_3
- );
-
-172 
-	`R_UART3_Sèπ
-();
-
-175 
-	}
-}
-
-177 
-I16
- 
-	$HAL_GëMaxRecvBuf„rLígth
-(
-U8
- 
-u¨t_id
-)
-
-179 if–
-u¨t_id
- == 0 )
-
-181  
-MAX_UART_0_RX_BUF_SZ
-;
-
-183 if–
-u¨t_id
- == 1 )
-
-185  
-MAX_UART_1_RX_BUF_SZ
-;
-
-187 if–
-u¨t_id
- == 2 )
-
-189  
-MAX_UART_2_RX_BUF_SZ
-;
-
-192  
-MAX_UART_3_RX_BUF_SZ
-;
-
-193 
-	}
-}
-
-195 
-U8
- 
-	$HAL_IsFuŒRecvBuf„r
-–
-U8
- 
-u¨t_id
- )
-
-197 if–
-comm
-[ 
-u¨t_id
- ].
-ªcv_Àn
- >
-	`HAL_GëMaxRecvBuf„rLígth
-( uart_id ) )
-
-199  
-TRUE
-;
-
-202  
-FALSE
-;
-
-203 
-	}
-}
-
-205 
-U8
- 
-	$HAL_IsEm±yRecvBuf„r
-–
-U8
- 
-u¨t_id
- )
-
-207 if–
-comm
-[ 
-u¨t_id
- ].
-ªcv_Àn
- > 0 )
-
-209  
-FALSE
-;
-
-212  
-TRUE
-;
-
-214 
-	}
-}
-
-216 
-I16
- 
-	$HAL_GëMaxSídBuf„rLígth
-(
-U8
- 
-u¨t_id
-)
-
-218 if–
-u¨t_id
- == 0 )
-
-220  
-MAX_UART_0_TX_BUF_SZ
-;
-
-222 if–
-u¨t_id
- == 1 )
-
-224  
-MAX_UART_1_TX_BUF_SZ
-;
-
-226 if–
-u¨t_id
- == 2 )
-
-228  
-MAX_UART_2_TX_BUF_SZ
-;
-
-231  
-MAX_UART_3_TX_BUF_SZ
-;
-
-232 
-	}
-}
-
-234 
-U8
- 
-	$HAL_IsFuŒSídBuf„r
-–
-U8
- 
-u¨t_id
- )
-
-236 if–
-comm
-[ 
-u¨t_id
- ].
-£nd_Àn
- >
-	`HAL_GëMaxSídBuf„rLígth
-( uart_id ) )
-
-238  
-TRUE
-;
-
-241  
-FALSE
-;
-
-242 
-	}
-}
-
-244 
-U8
- 
-IsCom∂ëeTx
-–U8 
-u¨t_id
- );
-
-245 
-U8
- 
-	$HAL_IsEm±ySídBuf„r
-–
-U8
- 
-u¨t_id
- )
-
-247  
-	`IsCom∂ëeTx
-–
-u¨t_id
- );
-
-248 
-	}
-}
-
-250 
-	$HAL_InôRecvLígth
-(
-U8
- 
-u¨t_id
- )
-
-252 
-comm
-[ 
-u¨t_id
- ].
-ªcv_Àn
- = 0;
-
-253 
-	}
-}
-
-255 
-I16
- 
-	$HAL_GëRecvLígth
-–
-U8
- 
-u¨t_id
- )
-
-257  
-comm
-[ 
-u¨t_id
- ].
-ªcv_Àn
-;
-
-258 
-	}
-}
-
-260 
-I16
- 
-	$HAL_GëSídLígth
-–
-U8
- 
-u¨t_id
- )
-
-262  
-comm
-[ 
-u¨t_id
-].
-£nd_Àn
-;
-
-263 
-	}
-}
-
-266 
-	$HAL_SëRecvBuf„r
-(
-U8
- 
-u¨t_id
-, U8 
-_byã
- )
-
-268 
-comm_t
- *
-p_comm
-;
-
-270 
-p_comm
- = &
-comm
-[ 
-u¨t_id
- ];
-
-271 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-273 
-ªcv_0_buf
-[ 
-p_comm
-->
-ªcv_Àn
- ] = 
-_byã
-;
-
-275 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-277 
-ªcv_1_buf
-[ 
-p_comm
-->
-ªcv_Àn
- ] = 
-_byã
-;
-
-279 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-281 
-ªcv_2_buf
-[ 
-p_comm
-->
-ªcv_Àn
- ] = 
-_byã
-;
-
-285 
-ªcv_3_buf
-[ 
-p_comm
-->
-ªcv_Àn
- ] = 
-_byã
-;
-
-287 
-p_comm
-->
-ªcv_Àn
-++;
-
-289 
-	}
-}
-
-291 
-U8
- 
-	$HAL_GëRecvBuf„r
-–
-U8
- 
-u¨t_id
-, 
-U16
- 
-ödex
- )
-
-293 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-295  
-ªcv_0_buf
-[ 
-ödex
- ];
-
-297 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-299  
-ªcv_1_buf
-[ 
-ödex
- ];
-
-301 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-303  
-ªcv_2_buf
-[ 
-ödex
- ];
-
-307  
-ªcv_3_buf
-[ 
-ödex
- ];
-
-309 
-	}
-}
-
-312 
-	$HAL_SëSídBuf„r
-–
-U8
- 
-u¨t_id
-, U8 
-_byã
- )
-
-314 
-comm_t
- *
-p_comm
-;
-
-316 if–
-	`HAL_IsFuŒSídBuf„r
-–
-u¨t_id
- ) =
-FALSE
- )
-
-318 
-p_comm
- = &
-comm
-[ 
-u¨t_id
- ];
-
-319 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-321 
-£nd_0_buf
-[ 
-p_comm
-->
-£nd_Àn
- ] = 
-_byã
-;
-
-323 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-325 
-£nd_1_buf
-[ 
-p_comm
-->
-£nd_Àn
- ] = 
-_byã
-;
-
-327 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-329 
-£nd_2_buf
-[ 
-p_comm
-->
-£nd_Àn
- ] = 
-_byã
-;
-
-333 
-£nd_3_buf
-[ 
-p_comm
-->
-£nd_Àn
- ] = 
-_byã
-;
-
-335 
-p_comm
-->
-£nd_Àn
-++;
-
-337 
-	}
-}
-
-339 
-U8
- 
-	$HAL_GëSídBuf„r
-–
-U8
- 
-u¨t_id
-, 
-U16
- 
-ödex
- )
-
-341 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-343  
-£nd_0_buf
-[
-ödex
-];
-
-345 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-347  
-£nd_1_buf
-[
-ödex
-];
-
-349 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-351  
-£nd_2_buf
-[
-ödex
-];
-
-355  
-£nd_3_buf
-[
-ödex
-];
-
-357 
-	}
-}
-
-360 
-	$HAL_SídByã
-–
-U8
- 
-u¨t_id
- )
-
-362 
-U8
- 
-ch
-;
-
-363 
-comm_t
- *
-p_comm
-;
-
-366 
-p_comm
- = &
-comm
-[ 
-u¨t_id
- ];
-
-367 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-369 
-ch
- = 
-£nd_0_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-371 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-373 
-ch
- = 
-£nd_1_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-375 if–
-u¨t_id
- =
-UART_ID_2
-)
-
-377 
-ch
- = 
-£nd_2_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-379 if–
-u¨t_id
- =
-UART_ID_3
-)
-
-381 
-ch
- = 
-£nd_3_buf
-[
-p_comm
-->
-tx_Àn
-];
-
-384 
-p_comm
-->
-tx_Àn
-++;
-
-386 if–
-u¨t_id
- =
-UART_ID_0
- )
-
-388 #i‡
-CONFIG_UART_0
-
-
-389 
-UART_0_TXD
- = 
-ch
-;
-
-392 if–
-u¨t_id
- =
-UART_ID_1
- )
-
-394 #i‡
-CONFIG_UART_1
-
-
-395 
-UART_1_TXD
- = 
-ch
-;
-
-398 if–
-u¨t_id
- =
-UART_ID_2
- )
-
-400 #i‡
-CONFIG_UART_2
-
-
-401 
-UART_2_TXD
- = 
-ch
-;
-
-404 if–
-u¨t_id
- =
-UART_ID_3
- )
-
-406 #i‡
-CONFIG_UART_3
-
-
-407 
-UART_3_TXD
- = 
-ch
-;
-
-410 
-	}
-}
-
-412 
-U8
- 
-	$IsCom∂ëeTx
-–
-U8
- 
-u¨t_id
- )
-
-414 if–
-comm
-[
-u¨t_id
-].
-tx_Àn
- < comm[ u¨t_id ].
-£nd_Àn
- )
-
-416  
-FALSE
-;
-
-419  
-TRUE
-;
-
-421 
-	}
-}
-
-426 #i‡
-CONFIG_UART_0
-
-
-427 
-__öãºu±
- 
-	$r_u¨t0_öãºu±_ª˚ive
-()
-
-429 vﬁ©ûê
-U8
- 
-îr_ty≥
-;
-
-430 vﬁ©ûê
-U8
- 
-rx_d©a
-;
-
-433 
-îr_ty≥
- = (
-uöt8_t
-)(
-SSR01
- & 0x0007U);
-
-434 
-SIR01
- = (
-uöt16_t
-)
-îr_ty≥
-;
-
-436 
-rx_d©a
- = 
-UART_0_RXD
-;
-
-438 if–
-îr_ty≥
- == 0 )
-
-440 if–
-	`HAL_IsFuŒRecvBuf„r
-–
-UART_ID_0
- ) =
-FALSE
- )
-
-442 
-	`HAL_SëRecvBuf„r
-–
-UART_ID_0
-, 
-rx_d©a
- );
-
-446 
-	`HAL_InôCommId
-–
-UART_ID_0
- );
-
-449 
-	`SèπTimî
-–
-TIMER_ID_UART_0_RX
-, 
-UART_0_RX_TIME_STAMP
- );
-
-451 
-	}
-}
-
-453 
-__öãºu±
- 
-	$r_u¨t0_öãºu±_£nd
-()
-
-455 if–
-	`IsCom∂ëeTx
-–
-UART_ID_0
- ) =
-FALSE
- )
-
-457 
-	`HAL_SídByã
-–
-UART_ID_0
- );
-
-461 
-	`HAL_InôCommId
-–
-UART_ID_0
- );
-
-463 
-	}
-}
-
-467 #i‡
-CONFIG_UART_1
-
-
-468 
-__öãºu±
- 
-	$r_u¨t1_öãºu±_ª˚ive
-()
-
-470 vﬁ©ûê
-U8
- 
-rx_d©a
-;
-
-471 vﬁ©ûê
-U8
- 
-îr_ty≥
-;
-
-473 
-îr_ty≥
- = (
-U8
-)(
-SSR03
- & 0x0007U);
-
-474 
-SIR03
- = (
-U16
-)
-îr_ty≥
-;
-
-476 
-rx_d©a
- = 
-UART_1_RXD
-;
-
-478 if–
-îr_ty≥
- == 0 )
-
-480 if–
-	`HAL_IsFuŒRecvBuf„r
-–
-UART_ID_1
- ) =
-FALSE
- )
-
-482 
-	`HAL_SëRecvBuf„r
-–
-UART_ID_1
-, 
-rx_d©a
- );
-
-486 
-	`HAL_InôCommId
-–
-UART_ID_1
- );
-
-490 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_RX
-, 
-UART_1_RX_TIME_STAMP
- );
-
-491 
-	}
-}
-
-493 
-__öãºu±
- 
-	$r_u¨t1_öãºu±_£nd
-()
-
-495 if–
-	`IsCom∂ëeTx
-–
-UART_ID_1
- ) =
-FALSE
- )
-
-497 
-	`HAL_SídByã
-–
-UART_ID_1
- );
-
-498 
-	`SèπTimî
-–
-TIMER_ID_UART_1_TX_DONE
-, 60 );
-
-502 
-	`HAL_InôCommId
-–
-UART_ID_1
- );
-
-504 
-	}
-}
-
-508 #i‡
-CONFIG_UART_2
-
-
-509 
-U16
- 
-	gthe_rx_îr_cou¡
- = 0;
-
-510 
-__öãºu±
- 
-	$r_u¨t2_öãºu±_ª˚ive
-()
-
-512 vﬁ©ûê
-U8
- 
-îr_ty≥
-;
-
-513 vﬁ©ûê
-U8
- 
-rx_d©a
-;
-
-515 
-îr_ty≥
- = (
-uöt8_t
-)(
-SSR11
- & 0x0007U);
-
-516 
-SIR11
- = (
-uöt16_t
-)
-îr_ty≥
-;
-
-518 
-rx_d©a
- = 
-UART_2_RXD
-;
-
-520 
-	`EI
-();
-
-521 if–
-îr_ty≥
- == 0 )
-
-523 if–
-	`HAL_IsFuŒRecvBuf„r
-–
-UART_ID_2
- ) =
-FALSE
- )
-
-525 
-	`HAL_SëRecvBuf„r
-–
-UART_ID_2
-, 
-rx_d©a
- );
-
-529 
-	`HAL_InôCommId
-–
-UART_ID_2
- );
-
-532 
-	`SèπTimî
-–
-TIMER_ID_UART_2_RX
-, 
-UART_2_RX_TIME_STAMP
- );
-
-536 
-the_rx_îr_cou¡
-++;
-
-538 
-	}
-}
-
-540 
-__öãºu±
- 
-	$r_u¨t2_öãºu±_£nd
-()
-
-542 
-	`EI
-();
-
-543 if–
-	`IsCom∂ëeTx
-–
-UART_ID_2
- ) =
-FALSE
- )
-
-545 
-	`HAL_SídByã
-–
-UART_ID_2
- );
-
-546 
-	`SèπTimî
-–
-TIMER_ID_UART_2_TX_DONE
-, 60 );
-
-550 
-	`HAL_InôCommId
-–
-UART_ID_2
- );
-
-553 
-	}
-}
-
-558 #i‡
-CONFIG_UART_3
-
-
-559 
-U16
- 
-	gthe_i§_îr_cou¡
- = 0;
-
-560 
-__öãºu±
- 
-	$r_u¨t3_öãºu±_ª˚ive
-()
-
-562 vﬁ©ûê
-U8
- 
-îr_ty≥
-;
-
-563 vﬁ©ûê
-U8
- 
-rx_d©a
-;
-
-565 
-îr_ty≥
- = (
-uöt8_t
-)(
-SSR13
- & 0x0007U);
-
-566 
-SIR13
- = (
-uöt16_t
-)
-îr_ty≥
-;
-
-568 
-rx_d©a
- = 
-UART_3_RXD
-;
-
-570 if–
-îr_ty≥
- == 0 )
-
-572 if–
-	`HAL_IsFuŒRecvBuf„r
-–
-UART_ID_3
- ) =
-FALSE
- )
-
-574 
-	`HAL_SëRecvBuf„r
-–
-UART_ID_3
-, 
-rx_d©a
- );
-
-578 
-	`HAL_InôCommId
-–
-UART_ID_3
- );
-
-581 
-	`SèπTimî
-–
-TIMER_ID_UART_3_RX
-, 
-UART_3_RX_TIME_STAMP
- );
-
-585 
-the_i§_îr_cou¡
-++;
-
-587 
-	}
-}
-
-590 
-__öãºu±
- 
-	$r_u¨t3_öãºu±_£nd
-()
-
-592 if–
-	`IsCom∂ëeTx
-–
-UART_ID_3
- ) =
-FALSE
- )
-
-594 
-	`HAL_SídByã
-–
-UART_ID_3
- );
-
-598 
-	`HAL_InôCommId
-–
-UART_ID_3
- );
-
-600 
-	}
-}
-
-	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.h
-
-1 #i‚de‡
-__HAL_SERIAL_H__
-
-
-2 
-	#__HAL_SERIAL_H__
-
-
-	)
-
-4 
-	~"¥j_ty≥.h
-"
-
-7 
-	#UART_ID_0
- 0
-
-	)
-
-8 
-	#UART_ID_1
- 1
-
-	)
-
-9 
-	#UART_ID_2
- 2
-
-	)
-
-10 
-	#UART_ID_3
- 3
-
-	)
-
-11 
-	#MAX_UART_ID
- 4
-
-	)
-
-14 
-HAL_InôCommId
-–
-U8
- 
-u¨t_id
- );
-
-15 
-HAL_InôComm
-( );
-
-17 
-U8
- 
-HAL_IsFuŒRecvBuf„r
-–U8 
-u¨t_id
- );
-
-18 
-U8
- 
-HAL_IsEm±yRecvBuf„r
-–U8 
-u¨t_id
- );
-
-19 
-U8
- 
-HAL_IsFuŒSídBuf„r
-–U8 
-u¨t_id
- );
-
-20 
-U8
- 
-HAL_IsEm±ySídBuf„r
-–U8 
-u¨t_id
- );
-
-22 
-HAL_InôRecvLígth
-(
-U8
- 
-u¨t_id
- );
-
-23 
-I16
- 
-HAL_GëRecvLígth
-–
-U8
- 
-u¨t_id
- );
-
-24 
-I16
- 
-HAL_GëSídLígth
-–
-U8
- 
-u¨t_id
- );
-
-26 
-HAL_SëRecvBuf„r
-(
-U8
- 
-u¨t_id
-, U8 
-_byã
- );
-
-27 
-U8
- 
-HAL_GëRecvBuf„r
-–U8 
-u¨t_id
-, 
-U16
- 
-ödex
- );
-
-29 
-HAL_SëSídBuf„r
-–
-U8
- 
-u¨t_id
-, U8 
-_byã
- );
-
-30 
-U8
- 
-HAL_GëSídBuf„r
-–U8 
-u¨t_id
-, 
-U16
- 
-ödex
- );
-
-32 
 HAL_SídByã
 –
 U8
@@ -18914,84 +18172,70 @@ TIMER_ID_1SEC
 21 
 	`SèπTimî
 –
-TIMER_ID_FRONT
-, 20 );
+TIMER_ID_QUEUE_RETRY_WAIT
+, 1);
 
 22 
 	`SèπTimî
 –
-TIMER_ID_COMM_FRONT_RX_ERR
-, 
-	`SEC
-(10) );
+TIMER_ID_UART_2_TX_DONE
+, 1);
 
 23 
-	`SèπTimî
-–
-TIMER_ID_COMM_WAIT_1
-, 1);
-
-24 
-	`SèπTimî
-–
-TIMER_ID_COMM_FRONT_TX_DONE
-, 1);
-
-25 
 	}
 }
 
-28 
+26 
 	$maö
 ( )
 
-30 
+28 
 	`Dñay_MS
 ( 500 );
 
-32 
+30 
 	`R_WDT_Re°¨t
 ();
 
-34 
+32 
 	`InôSy°em
 ();
 
-35 
+33 
 	`InôSèπTimîs
 ();
 
-36 
+34 
 	`EI
 ();
 
-39 
+37 
 	`R_WDT_Re°¨t
 ();
 
-42 
+40 
 	`Sound
 –
 SOUND_POWER_ON
  );
 
-45 
+43 
 	`R_WDT_Re°¨t
 ();
 
-47 
+45 
 	`Pro˚ssEvítH™dÀr
 ();
 
-50 
+48 
 	`RecvPackëH™dÀr
 ();
 
-51 
+49 
 	`SídPackëH™dÀr
 ();
 
-53 
+51 
 	}
 }
 
@@ -19401,17 +18645,13 @@ pFun_EOL
 	`Evt_1£c_H™dÀr
 ( );
 
-30 
-	`Evt_Fr⁄t_H™dÀr
-( );
-
-34 c⁄° 
+33 c⁄° 
 SysEvít_T
  
 SysEvítLi°
 [] =
 
-37 { 
+36 { 
 TIMER_ID_1MS
 , 
 Evt_1ms_H™dÀr
@@ -19419,7 +18659,7 @@ Evt_1ms_H™dÀr
 NULL
 , NULL },
 
-38 { 
+37 { 
 TIMER_ID_10MS
 , 
 Evt_10ms_H™dÀr
@@ -19427,7 +18667,7 @@ Evt_10ms_H™dÀr
 NULL
 , NULL },
 
-39 { 
+38 { 
 TIMER_ID_100MS
 , 
 Evt_100ms_H™dÀr
@@ -19435,7 +18675,7 @@ Evt_100ms_H™dÀr
 NULL
 , NULL },
 
-40 { 
+39 { 
 TIMER_ID_1SEC
 , 
 Evt_1£c_H™dÀr
@@ -19443,19 +18683,11 @@ Evt_1£c_H™dÀr
 NULL
 , NULL },
 
-41 { 
-TIMER_ID_FRONT
-, 
-Evt_Fr⁄t_H™dÀr
-, 
-NULL
-, NULL },
-
-42 
+40 
 	}
 };
 
-43 
+41 
 	#SZ_LIST
  ( –
 SysEvítLi°
@@ -19465,29 +18697,29 @@ SysEvít_T
 
 	)
 
-45 
+43 
 	$Pro˚ssEvítH™dÀr
 ( )
 
-47 
+45 
 U8
  
 i
 ;
 
-48 
+46 
 A˘i⁄_T
  
 fun
 ;
 
-50  
+48  
 i
  = 0; i < 
 SZ_LIST
  ; i++ )
 
-52 if–
+50 if–
 	`IsExpúedTimî
 –
 SysEvítLi°
@@ -19499,7 +18731,7 @@ timîId
 TIMER_EXPIRE
  )
 
-55 
+53 
 	`DißbÀTimî
 –
 SysEvítLi°
@@ -19509,7 +18741,7 @@ i
 timîId
  );
 
-58 
+56 
 fun
  = 
 SysEvítLi°
@@ -19519,71 +18751,71 @@ i
 pFun
 ;
 
-61 if–
+59 if–
 fun
  !
 NULL
  )
 
-63 
+61 
 	`fun
 ();
 
-67 
+65 
 	}
 }
 
-69 
+67 
 	$Evt_1ms_H™dÀr
 ( )
 
-71 
+69 
 	`SèπTimî
 –
 TIMER_ID_1MS
 , 1);
 
-74 
+72 
 	}
 }
 
-77 
+75 
 	$Evt_10ms_H™dÀr
 ( )
 
-79 
+77 
 	`SèπTimî
 –
 TIMER_ID_10MS
 , 10);
 
-80 
+78 
 	`Pro˚ssDi•œy
 ();
 
-81 
+79 
 	}
 }
 
-84 
+82 
 	$Evt_100ms_H™dÀr
 ()
 
-86 
+84 
 	`SèπTimî
 –
 TIMER_ID_100MS
 , 100);
 
-89 
+87 
 	}
 }
 
-92 
+90 
 	$Evt_1£c_H™dÀr
 ( )
 
-94 
+92 
 	`SèπTimî
 –
 TIMER_ID_1SEC
@@ -19591,71 +18823,53 @@ TIMER_ID_1SEC
 	`SEC
 (1) );
 
-95 
+93 
 	}
 }
 
-100 
-	#FRONT_REFRESH_TIME
- 50
-
-101 
-	`Evt_Fr⁄t_H™dÀr
-–)
-
-	)
-
-103 
-SèπTimî
-–
-TIMER_ID_FRONT
-, 
-FRONT_REFRESH_TIME
- );
-
-116 
+97 
 	$TimîI§CÆlback
 ()
 
-118 
+99 
 	`BuzC⁄åﬁ
 ();
 
-119 
+100 
 	}
 }
 
-121 
+102 
 	$InôSy°em
 ()
 
-124 
+105 
 	`HAL_InôComm
 ();
 
-125 
+106 
 	`InôBuzzî
 ();
 
-127 
+108 
 	`HAL_InôLed
 ();
 
-128 
+109 
 	`InôDi•œy
 ();
 
-130 
+111 
 	`InôCommQueue
 ();
 
-132 
+113 
 	`Regi°îTimîISR
 –
 TimîI§CÆlback
  );
 
-133 
+114 
 	}
 }
 
@@ -19855,7 +19069,53 @@ mUqueueNum
 	}
 }
 
-52 
+53 
+	$EnQueueFr⁄t
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+)
+
+56 i‡(
+	`IsQueueFuŒ
+(
+xStQueue
+Ë=
+TRUE
+ )
+
+62 
+xStQueue
+->
+mU‰⁄t
+ = (xStQueue->mU‰⁄à=0Ë? xStQueue->
+mUqueueNum
+ - 1 : xStQueue->mUfront - 1;
+
+65 
+	`mem˝y
+((
+U8
+ *)
+xStQueue
+->
+mUd©a
+ + (xStQueue->
+mU‰⁄t
+ * xStQueue->
+mUd©aSize
+), 
+xUd©a
+, xStQueue->mUdataSize);
+
+66 
+	}
+}
+
+69 
 U8
  
 	$DeQueue
@@ -19867,7 +19127,7 @@ xStQueue
 xU±rD©a
 )
 
-54 if–
+71 if–
 	`IsQueueEm±y
 (
 xStQueue
@@ -19875,11 +19135,11 @@ xStQueue
 TRUE
  )
 
-56  
+73  
 FALSE
 ;
 
-59 
+76 
 	`MEMCPY
 (
 xU±rD©a
@@ -19895,7 +19155,7 @@ mU‰⁄t
 mUd©aSize
 ), xStQueue->mUdataSize);
 
-60 
+77 
 xStQueue
 ->
 mU‰⁄t
@@ -19903,15 +19163,15 @@ mU‰⁄t
 mUqueueNum
 ;
 
-62  
+79  
 TRUE
 ;
 
-63 
+80 
 	}
 }
 
-65 
+82 
 U8
  
 	$PìkQueue
@@ -19923,7 +19183,7 @@ xStQueue
 xU±rD©a
 )
 
-67 if–
+84 if–
 	`IsQueueEm±y
 (
 xStQueue
@@ -19931,11 +19191,11 @@ xStQueue
 TRUE
  )
 
-69  
+86  
 FALSE
 ;
 
-72 
+89 
 	`MEMCPY
 (
 xU±rD©a
@@ -19953,11 +19213,11 @@ mUqueueNum
 mUd©aSize
 ), xStQueue->mUdataSize);
 
-74  
+91  
 TRUE
 ;
 
-75 
+92 
 	}
 }
 
@@ -20059,7 +19319,17 @@ xStQueue
 xUd©a
 );
 
-28 
+28 
+EnQueueFr⁄t
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+);
+
+29 
 U8
  
 DeQueue
@@ -20071,7 +19341,7 @@ xStQueue
 xU±rD©a
 );
 
-29 
+30 
 U8
  
 PìkQueue
@@ -26029,139 +25299,71 @@ __TIMER_ID_H__
 
 	)
 
-7 
-	mTIMER_ID_COMM_EOL_RX
-,
-
 8 
-	mTIMER_ID_COMM_EOL_TX
-,
-
-10 
-	mTIMER_ID_COMM_DEBUG_RX
-,
-
-11 
-	mTIMER_ID_COMM_DEBUG_TX
-,
-
-13 
-	mTIMER_ID_COMM_FRONT_RX
-,
-
-14 
-	mTIMER_ID_COMM_FRONT_TX
-,
-
-15 
-	mTIMER_ID_COMM_FRONT_RX_ERR
-,
-
-16 
-	mTIMER_ID_COMM_FRONT_TX_DONE
-,
-
-18 
-	mTIMER_ID_COMM_TOF_RX
-,
-
-19 
-	mTIMER_ID_COMM_TOF_TX
-,
-
-20 
-	mTIMER_ID_COMM_TOF_RX_ERR
-,
-
-22 
 	mTIMER_ID_UART_0_TX_DONE
 ,
 
-23 
-	mTIMER_ID_UART_1_TX_DONE
-,
-
-24 
-	mTIMER_ID_UART_2_TX_DONE
-,
-
-25 
-	mTIMER_ID_UART_3_TX_DONE
-,
-
-26 
+9 
 	mTIMER_ID_UART_0_RX
 ,
 
-27 
+11 
+	mTIMER_ID_UART_1_TX_DONE
+,
+
+12 
 	mTIMER_ID_UART_1_RX
 ,
 
-28 
+14 
+	mTIMER_ID_UART_2_TX_DONE
+,
+
+15 
 	mTIMER_ID_UART_2_RX
 ,
 
-29 
+17 
+	mTIMER_ID_UART_3_TX_DONE
+,
+
+18 
 	mTIMER_ID_UART_3_RX
 ,
 
-30 
-	mTIMER_ID_COMM_WAIT_1
+21 
+	mTIMER_ID_COMM_FRONT_TX
 ,
 
-31 
-	mTIMER_ID_COMM_WAIT_2
+24 
+	mTIMER_ID_QUEUE_RETRY_WAIT
 ,
 
-32 
-	mTIMER_ID_COMM_WAIT_3
-,
-
-33 
-	mTIMER_ID_COMM_WAIT_4
-,
-
-35 
-	mTIMER_ID_COMM_TX_COMPLETE_1
-,
-
-37 
+27 
 	mTIMER_ID_1MS
 ,
 
-38 
+28 
 	mTIMER_ID_10MS
 ,
 
-39 
+29 
 	mTIMER_ID_100MS
 ,
 
-40 
+30 
 	mTIMER_ID_1SEC
 ,
 
-41 
+31 
 	mTIMER_ID_40SEC
 ,
 
-42 
+32 
 	mTIMER_ID_1MIN
 ,
 
-43 
-	mTIMER_ID_DEBUG
-,
-
-44 
-	mTIMER_ID_FRONT
-,
-
-45 
-	mTIMER_ID_TOF
-,
-
-48 
+35 
 	mMAX_TIMER_ID_NUM
 
 
@@ -26749,15 +25951,17 @@ vÆ
 
 	)
 
-39 
+40 
 I16
  
 GëMö
 –I16 
 x
-, I16 );
+, I16 
+y
+ );
 
-40 
+41 
 I16
  
 GëMax
@@ -26767,7 +25971,7 @@ x
 y
  );
 
-42 
+43 
 U8
  
 Hex2Dec
@@ -26775,7 +25979,7 @@ Hex2Dec
 mu8Hex
 );
 
-43 
+44 
 U8
  
 Dec2Hex
@@ -26783,7 +25987,7 @@ Dec2Hex
 mu8Dec
 );
 
-45 
+46 
 U8
  
 C⁄vAsc2Byã
@@ -26793,7 +25997,7 @@ mu8Uµî
 mu8Lowî
  );
 
-46 
+47 
 U16
  
 ByãOrdîC⁄v
@@ -26801,7 +26005,7 @@ ByãOrdîC⁄v
 _§c
  );
 
-48 
+49 
 Dñay_US
 –
 U8
@@ -26809,7 +26013,7 @@ U8
 us
  );
 
-49 
+50 
 Dñay_MS
 –
 U16
@@ -26817,11 +26021,11 @@ U16
 ms
  );
 
-51 
+52 
 Re£t
 ();
 
-56 
+57 
 U8
  
 CheckLimôVÆue
@@ -27287,7 +26491,17 @@ xStQueue
 xUd©a
 );
 
-28 
+28 
+EnQueueFr⁄t
+(
+SQueue_T
+ *
+xStQueue
+, *
+xUd©a
+);
+
+29 
 U8
  
 DeQueue
@@ -27299,7 +26513,7 @@ xStQueue
 xU±rD©a
 );
 
-29 
+30 
 U8
  
 PìkQueue
@@ -27523,15 +26737,17 @@ vÆ
 
 	)
 
-39 
+40 
 I16
  
 GëMö
 –I16 
 x
-, I16 );
+, I16 
+y
+ );
 
-40 
+41 
 I16
  
 GëMax
@@ -27541,7 +26757,7 @@ x
 y
  );
 
-42 
+43 
 U8
  
 Hex2Dec
@@ -27549,7 +26765,7 @@ Hex2Dec
 mu8Hex
 );
 
-43 
+44 
 U8
  
 Dec2Hex
@@ -27557,7 +26773,7 @@ Dec2Hex
 mu8Dec
 );
 
-45 
+46 
 U8
  
 C⁄vAsc2Byã
@@ -27567,7 +26783,7 @@ mu8Uµî
 mu8Lowî
  );
 
-46 
+47 
 U16
  
 ByãOrdîC⁄v
@@ -27575,7 +26791,7 @@ ByãOrdîC⁄v
 _§c
  );
 
-48 
+49 
 Dñay_US
 –
 U8
@@ -27583,7 +26799,7 @@ U8
 us
  );
 
-49 
+50 
 Dñay_MS
 –
 U16
@@ -27591,11 +26807,11 @@ U16
 ms
  );
 
-51 
+52 
 Re£t
 ();
 
-56 
+57 
 U8
  
 CheckLimôVÆue
@@ -27613,8 +26829,8 @@ mu8Inô
 1
 .
 0
-66
-4930
+64
+4746
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.c
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.h
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm_queue.c
@@ -27646,8 +26862,6 @@ D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.c
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_led.h
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.c
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial.h
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.c
-D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hal_serial_ring_buffer.h
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\hw.h
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\hal\mcu.h
 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\key\key.c

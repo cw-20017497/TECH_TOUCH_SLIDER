@@ -130,6 +130,33 @@ static void ProcessDisplayBoot(void)
 }
 
 
+
+static U8 GetSlide(U8 Slide)
+{
+    if( Slide > 0 )
+    {
+        return (U8)(256U - Slide);
+    }
+
+    return 0;
+}
+
+#define MAX_TEMP    100
+#define MIN_TEMP    40
+static U8 GetTempMinMax(U8 temp, U8 min, U8 max)
+{
+    if( temp < MIN_TEMP )
+    {
+        temp = MIN_TEMP;
+    }
+    else if( temp > MAX_TEMP )
+    {
+        temp = MAX_TEMP;
+    }
+
+    return temp;
+}
+
 I16 delta_t[20] = {0};
 
 U8 index = 0;
@@ -210,6 +237,56 @@ I16 prev_speed_val = 0;
 I16 delta;
 U8 dbg_speed = 0;
 U8 dbg_delta = 0;
+static U8 calcSpeed(U16 val)
+{
+    //I16 delta;
+    static U8 prev_raw_val = 0;
+
+    // 1st filtering... 
+    if( prev_raw_val == val )
+    {
+        return 0;       // pushed, 현재 위치 
+    }
+
+    prev_raw_val = val;
+
+    if( val == 0 )
+    {
+        prev_speed_val = val;   // pop
+        return 0;
+    }
+
+
+    if( prev_speed_val != val
+            && prev_speed_val == 0 )
+    {
+        prev_speed_val = (I16)val;  // pop -> pushed 
+
+        return 0;
+    }
+
+    if( prev_speed_val != val )
+    {
+        delta = prev_speed_val - (I16)val;
+        delta = abs( delta );
+    }
+
+    prev_speed_val = (I16)val;
+
+    ///////////////////////////////////////
+    // for debug......
+    dbg_delta = delta;
+    {
+        static i = 0;
+
+        dbg_speed_list[ i++ ] = delta;
+        if( i >= 30 )
+            i = 0;
+    }
+    ///////////////////////////////////////
+    return delta;
+}
+#if 0
 static U8 calcSpeed(U16 val)
 {
     U8 ret = SPEED_L1;
@@ -316,6 +393,7 @@ static U8 calcSpeed(U16 val)
     ///////////////////////////////////////
     return ret;
 }
+#endif
 
 
 extern U8 slider[4];
@@ -327,8 +405,6 @@ U8 temp_hot[5] = { 45, 70, 85, 100 };
 U16 slide_disp_time = 0;        // @10ms..
 U8 the_temp = 0;
 #define TEMP_TICK   1
-#define MAX_TEMP    100
-#define MIN_TEMP    40
 
 U8 GetTempTick(U8 speed)
 {
@@ -347,7 +423,7 @@ U8 GetTempTick(U8 speed)
 U16 effect_time_val = 2;
 U16 effect_time = 2;
 U16 effect_current_temp = 0;
-void DisplayEffectTemp(U16 temp, U8 up_down)
+void DisplayEffectTemp(U16 temp)
 {
     static U16 target_temp = 0;
     //static U16 effect_current_temp = 0;
@@ -378,7 +454,128 @@ void DisplayEffectTemp(U16 temp, U8 up_down)
     }
 }
 
-static void ProcessDisplayNormalMode(void)
+#define WHOLE_LEVEL  256
+#define LEVEL_TICK    16
+U8 the_rest_slide = 0;
+static U8 calcLevel(U8 slide, U8 *p_tick)
+{
+    U16 val;
+
+    val = slide + the_rest_slide;
+    *p_tick = (U8)(val / LEVEL_TICK);
+    the_rest_slide = (U8)(val % (LEVEL_TICK * (*p_tick) ));
+
+    return the_rest_slide;
+}
+
+
+U8 dbg_temp_tick = 0;
+static void ProcessDisplayNormalMode_Level(void)
+{
+    static U8 prev_slide = 0;
+    static U8 prev_disp_level = 0;
+    static U8 dir = 0;
+
+
+    DispLedDuty();
+
+
+    the_slide = GetSlide( slider[1] );
+
+    // setting slide_disp_time
+    if (prev_slide != the_slide)
+    {
+        if( prev_slide > 0 && the_slide == 0 )
+        {
+            // pop slide  -> setting micro slide timer
+            slide_disp_time = 500; // 5sec @10ms
+        }
+        else if( prev_slide == 0 && the_slide != 0 )
+        {
+            if( slide_disp_time == 0 )
+            {
+                // push slide
+                Sound( SOUND_SELECT );
+            }
+        }
+
+        prev_slide = the_slide;
+    }
+
+    // update slide_disp_time
+    if( slide_disp_time != 0 
+            && the_slide != 0 )
+    {
+        slide_disp_time = 500; // 5sec @10ms
+    }
+
+
+    if( slide_disp_time != 0 )
+    {
+        // 표시 대기 시간 카운팅
+        slide_disp_time--;
+    }
+
+    // 표시 대기 시간이 초과
+    if( slide_disp_time == 0 )
+    {
+        if( the_slide > 192 )       { temp_index = 3; }
+        else if( the_slide > 128 )  { temp_index = 2; }
+        else if( the_slide > 64 )   { temp_index = 1; }
+        else                        { temp_index = 0; }
+    }
+
+    // 표기 대기 시간 중 슬라이드 입력이 있는 경우
+    if( slide_disp_time != 0 
+            && the_slide != 0 )
+    {
+        U8 up_down = 0;
+        U8 temp_tick = 0;
+        U8 delta_slide;
+
+        delta_slide = calcSpeed( the_slide );
+        the_rest_slide = calcLevel( delta_slide, &temp_tick );
+        dbg_temp_tick = temp_tick;
+        up_down = calcDirection( the_slide );
+        if( up_down  == DIR_DOWN )
+        {
+            the_temp += temp_tick;
+        }
+        else if( up_down  == DIR_UP )
+        {
+            the_temp -= temp_tick;
+        }
+        else if( up_down  == DIR_NONE )
+        {
+        }
+
+        the_temp = GetTempMinMax( the_temp, MIN_TEMP, MAX_TEMP );
+        DisplayEffectTemp( the_temp );
+
+        DispBarStack( temp_index * 3 );
+
+    }
+    else if( slide_disp_time != 0 && the_slide == 0 )
+    {
+        // 손을 뗐을 때 이전 값(prev) 업데이트를 위해서 호출
+        calcSpeed( the_slide );
+        calcDirection( the_slide );
+        DisplayEffectTemp( the_temp );
+    }
+    else
+    {
+        // 표시 대기 시간 초과 그리고 입력도 없는 경우
+        the_temp = temp_hot[ temp_index ];
+        DispTemp( the_temp );
+        DispBarStack( temp_index * 3 );
+        effect_current_temp = the_temp;
+        the_rest_slide = 0;
+    }
+
+}
+
+#if 0
+static void ProcessDisplayNormalMode_Accel(void)
 {
     static U8 prev_slide = 0;
     static U8 prev_disp_level = 0;
@@ -438,8 +635,6 @@ static void ProcessDisplayNormalMode(void)
         if( the_slide > 192 )       { temp_index = 3; }
         else if( the_slide > 128 )  { temp_index = 2; }
         else if( the_slide > 64 )   { temp_index = 1; }
-        //else if( the_slide > 0 )    { temp_index = 1; }
-        //else if( the_slide > 0 )    { temp_index = 1; }
         else                        { temp_index = 0; }
     }
 
@@ -465,16 +660,9 @@ static void ProcessDisplayNormalMode(void)
         }
 
         // check min/max
-        if( the_temp < MIN_TEMP )
-        {
-            the_temp = MIN_TEMP;
-        }
-        else if( the_temp > MAX_TEMP )
-        {
-            the_temp = MAX_TEMP;
-        }
+        the_temp = GetTempMinMax( the_temp, MIN_TEMP, MAX_TEMP );
 
-        DisplayEffectTemp( the_temp, up_down );
+        DisplayEffectTemp( the_temp );
 
         DispBarStack( temp_index * 3 );
 
@@ -484,7 +672,7 @@ static void ProcessDisplayNormalMode(void)
         // 손을 뗐을 때 이전 값(prev) 업데이트를 위해서 호출
         calcSpeed( the_slide );
         calcDirection( the_slide );
-        DisplayEffectTemp( the_temp, 0 );
+        DisplayEffectTemp( the_temp );
     }
     else
     {
@@ -496,6 +684,7 @@ static void ProcessDisplayNormalMode(void)
     }
 
 }
+#endif
 
 
 #if 0
@@ -574,6 +763,7 @@ static void ProcessDisplayNormalMode(void)
 
 U8 dbg_the_disp_update = 0;     // for debug
 U8 dbg_update = 0;
+U8 dbg_delay_val = 5;
 static void Update(void)
 {
     static U8 delay = 5;
@@ -588,7 +778,7 @@ static void Update(void)
         }
         else
         {
-            delay = 5;
+            delay = dbg_delay_val;
             SetCommQueueFront( PKT_FRONT_REQ_LED );
 
             HAL_UpdateLed();
@@ -610,6 +800,6 @@ void ProcessDisplay(void)
     }
 
     /* NORMAL MODE */
-    ProcessDisplayNormalMode();
+    ProcessDisplayNormalMode_Level();
     Update();
 }
