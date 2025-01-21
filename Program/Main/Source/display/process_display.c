@@ -554,6 +554,16 @@ static void ProcessDisplayNormalMode_Level(void)
 
         DispBarStack( temp_index * 3 );
 
+        {
+            static U8 prev_the_temp;
+
+            if( the_temp != prev_the_temp )
+            {
+                prev_the_temp = the_temp;
+                Sound(SOUND_SELECT);
+            }
+        }
+
     }
     else if( slide_disp_time != 0 && the_slide == 0 )
     {
@@ -772,13 +782,13 @@ static void Update(void)
     //if( dbg_update != 0 )
     {
      //   dbg_update--;
-        if( delay != 0 )
+    //    if( delay != 0 )
+    //    {
+    //        delay--;
+    //    }
+    //    else
         {
-            delay--;
-        }
-        else
-        {
-            delay = dbg_delay_val;
+            //delay = dbg_delay_val;
             SetCommQueueFront( PKT_FRONT_REQ_LED );
 
             HAL_UpdateLed();

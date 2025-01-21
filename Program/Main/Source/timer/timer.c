@@ -52,8 +52,14 @@ void StartTimer( U8 id, U32 time_out )
 
 void    DisableTimer( U8 id )
 {
+    INTS_BYTE_BASE_TIMER();
+
+
+    ENTER_CRITICAL_SECTION_TIMER();
     timer_info[ id ].enable     = 0;
     timer_info[ id ].time_out   = (U32)-1;
+    EXIT_CRITICAL_SECTION_TIMER();
+
 }
 
 void    StopTimer( U8 id )
@@ -65,14 +71,16 @@ void    StopTimer( U8 id )
 U8 IsExpiredTimer( U8 id )
 {
     U32 time_out;
+    U8 enable;
     INTS_BYTE_BASE_TIMER();
 
 
     ENTER_CRITICAL_SECTION_TIMER();
     time_out = timer_info[ id ].time_out;
+    enable =  timer_info[ id ].enable;
     EXIT_CRITICAL_SECTION_TIMER();
 
-    if( timer_info[ id ].enable == 0 )
+    if( enable == 0 )
     {
         return TIMER_DISABLE;
     }

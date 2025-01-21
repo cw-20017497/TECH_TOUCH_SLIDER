@@ -12,6 +12,7 @@
 #include "comm_queue.h"
 
 
+
 /***********************************************************************************************
  * DEFINITION 
  */
@@ -72,6 +73,9 @@ static U8   check_crc( U8 *buf, I16 len )
 }
 
 
+U8 dbg_read_heade_err_index = 0;
+U32 dbg_read_head_err[20] = {0};
+
 I16 ReadPacket_Front( U8 id , U8 *recv_pkt )
 {
     U16  i = 0;
@@ -107,7 +111,25 @@ I16 ReadPacket_Front( U8 id , U8 *recv_pkt )
                 }
             }
         }
+        else
+        {
+            ///////////////////////////////////////////
+            // debug..
+            ///////////////////////////////////////////
+            //dbg_read_head_err[ dbg_read_heade_err_index ]++;
+            ///////////////////////////////////////////
+        }
     }
+
+    if( etx_count != 3 )
+    {
+        dbg_read_head_err[ dbg_read_heade_err_index ] = len;
+        if( dbg_read_heade_err_index < 20 )
+        {
+            dbg_read_heade_err_index++;
+        }
+    }
+
 
     return len; /* RECEIVED BUF SIZE */
 
@@ -209,9 +231,9 @@ I16 Crc16_Front( U8 *buf, I16 len )
         return 0; // error..
     }
 
-    mu16Chksum = Rx_CRC_CCITT( buf, (U16)(len - 3));
-    buf[ len - 3 ] = GET_HIGH_BYTE(mu16Chksum);
-    buf[ len - 2 ] = GET_LOW_BYTE(mu16Chksum);
+    mu16Chksum = Rx_CRC_CCITT( buf, (U16)(len - 5));
+    buf[ len - 5 ] = GET_HIGH_BYTE(mu16Chksum);
+    buf[ len - 4 ] = GET_LOW_BYTE(mu16Chksum);
 
     return len;
 }
@@ -235,6 +257,7 @@ static I16 ParserReqKey(U8 *buf)
     // ACK 
     SetCommHeader( COMM_ID_FRONT, PKT_ACK_KEY );
     StartTimer( TIMER_ID_COMM_FRONT_TX, 0 );
+
 
     return TRUE;
 }
@@ -293,7 +316,6 @@ U8 dbg_the_ack_key = 0;
 static I16 MakePktAckKey( U8 *buf )
 {
     I16 mi16Len = 0;
-    U8  mu8Buf[MAX_LED_BUF];
 
     // STX 
     buf[ mi16Len++ ] = STX;
@@ -305,6 +327,8 @@ static I16 MakePktAckKey( U8 *buf )
     buf[ mi16Len++ ] = 0;
     buf[ mi16Len++ ] = 0;
 
+    buf[ mi16Len++ ] = ETX;
+    buf[ mi16Len++ ] = ETX;
     buf[ mi16Len++ ] = ETX;
 
     dbg_the_ack_key++;
@@ -359,6 +383,8 @@ static I16 MakePktReqLed( U8 *buf )
     buf[ mi16Len++ ] = 0;
     buf[ mi16Len++ ] = 0;
 
+    buf[ mi16Len++ ] = ETX;
+    buf[ mi16Len++ ] = ETX;
     buf[ mi16Len++ ] = ETX;
     return mi16Len;
 }

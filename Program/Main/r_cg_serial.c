@@ -23,7 +23,7 @@
 * Device(s)    : R5F100GE
 * Tool-Chain   : CA78K0R
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2024-09-10
+* Creation Date: 2025-01-10
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -87,9 +87,9 @@ void R_UART2_Create(void)
     /* Set INTST2 low priority */
     STPR12 = 1U;
     STPR02 = 1U;
-    /* Set INTSR2 low priority */
+    /* Set INTSR2 level2 priority */
     SRPR12 = 1U;
-    SRPR02 = 1U;
+    SRPR02 = 0U;
     SMR10 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_TRIGGER_SOFTWARE |
             _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR10 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |

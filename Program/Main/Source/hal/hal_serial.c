@@ -73,7 +73,7 @@
 // @ms
 #define UART_0_RX_TIME_STAMP   10
 #define UART_1_RX_TIME_STAMP   10
-#define UART_2_RX_TIME_STAMP   10
+#define UART_2_RX_TIME_STAMP   0
 #define UART_3_RX_TIME_STAMP   10
 
 
@@ -592,17 +592,18 @@ __interrupt static void r_uart1_interrupt_send(void)
 #if CONFIG_UART_2
 U16 isr_err_1_cnt = 0;
 U16 isr_err_2_cnt = 0;
+U8 dbg_uart2_timer = 0;
 __interrupt static void r_uart2_interrupt_receive(void)
 {
     volatile U8 err_type;
     volatile U8 rx_data;
+    static U8 cnt = 0;
 
     err_type = (uint8_t)(SSR11 & 0x0007U);
     SIR11 = (uint16_t)err_type;
 
     rx_data = UART_2_RXD;
 
-    //EI();
     if( err_type == 0 )
     {
         if( HAL_IsFullRecvBuffer( UART_ID_2 ) == FALSE )
@@ -615,7 +616,22 @@ __interrupt static void r_uart2_interrupt_receive(void)
             isr_err_1_cnt++;
         }
 
-        StartTimer( TIMER_ID_UART_2_RX, UART_2_RX_TIME_STAMP );
+        StartTimer( TIMER_ID_UART_2_RX, 10 );
+        if( rx_data == 0x55 )
+        {
+            cnt++;
+            if( cnt >=3 )
+            {
+                StartTimer( TIMER_ID_UART_2_RX, 3 );
+                StartTimer( TIMER_ID_UART_2_RX_DONE, UART_2_RX_TIME_STAMP );
+                cnt = 0;
+                dbg_uart2_timer++;
+            }
+        }
+        else
+        {
+            cnt = 0;
+        }
     }
     else
     {

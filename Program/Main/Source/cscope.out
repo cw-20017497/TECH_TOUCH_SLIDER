@@ -1,4 +1,4 @@
-cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source"               0000150757
+cscope 15 D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source"               0000151507
 	@D:\Work\project_svn\2024\TECH_TOUCH_SLIDER\Program\Main\Source\comm\comm.c
 
 1 
@@ -331,9 +331,7 @@ MAX_COMM_ID
 
 12 
 	#RETRY_REQ_COUNT
- 5
-
-	)
+ 3
 
 13 
 	#RETRY_ACK_COUNT
@@ -343,15 +341,15 @@ MAX_COMM_ID
 
 14 
 	#RETRY_WAIT_TIME
- 100
-
-	)
+ 20
 
 15 
 CommD©a_T
  
-	gd©a
+d©a
 ;
+
+	)
 
 17 
 	$InôCommQueue
@@ -892,20 +890,26 @@ U32
 20 
 U32
  
-	mrx_îr
+	mrx_∑r£r_îr
 ;
 
-22 
+21 
+U32
+ 
+	mrx_ªad_îr
+;
+
+23 
 U32
  
 	mtx_˙t
 ;
 
-23 } 
+24 } 
 	tdebug_comm_t
 ;
 
-24 
+25 
 debug_comm_t
  
 	gd_comm
@@ -913,7 +917,7 @@ debug_comm_t
 MAX_COMM_ID
  ];
 
-28 vﬁ©ûê
+29 vﬁ©ûê
 U8
  
 	gpkt_ªcv
@@ -921,13 +925,13 @@ U8
 MAX_COMM_RX_BUF_SZ
  ];
 
-29 
+30 
 I16
  
 	gpkt_ªcv_Àn
  = 0;
 
-32 vﬁ©ûê
+33 vﬁ©ûê
 U8
  
 	gpkt_£nd
@@ -935,13 +939,13 @@ U8
 MAX_COMM_TX_BUF_SZ
  ];
 
-33 
+34 
 I16
  
 	gpkt_£nd_Àn
  = 0;
 
-38 
+39 
 	$I16
  (*
 	t‚_∑r£r_ªad_t
@@ -953,7 +957,7 @@ I16
 	tbuf
  );
 
-39 
+40 
 	$I16
  (*
 	t‚_∑r£r_rx_t
@@ -967,51 +971,51 @@ I16
 	tÀn
  );
 
-40 
+41 
 	s_∑r£r_li°_
 
 
-42 
+43 
 U8
  
 TimîId
 ;
 
-43 
+44 
 U8
  
 CommId
 ;
 
-44 
+45 
 ‚_∑r£r_rx_t
  
 IsVÆidPkt
 ;
 
-45 
+46 
 ‚_∑r£r_rx_t
  
 P¨£rPkt
 ;
 
-46 
+47 
 ‚_∑r£r_ªad_t
  
 RódPackë
 ;
 
-47 } 
+48 } 
 	t∑r£r_rx_li°_t
 ;
 
-49 c⁄° 
+50 c⁄° 
 ∑r£r_rx_li°_t
  
 ∑r£r_rx_li°
 [] =
 
-51 { 
+52 { 
 TIMER_ID_UART_2_RX
 , 
 COMM_ID_FRONT
@@ -1023,11 +1027,11 @@ P¨£rPkt_Fr⁄t
 RódPackë_Fr⁄t
  },
 
-52 
+53 
 	}
 };
 
-53 
+54 
 	#MAX_PARSER_RX_NUM
  ( –
 ∑r£r_rx_li°
@@ -1037,41 +1041,53 @@ RódPackë_Fr⁄t
 
 	)
 
-55 
+56 
 U8
  
 	gdbg_log_buf
-[21][20];
+[21][50];
 
-56 
+57 
 U8
  
 	gdbg_ödex
  = 0;
 
-58 
+58 
+U8
+ 
+	gdbg_log_buf_2
+[21];
+
+60 
+U8
+ 
+	gdbg_the_∑r£r_˙t
+ = 0;
+
+61 
 	$RecvPackëH™dÀr
 ( )
 
-60 
+63 
 ∑r£r_rx_li°_t
  *
 p_li°
 ;
 
-61 
+64 
 U8
  
 i
 ;
 
-63  
+66  
 i
  = 0 ; i < 
 MAX_PARSER_RX_NUM
  ; i++ )
 
-65 
+68 
 p_li°
  = &
 ∑r£r_rx_li°
@@ -1079,7 +1095,7 @@ p_li°
 i
  ];
 
-66 if–
+69 if–
 	`IsExpúedTimî
 –
 p_li°
@@ -1089,7 +1105,7 @@ TimîId
 TIMER_EXPIRE
  )
 
-68 
+71 
 	`DißbÀTimî
 –
 p_li°
@@ -1097,7 +1113,11 @@ p_li°
 TimîId
  );
 
-70 if––
+72 
+dbg_the_∑r£r_˙t
+++;
+
+74 if––
 pkt_ªcv_Àn
  = 
 p_li°
@@ -1109,7 +1129,7 @@ CommId
 pkt_ªcv
 [0] ) ) > 0 )
 
-74 if–
+78 if–
 p_li°
 ->
 	`IsVÆidPkt
@@ -1121,7 +1141,7 @@ pkt_ªcv_Àn
 TRUE
  )
 
-76 
+80 
 p_li°
 ->
 	`P¨£rPkt
@@ -1131,11 +1151,11 @@ pkt_ªcv
 pkt_ªcv_Àn
  );
 
-77 #i‡
+81 #i‡
 DEBUG_COMM
 
 
-78 
+82 
 d_comm
 [ 
 p_li°
@@ -1145,45 +1165,41 @@ CommId
 rx_˙t
 ++;
 
-83 #i‡
+84 
+dbg_log_buf_2
+[
+dbg_ödex
+] = 
+pkt_ªcv_Àn
+;
+
+88 if–
+dbg_ödex
+ < 21 )
+
+90 
+dbg_ödex
+++;
+
+95 #i‡
 DEBUG_COMM
 
 
-84 
+96 
 d_comm
 [ 
 p_li°
 ->
 CommId
  ].
-rx_îr
+rx_∑r£r_îr
 ++;
 
-86 
-	`mem˝y
-–&
-dbg_log_buf
-[
-dbg_ödex
-][0], &
-pkt_ªcv
-[0], 
-pkt_ªcv_Àn
- );
-
-87 if–
-dbg_ödex
- < 21 )
-
-89 
-dbg_ödex
-++;
-
-95 
+106 
 	}
 }
 
-101 
+112 
 	$I16
  (*
 	t‚_∑r£r_tx_t
@@ -1197,7 +1213,7 @@ dbg_ödex
 	tbuf
  );
 
-102 
+113 
 	$I16
  (*
 	t‚_¸c16_t
@@ -1211,45 +1227,45 @@ dbg_ödex
 	tÀn
  );
 
-103 
+114 
 	s_∑r£r_tx_li°_
 
 
-105 
+116 
 U8
  
 TimîId
 ;
 
-106 
+117 
 U8
  
 CommId
 ;
 
-107 
+118 
 ‚_∑r£r_tx_t
  
 make_pkt
 ;
 
-108 
+119 
 ‚_¸c16_t
  
 ¸c16
 ;
 
-109 } 
+120 } 
 	t∑r£r_tx_li°_t
 ;
 
-111 c⁄° 
+122 c⁄° 
 ∑r£r_tx_li°_t
  
 ∑r£r_tx_li°
 [] =
 
-113 { 
+124 { 
 TIMER_ID_COMM_FRONT_TX
 , 
 COMM_ID_FRONT
@@ -1259,11 +1275,11 @@ MakePkt_Fr⁄t
 Crc16_Fr⁄t
  },
 
-114 
+125 
 	}
 };
 
-115 
+126 
 	#MAX_PARSER_TX_NUM
  ( –
 ∑r£r_tx_li°
@@ -1273,35 +1289,35 @@ Crc16_Fr⁄t
 
 	)
 
-117 
+128 
 	$SídPackë
 ()
 
-119 
+130 
 ∑r£r_tx_li°_t
  *
 p_li°
 ;
 
-120 
+131 
 U8
  
 i
 ;
 
-121 
+132 
 CommHódî_T
  
 p_comm
 ;
 
-124  
+135  
 i
  = 0 ; i < 
 MAX_PARSER_TX_NUM
  ; i++ )
 
-126 
+137 
 p_li°
  = &
 ∑r£r_tx_li°
@@ -1309,7 +1325,7 @@ p_li°
 i
  ];
 
-128 if–
+139 if–
 	`IsExpúedTimî
 –
 p_li°
@@ -1319,7 +1335,7 @@ TimîId
 TIMER_EXPIRE
  )
 
-130 
+141 
 	`DißbÀTimî
 –
 p_li°
@@ -1327,7 +1343,7 @@ p_li°
 TimîId
  );
 
-132 
+143 
 p_comm
  = 
 	`GëCommHódî
@@ -1337,7 +1353,7 @@ p_li°
 CommId
  );
 
-135 
+146 
 	`MEMSET
 –(
 __FAR
@@ -1347,7 +1363,7 @@ pkt_£nd
 MAX_COMM_TX_BUF_SZ
  );
 
-136 
+147 
 pkt_£nd_Àn
  = 
 p_li°
@@ -1361,11 +1377,11 @@ p_comm
 pkt_£nd
  );
 
-137 if–
+148 if–
 pkt_£nd_Àn
  > 0 )
 
-140 
+151 
 pkt_£nd_Àn
  = 
 p_li°
@@ -1375,7 +1391,7 @@ p_li°
 pkt_£nd
 ,Ökt_send_len );
 
-143 
+154 
 	`CommSídPackë
 –
 p_li°
@@ -1387,11 +1403,11 @@ pkt_£nd
 pkt_£nd_Àn
  );
 
-145 #i‡
+156 #i‡
 DEBUG_COMM
 
 
-146 
+157 
 d_comm
 [ 
 p_li°
@@ -1401,7 +1417,7 @@ CommId
 tx_˙t
 ++;
 
-151 
+162 
 	`HAL_InôCommId
 –
 p_li°
@@ -1409,23 +1425,23 @@ p_li°
 CommId
  );
 
-155 
+166 
 	}
 }
 
-158 
+169 
 	$SídPackëH™dÀr
 ( )
 
-160 
+171 
 	`SídPackëQueueFr⁄t
 ();
 
-161 
+172 
 	`SídPackë
 ();
 
-162 
+173 
 	}
 }
 
@@ -1692,6 +1708,18 @@ TRUE
 }
 
 75 
+U8
+ 
+	gdbg_ªad_hóde_îr_ödex
+ = 0;
+
+76 
+U32
+ 
+	gdbg_ªad_hód_îr
+[20] = {0};
+
+78 
 I16
  
 	$RódPackë_Fr⁄t
@@ -1703,25 +1731,25 @@ id
 ªcv_pkt
  )
 
-77 
+80 
 U16
  
 i
  = 0;
 
-78 
+81 
 I16
  
 Àn
  = 0;
 
-79 
+82 
 U8
  
 buf
 ;
 
-80 
+83 
 U8
  
 °¨tRód
@@ -1729,13 +1757,13 @@ U8
 FALSE
 ;
 
-81 
+84 
 U8
  
 ëx_cou¡
  = 0;
 
-83  
+86  
 	`HAL_IsEm±yRecvBuf„r
 –
 id
@@ -1743,7 +1771,7 @@ id
 FALSE
  )
 
-85 
+88 
 buf
  = 
 	`HAL_GëRecvBuf„r
@@ -1751,29 +1779,29 @@ buf
 id
  );
 
-86 if–
+89 if–
 °¨tRód
  =
 FALSE
  &&
 
-87 
+90 
 buf
  =
 STX
  )
 
-89 
+92 
 °¨tRód
  = 
 TRUE
 ;
 
-90 
+93 
 ëx_cou¡
  = 0;
 
-91 
+94 
 ªcv_pkt
 [ 
 Àn
@@ -1781,13 +1809,13 @@ TRUE
 buf
 ;
 
-93 if–
+96 if–
 °¨tRód
  =
 TRUE
  )
 
-95 
+98 
 ªcv_pkt
 [ 
 Àn
@@ -1795,67 +1823,87 @@ TRUE
 buf
 ;
 
-96 if–
+99 if–
 buf
  !
 ETX
  )
 
-98 
+101 
 ëx_cou¡
  = 0;
-
-102 
-ëx_cou¡
-++;
-
-103 if(
-ëx_cou¡
- >= 3 )
 
 105 
 ëx_cou¡
+++;
+
+106 if(
+ëx_cou¡
+ >= 3 )
+
+108 
+ëx_cou¡
  = 0;
 
-112  
+123 if–
+ëx_cou¡
+ != 3 )
+
+125 
+dbg_ªad_hód_îr
+[ 
+dbg_ªad_hóde_îr_ödex
+ ] = 
 Àn
 ;
 
-114 
+126 if–
+dbg_ªad_hóde_îr_ödex
+ < 20 )
+
+128 
+dbg_ªad_hóde_îr_ödex
+++;
+
+133  
+Àn
+;
+
+135 
 	}
 }
 
-118 
+139 
 U8
  
 	gdbg_vÆid_îr_1
  = 0;
 
-119 
+140 
 U8
  
 	gdbg_vÆid_îr_2
  = 0;
 
-120 
+141 
 U8
  
 	gdbg_vÆid_îr_3
  = 0;
 
-121 
+142 
 U8
  
 	gdbg_vÆid_msg
 [5][40];
 
-122 
+143 
 U8
  
 	gdbg_vÆid_ok_msg
 [5][40];
 
-124 
+145 
 I16
  
 	$IsVÆidPkt_Fr⁄t
@@ -1869,43 +1917,43 @@ I16
 Àn
  )
 
-126 
+147 
 U8
  
 i
  = 0;
 
-127 
+148 
 U8
  
 j
  = 0;
 
-130 if–
+151 if–
 buf
  =
 NULL
  )
 
-132  
+153  
 FALSE
 ;
 
-135 if–
+156 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-137 
+158 
 dbg_vÆid_îr_1
 ++;
 
-138  
+159  
 FALSE
 ;
 
-141 if–
+162 if–
 	`check_¸c
 –
 buf
@@ -1915,11 +1963,11 @@ buf
 FALSE
  )
 
-143 
+164 
 dbg_vÆid_îr_2
 ++;
 
-144 
+165 
 	`mem˝y
 –&
 dbg_vÆid_msg
@@ -1931,15 +1979,15 @@ buf
 Àn
  );
 
-145 if–
+166 if–
 i
  >= 4 ) i = 0;
 
-146  
+167  
 FALSE
 ;
 
-151 
+172 
 dbg_vÆid_ok_msg
 [
 j
@@ -1949,7 +1997,7 @@ U8
 Àn
 ;
 
-152 
+173 
 	`mem˝y
 –&
 dbg_vÆid_ok_msg
@@ -1961,19 +2009,19 @@ buf
 Àn
  );
 
-153 if–
+174 if–
 j
  >= 4 ) j = 0;
 
-156  
+177  
 TRUE
 ;
 
-157 
+178 
 	}
 }
 
-160 
+181 
 I16
  
 P¨£rReqKey
@@ -1983,7 +2031,7 @@ U8
 buf
 );
 
-161 
+182 
 I16
  
 P¨£rAckLed
@@ -1993,7 +2041,7 @@ U8
 buf
 );
 
-163 
+184 
 	$I16
  (*
 	ta˘i⁄_t
@@ -2003,49 +2051,49 @@ buf
 	tbuf
  );
 
-164 
+185 
 	s_∑r£r_li°_t
 
 
-166 
+187 
 U8
  
 Ty≥
 ;
 
-167 
+188 
 a˘i⁄_t
  
 P¨£r
 ;
 
-168 } 
+189 } 
 	t∑r£r_li°_t
 ;
 
-169 c⁄° 
+190 c⁄° 
 ∑r£r_li°_t
  
 ∑r£r_li°
 [] =
 
-171 { 
+192 { 
 PKT_REQ_KEY
 , 
 P¨£rReqKey
  },
 
-172 { 
+193 { 
 PKT_FRONT_ACK_LED
 , 
 P¨£rAckLed
  },
 
-173 
+194 
 	}
 };
 
-175 
+196 
 	#SZ_PS_TABLE
  ( –
 ∑r£r_li°
@@ -2055,7 +2103,7 @@ P¨£rAckLed
 
 	)
 
-177 
+198 
 I16
  
 	$P¨£rPkt_Fr⁄t
@@ -2069,31 +2117,31 @@ I16
 Àn
 )
 
-179 
+200 
 U8
  
 mu8Ty≥
 ;
 
-180 
+201 
 a˘i⁄_t
  
 pP¨£r
 ;
 
-181 
+202 
 U8
  
 i
 ;
 
-184  
+205  
 i
  = 0; i < 
 SZ_PS_TABLE
 ; i++ )
 
-186 
+207 
 mu8Ty≥
  = 
 ∑r£r_li°
@@ -2103,7 +2151,7 @@ i
 Ty≥
 ;
 
-187 
+208 
 pP¨£r
  = 
 ∑r£r_li°
@@ -2113,19 +2161,19 @@ i
 P¨£r
 ;
 
-189 if–
+210 if–
 mu8Ty≥
  =
 buf
 [1] )
 
-191 if–
+212 if–
 pP¨£r
  !
 NULL
  )
 
-193 
+214 
 Àn
  = 
 	`pP¨£r
@@ -2133,15 +2181,15 @@ NULL
 buf
 [2] );
 
-199  
+220  
 Àn
 ;
 
-200 
+221 
 	}
 }
 
-202 
+223 
 I16
  
 	$Crc16_Fr⁄t
@@ -2155,19 +2203,19 @@ I16
 Àn
  )
 
-204 
+225 
 U16
  
 mu16Chksum
  = 0;
 
-207 if–
+228 if–
 Àn
  < 
 MIN_PKT_SZ
  )
 
-212 
+233 
 mu16Chksum
  = 
 	`Rx_CRC_CCITT
@@ -2177,43 +2225,43 @@ buf
 U16
 )(
 Àn
- - 3));
+ - 5));
 
-213 
+234 
 buf
 [ 
 Àn
- - 3 ] = 
+ - 5 ] = 
 	`GET_HIGH_BYTE
 (
 mu16Chksum
 );
 
-214 
+235 
 buf
 [ 
 Àn
- - 2 ] = 
+ - 4 ] = 
 	`GET_LOW_BYTE
 (
 mu16Chksum
 );
 
-216  
+237  
 Àn
 ;
 
-217 
+238 
 	}
 }
 
-221 
+242 
 U8
  
 	g¶idî
 [4];
 
-222 
+243 
 I16
  
 	$P¨£rReqKey
@@ -2223,13 +2271,13 @@ U8
 buf
 )
 
-224 
+245 
 U32
  
 key
 ;
 
-226 
+247 
 key
  = 
 	`GET_UINT_WORD_32
@@ -2237,37 +2285,37 @@ key
 buf
 [0], buf[1], buf[2], buf[3] );
 
-227 
+248 
 	`HAL_SëKeyVÆ
 –
 key
  );
 
-229 
+250 
 ¶idî
 [0] = 
 buf
 [4];
 
-230 
+251 
 ¶idî
 [1] = 
 buf
 [5];
 
-231 
+252 
 ¶idî
 [2] = 
 buf
 [6];
 
-232 
+253 
 ¶idî
 [3] = 
 buf
 [7];
 
-236 
+257 
 	`SëCommHódî
 –
 COMM_ID_FRONT
@@ -2275,27 +2323,27 @@ COMM_ID_FRONT
 PKT_ACK_KEY
  );
 
-237 
+258 
 	`SèπTimî
 –
 TIMER_ID_COMM_FRONT_TX
 , 0 );
 
-239  
+260  
 TRUE
 ;
 
-240 
+261 
 	}
 }
 
-242 
+263 
 U8
  
 	gdbg_Àd_ack_cou¡
  = 0;
 
-243 
+264 
 I16
  
 	$P¨£rAckLed
@@ -2305,45 +2353,45 @@ U8
 buf
 )
 
-245 
+266 
 	`Re˚ivedFr⁄tAck
 –
 PKT_FRONT_REQ_LED
  );
 
-246 
+267 
 dbg_Àd_ack_cou¡
 ++;
 
-247  
+268  
 TRUE
 ;
 
-248 
+269 
 	}
 }
 
-251 
+272 
 	s_make_li°_t
 
 
-253 
+274 
 U8
  
 	mTy≥
 ;
 
-254 
+275 
 a˘i⁄_t
  
 	mMakePkt
 ;
 
-255 } 
+276 } 
 	tmake_li°_t
 ;
 
-257 
+278 
 I16
  
 MakePktAckKey
@@ -2353,7 +2401,7 @@ U8
 buf
  );
 
-258 
+279 
 I16
  
 MakePktReqLed
@@ -2363,25 +2411,25 @@ U8
 buf
  );
 
-259 c⁄° 
+280 c⁄° 
 make_li°_t
  
 	gmake_li°
 [] =
 
-261 { 
+282 { 
 PKT_ACK_KEY
 , 
 MakePktAckKey
  },
 
-262 { 
+283 { 
 PKT_FRONT_REQ_LED
 , 
 MakePktReqLed
  },
 
-264 
+285 
 	#SZ_TABLE
  ( –
 make_li°
@@ -2391,7 +2439,7 @@ make_li°_t
 
 	)
 
-266 
+287 
 I16
  
 	$MakePkt_Fr⁄t
@@ -2405,37 +2453,37 @@ U8
 buf
  )
 
-268 
+289 
 U8
  
 mu8Ty≥
 ;
 
-269 
+290 
 a˘i⁄_t
  
 p_make_pkt
 ;
 
-270 
+291 
 U8
  
 i
 ;
 
-271 
+292 
 I16
  
 Àn
  = -1;
 
-274  
+295  
 i
  = 0; i < 
 SZ_TABLE
 ; i++ )
 
-276 
+297 
 mu8Ty≥
  = 
 make_li°
@@ -2445,7 +2493,7 @@ i
 Ty≥
 ;
 
-277 
+298 
 p_make_pkt
  = 
 make_li°
@@ -2455,7 +2503,7 @@ i
 MakePkt
 ;
 
-279 if–
+300 if–
 mu8Ty≥
  =(
 U8
@@ -2463,13 +2511,13 @@ U8
 p_comm
  )
 
-281 if–
+302 if–
 p_make_pkt
  !
 NULL
  )
 
-283 
+304 
 Àn
  = 
 	`p_make_pkt
@@ -2477,21 +2525,21 @@ NULL
 buf
  );
 
-289  
+310  
 Àn
 ;
 
-290 
+311 
 	}
 }
 
-292 
+313 
 U8
  
 	gdbg_the_ack_key
  = 0;
 
-293 
+314 
 I16
  
 	$MakePktAckKey
@@ -2501,21 +2549,13 @@ U8
 buf
  )
 
-295 
+316 
 I16
  
 mi16Lí
  = 0;
 
-296 
-U8
- 
-mu8Buf
-[
-MAX_LED_BUF
-];
-
-299 
+319 
 buf
 [ 
 mi16Lí
@@ -2523,7 +2563,7 @@ mi16Lí
 STX
 ;
 
-302 
+322 
 buf
 [ 
 mi16Lí
@@ -2531,19 +2571,19 @@ mi16Lí
 PKT_ACK_KEY
 ;
 
-305 
+325 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-306 
+326 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-308 
+328 
 buf
 [ 
 mi16Lí
@@ -2551,25 +2591,41 @@ mi16Lí
 ETX
 ;
 
-310 
+329 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+330 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+332 
 dbg_the_ack_key
 ++;
 
-311  
+333  
 mi16Lí
 ;
 
-312 
+334 
 	}
 }
 
-314 
+336 
 U8
  
 	gdbg_the_ªq_Àd
  = 0;
 
-315 
+337 
 I16
  
 	$MakePktReqLed
@@ -2579,13 +2635,13 @@ U8
 buf
  )
 
-317 
+339 
 I16
  
 mi16Lí
  = 0;
 
-318 
+340 
 U8
  
 mu8Buf
@@ -2593,17 +2649,17 @@ mu8Buf
 MAX_LED_BUF
 ];
 
-319 
+341 
 U8
  
 i
 ;
 
-321 
+343 
 dbg_the_ªq_Àd
 ++;
 
-324 
+346 
 buf
 [ 
 mi16Lí
@@ -2611,7 +2667,7 @@ mi16Lí
 STX
 ;
 
-327 
+349 
 buf
 [ 
 mi16Lí
@@ -2619,19 +2675,19 @@ mi16Lí
 PKT_FRONT_REQ_LED
 ;
 
-330 
+352 
 	`HAL_GëLedOnOffSètus
 –&
 mu8Buf
 [0] );
 
-331  
+353  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-333 
+355 
 buf
 [ 
 mi16Lí
@@ -2641,19 +2697,19 @@ mu8Buf
 i
 ];
 
-337 
+359 
 	`HAL_GëLedDimmögSètus
 –&
 mu8Buf
 [0]);
 
-338  
+360  
 i
  = 0; i < 
 MAX_LED_BUF
  ; i++ )
 
-340 
+362 
 buf
 [ 
 mi16Lí
@@ -2663,7 +2719,7 @@ mu8Buf
 i
 ];
 
-344 
+366 
 buf
 [ 
 mi16Lí
@@ -2671,7 +2727,7 @@ mi16Lí
 	`HAL_GëLedDimmögDuty
 ();
 
-347 
+369 
 buf
 [ 
 mi16Lí
@@ -2679,37 +2735,37 @@ mi16Lí
 	`HAL_GëLedDuty
 ();
 
-350 
+372 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-353 
+375 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-356 
+378 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-359 
+381 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-360 
+382 
 buf
 [ 
 mi16Lí
 ++ ] = 0;
 
-362 
+384 
 buf
 [ 
 mi16Lí
@@ -2717,11 +2773,27 @@ mi16Lí
 ETX
 ;
 
-363  
+385 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+386 
+buf
+[ 
+mi16Lí
+++ ] = 
+ETX
+;
+
+387  
 mi16Lí
 ;
 
-364 
+388 
 	}
 }
 
@@ -10385,10 +10457,6 @@ I16
 vÆ
 ;
 
-265  
-SPEED_L1
-;
-
 268 if–
 ¥ev_•ìd_vÆ
  !
@@ -11395,29 +11463,37 @@ U8
 ãmp_tick
  = 0;
 
-535 
-the_¶ide
- = 
-	`ˇlcS≥ed
-(Åhe_slide );
+534 
+U8
+ 
+dñè_¶ide
+;
 
 536 
+dñè_¶ide
+ = 
+	`ˇlcS≥ed
+–
+the_¶ide
+ );
+
+537 
 the_ª°_¶ide
  = 
 	`ˇlcLevñ
 –
-the_¶ide
+dñè_¶ide
 , &
 ãmp_tick
  );
 
-537 
+538 
 dbg_ãmp_tick
  = 
 ãmp_tick
 ;
 
-538 
+539 
 up_down
  = 
 	`ˇlcDúe˘i⁄
@@ -11425,37 +11501,37 @@ up_down
 the_¶ide
  );
 
-539 if–
+540 if–
 up_down
  =
 DIR_DOWN
  )
 
-541 
+542 
 the_ãmp
  +
 ãmp_tick
 ;
 
-543 if–
+544 if–
 up_down
  =
 DIR_UP
  )
 
-545 
+546 
 the_ãmp
  -
 ãmp_tick
 ;
 
-547 if–
+548 if–
 up_down
  =
 DIR_NONE
  )
 
-551 
+552 
 the_ãmp
  = 
 	`GëTempMöMax
@@ -11465,43 +11541,43 @@ MIN_TEMP
 MAX_TEMP
  );
 
-552 
+553 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
  );
 
-554 
+555 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-557 if–
+558 if–
 ¶ide_di•_time
  !0 && 
 the_¶ide
  == 0 )
 
-560 
-	`ˇlcS≥ed
-–
-the_¶ide
- );
-
 561 
-	`ˇlcDúe˘i⁄
+	`ˇlcS≥ed
 –
 the_¶ide
  );
 
 562 
+	`ˇlcDúe˘i⁄
+–
+the_¶ide
+ );
+
+563 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
  );
 
-567 
+568 
 the_ãmp
  = 
 ãmp_hŸ
@@ -11509,63 +11585,63 @@ the_ãmp
 ãmp_ödex
  ];
 
-568 
+569 
 	`Di•Temp
 –
 the_ãmp
  );
 
-569 
+570 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-570 
+571 
 ef„˘_cuºít_ãmp
  = 
 the_ãmp
 ;
 
-571 
+572 
 the_ª°_¶ide
  = 0;
 
-574 
+575 
 	}
 }
 
-577 
+578 
 	$Pro˚ssDi•œyN‹mÆMode_Ac˚l
 ()
 
-579 
+580 
 U8
  
 ¥ev_¶ide
  = 0;
 
-580 
+581 
 U8
  
 ¥ev_di•_Àvñ
  = 0;
 
-581 
+582 
 U8
  
 dú
  = 0;
 
-584 
+585 
 	`Di•LedDuty
 ();
 
-587 if–
+588 if–
 ¶idî
 [1] > 0 )
 
-589 
+590 
 the_¶ide
  = (
 U8
@@ -11573,115 +11649,115 @@ U8
 ¶idî
 [1]);
 
-593 
+594 
 the_¶ide
  = 0;
 
-598 i‡(
+599 i‡(
 ¥ev_¶ide
  !
 the_¶ide
 )
 
-600 if–
+601 if–
 ¥ev_¶ide
  > 0 && 
 the_¶ide
  == 0 )
 
-603 
+604 
 ¶ide_di•_time
  = 500;
 
-605 if–
+606 if–
 ¥ev_¶ide
  =0 && 
 the_¶ide
  != 0 )
 
-607 if–
+608 if–
 ¶ide_di•_time
  == 0 )
 
-610 
+611 
 	`Sound
 –
 SOUND_SELECT
  );
 
-614 
+615 
 ¥ev_¶ide
  = 
 the_¶ide
 ;
 
-618 if–
+619 if–
 ¶ide_di•_time
  != 0
 
-619 && 
+620 && 
 the_¶ide
  != 0 )
 
-621 
+622 
 ¶ide_di•_time
  = 500;
 
-625 if–
+626 if–
 ¶ide_di•_time
  != 0 )
 
-628 
+629 
 ¶ide_di•_time
 --;
 
-632 if–
+633 if–
 ¶ide_di•_time
  == 0 )
 
-634 if–
+635 if–
 the_¶ide
  > 192 ) { 
 ãmp_ödex
  = 3; }
 
-635 if–
+636 if–
 the_¶ide
  > 128 ) { 
 ãmp_ödex
  = 2; }
 
-636 if–
+637 if–
 the_¶ide
  > 64 ) { 
 ãmp_ödex
  = 1; }
 
-637 { 
+638 { 
 ãmp_ödex
  = 0; }
 
-641 if–
+642 if–
 ¶ide_di•_time
  != 0
 
-642 && 
+643 && 
 the_¶ide
  != 0 )
 
-644 
+645 
 U8
  
 up_down
  = 0;
 
-645 
+646 
 U8
  
 •ìd
  = 0;
 
-647 
+648 
 •ìd
  = 
 	`ˇlcS≥ed
@@ -11689,7 +11765,7 @@ U8
 the_¶ide
  );
 
-648 
+649 
 up_down
  = 
 	`ˇlcDúe˘i⁄
@@ -11697,13 +11773,13 @@ up_down
 the_¶ide
  );
 
-649 if–
+650 if–
 up_down
  =
 DIR_DOWN
  )
 
-651 
+652 
 the_ãmp
  +
 	`GëTempTick
@@ -11711,13 +11787,13 @@ the_ãmp
 •ìd
  );
 
-653 if–
+654 if–
 up_down
  =
 DIR_UP
  )
 
-655 
+656 
 the_ãmp
  -
 	`GëTempTick
@@ -11725,13 +11801,13 @@ the_ãmp
 •ìd
  );
 
-657 if–
+658 if–
 up_down
  =
 DIR_NONE
  )
 
-662 
+663 
 the_ãmp
  = 
 	`GëTempMöMax
@@ -11741,43 +11817,43 @@ MIN_TEMP
 MAX_TEMP
  );
 
-664 
+665 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
  );
 
-666 
+667 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-669 if–
+670 if–
 ¶ide_di•_time
  !0 && 
 the_¶ide
  == 0 )
 
-672 
+673 
 	`ˇlcS≥ed
 –
 the_¶ide
  );
 
-673 
+674 
 	`ˇlcDúe˘i⁄
 –
 the_¶ide
  );
 
-674 
+675 
 	`Di•œyEf„˘Temp
 –
 the_ãmp
  );
 
-679 
+680 
 the_ãmp
  = 
 ãmp_hŸ
@@ -11785,89 +11861,89 @@ the_ãmp
 ãmp_ödex
  ];
 
-680 
+681 
 	`Di•Temp
 –
 the_ãmp
  );
 
-681 
+682 
 	`Di•B¨Sèck
 –
 ãmp_ödex
  * 3 );
 
-682 
+683 
 ef„˘_cuºít_ãmp
  = 
 the_ãmp
 ;
 
-685 
+686 
 	}
 }
 
-690 
+691 
 U8
  
 ¶idî
 [4];
 
-691 
+692 
 U8
  
 	gthe_di•_Àvñ
  =0;
 
-692 
+693 
 U8
  
 	gthe_¶ide
  = 0;
 
-693 
+694 
 I8
  
 	gãmp_ödex
  = 0;
 
-694 
+695 
 U8
  
 	gãmp_hŸ
 [12] = {
 
-698 
+699 
 	$Pro˚ssDi•œyN‹mÆMode
 ()
 
-700 
+701 
 U8
  
 ¥ev_¶ide
  = 0;
 
-701 
+702 
 U8
  
 ¥ev_di•_Àvñ
  = 0;
 
-702 
+703 
 U8
  
 dú
  = 0;
 
-705 
+706 
 	`Di•LedDuty
 ();
 
-707 if–
+708 if–
 ¶idî
 [1] > 0 )
 
-709 
+710 
 the_¶ide
  = (
 U8
@@ -11875,93 +11951,93 @@ U8
 ¶idî
 [1]);
 
-713 
+714 
 the_¶ide
  = 0;
 
-716 if–
+717 if–
 the_¶ide
  >= 5 )
 
-718 
+719 
 the_di•_Àvñ
  = 
 the_¶ide
  / 18;
 
-719 
+720 
 the_di•_Àvñ
 ++;
 
-720 
+721 
 	`Di•B¨Sèck
 –
 the_di•_Àvñ
  );
 
-722 if–
+723 if–
 ¥ev_di•_Àvñ
  !
 the_di•_Àvñ
 )
 
-724 if–
+725 if–
 ¥ev_di•_Àvñ
  < 
 the_di•_Àvñ
  )
 
-726 if–
+727 if–
 dú
  == 1 )
 
-728 
+729 
 ãmp_ödex
 ++;
 
-730 
+731 
 dú
  = 1;
 
-734 if–
+735 if–
 dú
  == 0 )
 
-736 
+737 
 ãmp_ödex
 --;
 
-738 
+739 
 dú
  = 0;
 
-740 
+741 
 ¥ev_di•_Àvñ
  = 
 the_di•_Àvñ
 ;
 
-745 
+746 
 	`Di•B¨Sèck
 ( 0 );
 
-748 if–
+749 if–
 ãmp_ödex
  >= 12 )
 
-750 
+751 
 ãmp_ödex
  = 11;
 
-752 if–
+753 if–
 ãmp_ödex
  <= 0 )
 
-754 
+755 
 ãmp_ödex
  = 0;
 
-757 
+758 
 	`Di•Temp
 –
 ãmp_hŸ
@@ -11969,77 +12045,77 @@ the_di•_Àvñ
 ãmp_ödex
  ] );
 
-758 
+759 
 	}
 }
 
-763 
+764 
 U8
  
 	gdbg_the_di•_upd©e
  = 0;
 
-764 
+765 
 U8
  
 	gdbg_upd©e
  = 0;
 
-765 
+766 
+U8
+ 
+	gdbg_dñay_vÆ
+ = 5;
+
+767 
 	$Upd©e
 ()
 
-767 
+769 
 U8
  
 dñay
  = 5;
 
-769 if–
+771 if–
 	`HAL_IsUpd©eLed
 (Ë=
 TRUE
  )
 
-773 if–
+781 
 dñay
- != 0 )
+ = 
+dbg_dñay_vÆ
+;
 
-775 
-dñay
---;
-
-779 
-dñay
- = 5;
-
-780 
+782 
 	`SëCommQueueFr⁄t
 –
 PKT_FRONT_REQ_LED
  );
 
-782 
+784 
 	`HAL_Upd©eLed
 ();
 
-783 
+785 
 dbg_the_di•_upd©e
 ++;
 
-786 
+788 
 	}
 }
 
-788 
+790 
 	$Pro˚ssDi•œy
 ()
 
-790 
+792 
 	`Upd©eDi•œyTimî
 ();
 
-793 if–
+795 if–
 Di•
 .
 Inô
@@ -12047,23 +12123,23 @@ Inô
 FALSE
  )
 
-795 
+797 
 	`Pro˚ssDi•œyBoŸ
 ();
 
-796 
-	`Upd©e
-();
-
-801 
-	`Pro˚ssDi•œyN‹mÆMode_Levñ
-();
-
-802 
+798 
 	`Upd©e
 ();
 
 803 
+	`Pro˚ssDi•œyN‹mÆMode_Levñ
+();
+
+804 
+	`Upd©e
+();
+
+805 
 	}
 }
 
@@ -13805,7 +13881,7 @@ RXD3
 
 76 
 	#UART_2_RX_TIME_STAMP
- 10
+ 0
 
 	)
 
@@ -15470,24 +15546,36 @@ U16
  = 0;
 
 595 
+U8
+ 
+	gdbg_u¨t2_timî
+ = 0;
+
+596 
 __öãºu±
  
 	$r_u¨t2_öãºu±_ª˚ive
 ()
 
-597 vﬁ©ûê
+598 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-598 vﬁ©ûê
+599 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-600 
+600 
+U8
+ 
+˙t
+ = 0;
+
+602 
 îr_ty≥
  = (
 uöt8_t
@@ -15495,7 +15583,7 @@ uöt8_t
 SSR11
  & 0x0007U);
 
-601 
+603 
 SIR11
  = (
 uöt16_t
@@ -15503,17 +15591,17 @@ uöt16_t
 îr_ty≥
 ;
 
-603 
+605 
 rx_d©a
  = 
 UART_2_RXD
 ;
 
-606 if–
+608 if–
 îr_ty≥
  == 0 )
 
-608 if–
+610 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_2
@@ -15521,7 +15609,7 @@ UART_ID_2
 FALSE
  )
 
-610 
+612 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_2
@@ -15529,17 +15617,29 @@ UART_ID_2
 rx_d©a
  );
 
-614 
+616 
 	`HAL_InôCommId
 –
 UART_ID_2
  );
 
-615 
+617 
 i§_îr_1_˙t
 ++;
 
-618 
+620 if–
+rx_d©a
+ == 0x55 )
+
+622 
+˙t
+++;
+
+623 if–
+˙t
+ >=3 )
+
+625 
 	`SèπTimî
 –
 TIMER_ID_UART_2_RX
@@ -15547,21 +15647,33 @@ TIMER_ID_UART_2_RX
 UART_2_RX_TIME_STAMP
  );
 
-622 
+626 
+˙t
+ = 0;
+
+627 
+dbg_u¨t2_timî
+++;
+
+632 
+˙t
+ = 0;
+
+637 
 i§_îr_2_˙t
 ++;
 
-624 
+639 
 	}
 }
 
-626 
+641 
 __öãºu±
  
 	$r_u¨t2_öãºu±_£nd
 ()
 
-629 if–
+644 if–
 	`IsCom∂ëeTx
 –
 UART_ID_2
@@ -15569,57 +15681,57 @@ UART_ID_2
 FALSE
  )
 
-631 
+646 
 	`HAL_SídByã
 –
 UART_ID_2
  );
 
-632 
+647 
 	`SèπTimî
 –
 TIMER_ID_UART_2_TX_DONE
 , 10 );
 
-636 
+651 
 	`HAL_InôCommId
 –
 UART_ID_2
  );
 
-639 
+654 
 	}
 }
 
-644 #i‡
+659 #i‡
 CONFIG_UART_3
 
 
-645 
+660 
 U16
  
 	gthe_i§_îr_cou¡
  = 0;
 
-646 
+661 
 __öãºu±
  
 	$r_u¨t3_öãºu±_ª˚ive
 ()
 
-648 vﬁ©ûê
+663 vﬁ©ûê
 U8
  
 îr_ty≥
 ;
 
-649 vﬁ©ûê
+664 vﬁ©ûê
 U8
  
 rx_d©a
 ;
 
-651 
+666 
 îr_ty≥
  = (
 uöt8_t
@@ -15627,7 +15739,7 @@ uöt8_t
 SSR13
  & 0x0007U);
 
-652 
+667 
 SIR13
  = (
 uöt16_t
@@ -15635,17 +15747,17 @@ uöt16_t
 îr_ty≥
 ;
 
-654 
+669 
 rx_d©a
  = 
 UART_3_RXD
 ;
 
-656 if–
+671 if–
 îr_ty≥
  == 0 )
 
-658 if–
+673 if–
 	`HAL_IsFuŒRecvBuf„r
 –
 UART_ID_3
@@ -15653,7 +15765,7 @@ UART_ID_3
 FALSE
  )
 
-660 
+675 
 	`HAL_SëRecvBuf„r
 –
 UART_ID_3
@@ -15661,13 +15773,13 @@ UART_ID_3
 rx_d©a
  );
 
-664 
+679 
 	`HAL_InôCommId
 –
 UART_ID_3
  );
 
-667 
+682 
 	`SèπTimî
 –
 TIMER_ID_UART_3_RX
@@ -15675,21 +15787,21 @@ TIMER_ID_UART_3_RX
 UART_3_RX_TIME_STAMP
  );
 
-671 
+686 
 the_i§_îr_cou¡
 ++;
 
-673 
+688 
 	}
 }
 
-676 
+691 
 __öãºu±
  
 	$r_u¨t3_öãºu±_£nd
 ()
 
-678 if–
+693 if–
 	`IsCom∂ëeTx
 –
 UART_ID_3
@@ -15697,19 +15809,19 @@ UART_ID_3
 FALSE
  )
 
-680 
+695 
 	`HAL_SídByã
 –
 UART_ID_3
  );
 
-684 
+699 
 	`HAL_InôCommId
 –
 UART_ID_3
  );
 
-686 
+701 
 	}
 }
 
@@ -24942,6 +25054,14 @@ id
  )
 
 55 
+	`INTS_BYTE_BASE_TIMER
+();
+
+58 
+	`ENTER_CRITICAL_SECTION_TIMER
+();
+
+59 
 timî_öfo
 [ 
 id
@@ -24949,7 +25069,7 @@ id
 íabÀ
  = 0;
 
-56 
+60 
 timî_öfo
 [ 
 id
@@ -24959,11 +25079,15 @@ time_out
 U32
 )-1;
 
-57 
+61 
+	`EXIT_CRITICAL_SECTION_TIMER
+();
+
+63 
 	}
 }
 
-59 
+65 
 	$St›Timî
 –
 U8
@@ -24971,17 +25095,17 @@ U8
 id
  )
 
-61 
+67 
 	`DißbÀTimî
 –
 id
  );
 
-62 
+68 
 	}
 }
 
-65 
+71 
 U8
  
 	$IsExpúedTimî
@@ -24991,21 +25115,27 @@ U8
 id
  )
 
-67 
+73 
 U32
  
 time_out
 ;
 
-68 
+74 
+U8
+ 
+íabÀ
+;
+
+75 
 	`INTS_BYTE_BASE_TIMER
 ();
 
-71 
+78 
 	`ENTER_CRITICAL_SECTION_TIMER
 ();
 
-72 
+79 
 time_out
  = 
 timî_öfo
@@ -25013,55 +25143,59 @@ timî_öfo
 id
  ].time_out;
 
-73 
-	`EXIT_CRITICAL_SECTION_TIMER
-();
-
-75 if–
+80 
+íabÀ
+ = 
 timî_öfo
 [ 
 id
- ].
+ ].enable;
+
+81 
+	`EXIT_CRITICAL_SECTION_TIMER
+();
+
+83 if–
 íabÀ
  == 0 )
 
-77  
+85  
 TIMER_DISABLE
 ;
 
-80 if–
+88 if–
 time_out
  > 0 )
 
-82  
+90  
 TIMER_NOT_EXPIRE
 ;
 
-85  
+93  
 TIMER_EXPIRE
 ;
 
-86 
+94 
 	}
 }
 
-89 
+97 
 	$Upd©eTimî
 ( )
 
-91 
+99 
 U8
  
 i
 ;
 
-93  
+101  
 i
  = 0 ; i < 
 MAX_TIMER_ID_NUM
  ; i++ )
 
-95 if–
+103 if–
 timî_öfo
 [ 
 i
@@ -25069,7 +25203,7 @@ i
 íabÀ
  == 0 )
 
-100 if–
+108 if–
 timî_öfo
 [ 
 i
@@ -25077,7 +25211,7 @@ i
 time_out
  > 0 )
 
-102 
+110 
 timî_öfo
 [ 
 i
@@ -25085,45 +25219,45 @@ i
 time_out
 --;
 
-105 
+113 
 	}
 }
 
-109 
+117 
 Regi°îTimîISR
 –(*
 pU£rISR
 )() )
 
-111 
+119 
 pFunU£rISR
  = 
 pU£rISR
 ;
 
-112 
+120 
 	}
 }
 
-116 
+124 
 	$Ba£TimîI¡îru±
 ()
 
-118 
+126 
 	`Upd©eTimî
 ();
 
-121 if–
+129 if–
 pFunU£rISR
  !
 NULL
  )
 
-123 
+131 
 	`pFunU£rISR
 ();
 
-125 
+133 
 	}
 }
 

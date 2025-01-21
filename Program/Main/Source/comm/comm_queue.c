@@ -9,9 +9,9 @@ CommData_T comm_front[ MAX_QUEUE_NUM ];
 SQueue_T comm_queue[ MAX_COMM_ID ];     
 
 
-#define RETRY_REQ_COUNT     5
+#define RETRY_REQ_COUNT     3//5
 #define RETRY_ACK_COUNT     1
-#define RETRY_WAIT_TIME     100
+#define RETRY_WAIT_TIME     20//100
 CommData_T data;
 
 void InitCommQueue(void)
@@ -40,15 +40,15 @@ void SetCommQueueFront(U8 packet)
 }
 
 
-U8 dbg_err_retry_count[5] = {0,0,0,0,0};    // for dbg
+U32 dbg_err_retry_count[ RETRY_REQ_COUNT ] = {0};    // for dbg
 void SendPacketQueueFront(void)
 {
     if( IsExpiredTimer( TIMER_ID_QUEUE_RETRY_WAIT ) != TIMER_EXPIRE 
+        || IsExpiredTimer( TIMER_ID_UART_2_RX ) != TIMER_EXPIRE 
         || IsExpiredTimer( TIMER_ID_UART_2_TX_DONE ) != TIMER_EXPIRE )
     {
         return ;
     }
-
 
     if( data.retry_count == 0 )
     {
@@ -72,7 +72,7 @@ void SendPacketQueueFront(void)
     // for dbg...
     if( (data.packet & 0x80) != 0x80 )
     {
-        if( data.retry_count < 4 )
+        if( data.retry_count < RETRY_REQ_COUNT )
         {
             dbg_err_retry_count[ data.retry_count ]++;
         }

@@ -17,7 +17,8 @@
 typedef struct _debug_comm_
 {
     U32 rx_cnt;
-    U32 rx_err;
+    U32 rx_parser_err;
+    U32 rx_read_err;
 
     U32 tx_cnt;
 } debug_comm_t; 
@@ -48,13 +49,15 @@ typedef struct _parser_list_
 
 static const parser_rx_list_t parser_rx_list[] = 
 {
-    { TIMER_ID_UART_2_RX,   COMM_ID_FRONT,  IsValidPkt_Front,   ParserPkt_Front, ReadPacket_Front    },
+    { TIMER_ID_UART_2_RX_DONE,   COMM_ID_FRONT,  IsValidPkt_Front,   ParserPkt_Front, ReadPacket_Front    },
 };
 #define MAX_PARSER_RX_NUM   ( sizeof( parser_rx_list) / sizeof( parser_rx_list_t ) )
 
-U8 dbg_log_buf[21][20];
+U8 dbg_log_buf[21][50];
 U8 dbg_index = 0;
+U8 dbg_log_buf_2[21];
 
+U8 dbg_the_parser_cnt = 0;
 void RecvPacketHandler( void )
 {
     parser_rx_list_t    *p_list;
@@ -66,6 +69,7 @@ void RecvPacketHandler( void )
         if( IsExpiredTimer( p_list->TimerId ) == TIMER_EXPIRE )
         {
             DisableTimer( p_list->TimerId );
+            dbg_the_parser_cnt++;
 
             if( ( pkt_recv_len = p_list->ReadPacket( p_list->CommId, &pkt_recv[0] ) ) > 0 )
             {
@@ -77,18 +81,25 @@ void RecvPacketHandler( void )
 #if DEBUG_COMM
                     d_comm[ p_list->CommId ].rx_cnt++;
 #endif
-                }
-                else
-                {
-#if DEBUG_COMM
-                    d_comm[ p_list->CommId ].rx_err++;
-#endif
-                    memcpy( &dbg_log_buf[dbg_index][0], &pkt_recv[0], pkt_recv_len );
+                    dbg_log_buf_2[dbg_index] = (U8)pkt_recv_len;
+
+                    //dbg_log_buf[dbg_index][0] = pkt_recv_len;
+                    //memcpy( &dbg_log_buf[dbg_index][1], &pkt_recv[0], pkt_recv_len );
                     if( dbg_index < 21 )
                     {
                         dbg_index++;
                     }
                 }
+                else
+                {
+#if DEBUG_COMM
+                    d_comm[ p_list->CommId ].rx_parser_err++;
+#endif
+                }
+            }
+            else
+            {
+                //    d_comm[ p_list->CommId ].rx_read_err++;
             }
         }
     }
