@@ -51,7 +51,7 @@ typedef struct _parser_list_
 static const parser_rx_list_t parser_rx_list[] = 
 {
     { TIMER_ID_UART_0_RX,   COMM_ID_KEY,  IsValidPkt_Key,   ParserPkt_Key, ReadPacket_Key },
-    { TIMER_ID_UART_1_RX,   COMM_ID_MAIN, IsValidPkt_Main,  ParserPkt_Main, ReadPacket_Main }
+    { TIMER_ID_UART_1_RX_DONE,   COMM_ID_MAIN, IsValidPkt_Main,  ParserPkt_Main, ReadPacket_Main }
 };
 #define MAX_PARSER_RX_NUM   ( sizeof( parser_rx_list) / sizeof( parser_rx_list_t ) )
 U8 dbg_log_buf[21][20];

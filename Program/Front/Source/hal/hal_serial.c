@@ -3,25 +3,21 @@
 #define CONFIG_UART_2   0
 #define CONFIG_UART_3   0  
 
-/* UART3 : COMP */
 #if CONFIG_UART_0 
 #pragma interrupt INTST0    r_uart0_interrupt_send
 #pragma interrupt INTSR0    r_uart0_interrupt_receive
 #endif
 
-/* UART1 : WIFI */
 #if CONFIG_UART_1
 #pragma interrupt INTST1    r_uart1_interrupt_send
 #pragma interrupt INTSR1    r_uart1_interrupt_receive
 #endif
 
-/* UART2 : FRONT */
 #if CONFIG_UART_2 
 #pragma interrupt INTST2    r_uart2_interrupt_send
 #pragma interrupt INTSR2    r_uart2_interrupt_receive
 #endif
 
-/* EOL */
 #if CONFIG_UART_3 
 #pragma interrupt INTST3    r_uart3_interrupt_send
 #pragma interrupt INTSR3    r_uart3_interrupt_receive
@@ -72,7 +68,7 @@
 
 // @ms
 #define UART_0_RX_TIME_STAMP   10
-#define UART_1_RX_TIME_STAMP   10
+#define UART_1_RX_TIME_STAMP   0
 #define UART_2_RX_TIME_STAMP   10
 #define UART_3_RX_TIME_STAMP   10
 
@@ -553,6 +549,7 @@ __interrupt static void r_uart1_interrupt_receive(void)
 {
     volatile U8 rx_data;
     volatile U8 err_type;
+    static U8 cnt = 0;
 
     err_type = (U8)(SSR03 & 0x0007U);
     SIR03 = (U16)err_type;
@@ -569,9 +566,23 @@ __interrupt static void r_uart1_interrupt_receive(void)
         {
             HAL_InitCommId( UART_ID_1 );
         }
+        
+        StartTimer( TIMER_ID_UART_1_RX, 10 );
+        if( rx_data == 0x55 )
+        {
+            cnt++;
+            if( cnt >=3 )
+            {
+                StartTimer( TIMER_ID_UART_1_RX, 3 );
+                StartTimer( TIMER_ID_UART_1_RX_DONE, UART_1_RX_TIME_STAMP );
+                cnt = 0;
+            }
+        }
+        else
+        {
+            cnt = 0;
+        }
     }
-
-    StartTimer( TIMER_ID_UART_1_RX, UART_1_RX_TIME_STAMP );
 }
 
 __interrupt static void r_uart1_interrupt_send(void)

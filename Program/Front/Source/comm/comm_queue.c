@@ -10,9 +10,9 @@ CommData_T comm_main[ MAX_QUEUE_NUM ];
 SQueue_T comm_queue[ MAX_COMM_ID ];     
 
 
-#define RETRY_REQ_COUNT    5
+#define RETRY_REQ_COUNT    3
 #define RETRY_ACK_COUNT    1
-#define RETRY_WAIT_TIME   80
+#define RETRY_WAIT_TIME   30
 CommData_T data;
 
 void InitCommQueue(void)
@@ -79,9 +79,13 @@ void SendPacketQueueMain(void)
 
 }
 #else
+
+U32 dbg_err_retry_count[ RETRY_REQ_COUNT ] = {0};    // for dbg
+
 void SendPacketQueueMain(void)
 {
     if( IsExpiredTimer( TIMER_ID_COMM_WAIT_1 ) != TIMER_EXPIRE 
+        || IsExpiredTimer( TIMER_ID_UART_1_RX ) != TIMER_EXPIRE 
         || IsExpiredTimer( TIMER_ID_UART_1_TX_DONE ) != TIMER_EXPIRE )
     {
         return ;
@@ -104,6 +108,18 @@ void SendPacketQueueMain(void)
     {
         StartTimer( TIMER_ID_COMM_WAIT_1, RETRY_WAIT_TIME );
     }
+
+  ////////////////////////////////////////////////////
+    // for dbg...
+    if( (data.packet & 0x80) != 0x80 )
+    {
+        if( data.retry_count < RETRY_REQ_COUNT )
+        {
+            dbg_err_retry_count[ data.retry_count ]++;
+        }
+    }
+    ////////////////////////////////////////////////////
+
 }
 #endif
 

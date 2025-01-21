@@ -18,6 +18,7 @@ static void InitStartTimers( void )
 
     StartTimer( TIMER_ID_COMM_WAIT_1, 100);
     StartTimer( TIMER_ID_UART_1_TX_DONE, 1);
+    StartTimer( TIMER_ID_UART_1_RX, 10 );
     
 }
 

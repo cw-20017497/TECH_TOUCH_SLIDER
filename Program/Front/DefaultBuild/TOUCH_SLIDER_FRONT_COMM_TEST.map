@@ -1,7 +1,7 @@
 
 
 
-78K0R Linker V1.80                            Date: 6 Jan 2025 Page:   1
+78K0R Linker V1.80                            Date:14 Jan 2025 Page:   1
 
 Command:   -yC:\Program Files (x86)\Renesas Electronics\CS+\CACX\Device\
            RL78\Devicefile -_msgoff -oDefaultBuild\TOUCH_SLIDER_FRONT_CO
@@ -30,8 +30,8 @@ Directive:
 *** Link information ***
 
     52 output segment(s)
- 2B78H byte(s) real data
-  2741 symbol(s) defined
+ 2C3DH byte(s) real data
+  2773 symbol(s) defined
 
 
 *** Memory map ***
@@ -308,7 +308,7 @@ Directive:
                   @@LCODE  @lursh     002F5H    0001FH
                   @@LCODE  @iscmp     00314H    0000CH
                   @@LCODE  @lband     00320H    00014H
-         @@BASE                       00334H    001E6H  CSEG BASE
+         @@BASE                       00334H    0021FH  CSEG BASE
                   @@BASE   r_systeminit
                                       00334H    00000H
                   @@BASE   r_cg_cgc   00334H    00000H
@@ -320,106 +320,107 @@ Directive:
                   @@BASE   parser     00334H    00000H
                   @@BASE   hal_key    00334H    00000H
                   @@BASE   hal_serial
-                                      00334H    00169H
-                  @@BASE   timer      0049DH    0004AH
-                  @@BASE   main       004E7H    00000H
+                                      00334H    001A2H
+                  @@BASE   timer      004D6H    0004AH
+                  @@BASE   main       00520H    00000H
                   @@BASE   process_sys_event
-                                      004E7H    00000H
-                  @@BASE   util       004E7H    00000H
+                                      00520H    00000H
+                  @@BASE   util       00520H    00000H
                   @@BASE   parser_main
-                                      004E7H    00000H
-                  @@BASE   hal_led    004E7H    00033H
+                                      00520H    00000H
+                  @@BASE   hal_led    00520H    00033H
                   @@BASE   hal_led_onoff
-                                      0051AH    00000H
+                                      00553H    00000H
                   @@BASE   r_cg_port
-                                      0051AH    00000H
+                                      00553H    00000H
                   @@BASE   r_cg_timer
-                                      0051AH    00000H
+                                      00553H    00000H
                   @@BASE   r_cg_serial
-                                      0051AH    00000H
+                                      00553H    00000H
                   @@BASE   parser_key
-                                      0051AH    00000H
+                                      00553H    00000H
                   @@BASE   comm_queue
-                                      0051AH    00000H
-                  @@BASE   queue      0051AH    00000H
-         @@CNSTL                      0051AH    00200H  CSEG PAGE64KP
-                  @@CNSTL  crc16      0051AH    00200H
-         @@RLINIT                     0071AH    000F0H  CSEG UNIT64KP
-                  @@RLINIT @cstart    0071AH    00000H
+                                      00553H    00000H
+                  @@BASE   queue      00553H    00000H
+* gap *                               00553H    00001H
+         @@CNSTL                      00554H    00200H  CSEG PAGE64KP
+                  @@CNSTL  crc16      00554H    00200H
+         @@RLINIT                     00754H    000FEH  CSEG UNIT64KP
+                  @@RLINIT @cstart    00754H    00000H
                   @@RLINIT r_systeminit
-                                      0071AH    00000H
-                  @@RLINIT r_cg_cgc   0071AH    00000H
+                                      00754H    00000H
+                  @@RLINIT r_cg_cgc   00754H    00000H
                   @@RLINIT r_cg_cgc_user
-                                      0071AH    00000H
-                  @@RLINIT r_cg_wdt   0071AH    00000H
-                  @@RLINIT comm       0071AH    00000H
-                  @@RLINIT crc16      0071AH    00000H
-                  @@RLINIT parser     0071AH    00006H
-                  @@RLINIT hal_key    00720H    00008H
+                                      00754H    00000H
+                  @@RLINIT r_cg_wdt   00754H    00000H
+                  @@RLINIT comm       00754H    00000H
+                  @@RLINIT crc16      00754H    00000H
+                  @@RLINIT parser     00754H    00006H
+                  @@RLINIT hal_key    0075AH    00008H
                   @@RLINIT hal_serial
-                                      00728H    00000H
-                  @@RLINIT timer      00728H    00004H
-                  @@RLINIT main       0072CH    00000H
+                                      00762H    00002H
+                  @@RLINIT timer      00764H    00004H
+                  @@RLINIT main       00768H    00000H
                   @@RLINIT process_sys_event
-                                      0072CH    00000H
-                  @@RLINIT util       0072CH    00000H
+                                      00768H    00000H
+                  @@RLINIT util       00768H    00000H
                   @@RLINIT parser_main
-                                      0072CH    00004H
-                  @@RLINIT hal_led    00730H    000D8H
+                                      00768H    00004H
+                  @@RLINIT hal_led    0076CH    000D8H
                   @@RLINIT hal_led_onoff
-                                      00808H    00000H
+                                      00844H    00000H
                   @@RLINIT r_cg_port
-                                      00808H    00000H
+                                      00844H    00000H
                   @@RLINIT r_cg_timer
-                                      00808H    00000H
+                                      00844H    00000H
                   @@RLINIT r_cg_serial
-                                      00808H    00000H
+                                      00844H    00000H
                   @@RLINIT parser_key
-                                      00808H    00000H
+                                      00844H    00000H
                   @@RLINIT comm_queue
-                                      00808H    00002H
-                  @@RLINIT queue      0080AH    00000H
-                  @@RLINIT @rom       0080AH    00000H
-         @@CODEL                      0080AH    020FBH  CSEG
+                                      00844H    0000EH
+                  @@RLINIT queue      00852H    00000H
+                  @@RLINIT @rom       00852H    00000H
+         @@CODEL                      00852H    02179H  CSEG
                   @@CODEL  r_systeminit
-                                      0080AH    00027H
-                  @@CODEL  r_cg_cgc   00831H    00017H
+                                      00852H    00027H
+                  @@CODEL  r_cg_cgc   00879H    00017H
                   @@CODEL  r_cg_cgc_user
-                                      00848H    00005H
-                  @@CODEL  r_cg_wdt   0084DH    0000BH
-                  @@CODEL  comm       00858H    00078H
-                  @@CODEL  crc16      008D0H    0009CH
-                  @@CODEL  parser     0096CH    002CDH
-                  @@CODEL  hal_key    00C39H    000D5H
+                                      00890H    00005H
+                  @@CODEL  r_cg_wdt   00895H    0000BH
+                  @@CODEL  comm       008A0H    00078H
+                  @@CODEL  crc16      00918H    0009CH
+                  @@CODEL  parser     009B4H    002CDH
+                  @@CODEL  hal_key    00C81H    000D5H
                   @@CODEL  hal_serial
-                                      00D0EH    0048AH
-                  @@CODEL  timer      01198H    0013AH
-                  @@CODEL  main       012D2H    0006DH
+                                      00D56H    0048AH
+                  @@CODEL  timer      011E0H    0013AH
+                  @@CODEL  main       0131AH    00079H
                   @@CODEL  process_sys_event
-                                      0133FH    00098H
-                  @@CODEL  util       013D7H    00145H
+                                      01393H    00098H
+                  @@CODEL  util       0142BH    00145H
                   @@CODEL  parser_main
-                                      0151CH    005CFH
-                  @@CODEL  hal_led    01AEBH    00333H
+                                      01570H    005F9H
+                  @@CODEL  hal_led    01B69H    00333H
                   @@CODEL  hal_led_onoff
-                                      01E1EH    0015EH
+                                      01E9CH    0015EH
                   @@CODEL  r_cg_port
-                                      01F7CH    00040H
+                                      01FFAH    00040H
                   @@CODEL  r_cg_timer
-                                      01FBCH    000E7H
+                                      0203AH    000E7H
                   @@CODEL  r_cg_serial
-                                      020A3H    002CBH
+                                      02121H    002CBH
                   @@CODEL  parser_key
-                                      0236EH    001D3H
+                                      023ECH    001D3H
                   @@CODEL  comm_queue
-                                      02541H    000EDH
-                  @@CODEL  queue      0262EH    002D7H
-         @@LCODEL                     02905H    000B1H  CSEG
-                  @@LCODEL @stkinit   02905H    00044H
-                  @@LCODEL exit       02949H    0001CH
-                  @@LCODEL memcpy_f   02965H    00032H
-                  @@LCODEL memset_f   02997H    0001FH
-* gap *                               029B6H    0D44AH
+                                      025BFH    00135H
+                  @@CODEL  queue      026F4H    002D7H
+         @@LCODEL                     029CBH    000B1H  CSEG
+                  @@LCODEL @stkinit   029CBH    00044H
+                  @@LCODEL exit       02A0FH    0001CH
+                  @@LCODEL memcpy_f   02A2BH    00032H
+                  @@LCODEL memset_f   02A5DH    0001FH
+* gap *                               02A7CH    0D384H
          ??OCDROM                     0FE00H    00200H  CSEG
 
   MEMORY=RAM
@@ -570,7 +571,7 @@ Directive:
                                       FEFBAH    00000H
                   @@DATS   queue      FEFBAH    00000H
                   @@DATS   @rom       FEFBAH    00000H
-         @@INITL                      FEFBAH    000F0H  DSEG UNIT64KP
+         @@INITL                      FEFBAH    000FEH  DSEG UNIT64KP
                   @@INITL  @cstart    FEFBAH    00000H
                   @@INITL  r_systeminit
                                       FEFBAH    00000H
@@ -583,101 +584,101 @@ Directive:
                   @@INITL  parser     FEFBAH    00006H
                   @@INITL  hal_key    FEFC0H    00008H
                   @@INITL  hal_serial
-                                      FEFC8H    00000H
-                  @@INITL  timer      FEFC8H    00004H
-                  @@INITL  main       FEFCCH    00000H
+                                      FEFC8H    00002H
+                  @@INITL  timer      FEFCAH    00004H
+                  @@INITL  main       FEFCEH    00000H
                   @@INITL  process_sys_event
-                                      FEFCCH    00000H
-                  @@INITL  util       FEFCCH    00000H
+                                      FEFCEH    00000H
+                  @@INITL  util       FEFCEH    00000H
                   @@INITL  parser_main
-                                      FEFCCH    00004H
-                  @@INITL  hal_led    FEFD0H    000D8H
+                                      FEFCEH    00004H
+                  @@INITL  hal_led    FEFD2H    000D8H
                   @@INITL  hal_led_onoff
-                                      FF0A8H    00000H
+                                      FF0AAH    00000H
                   @@INITL  r_cg_port
-                                      FF0A8H    00000H
+                                      FF0AAH    00000H
                   @@INITL  r_cg_timer
-                                      FF0A8H    00000H
+                                      FF0AAH    00000H
                   @@INITL  r_cg_serial
-                                      FF0A8H    00000H
+                                      FF0AAH    00000H
                   @@INITL  parser_key
-                                      FF0A8H    00000H
+                                      FF0AAH    00000H
                   @@INITL  comm_queue
-                                      FF0A8H    00002H
-                  @@INITL  queue      FF0AAH    00000H
-                  @@INITL  @rom       FF0AAH    00000H
-         @@DATAL                      FF0AAH    006A0H  DSEG UNIT64KP
-                  @@DATAL  @cstart    FF0AAH    00000H
+                                      FF0AAH    0000EH
+                  @@INITL  queue      FF0B8H    00000H
+                  @@INITL  @rom       FF0B8H    00000H
+         @@DATAL                      FF0B8H    006A6H  DSEG UNIT64KP
+                  @@DATAL  @cstart    FF0B8H    00000H
                   @@DATAL  r_systeminit
-                                      FF0AAH    00000H
-                  @@DATAL  r_cg_cgc   FF0AAH    00000H
+                                      FF0B8H    00000H
+                  @@DATAL  r_cg_cgc   FF0B8H    00000H
                   @@DATAL  r_cg_cgc_user
-                                      FF0AAH    00000H
-                  @@DATAL  r_cg_wdt   FF0AAH    00000H
-                  @@DATAL  comm       FF0AAH    00008H
-                  @@DATAL  crc16      FF0B2H    00000H
-                  @@DATAL  parser     FF0B2H    003D2H
-                  @@DATAL  hal_key    FF484H    00000H
+                                      FF0B8H    00000H
+                  @@DATAL  r_cg_wdt   FF0B8H    00000H
+                  @@DATAL  comm       FF0B8H    00008H
+                  @@DATAL  crc16      FF0C0H    00000H
+                  @@DATAL  parser     FF0C0H    003D2H
+                  @@DATAL  hal_key    FF492H    00000H
                   @@DATAL  hal_serial
-                                      FF484H    00168H
-                  @@DATAL  timer      FF5ECH    00078H
-                  @@DATAL  main       FF664H    00000H
+                                      FF492H    00168H
+                  @@DATAL  timer      FF5FAH    0007EH
+                  @@DATAL  main       FF678H    00000H
                   @@DATAL  process_sys_event
-                                      FF664H    00000H
-                  @@DATAL  util       FF664H    00000H
+                                      FF678H    00000H
+                  @@DATAL  util       FF678H    00000H
                   @@DATAL  parser_main
-                                      FF664H    00000H
-                  @@DATAL  hal_led    FF664H    00018H
+                                      FF678H    00000H
+                  @@DATAL  hal_led    FF678H    00018H
                   @@DATAL  hal_led_onoff
-                                      FF67CH    00000H
+                                      FF690H    00000H
                   @@DATAL  r_cg_port
-                                      FF67CH    00000H
+                                      FF690H    00000H
                   @@DATAL  r_cg_timer
-                                      FF67CH    00000H
+                                      FF690H    00000H
                   @@DATAL  r_cg_serial
-                                      FF67CH    0001CH
+                                      FF690H    0001CH
                   @@DATAL  parser_key
-                                      FF698H    00006H
+                                      FF6ACH    00006H
                   @@DATAL  comm_queue
-                                      FF69EH    000ACH
-                  @@DATAL  queue      FF74AH    00000H
-                  @@DATAL  @rom       FF74AH    00000H
-         @@BITS                       FF74AH    00000H  BSEG
-                  @@BITS   @cstart    FF74AH.0  00000H.0
+                                      FF6B2H    000ACH
+                  @@DATAL  queue      FF75EH    00000H
+                  @@DATAL  @rom       FF75EH    00000H
+         @@BITS                       FF75EH    00000H  BSEG
+                  @@BITS   @cstart    FF75EH.0  00000H.0
                   @@BITS   r_systeminit
-                                      FF74AH.0  00000H.0
-                  @@BITS   r_cg_cgc   FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
+                  @@BITS   r_cg_cgc   FF75EH.0  00000H.0
                   @@BITS   r_cg_cgc_user
-                                      FF74AH.0  00000H.0
-                  @@BITS   r_cg_wdt   FF74AH.0  00000H.0
-                  @@BITS   comm       FF74AH.0  00000H.0
-                  @@BITS   crc16      FF74AH.0  00000H.0
-                  @@BITS   parser     FF74AH.0  00000H.0
-                  @@BITS   hal_key    FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
+                  @@BITS   r_cg_wdt   FF75EH.0  00000H.0
+                  @@BITS   comm       FF75EH.0  00000H.0
+                  @@BITS   crc16      FF75EH.0  00000H.0
+                  @@BITS   parser     FF75EH.0  00000H.0
+                  @@BITS   hal_key    FF75EH.0  00000H.0
                   @@BITS   hal_serial
-                                      FF74AH.0  00000H.0
-                  @@BITS   timer      FF74AH.0  00000H.0
-                  @@BITS   main       FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
+                  @@BITS   timer      FF75EH.0  00000H.0
+                  @@BITS   main       FF75EH.0  00000H.0
                   @@BITS   process_sys_event
-                                      FF74AH.0  00000H.0
-                  @@BITS   util       FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
+                  @@BITS   util       FF75EH.0  00000H.0
                   @@BITS   parser_main
-                                      FF74AH.0  00000H.0
-                  @@BITS   hal_led    FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
+                  @@BITS   hal_led    FF75EH.0  00000H.0
                   @@BITS   hal_led_onoff
-                                      FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
                   @@BITS   r_cg_port
-                                      FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
                   @@BITS   r_cg_timer
-                                      FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
                   @@BITS   r_cg_serial
-                                      FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
                   @@BITS   parser_key
-                                      FF74AH.0  00000H.0
+                                      FF75EH.0  00000H.0
                   @@BITS   comm_queue
-                                      FF74AH.0  00000H.0
-                  @@BITS   queue      FF74AH.0  00000H.0
-* gap *                               FF74AH    0078AH
+                                      FF75EH.0  00000H.0
+                  @@BITS   queue      FF75EH.0  00000H.0
+* gap *                               FF75EH    00776H
          @@SEGREG                     FFED4H    00004H  DSEG AT
                   @@SEGREG @SEGREG    FFED4H    00004H
          @@RTARG0                     FFED8H    00008H  DSEG AT

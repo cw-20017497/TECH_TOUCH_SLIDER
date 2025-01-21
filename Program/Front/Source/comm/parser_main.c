@@ -52,10 +52,10 @@ static U8   check_crc( U8 *buf, I16 len )
 {
     U16 crc16 = 0;
 
-    crc16 = ( ( (U16)buf[ len - 3 ] ) << 8 ) & 0xFF00;
-    crc16 |=    (U16)( buf[ len - 2 ] );
+    crc16 = ( ( (U16)buf[ len - 5 ] ) << 8 ) & 0xFF00;
+    crc16 |=    (U16)( buf[ len - 4 ] );
 
-    if( crc16 != Rx_CRC_CCITT( buf, (U16)( len - 3 ) ) )
+    if( crc16 != Rx_CRC_CCITT( buf, (U16)( len - 5 ) ) )
     {
         return FALSE;
     }
@@ -69,22 +69,35 @@ I16 ReadPacket_Main( U8 id , U8 *recv_pkt )
     I16 len = 0;
     U8 buf;
     U8 startRead = FALSE;
+    static U8 etx_count = 0;
 
 
     while( HAL_IsEmptyRecvBuffer( id ) == FALSE )
     {
         buf = HAL_GetRecvBuffer( id );
-        if( buf == STX )
+        if( startRead == FALSE &&
+                buf == STX )
         {
             startRead = TRUE;
+            etx_count = 0;
             recv_pkt[ len++ ] = buf;
         }
         else if( startRead == TRUE )
         {
             recv_pkt[ len++ ] = buf;
-            if( buf == ETX )
+
+            if( buf != ETX )
             {
-                break;
+                etx_count = 0;
+            }
+            else
+            {
+                etx_count++;
+                if(etx_count >= 3 )
+                {
+                    etx_count = 0;
+                    break;
+                }
             }
         }
     }
