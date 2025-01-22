@@ -186,7 +186,6 @@ void HAL_OnOffLed_57(U8 mu8OnOff)
 }
 
 
-#if 0
 void HAL_OnOffLed_61(U8 mu8OnOff)
 {
     P_LED_61 = mu8OnOff;
@@ -249,6 +248,7 @@ void HAL_OnOffLed_75(U8 mu8OnOff)
     P_LED_75 = mu8OnOff;
 }
 
+#if 0
 void HAL_OnOffLed_76(U8 mu8OnOff)
 {
     P_LED_76 = mu8OnOff;

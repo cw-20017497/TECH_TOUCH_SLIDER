@@ -44,11 +44,24 @@ typedef enum
     SEG_34,
     SEG_35,
 
+    SEG_36, // PBA VER2
+    SEG_37,
+    SEG_38,
+    SEG_39,
+    SEG_40,
+    SEG_41,
+    SEG_42,
+    SEG_43,
+    SEG_44,
+    SEG_45,
+    SEG_46,
+    SEG_47,
+
     LED_ALL,
 
     MAX_LED_NUM
 } LedId_T;
-#define MAX_LED    6       /* 5bytes * 8bits = 40 */
+#define MAX_LED    7       /* 5bytes * 8bits = 40 */
 
 void HAL_TurnOnOffLED(LedId_T led, U8 mu8OnOff);
 

@@ -52,7 +52,6 @@ void HAL_OnOffLed_56(U8 mu8OnOff);
 void HAL_OnOffLed_57(U8 mu8OnOff);
 
 
-#if 0
 /* LED IC - 6 */
 void HAL_OnOffLed_61(U8 mu8OnOff);
 void HAL_OnOffLed_62(U8 mu8OnOff);
@@ -69,6 +68,8 @@ void HAL_OnOffLed_72(U8 mu8OnOff);
 void HAL_OnOffLed_73(U8 mu8OnOff);
 void HAL_OnOffLed_74(U8 mu8OnOff);
 void HAL_OnOffLed_75(U8 mu8OnOff);
+
+#if 0
 void HAL_OnOffLed_76(U8 mu8OnOff);
 void HAL_OnOffLed_77(U8 mu8OnOff);
 

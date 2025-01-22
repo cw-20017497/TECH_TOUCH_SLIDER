@@ -55,5 +55,19 @@
 #define  P_LED_56                       P7.7
 #define  P_LED_57                       P3.1
 
+// PBA VER 2 61~75
+#define  P_LED_61                       P4.1
+#define  P_LED_62                       P4.2
+#define  P_LED_63                       P4.3
+#define  P_LED_64                       P12.0
+#define  P_LED_65                       P14.0
+#define  P_LED_66                       P14.1
+#define  P_LED_67                       P0.0
+
+#define  P_LED_71                       P6.3
+#define  P_LED_72                       P6.2
+#define  P_LED_73                       P6.1
+#define  P_LED_74                       P6.0
+#define  P_LED_75                       P0.1
 #endif /* __HW__H__ */
 

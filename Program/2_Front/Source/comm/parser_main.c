@@ -209,9 +209,9 @@ static I16 ParserReqLed(U8 *buf)
 
     // DIMMING
 #if CONFIG_DIMMING
-    HAL_SetDimmingLED( &buf[6], MAX_LED );      // LED DIMMING ON/OFF
-    HAL_SetDimmingDuty( buf[12] );               // LED DIMMING DUTY
-    HAL_SetOnOffDuty( buf[13] );                 // LED LED DUTY
+    HAL_SetDimmingLED( &buf[7], MAX_LED );      // LED DIMMING ON/OFF
+    HAL_SetDimmingDuty( buf[13] );               // LED DIMMING DUTY
+    HAL_SetOnOffDuty( buf[14] );                 // LED LED DUTY
 #else
     HAL_SetDimmingLED( 0UL );
 #endif

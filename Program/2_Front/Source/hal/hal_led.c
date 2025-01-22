@@ -156,7 +156,21 @@ static OnOff_T Group_A_List[] =
     { 31,     HAL_OnOffLed_54 },
     { 32,     HAL_OnOffLed_55 },
     { 33,     HAL_OnOffLed_56 },
-    { 34,     HAL_OnOffLed_57 }
+    { 34,     HAL_OnOffLed_57 },
+
+    { 36,     HAL_OnOffLed_61 },
+    { 37,     HAL_OnOffLed_62 },
+    { 38,     HAL_OnOffLed_63 },
+    { 39,     HAL_OnOffLed_64 },
+    { 40,     HAL_OnOffLed_65 },
+    { 41,     HAL_OnOffLed_66 },
+    { 42,     HAL_OnOffLed_67 },
+
+    { 43,     HAL_OnOffLed_71 },
+    { 44,     HAL_OnOffLed_72 },
+    { 45,     HAL_OnOffLed_73 },
+    { 46,     HAL_OnOffLed_74 },
+    { 47,     HAL_OnOffLed_75 }
 };          
 #define SZ_GROUP_A_LIST       (sizeof(Group_A_List)/sizeof(OnOff_T))
 
