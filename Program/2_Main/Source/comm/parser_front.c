@@ -253,6 +253,10 @@ static I16 ParserReqKey(U8 *buf)
     slider[2] = buf[6];
     slider[3] = buf[7];
 
+    if( slider[1] == 0 )
+    {
+        slider[1] = slider[3];
+    }
 
     // ACK 
     SetCommHeader( COMM_ID_FRONT, PKT_ACK_KEY );

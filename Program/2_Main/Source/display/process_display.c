@@ -135,7 +135,8 @@ static U8 GetSlide(U8 Slide)
 {
     if( Slide > 0 )
     {
-        return (U8)(256U - Slide);
+        return Slide;
+        //return (U8)(256U - Slide);
     }
 
     return 0;
@@ -470,6 +471,7 @@ static U8 calcLevel(U8 slide, U8 *p_tick)
 
 
 U8 dbg_temp_tick = 0;
+U8 dbg_circle_level = 0;
 static void ProcessDisplayNormalMode_Level(void)
 {
     static U8 prev_slide = 0;
@@ -552,7 +554,10 @@ static void ProcessDisplayNormalMode_Level(void)
         the_temp = GetTempMinMax( the_temp, MIN_TEMP, MAX_TEMP );
         DisplayEffectTemp( the_temp );
 
-        DispBarStack( temp_index * 3 );
+        //DispBarStack( temp_index * 3 );
+        DispBar( the_slide / 18 );
+        dbg_circle_level = the_slide / 21;
+        DispCircle( dbg_circle_level );
 
         {
             static U8 prev_the_temp;
@@ -577,7 +582,7 @@ static void ProcessDisplayNormalMode_Level(void)
         // 표시 대기 시간 초과 그리고 입력도 없는 경우
         the_temp = temp_hot[ temp_index ];
         DispTemp( the_temp );
-        DispBarStack( temp_index * 3 );
+        DispBarStack( (temp_index * 3) + 1 );
         effect_current_temp = the_temp;
         the_rest_slide = 0;
     }
@@ -797,6 +802,7 @@ static void Update(void)
     }
 }
 
+U8 dbg_disp = 1;
 void ProcessDisplay(void)
 {
     UpdateDisplayTimer();
@@ -810,6 +816,10 @@ void ProcessDisplay(void)
     }
 
     /* NORMAL MODE */
-    ProcessDisplayNormalMode_Level();
+    if( dbg_disp)
+    {
+        ProcessDisplayNormalMode_Level();
+    }
+
     Update();
 }

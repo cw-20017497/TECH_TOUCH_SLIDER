@@ -96,7 +96,7 @@ static void Evt_1sec_Handler( void )
 
 void TimerIsrCallback(void)
 {
-    BuzControl();
+    //BuzControl();
 }
 
 void InitSystem(void)

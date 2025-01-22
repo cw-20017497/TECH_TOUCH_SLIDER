@@ -19,6 +19,7 @@ static void InitStartTimers( void )
     StartTimer( TIMER_ID_1SEC,  SEC(1));
 
     StartTimer( TIMER_ID_QUEUE_RETRY_WAIT, 1);
+    StartTimer( TIMER_ID_UART_2_RX, 1 );
     StartTimer( TIMER_ID_UART_2_TX_DONE, 1);
 }
 

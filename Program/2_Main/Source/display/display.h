@@ -54,6 +54,9 @@ void DispWaterOutAmountInfinity(void);
 // 온도 표시
 void DispTemp(U16 mu16Val);
 
+void DispCircle(U8 pos);
+void DispCircleStack(U8 pos);
+
 void DispBar(U8 pos);
 void DispBarStack(U8 pos);
 
