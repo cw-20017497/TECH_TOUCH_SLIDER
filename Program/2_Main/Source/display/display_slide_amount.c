@@ -8,6 +8,7 @@
 
 #define SLIDER_BAR_LEVEL    12
 #define DEFAULT_AMOUNT      120
+#define TICK_AMOUNT         10
 
 /* MODE TIMER */
 #define SLIDER_LEVEL_TIMER       30  /* 300ms@10ms*/
@@ -15,7 +16,7 @@
 
 /* LEVEL MODE MIN/MAX */
 #define MIN_AMOUNT        100
-#define MAX_AMOUNT        999
+#define MAX_AMOUNT        990
 
 #define UPDATE_DELAY    2
 
@@ -159,30 +160,6 @@ static U16 calcAmountAmount(U16 Val, U16 *pAmountAmount)
     return restAmount;
 }
 
-static void SmoothUpdateBarDisplay(U8 isInit, U16 initBar, U16 targetBar)
-{
-    static U16 currentBar = 0;
-    static U16 updateDelay = UPDATE_DELAY;
-
-    // setting current bar 
-    if( isInit == TRUE )
-    {
-        currentBar = initBar;
-        return;
-    }
-
-    if (updateDelay > 0)
-    {
-        updateDelay--;
-    }
-    else if (currentBar != targetBar)
-    {
-        currentBar += (targetBar > currentBar) ? 1 : -1;
-        updateDelay = UPDATE_DELAY;
-    }
-
-    DispBar((U8)targetBar);
-}
 
 static void SmoothUpdateAmountDisplay(U8 isInit, U16 initAmount, U16 targetAmount)
 {
@@ -202,7 +179,7 @@ static void SmoothUpdateAmountDisplay(U8 isInit, U16 initAmount, U16 targetAmoun
     }
     else if (currentAmount != targetAmount)
     {
-        currentAmount += (targetAmount > currentAmount) ? 1 : -1;
+        currentAmount += (targetAmount > currentAmount) ? TICK_AMOUNT : -TICK_AMOUNT;
         updateDelay = UPDATE_DELAY;
     }
 
@@ -283,8 +260,6 @@ void ProcessDisplaySliderAmount(void)
             SliderAmount.FineRestVal = 0;
             SmoothUpdateAmountDisplay(TRUE, SliderAmount.Amount, 0);
 
-            // init variable
-            SmoothUpdateBarDisplay(TRUE, 0, 0);
             break;
 
         case SLIDER_AMOUNT_MODE_FINE:
@@ -296,6 +271,8 @@ void ProcessDisplaySliderAmount(void)
             SliderAmount.FineRestVal = calcAmountAmount(
                     SliderAmount.FineVal + SliderAmount.FineRestVal,
                     &SliderAmount.FineAmount );
+
+            SliderAmount.FineAmount *= TICK_AMOUNT;
 
             if( SliderAmount.FineDir == SLIDER_DIR_UP )
             {

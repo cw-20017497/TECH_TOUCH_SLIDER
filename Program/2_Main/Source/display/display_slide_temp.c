@@ -10,6 +10,7 @@
 
 #define SLIDER_BAR_LEVEL    16
 #define DEFAULT_TEMP        100
+#define TICK_TEMP           1
 
 /* MODE TIMER */
 #define SLIDER_LEVEL_TIMER       30  /* 300ms@10ms*/
@@ -173,31 +174,6 @@ static U16 calcTempAmount(U16 Val, U16 *pTempAmount)
 }
 
 
-static void SmoothUpdateBarDisplay(U8 isInit, U16 initBar, U16 targetBar)
-{
-    static U16 currentBar = 0;
-    static U16 updateDelay = UPDATE_DELAY;
-
-
-    // setting currrnet temp 
-    if( isInit == TRUE )
-    {
-        currentBar = initBar;
-        return ;
-    }
-
-    if (updateDelay > 0)
-    {
-        updateDelay--;
-    }
-    else if (currentBar != targetBar)
-    {
-        currentBar += (targetBar > currentBar) ? 1 : -1;
-        updateDelay = UPDATE_DELAY;
-    }
-
-    DispBar( (U8)targetBar );
-}
 
 static void SmoothUpdateTempDisplay(U8 isInit, U16 initTemp, U16 targetTemp)
 {
@@ -218,7 +194,7 @@ static void SmoothUpdateTempDisplay(U8 isInit, U16 initTemp, U16 targetTemp)
     }
     else if (currentTemp != targetTemp)
     {
-        currentTemp += (targetTemp > currentTemp) ? 1 : -1;
+        currentTemp += (targetTemp > currentTemp) ? TICK_TEMP : -TICK_TEMP;
         updateDelay = UPDATE_DELAY;
     }
 
@@ -303,8 +279,6 @@ void ProcessDisplaySliderTemp(void)
             SliderTemp.FineRestVal = 0;
             SmoothUpdateTempDisplay( TRUE, SliderTemp.Temp, 0 );
 
-            // init variable
-            SmoothUpdateBarDisplay( TRUE, 0, 0 );
             break;
 
         case SLIDER_TEMP_MODE_FINE :
@@ -316,6 +290,7 @@ void ProcessDisplaySliderTemp(void)
             SliderTemp.FineRestVal = calcTempAmount( 
                     SliderTemp.FineVal + SliderTemp.FineRestVal, 
                     &SliderTemp.FineTemp );
+            SliderTemp.FineTemp *= TICK_TEMP;
 
             if( SliderTemp.FineDir == SLIDER_DIR_UP )
             {

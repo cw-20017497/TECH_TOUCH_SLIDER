@@ -490,11 +490,8 @@ void DispCircleStack(U8 pos)
 }
 
 
-U8 dbg_the_pos = 0;
 void DispBar(U8 pos)
 {
-    dbg_the_pos = pos;
-
     HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
     HAL_TurnOnOffLED( SEG_BAR_13, OFF );
     HAL_TurnOnOffLED( SEG_BAR_12, OFF );
