@@ -6,15 +6,11 @@
 #define  HAL_LEVER_PUSHED   LOW
 
 
-#define NUM_SLIDER      2
 typedef struct _hal_key_
 {
     U32 Key;
     U8  WaterOut;
     U8  IceOut;
-
-    U8 SliderFlick[ NUM_SLIDER ];
-    U8 SliderPos[ NUM_SLIDER ];
 } TKeyVal;
 
 TKeyVal HalKey;

@@ -5,11 +5,14 @@
 #include "hal_serial.h"
 #include "hal_led.h"
 #include "buzzer.h"
+#include "slider.h"
+#include "process_slider.h"
 
 #include "comm_queue.h"
 #include "parser.h"
 #include "parser_front.h"
 #include "process_display.h"
+#include "display_slide_temp.h"
 #include "process_sys_event.h"
 
 
@@ -75,6 +78,10 @@ static void Evt_1ms_Handler( void )
 static void Evt_10ms_Handler( void )
 {
     StartTimer( TIMER_ID_10MS, 10);
+
+    ProcessScanSlider();
+    ProcessSliderEventHandler();
+
     ProcessDisplay();
 }
 
@@ -96,7 +103,7 @@ static void Evt_1sec_Handler( void )
 
 void TimerIsrCallback(void)
 {
-    //BuzControl();
+    BuzControl();
 }
 
 void InitSystem(void)
@@ -109,6 +116,8 @@ void InitSystem(void)
     InitDisplay();
 
     InitCommQueue();
+    InitSlider();
+    InitSliderTemp();
 
     RegisterTimerISR( TimerIsrCallback  );
 }

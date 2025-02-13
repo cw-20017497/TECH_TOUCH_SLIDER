@@ -395,6 +395,12 @@ void DispWaterOutAmountInfinity(void)
 }
 
 
+// 용량 표시
+void DispAmount(U16 mu16Val)
+{
+    DispSegmentDigit( mu16Val );
+}
+
 
 // 온도 표시
 void DispTemp(U16 mu16Val)
@@ -419,18 +425,31 @@ void DispCircle(U8 pos)
 
     switch( pos )
     {
-        case 12: HAL_TurnOnOffLED( SEG_CIRCLE_12, ON ); break;
-        case 11: HAL_TurnOnOffLED( SEG_CIRCLE_11, ON ); break;
-        case 10: HAL_TurnOnOffLED( SEG_CIRCLE_10, ON ); break;
-        case 9: HAL_TurnOnOffLED(  SEG_CIRCLE_9,  ON ); break; 
-        case 8: HAL_TurnOnOffLED(  SEG_CIRCLE_8,  ON ); break; 
-        case 7: HAL_TurnOnOffLED(  SEG_CIRCLE_7,  ON ); break; 
-        case 6: HAL_TurnOnOffLED(  SEG_CIRCLE_6,  ON ); break; 
-        case 5: HAL_TurnOnOffLED(  SEG_CIRCLE_5,  ON ); break; 
-        case 4: HAL_TurnOnOffLED(  SEG_CIRCLE_4,  ON ); break; 
-        case 3: HAL_TurnOnOffLED(  SEG_CIRCLE_3,  ON ); break; 
-        case 2: HAL_TurnOnOffLED(  SEG_CIRCLE_2,  ON ); break; 
-        case 1: HAL_TurnOnOffLED(  SEG_CIRCLE_1,  ON ); break; 
+       case 3:  HAL_TurnOnOffLED( SEG_CIRCLE_12, ON ); break;
+       case 2:  HAL_TurnOnOffLED( SEG_CIRCLE_11, ON ); break;
+       case 1:  HAL_TurnOnOffLED( SEG_CIRCLE_10, ON ); break;
+       case 12: HAL_TurnOnOffLED(  SEG_CIRCLE_9,  ON ); break; 
+       case 11: HAL_TurnOnOffLED(  SEG_CIRCLE_8,  ON ); break; 
+       case 10: HAL_TurnOnOffLED(  SEG_CIRCLE_7,  ON ); break; 
+       case 9:  HAL_TurnOnOffLED(  SEG_CIRCLE_6,  ON ); break; 
+       case 8:  HAL_TurnOnOffLED(  SEG_CIRCLE_5,  ON ); break; 
+       case 7:  HAL_TurnOnOffLED(  SEG_CIRCLE_4,  ON ); break; 
+       case 6:  HAL_TurnOnOffLED(  SEG_CIRCLE_3,  ON ); break; 
+       case 5:  HAL_TurnOnOffLED(  SEG_CIRCLE_2,  ON ); break; 
+       case 4:  HAL_TurnOnOffLED(  SEG_CIRCLE_1,  ON ); break; 
+    
+    //    case 12: HAL_TurnOnOffLED( SEG_CIRCLE_12, ON ); break;
+    //    case 11: HAL_TurnOnOffLED( SEG_CIRCLE_11, ON ); break;
+    //    case 10: HAL_TurnOnOffLED( SEG_CIRCLE_10, ON ); break;
+    //    case 9: HAL_TurnOnOffLED(  SEG_CIRCLE_9,  ON ); break; 
+    //    case 8: HAL_TurnOnOffLED(  SEG_CIRCLE_8,  ON ); break; 
+    //    case 7: HAL_TurnOnOffLED(  SEG_CIRCLE_7,  ON ); break; 
+    //    case 6: HAL_TurnOnOffLED(  SEG_CIRCLE_6,  ON ); break; 
+    //    case 5: HAL_TurnOnOffLED(  SEG_CIRCLE_5,  ON ); break; 
+    //    case 4: HAL_TurnOnOffLED(  SEG_CIRCLE_4,  ON ); break; 
+    //    case 3: HAL_TurnOnOffLED(  SEG_CIRCLE_3,  ON ); break; 
+    //    case 2: HAL_TurnOnOffLED(  SEG_CIRCLE_2,  ON ); break; 
+    //    case 1: HAL_TurnOnOffLED(  SEG_CIRCLE_1,  ON ); break; 
         default : break;
     }
 }
@@ -454,25 +473,28 @@ void DispCircleStack(U8 pos)
 
     switch( pos )
     {
-        case 12: HAL_TurnOnOffLED( SEG_CIRCLE_12, ON );
-        case 11: HAL_TurnOnOffLED( SEG_CIRCLE_11, ON );
-        case 10: HAL_TurnOnOffLED( SEG_CIRCLE_10, ON );
-        case 9: HAL_TurnOnOffLED(  SEG_CIRCLE_9,  ON ); 
-        case 8: HAL_TurnOnOffLED(  SEG_CIRCLE_8,  ON ); 
-        case 7: HAL_TurnOnOffLED(  SEG_CIRCLE_7,  ON ); 
-        case 6: HAL_TurnOnOffLED(  SEG_CIRCLE_6,  ON ); 
-        case 5: HAL_TurnOnOffLED(  SEG_CIRCLE_5,  ON ); 
-        case 4: HAL_TurnOnOffLED(  SEG_CIRCLE_4,  ON ); 
-        case 3: HAL_TurnOnOffLED(  SEG_CIRCLE_3,  ON ); 
-        case 2: HAL_TurnOnOffLED(  SEG_CIRCLE_2,  ON ); 
-        case 1: HAL_TurnOnOffLED(  SEG_CIRCLE_1,  ON ); 
+        case 3:  HAL_TurnOnOffLED( SEG_CIRCLE_12, ON );
+        case 2:  HAL_TurnOnOffLED( SEG_CIRCLE_11, ON );
+        case 1:  HAL_TurnOnOffLED( SEG_CIRCLE_10, ON );
+        case 12: HAL_TurnOnOffLED(  SEG_CIRCLE_9,  ON ); 
+        case 11: HAL_TurnOnOffLED(  SEG_CIRCLE_8,  ON ); 
+        case 10: HAL_TurnOnOffLED(  SEG_CIRCLE_7,  ON ); 
+        case 9:  HAL_TurnOnOffLED(  SEG_CIRCLE_6,  ON ); 
+        case 8:  HAL_TurnOnOffLED(  SEG_CIRCLE_5,  ON ); 
+        case 7:  HAL_TurnOnOffLED(  SEG_CIRCLE_4,  ON ); 
+        case 6:  HAL_TurnOnOffLED(  SEG_CIRCLE_3,  ON ); 
+        case 5:  HAL_TurnOnOffLED(  SEG_CIRCLE_2,  ON ); 
+        case 4:  HAL_TurnOnOffLED(  SEG_CIRCLE_1,  ON ); 
         default : break;
     }
 }
 
 
+U8 dbg_the_pos = 0;
 void DispBar(U8 pos)
 {
+    dbg_the_pos = pos;
+
     HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
     HAL_TurnOnOffLED( SEG_BAR_13, OFF );
     HAL_TurnOnOffLED( SEG_BAR_12, OFF );
@@ -531,13 +553,16 @@ void DispBarStack(U8 pos)
         case 14: HAL_TurnOnOffLED( SEG_BAR_14, ON );
         case 13: HAL_TurnOnOffLED( SEG_BAR_13, ON );
         case 12: HAL_TurnOnOffLED( SEG_BAR_12, ON );
+
         case 11: HAL_TurnOnOffLED( SEG_BAR_11, ON );
         case 10: HAL_TurnOnOffLED( SEG_BAR_10, ON );
         case 9: HAL_TurnOnOffLED(  SEG_BAR_9,  ON ); 
+
         case 8: HAL_TurnOnOffLED(  SEG_BAR_8,  ON ); 
         case 7: HAL_TurnOnOffLED(  SEG_BAR_7,  ON ); 
         case 6: HAL_TurnOnOffLED(  SEG_BAR_6,  ON ); 
         case 5: HAL_TurnOnOffLED(  SEG_BAR_5,  ON ); 
+
         case 4: HAL_TurnOnOffLED(  SEG_BAR_4,  ON ); 
         case 3: HAL_TurnOnOffLED(  SEG_BAR_3,  ON ); 
         case 2: HAL_TurnOnOffLED(  SEG_BAR_2,  ON ); 

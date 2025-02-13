@@ -51,6 +51,7 @@ void DispLedDuty(void);
 void ResetInfinityCount(void);
 void DispWaterOutAmountInfinity(void);
 
+void DispAmount(U16 mu16Val);
 // 온도 표시
 void DispTemp(U16 mu16Val);
 

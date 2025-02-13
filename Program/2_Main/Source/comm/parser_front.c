@@ -11,6 +11,7 @@
 #include "hal_key.h"
 #include "comm_queue.h"
 
+#include "hal_slider.h"
 
 
 /***********************************************************************************************
@@ -253,10 +254,16 @@ static I16 ParserReqKey(U8 *buf)
     slider[2] = buf[6];
     slider[3] = buf[7];
 
-    if( slider[1] == 0 )
-    {
-        slider[1] = slider[3];
-    }
+    HAL_SetSliderVal( HAL_SLIDER_1, buf[5] );
+    HAL_SetSliderVal( HAL_SLIDER_2, buf[7] );
+
+    //SetSlideValue( SLIDER_CIRCLE, buf[5], FALSE );
+    //SetSlideValue( SLIDER_BAR, buf[7], FALSE );
+
+    //if( slider[1] == 0 )
+    //{
+    //    slider[1] = slider[3];
+    //}
 
     // ACK 
     SetCommHeader( COMM_ID_FRONT, PKT_ACK_KEY );
