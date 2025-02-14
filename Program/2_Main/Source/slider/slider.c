@@ -12,6 +12,9 @@ Slider_T   Slider[ SLIDER_NUM ];
 void InitSlider(void)
 {
     MEMSET((void __FAR *)&Slider, 0, sizeof( Slider ) );
+
+    Slider[ SLIDER_BAR ].Type    = CLAMPING;
+    Slider[ SLIDER_CIRCLE ].Type = WARP_AROUND;
 }
 
 
@@ -66,7 +69,7 @@ U8 IsSetSliderEventFlag(U8 mu8Id, U8 mu8Event )
 
 U16 dbg_amount[30];
 
-static U16 CalcSliderAmount(U16 prevVal, U16 curVal )
+static U16 CalcSliderAmount(U16 prevVal, U16 curVal, U8 Type )
 {
     I16 amount = 0;
     static i = 0;
@@ -74,13 +77,17 @@ static U16 CalcSliderAmount(U16 prevVal, U16 curVal )
     if( prevVal != curVal )
     {
         amount = (I16)prevVal - (I16)curVal;
-        if( amount > SLIDER_HALF_RANGE )
+
+        if( Type == WARP_AROUND )
         {
-            amount -= SLIDER_FULL_RANGE;
-        }
-        else if( amount < -SLIDER_HALF_RANGE )
-        {
-            amount += SLIDER_FULL_RANGE;
+            if( amount > SLIDER_HALF_RANGE )
+            {
+                amount -= SLIDER_FULL_RANGE;
+            }
+            else if( amount < -SLIDER_HALF_RANGE )
+            {
+                amount += SLIDER_FULL_RANGE;
+            }
         }
 
         amount = abs( amount );
@@ -136,7 +143,7 @@ void ProcessScanSlider(void)
             }
             else
             {
-                p->SlideAmount = CalcSliderAmount( p->PrevVal, p->Val );
+                p->SlideAmount = CalcSliderAmount( p->PrevVal, p->Val, p->Type );
                 p->Direction   = CalcSliderDirection( p->PrevVal, p->Val ); 
 
                 SetSliderEventFlag( i, SLIDER_EVENT_SLIDE );

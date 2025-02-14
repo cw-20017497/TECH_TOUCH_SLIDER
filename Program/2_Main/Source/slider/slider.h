@@ -13,6 +13,9 @@
 #define  SLIDER_BAR     HAL_SLIDER_2 
 #define  SLIDER_NUM     2
 
+#define  CLAMPING       0
+#define  WARP_AROUND    1
+
 /* DIRECTION */
 #define SLIDER_DIR_NONE  0
 #define SLIDER_DIR_UP    1
@@ -29,6 +32,7 @@
 
 typedef struct _slider_
 {
+    U8   Type;              // CLAMPING or WARP-AROUND
     U16  PrevVal;           // PREV SLIDER POSITION VALUE
     U16  Val;               // SLIDER POSITION VALUE
 
