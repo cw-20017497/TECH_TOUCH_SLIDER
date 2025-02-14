@@ -25,6 +25,10 @@ U8 IsExpiredAmountLevelTimer(void);
 
 U8 IsExpiredAmountModeTimer(void);
 
+U8 IsExpiredAmountPopTimer(void);
+
+void ResetAmountCirclePosition(void);
+
 void RefreshSliderAmountLevelMode(void);
 
 void ClearSliderAmountMode(void);

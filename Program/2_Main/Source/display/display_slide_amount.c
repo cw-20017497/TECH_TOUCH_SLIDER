@@ -13,6 +13,7 @@
 /* MODE TIMER */
 #define SLIDER_LEVEL_TIMER       30  /* 300ms@10ms*/
 #define SLIDER_MODE_TIMER       500 /* 5sec@10ms*/
+#define SLIDER_POP_TIMER         20  /* 200ms@10ms*/
 
 /* LEVEL MODE MIN/MAX */
 #define MIN_AMOUNT        100
@@ -40,6 +41,10 @@ typedef struct _slide_amount_
     U8 Mode;
     U16 ModeTimer;
     U16 LevelTimer;
+    U16 PopTimer;
+
+    U16 CurrentPos;
+    U16 TargetPos;
 
     U16 Amount;              // formerly "Temp"
     U16 SliderVal;
@@ -105,6 +110,15 @@ U8 IsExpiredAmountModeTimer(void)
     return FALSE;
 }
 
+U8 IsExpiredAmountPopTimer(void)
+{
+    if( SliderAmount.PopTimer == 0 )
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 void RefreshSliderAmountLevelMode(void)
 {
     SliderAmount.LevelTimer = SLIDER_LEVEL_TIMER;
@@ -158,6 +172,44 @@ static U16 calcAmountAmount(U16 Val, U16 *pAmountAmount)
     *pAmountAmount = Val / SLIDER_BAR_LEVEL;
     restAmount = Val % (SLIDER_BAR_LEVEL * (*pAmountAmount));
     return restAmount;
+}
+
+
+
+static void SmoothUpdateBarDisplay(U8 isInit, U16 initPos, U16 targetPos)
+{
+    static U16 updateDelay = UPDATE_DELAY;
+
+
+    // setting currrnet Amount 
+    if( isInit == TRUE )
+    {
+        SliderAmount.CurrentPos = initPos;
+        return ;
+    }
+
+    if (updateDelay > 0)
+    {
+        updateDelay--;
+    }
+    else if (SliderAmount.CurrentPos != targetPos)
+    {
+        SliderAmount.CurrentPos += (targetPos > SliderAmount.CurrentPos) ? 1 : -1;
+        if( SliderAmount.CurrentPos == 0 )
+        {
+            SliderAmount.CurrentPos = 1;
+        }
+        
+        updateDelay = UPDATE_DELAY;
+    }
+
+    DispCircle((U8)SliderAmount.CurrentPos);
+}
+
+void ResetAmountCirclePosition(void)
+{
+    SliderAmount.CurrentPos = SliderAmount.TargetPos;
+    SmoothUpdateBarDisplay(TRUE, SliderAmount.CurrentPos, 0 );
 }
 
 
@@ -231,6 +283,11 @@ void ProcessDisplaySliderAmount(void)
         }
     }
 
+    if( SliderAmount.PopTimer != 0 )
+    {
+        SliderAmount.PopTimer--;
+    }
+
     // display mode
     switch( SliderAmount.Mode )
     {
@@ -245,12 +302,21 @@ void ProcessDisplaySliderAmount(void)
 
         case SLIDER_AMOUNT_MODE_LEVEL:
             // display slider bar
-            amountBar = GetAmountIndexFromSlide(SliderAmount.SliderVal);
-            if( amountBar == 0 ) amountBar = 3;
-            else if( amountBar == 1 ) amountBar = 6;
-            else if( amountBar == 2 ) amountBar = 9;
-            else if( amountBar == 3 ) amountBar = 12;
-            DispCircleStack(amountBar);
+            //amountBar = GetAmountIndexFromSlide(SliderAmount.SliderVal);
+            //if( amountBar == 0 ) amountBar = 3;
+            //else if( amountBar == 1 ) amountBar = 6;
+            //else if( amountBar == 2 ) amountBar = 9;
+            //else if( amountBar == 3 ) amountBar = 12;
+            //SliderAmount.TargetPos = amountBar;
+
+            SliderAmount.TargetPos = (U8)(( SliderAmount.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
+            if( SliderAmount.TargetPos == 0 )
+            {
+                SliderAmount.TargetPos = 1;
+            }
+            DispCircleStack((U8)SliderAmount.TargetPos);
+
+            SmoothUpdateBarDisplay( TRUE, SliderAmount.TargetPos, 0);
 
             // display amount
             SliderAmount.Amount = GetAmountFromSlide(SliderAmount.SliderVal);
@@ -263,9 +329,17 @@ void ProcessDisplaySliderAmount(void)
             break;
 
         case SLIDER_AMOUNT_MODE_FINE:
+            SliderAmount.PopTimer = SLIDER_POP_TIMER;
+
             // display slider bar
-            amountBar = (U8)(( SliderAmount.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
-            DispCircle(amountBar);
+            SliderAmount.TargetPos = (U8)(( SliderAmount.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
+            if( SliderAmount.TargetPos == 0 )
+            {
+                SliderAmount.TargetPos = 1;
+            }
+
+            //DispCircle(amountBar);
+            SmoothUpdateBarDisplay( FALSE, 0, SliderAmount.TargetPos);
 
             // display amount
             SliderAmount.FineRestVal = calcAmountAmount(

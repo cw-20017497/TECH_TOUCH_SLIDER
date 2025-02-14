@@ -80,6 +80,7 @@ static U8 SelBarTouch(void *p)
 {
     RefreshSliderTempMode();
     RefreshSliderTempLevelMode();
+    ResetTempBarPosition();
     return SOUND_NONE;
 }
 

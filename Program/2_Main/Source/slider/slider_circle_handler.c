@@ -74,8 +74,12 @@ static U8 SelCirclePushed(void *p)
 
 static U8 SelCircleTouch(void *p)
 {
-    RefreshSliderAmountMode();
-    RefreshSliderAmountLevelMode();
+    if( IsExpiredAmountPopTimer() == FALSE )
+    {
+        RefreshSliderAmountMode();
+        RefreshSliderAmountLevelMode();
+    }
+    ResetAmountCirclePosition();
     return SOUND_NONE;
 }
 
@@ -93,7 +97,10 @@ static U8 SelCircleSlide(void *p)
 
 static U8 SelCirclePop(void *p)
 {
-    SetSliderAmountAmount( (( Slider_T *)p)->SlideAmount );
+    if( IsExpiredAmountPopTimer() == TRUE )
+    {
+        SetSliderAmountAmount( (( Slider_T *)p)->SlideAmount );
+    }
     return SOUND_NONE;
 }
 

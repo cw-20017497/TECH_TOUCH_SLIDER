@@ -8,7 +8,7 @@
 
 
 
-#define SLIDER_BAR_LEVEL    16
+#define SLIDER_BAR_LEVEL    14
 #define DEFAULT_TEMP        100
 #define TICK_TEMP           1
 
@@ -44,6 +44,11 @@ typedef struct _slide_temp_
     U16 ModeTimer;
     U16 LevelTimer;
 
+    /* BAR */
+    U16 CurrentPos;
+    U16 TargetPos;
+
+    /* LEVEL */
     U16 Temp;
     U16 SliderVal;
     U16 SliderAmount;
@@ -175,6 +180,43 @@ static U16 calcTempAmount(U16 Val, U16 *pTempAmount)
 
 
 
+static void SmoothUpdateBarDisplay(U8 isInit, U16 initPos, U16 targetPos)
+{
+    static U16 updateDelay = UPDATE_DELAY;
+
+
+    // setting currrnet temp 
+    if( isInit == TRUE )
+    {
+        SliderTemp.CurrentPos = initPos;
+        return ;
+    }
+
+    if (updateDelay > 0)
+    {
+        updateDelay--;
+    }
+    else if (SliderTemp.CurrentPos != targetPos)
+    {
+        SliderTemp.CurrentPos += (targetPos > SliderTemp.CurrentPos) ? 1 : -1;
+        if( SliderTemp.CurrentPos == 0 )
+        {
+            SliderTemp.CurrentPos = 1;
+        }
+        updateDelay = UPDATE_DELAY;
+    }
+
+
+    DispBar((U8)SliderTemp.CurrentPos);
+}
+
+void ResetTempBarPosition(void)
+{
+    SliderTemp.CurrentPos = SliderTemp.TargetPos;
+    SmoothUpdateBarDisplay(TRUE, SliderTemp.CurrentPos, 0 );
+}
+
+
 static void SmoothUpdateTempDisplay(U8 isInit, U16 initTemp, U16 targetTemp)
 {
     static U16 currentTemp = 0;
@@ -263,13 +305,21 @@ void ProcessDisplaySliderTemp(void)
 
         case SLIDER_TEMP_MODE_LEVEL:
             // display slider bar
-            tempBar = GetTempIndexFromSlide( SliderTemp.SliderVal );
-            if( tempBar == 0 ) tempBar = 4;
-            else if( tempBar == 1 ) tempBar = 8;
-            else if( tempBar == 2 ) tempBar = 11;
-            else if( tempBar == 3 ) tempBar = 14;
-            DispBarStack( tempBar );
+            //tempBar = GetTempIndexFromSlide( SliderTemp.SliderVal );
+            //if( tempBar == 0 ) tempBar = 4;
+            //else if( tempBar == 1 ) tempBar = 8;
+            //else if( tempBar == 2 ) tempBar = 11;
+            //else if( tempBar == 3 ) tempBar = 14;
+            //SliderTemp.TargetPos = tempBar;
 
+            SliderTemp.TargetPos = (U8)(( SliderTemp.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
+            if( SliderTemp.TargetPos == 0 ) 
+            {
+                SliderTemp.TargetPos = 1;
+            }
+            DispBarStack( (U8)SliderTemp.TargetPos );
+
+            SmoothUpdateBarDisplay( TRUE, SliderTemp.TargetPos, 0);
 
             // display temperture
             SliderTemp.Temp = GetTempFromSlide( SliderTemp.SliderVal );
@@ -283,8 +333,12 @@ void ProcessDisplaySliderTemp(void)
 
         case SLIDER_TEMP_MODE_FINE :
             // display slider bar
-            tempBar = (U8)(( SliderTemp.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
-            DispBar( tempBar );
+            SliderTemp.TargetPos = (U8)(( SliderTemp.SliderVal * SLIDER_BAR_LEVEL) / SLIDER_FULL_RANGE) ;
+            if( SliderTemp.TargetPos == 0 ) 
+            {
+                SliderTemp.TargetPos = 1;
+            }
+            SmoothUpdateBarDisplay( FALSE, 0, SliderTemp.TargetPos);
 
             // display temperture
             SliderTemp.FineRestVal = calcTempAmount( 

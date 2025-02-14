@@ -29,6 +29,8 @@ U8 IsExpiredTempModeTimer(void);
 
 void ClearSliderTempMode(void);
 
+void ResetTempBarPosition(void);
+
 void RefreshSliderTempLevelMode(void);
 
 void RefreshSliderTempMode(void);
