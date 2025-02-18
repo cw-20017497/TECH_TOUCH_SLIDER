@@ -9,6 +9,7 @@
 #include "hal_led.h"
 #include "hal_key.h"
 #include "comm_queue.h"
+#include "parser_main.h"
 
 
 #include <stdio.h>
@@ -28,6 +29,7 @@ typedef struct _sys_event_
 static void Evt_1ms_Handler( void );
 static void Evt_10ms_Handler( void );
 static void Evt_100ms_Handler( void );
+static void Evt_PopUp_Handler( void );
 
 const static SysEvent_T	SysEventList[] =
 {
@@ -35,6 +37,7 @@ const static SysEvent_T	SysEventList[] =
     { TIMER_ID_1MS,              Evt_1ms_Handler,        NULL,   NULL },
     { TIMER_ID_10MS,             Evt_10ms_Handler,       NULL,   NULL },
     { TIMER_ID_100MS,            Evt_100ms_Handler,      NULL,   NULL },
+    { TIMER_ID_POP_UP,           Evt_PopUp_Handler,      NULL,   NULL },
 };
 #define	SZ_LIST		( sizeof( SysEventList ) / sizeof( SysEvent_T ) )
 
@@ -79,8 +82,19 @@ static void Evt_10ms_Handler( void )
 static void Evt_100ms_Handler(void)
 {
     StartTimer( TIMER_ID_100MS, 100);
+
 }
 
+U8 cnt = 0;
+static void Evt_PopUp_Handler( void )
+{
+    U8 buf[4] = { 0,0,0,0 };
+
+    HAL_SetSlider( &buf[0] );
+    SetCommQueueMain( PKT_REQ_KEY );
+
+    cnt++;
+}
 
 void InitSystem(void)
 {

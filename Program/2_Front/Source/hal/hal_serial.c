@@ -527,6 +527,7 @@ __interrupt static void r_uart0_interrupt_receive(void)
         }
 
         StartTimer( TIMER_ID_UART_0_RX, UART_0_RX_TIME_STAMP );
+        StartTimer( TIMER_ID_POP_UP, 200 );
     }
 }
 

@@ -29,6 +29,7 @@ enum
     TIMER_ID_1MS,
     TIMER_ID_10MS,
     TIMER_ID_100MS,
+    TIMER_ID_POP_UP,
 
     MAX_TIMER_ID_NUM
 };
