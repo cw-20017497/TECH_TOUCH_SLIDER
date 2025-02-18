@@ -107,14 +107,40 @@ static U16 CalcSliderAmount(U16 prevVal, U16 curVal, U8 Type )
 }
 
 
-static U8 CalcSliderDirection(U16 prevVal, U16 curVal )
+//static U8 CalcSliderDirection(U16 prevVal, U16 curVal)
+//{
+//    if( prevVal < curVal )
+//    {
+//        return SLIDER_DIR_UP;
+//    }
+//
+//    return SLIDER_DIR_DOWN;
+//}
+
+static void CalcSliderDirection(U16 prevVal, U16 curVal, U8 type, U8 *pDir )
 {
-    if( prevVal < curVal )
+    I16 amount = 0;
+
+
+    if( type == WARP_AROUND )
     {
-        return SLIDER_DIR_UP;
+        amount = (I16)prevVal - (I16)curVal;
+
+        if( amount > SLIDER_HALF_RANGE 
+                ||  amount < -SLIDER_HALF_RANGE )
+        {
+            return ;
+        }
     }
 
-    return SLIDER_DIR_DOWN;
+    if( prevVal < curVal )
+    {
+        *pDir = SLIDER_DIR_UP;
+    }
+    else
+    {
+        *pDir = SLIDER_DIR_DOWN;
+    }
 }
 
 
@@ -144,7 +170,8 @@ void ProcessScanSlider(void)
             else
             {
                 p->SlideAmount = CalcSliderAmount( p->PrevVal, p->Val, p->Type );
-                p->Direction   = CalcSliderDirection( p->PrevVal, p->Val ); 
+                //p->Direction   = CalcSliderDirection( p->PrevVal, p->Val );
+                CalcSliderDirection( p->PrevVal, p->Val, p->Type, &p->Direction ); 
 
                 SetSliderEventFlag( i, SLIDER_EVENT_SLIDE );
             }
