@@ -77,8 +77,9 @@ static U8 SelCircleTouch(void *p)
     if( IsExpiredAmountPopTimer() == FALSE )
     {
         RefreshSliderAmountMode();
-        RefreshSliderAmountLevelMode();
+    //    RefreshSliderAmountLevelMode();
     }
+    RefreshSliderAmountLevelMode();
     ResetAmountCirclePosition();
     return SOUND_NONE;
 }
