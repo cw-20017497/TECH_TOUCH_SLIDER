@@ -64,6 +64,7 @@ static U8 gu8Digit[10] =
 #define SEGMENT_100     SEG_1_F
 static void DispSegment(U8 mu8Seg, U8 mu8Val)
 {
+#if 1
     LedId_T mLedId;
 
     mLedId = mu8Seg;
@@ -82,6 +83,7 @@ static void DispSegment(U8 mu8Seg, U8 mu8Val)
     HAL_TurnOnOffLED( mLedId + 4, ((mu8Val & 0x04) >> 2));     // c
     HAL_TurnOnOffLED( mLedId + 5, ((mu8Val & 0x08) >> 3));     // d
     HAL_TurnOnOffLED( mLedId + 6, ((mu8Val & 0x10) >> 4));     // e
+#endif
 }
 
 
@@ -492,7 +494,7 @@ void DispCircleStack(U8 pos)
 
 void DispBar(U8 pos)
 {
-    HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
+//    HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
     HAL_TurnOnOffLED( SEG_BAR_13, OFF );
     HAL_TurnOnOffLED( SEG_BAR_12, OFF );
     HAL_TurnOnOffLED( SEG_BAR_11, OFF );
@@ -509,7 +511,7 @@ void DispBar(U8 pos)
 
     switch( pos )
     {
-        case 14: HAL_TurnOnOffLED( SEG_BAR_14, ON ); break;
+        //case 14: HAL_TurnOnOffLED( SEG_BAR_14, ON ); break;
         case 13: HAL_TurnOnOffLED( SEG_BAR_13, ON ); break;
         case 12: HAL_TurnOnOffLED( SEG_BAR_12, ON ); break;
         case 11: HAL_TurnOnOffLED( SEG_BAR_11, ON ); break;
@@ -530,7 +532,7 @@ void DispBar(U8 pos)
 
 void DispBarStack(U8 pos)
 {
-    HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
+    //HAL_TurnOnOffLED( SEG_BAR_14, OFF ); 
     HAL_TurnOnOffLED( SEG_BAR_13, OFF );
     HAL_TurnOnOffLED( SEG_BAR_12, OFF );
     HAL_TurnOnOffLED( SEG_BAR_11, OFF );
@@ -547,7 +549,7 @@ void DispBarStack(U8 pos)
 
     switch( pos )
     {
-        case 14: HAL_TurnOnOffLED( SEG_BAR_14, ON );
+        //case 14: HAL_TurnOnOffLED( SEG_BAR_14, ON );
         case 13: HAL_TurnOnOffLED( SEG_BAR_13, ON );
         case 12: HAL_TurnOnOffLED( SEG_BAR_12, ON );
 

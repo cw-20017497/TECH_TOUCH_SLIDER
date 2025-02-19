@@ -11,45 +11,21 @@
 typedef enum
 {
    // MATRIX LED
-    //SEG_1_A,        // digit 100
-    //SEG_1_F,    
-    //SEG_1_G,
-    //SEG_1_E,
-    //SEG_1_D,
-    //SEG_1_C,
-    //SEG_1_B,
-
-    //SEG_2_A,        // digit 10
-    //SEG_2_F,    
-    //SEG_2_G,
-    //SEG_2_E,
-    //SEG_2_D,
-    //SEG_2_C,
-    //SEG_2_B,
-
-    //SEG_3_A,        // digit 1
-    //SEG_3_F,    
-    //SEG_3_G,
-    //SEG_3_E,
-    //SEG_3_D,
-    //SEG_3_C,
-    //SEG_3_B,
-
-    SEG_BAR_8,     // SEG_28,
+    SEG_BAR_7,     // SEG_28,       //1
+    SEG_BAR_8,     // SEG_28,       //1
     SEG_BAR_9,     // SEG_27,
     SEG_BAR_10,     // SEG_26,
     SEG_BAR_11,     // SEG_25,
     SEG_BAR_12,     // SEG_24,
     SEG_BAR_13,     // SEG_23,
-    SEG_BAR_14,     // SEG_22,
 
-    SEG_1_F,        // digit 100
+    SEG_1_F,        // digit 100        // 8
     SEG_1_A,    
     SEG_1_B,
     SEG_1_G,
     SEG_1_C,
     SEG_1_D,
-    SEG_1_E,
+    SEG_1_E,        
 
     SEG_2_F,        // digit 10
     SEG_2_A,    
@@ -84,7 +60,7 @@ typedef enum
     SEG_BAR_4, 
     SEG_BAR_5, 
     SEG_BAR_6, 
-    SEG_BAR_7, 
+    //SEG_BAR_7, 
 
     SEG_CIRCLE_8, 
     SEG_CIRCLE_9, 

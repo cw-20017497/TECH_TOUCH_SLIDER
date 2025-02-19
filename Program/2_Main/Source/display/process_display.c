@@ -143,6 +143,7 @@ void ProcessDisplay(void)
         Update();
         return ;
     }
+#if 1
 
     /* NORMAL MODE */
     if( IsExpiredAmountModeTimer() == TRUE )
@@ -154,6 +155,7 @@ void ProcessDisplay(void)
     {
         ProcessDisplaySliderAmount();
     }
+#endif
 
     Update();
 }
