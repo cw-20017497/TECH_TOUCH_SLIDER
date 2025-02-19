@@ -205,7 +205,7 @@ static I16 ParserReqLed(U8 *buf)
 
 
     // LED 
-    HAL_SetOnOffLED( &buf[0], MAX_LED );
+    HAL_SetOnOffLED( &buf[0], MAX_LED, buf[14] );
 
     // DIMMING
 #if CONFIG_DIMMING
@@ -215,6 +215,8 @@ static I16 ParserReqLed(U8 *buf)
 #else
     HAL_SetDimmingLED( 0UL );
 #endif
+
+
     // UV
     //HAL_SetUvOnOffId( UV_WATER, buf[9] );
 

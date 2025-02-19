@@ -6,9 +6,10 @@
 
 
 #define MAX_TICK    10UL        // @100us... * 10 = 1ms  ( 100hz )
+#define SYNC_DELAY    40UL        // 0 ~ 100 - Led turn on/off speed
 U16 u16Cycle            = MAX_TICK;
-U16 GroupB_DimmingTick  = MAX_TICK;
-U16 GroupB_OnOffTick    = MAX_TICK;
+U16 u16ConfSyncDelay    = SYNC_DELAY;
+U16 u16SyncDelay        = SYNC_DELAY;
 
 typedef struct _leds_
 {
@@ -22,6 +23,76 @@ typedef struct _leds_
 Led_T   OnOff;
 Led_T   Dimming;
 
+
+typedef void (*Action_T)(U8 mu8OnOff);
+typedef struct _onoff_led_
+{
+    U8        Led;
+    U16       TargetTick;   
+    U16       CurrentTick;   
+    Action_T  pfOnOff;       // LED ON
+} OnOff_T;
+
+
+
+// GROUP A
+OnOff_T OnOffList[] = 
+{ 
+    { 0,   0, 0,   HAL_OnOffLed_11 },
+    { 1,   0, 0,   HAL_OnOffLed_12 },
+    { 2,   0, 0,   HAL_OnOffLed_13 },
+    { 3,   0, 0,   HAL_OnOffLed_14 },
+    { 4,   0, 0,   HAL_OnOffLed_15 },
+    { 5,   0, 0,   HAL_OnOffLed_16 },
+    { 6,   0, 0,   HAL_OnOffLed_17 },
+
+    { 7,   0, 0,   HAL_OnOffLed_21 },
+    { 8,   0, 0,   HAL_OnOffLed_22 },
+    { 9,   0, 0,   HAL_OnOffLed_23 },
+    { 10,  0, 0,    HAL_OnOffLed_24 },
+    { 11,  0, 0,    HAL_OnOffLed_25 },
+    { 12,  0, 0,    HAL_OnOffLed_26 },
+    { 13,  0, 0,    HAL_OnOffLed_27 },
+
+    { 14,  0, 0,    HAL_OnOffLed_31 },
+    { 15,  0, 0,   HAL_OnOffLed_32 },
+    { 16,  0, 0,   HAL_OnOffLed_33 },
+    { 17,  0, 0,   HAL_OnOffLed_34 },
+    { 18,  0, 0,   HAL_OnOffLed_35 },
+    { 19,  0, 0,   HAL_OnOffLed_36 },
+    { 20,  0, 0,   HAL_OnOffLed_37 },
+
+    { 21,  0, 0,   HAL_OnOffLed_41 },
+    { 22,  0, 0,   HAL_OnOffLed_42 },
+    { 23,  0, 0,   HAL_OnOffLed_43 },
+    { 24,  0, 0,   HAL_OnOffLed_44 },
+    { 25,  0, 0,   HAL_OnOffLed_45 },
+    { 26,  0, 0,   HAL_OnOffLed_46 },
+    { 27,  0, 0,   HAL_OnOffLed_47 },
+
+    { 28,  0, 0,   HAL_OnOffLed_51 },
+    { 29,  0, 0,   HAL_OnOffLed_52 },
+    { 30,  0, 0,   HAL_OnOffLed_53 },
+    { 31,  0, 0,   HAL_OnOffLed_54 },
+    { 32,  0, 0,   HAL_OnOffLed_55 },
+    { 33,  0, 0,   HAL_OnOffLed_56 },
+    { 34,  0, 0,   HAL_OnOffLed_57 },
+
+    { 36,  0, 0,   HAL_OnOffLed_61 },
+    { 37,  0, 0,   HAL_OnOffLed_62 },
+    { 38,  0, 0,   HAL_OnOffLed_63 },
+    { 39,  0, 0,   HAL_OnOffLed_64 },
+    { 40,  0, 0,   HAL_OnOffLed_65 },
+    { 41,  0, 0,   HAL_OnOffLed_66 },
+    { 42,  0, 0,   HAL_OnOffLed_67 },
+
+    { 43,  0, 0,   HAL_OnOffLed_71 },
+    { 44,  0, 0,   HAL_OnOffLed_72 },
+    { 45,  0, 0,   HAL_OnOffLed_73 },
+    { 46,  0, 0,   HAL_OnOffLed_74 },
+    { 47,  0, 0,   HAL_OnOffLed_75 }
+};          
+#define SZ_ONOFF_LIST       (sizeof(OnOffList)/sizeof(OnOff_T))
 
 // Check led bit
 // return : true or false
@@ -79,9 +150,25 @@ void HAL_TurnOnOffLED(LedId_T led, U8 mu8OnOff)
 
 }
 
-void HAL_SetOnOffLED(U8 *pLeds, U8 mu8Size )
+void HAL_SetOnOffLED(U8 *pLeds, U8 mu8Size, U8 Duty )
 {
-    memcpy( &OnOff.Leds[0], pLeds, mu8Size );
+    U8 i;
+    U8 mu8Byte;
+    U8 mu8Bit;
+
+    for( i = 0; i < LED_ALL; i++ )
+    {
+        mu8Byte = i / 8;
+        mu8Bit = i % 8;
+        if( (*(pLeds + mu8Byte) & (1<<mu8Bit)) != 0 )
+        {
+            OnOffList[ i ].TargetTick = CalcDuty2Tick( Duty );
+        }
+        else
+        {
+            OnOffList[ i ].TargetTick = 0;
+        }
+    }
 }
 
 
@@ -106,73 +193,6 @@ void HAL_SetDimmingDuty(U8 mu8Duty)
 
 
 
-typedef void (*Action_T)(U8 mu8OnOff);
-typedef struct _onoff_led_
-{
-    U8        Led;
-    Action_T  pfOnOff;       // LED ON
-} OnOff_T;
-
-
-
-// GROUP A
-static OnOff_T Group_A_List[] = 
-{ 
-    { 0,      HAL_OnOffLed_11 },
-    { 1,      HAL_OnOffLed_12 },
-    { 2,      HAL_OnOffLed_13 },
-    { 3,      HAL_OnOffLed_14 },
-    { 4,      HAL_OnOffLed_15 },
-    { 5,      HAL_OnOffLed_16 },
-    { 6,      HAL_OnOffLed_17 },
-
-    { 7,      HAL_OnOffLed_21 },
-    { 8,      HAL_OnOffLed_22 },
-    { 9,      HAL_OnOffLed_23 },
-    { 10,      HAL_OnOffLed_24 },
-    { 11,      HAL_OnOffLed_25 },
-    { 12,      HAL_OnOffLed_26 },
-    { 13,      HAL_OnOffLed_27 },
-
-    { 14,      HAL_OnOffLed_31 },
-    { 15,     HAL_OnOffLed_32 },
-    { 16,     HAL_OnOffLed_33 },
-    { 17,     HAL_OnOffLed_34 },
-    { 18,     HAL_OnOffLed_35 },
-    { 19,     HAL_OnOffLed_36 },
-    { 20,     HAL_OnOffLed_37 },
-
-    { 21,     HAL_OnOffLed_41 },
-    { 22,     HAL_OnOffLed_42 },
-    { 23,     HAL_OnOffLed_43 },
-    { 24,     HAL_OnOffLed_44 },
-    { 25,     HAL_OnOffLed_45 },
-    { 26,     HAL_OnOffLed_46 },
-    { 27,     HAL_OnOffLed_47 },
-
-    { 28,     HAL_OnOffLed_51 },
-    { 29,     HAL_OnOffLed_52 },
-    { 30,     HAL_OnOffLed_53 },
-    { 31,     HAL_OnOffLed_54 },
-    { 32,     HAL_OnOffLed_55 },
-    { 33,     HAL_OnOffLed_56 },
-    { 34,     HAL_OnOffLed_57 },
-
-    { 36,     HAL_OnOffLed_61 },
-    { 37,     HAL_OnOffLed_62 },
-    { 38,     HAL_OnOffLed_63 },
-    { 39,     HAL_OnOffLed_64 },
-    { 40,     HAL_OnOffLed_65 },
-    { 41,     HAL_OnOffLed_66 },
-    { 42,     HAL_OnOffLed_67 },
-
-    { 43,     HAL_OnOffLed_71 },
-    { 44,     HAL_OnOffLed_72 },
-    { 45,     HAL_OnOffLed_73 },
-    { 46,     HAL_OnOffLed_74 },
-    { 47,     HAL_OnOffLed_75 }
-};          
-#define SZ_GROUP_A_LIST       (sizeof(Group_A_List)/sizeof(OnOff_T))
 
 // mu32Led : LED ON/OFF
 // mu32Dimming : LED DIMMING ON/OFF
@@ -248,6 +268,7 @@ static void OnOffDimming(OnOff_T *pList, U8 mu8ListSize, U8 *pOnOff, U8 *pDimmin
  *
  */
 
+#if 0 
 static void ControlLed(void)
 {
     if( u16Cycle == 0 )
@@ -264,22 +285,17 @@ static void ControlLed(void)
         --u16Cycle;
     }
 
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // GROUP A 
-    //
-
     // DIMMING DUTY 제어
     if( Dimming.Tick != 0 )
     {
         // ON 
         Dimming.Tick--;
-        OnOffDimming( Group_A_List, SZ_GROUP_A_LIST, &OnOff.Leds[0], &Dimming.Leds[0], ON );
+        OnOffDimming( OnOffList, SZ_ONOFF_LIST, &OnOff.Leds[0], &Dimming.Leds[0], ON );
     }
     else
     {
         // OFF 
-        OnOffDimming( Group_A_List, SZ_GROUP_A_LIST, &OnOff.Leds[0], &Dimming.Leds[0], OFF );
+        OnOffDimming( OnOffList, SZ_ONOFF_LIST, &OnOff.Leds[0], &Dimming.Leds[0], OFF );
     }
 
     // LED DUTY 제어
@@ -287,12 +303,66 @@ static void ControlLed(void)
     {
         // ON 
         OnOff.Tick--;
-        OnOffLed( Group_A_List, SZ_GROUP_A_LIST, &OnOff.Leds[0], &Dimming.Leds[0], ON );
+        OnOffLed( OnOffList, SZ_ONOFF_LIST, &OnOff.Leds[0], &Dimming.Leds[0], ON );
     }
     else
     {
         // OFF 
-        OnOffLed( Group_A_List, SZ_GROUP_A_LIST, &OnOff.Leds[0], &Dimming.Leds[0], OFF );
+        OnOffLed( OnOffList, SZ_ONOFF_LIST, &OnOff.Leds[0], &Dimming.Leds[0], OFF );
+    }
+}
+#endif
+static void OnOffTick( OnOff_T *pLed )
+{
+    if( u16Cycle < pLed->CurrentTick )
+    {
+        pLed->pfOnOff( ON );
+    }
+    else
+    {
+        pLed->pfOnOff( OFF );
+    }
+
+}
+
+
+// Operation to smoothly control the led
+static void Sync( OnOff_T *pLed )
+{
+    if( pLed->TargetTick > pLed->CurrentTick )
+    {
+        pLed->CurrentTick++;
+    }
+    else if( pLed->TargetTick < pLed->CurrentTick )
+    {
+        pLed->CurrentTick--;
+    }
+
+}
+
+static void ControlLed(void)
+{
+    U8 i;
+
+    u16Cycle++;
+    if( u16Cycle > MAX_TICK )
+    {
+        u16Cycle = 0;
+    }
+
+    u16SyncDelay--;
+    for( i = 0; i < SZ_ONOFF_LIST ; i++ )
+    {
+        OnOffTick( &OnOffList[ i ] );
+        if( u16SyncDelay == 0 )
+        {
+            Sync( &OnOffList[ i ] );
+        }
+    }
+
+    if( u16SyncDelay == 0 )
+    {
+        u16SyncDelay = u16ConfSyncDelay;
     }
 }
 

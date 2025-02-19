@@ -65,7 +65,8 @@ typedef enum
 
 void HAL_TurnOnOffLED(LedId_T led, U8 mu8OnOff);
 
-void HAL_SetOnOffLED(U8 *pLeds, U8 mu8Size );
+//void HAL_SetOnOffLED(U8 *pLeds, U8 mu8Size );
+void HAL_SetOnOffLED(U8 *pLeds, U8 mu8Size, U8 Duty );
 void HAL_SetOnOffDuty(U8 mu8Duty);
 
 void HAL_SetDimmingLED(U8 *pLeds, U8 mu8Size);
