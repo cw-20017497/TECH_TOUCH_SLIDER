@@ -116,7 +116,7 @@ typedef struct _parser_tx_list_
 static const parser_tx_list_t parser_tx_list[] = 
 {
     { TIMER_ID_COMM_MAIN_TX,   COMM_ID_MAIN,     MakePkt_Main,    Crc16_Main   },
-    { TIMER_ID_COMM_KEY_TX,    COMM_ID_KEY,      MakePkt_Key,     Crc16_Key    }
+    //{ TIMER_ID_COMM_KEY_TX,    COMM_ID_KEY,      MakePkt_Key,     Crc16_Key    }
 };
 #define MAX_PARSER_TX_NUM   ( sizeof( parser_tx_list) / sizeof( parser_tx_list_t ) )
 
