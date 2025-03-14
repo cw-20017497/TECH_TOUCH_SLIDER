@@ -14,7 +14,7 @@
 #define  SLIDER_NUM     2
 
 #define  CLAMPING       0
-#define  WARP_AROUND    1
+#define  WRAP_AROUND    1
 
 /* DIRECTION */
 #define SLIDER_DIR_NONE  0

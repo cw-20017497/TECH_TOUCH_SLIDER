@@ -49,7 +49,7 @@ void EnQueue(SQueue_T *xStQueue, void *xUdata)
     xStQueue->mUrear = (xStQueue->mUrear + 1) % xStQueue->mUqueueNum;
 }
 
-
+// QUEUE에 맨 앞에 추가
 void EnQueueFront(SQueue_T *xStQueue, void *xUdata)
 {
     // 큐가 가득 찼는지 확인
@@ -66,6 +66,7 @@ void EnQueueFront(SQueue_T *xStQueue, void *xUdata)
 }
 
 
+// QUEUE에 뒤에 추가
 U8 DeQueue(SQueue_T *xStQueue, void *xUptrData)
 {
     if( IsQueueEmpty(xStQueue) == TRUE )

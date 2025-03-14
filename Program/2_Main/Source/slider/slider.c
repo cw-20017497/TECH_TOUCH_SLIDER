@@ -14,7 +14,7 @@ void InitSlider(void)
     MEMSET((void __FAR *)&Slider, 0, sizeof( Slider ) );
 
     Slider[ SLIDER_BAR ].Type    = CLAMPING;
-    Slider[ SLIDER_CIRCLE ].Type = WARP_AROUND;
+    Slider[ SLIDER_CIRCLE ].Type = WRAP_AROUND;
 }
 
 
@@ -78,7 +78,7 @@ static U16 CalcSliderAmount(U16 prevVal, U16 curVal, U8 Type )
     {
         amount = (I16)prevVal - (I16)curVal;
 
-        if( Type == WARP_AROUND )
+        if( Type == WRAP_AROUND )
         {
             if( amount > SLIDER_HALF_RANGE )
             {
@@ -122,7 +122,7 @@ static void CalcSliderDirection(U16 prevVal, U16 curVal, U8 type, U8 *pDir )
     I16 amount = 0;
 
 
-    if( type == WARP_AROUND )
+    if( type == WRAP_AROUND )
     {
         amount = (I16)prevVal - (I16)curVal;
 
